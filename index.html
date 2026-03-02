@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steinmetz — Brief de Posicionamiento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <style>
+    /* ─── TOKENS ──────────────────────────────────────────────────── */
+    :root {
+      --bg-canvas:        #F4F4F2;
+      --bg-surface:       #FFFFFF;
+      --bg-surface-hover: #EAEAEA;
+      --border-subtle:    #D4D4D4;
+      --border-strong:    #171717;
+      --text-primary:     #171717;
+      --text-secondary:   #525252;
+      --text-tertiary:    #A3A3A3;
+      --brand-primary:    #2563EB;
+      --brand-hover:      #1D4ED8;
+      --brand-surface:    #EFF6FF;
+      --status-success:   #059669;
+      --status-success-bg:#ECFDF5;
+      --status-warning:   #D97706;
+      --status-warning-bg:#FFFBEB;
+      --status-danger:    #DC2626;
+      --status-danger-bg: #FEF2F2;
+      --status-info:      #4F46E5;
+      --status-info-bg:   #EEF2FF;
+      --font-ui:          'Inter', sans-serif;
+      --font-mono:        'Fira Code', monospace;
+      --radius-sm:        2px;
+      --radius-md:        4px;
+      --shadow-structural:0 4px 12px rgba(0,0,0,0.08), 0 0 0 1px var(--border-strong);
+      --nav-h:            56px;
+    }
+
+    /* ─── RESET ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── UTILIDADES ──────────────────────────────────────────────── */
+    .mono        { font-family: var(--font-mono); }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .dot-success { background: var(--status-success); }
+    .dot-warning { background: var(--status-warning); }
+    .dot-danger  { background: var(--status-danger); }
+    .dot-info    { background: var(--status-info); }
+    .dot-blue    { background: var(--brand-primary); }
+    .dot-dark    { background: var(--text-primary); }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid currentColor;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-success { color: var(--status-success); background: var(--status-success-bg); }
+    .badge-warning { color: var(--status-warning); background: var(--status-warning-bg); }
+    .badge-danger  { color: var(--status-danger);  background: var(--status-danger-bg); }
+    .badge-info    { color: var(--status-info);    background: var(--status-info-bg); }
+    .badge-blue    { color: var(--brand-primary);  background: var(--brand-surface); border-color: var(--brand-primary); }
+    .badge-dark    { color: var(--text-primary);   background: var(--bg-canvas); border-color: var(--border-strong); }
+
+    /* ─── FADE-IN ─────────────────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 200ms ease-out, transform 200ms ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── NAVBAR ──────────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: var(--bg-canvas);
+      border-bottom: 1px solid var(--border-strong);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      gap: 48px;
+    }
+    #progress-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--brand-primary);
+      width: 0%;
+      transition: width 100ms linear;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .nav-brand-name {
+      font-family: var(--font-ui);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+    .nav-brand-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+      margin-left: auto;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: color 150ms ease-in-out, background 150ms ease-in-out;
+    }
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--bg-surface-hover);
+    }
+    .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* ─── MAIN WRAPPER ────────────────────────────────────────────── */
+    main { padding-top: var(--nav-h); }
+
+    /* ─── SECTION BASE ────────────────────────────────────────────── */
+    .section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 96px 80px;
+    }
+    .section + .section {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    #hero {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 88px 80px 80px;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--text-tertiary);
+    }
+    .hero-h1 {
+      font-size: 52px;
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      max-width: 680px;
+      margin-bottom: 24px;
+    }
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brand-primary);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .hero-tagline {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 48px;
+    }
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 48px;
+    }
+    .hero-meta-cell {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border-strong);
+    }
+    .hero-meta-cell:last-child { border-right: none; }
+    .hero-meta-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+    .hero-meta-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .hero-terminal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 24px 28px;
+    }
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .terminal-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .terminal-dot:nth-child(1) { background: #DC2626; }
+    .terminal-dot:nth-child(2) { background: #D97706; }
+    .terminal-dot:nth-child(3) { background: #059669; }
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      margin-left: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .terminal-line {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.8;
+      min-height: 1.8em;
+    }
+    .terminal-line .prompt {
+      color: var(--brand-primary);
+      font-weight: 600;
+      margin-right: 10px;
+    }
+    .terminal-line .value-high {
+      color: var(--brand-primary);
+      font-weight: 600;
+    }
+    .terminal-line .value-low {
+      color: var(--text-tertiary);
+    }
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--text-primary);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ─── SECTION 01: HISTORIA ────────────────────────────────────── */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      align-items: start;
+    }
+    .story-text h2 {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+    .story-text p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .invoice-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      position: sticky;
+      top: calc(var(--nav-h) + 24px);
+    }
+    .invoice-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-strong);
+      background: var(--text-primary);
+    }
+    .invoice-header-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 4px;
+    }
+    .invoice-header-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .invoice-body { padding: 20px; }
+    .invoice-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .invoice-row:last-of-type { border-bottom: none; }
+    .invoice-row-label { color: var(--text-secondary); flex: 1; }
+    .invoice-row-amount { color: var(--text-primary); font-weight: 500; text-align: right; flex-shrink: 0; }
+    .invoice-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-strong);
+      background: var(--bg-canvas);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    .invoice-total-label { font-weight: 600; color: var(--text-primary); }
+    .invoice-total-amount { font-weight: 600; color: var(--text-primary); font-size: 16px; }
+    .ford-note {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      line-height: 1.6;
+    }
+
+    .story-divider {
+      margin: 56px 0;
+      padding: 28px 0;
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .story-divider-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      margin-bottom: 12px;
+    }
+    .story-divider-text {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .value-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border-strong);
+      margin-top: 32px;
+    }
+    .value-col {
+      padding: 24px;
+    }
+    .value-col + .value-col {
+      border-left: 1px solid var(--border-strong);
+    }
+    .value-col-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .value-col-label.high { color: var(--brand-primary); }
+    .value-col-label.low  { color: var(--text-tertiary); }
+    .value-col-amount {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .value-col-amount.high { color: var(--brand-primary); }
+    .value-col-amount.low  { color: var(--text-tertiary); }
+    .value-col-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── SECTION 02: CONTEXTO ────────────────────────────────────── */
+    .section-h2 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .section-intro {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+    .phases-list {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-strong);
+    }
+    .phase-card {
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      transition: background 150ms ease-in-out;
+    }
+    .phase-card:last-child { border-bottom: none; }
+    .phase-card.active-phase {
+      border: none;
+      border-top: 3px solid var(--brand-primary);
+      background: var(--bg-surface);
+      position: relative;
+    }
+    .phase-card.active-phase::before {
+      content: 'FASE ACTUAL';
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: 0.08em;
+    }
+    .phase-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .phase-number {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .phase-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      flex: 1;
+    }
+    .phase-body {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 24px;
+      align-items: start;
+    }
+    .phase-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .phase-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .phase-meta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .phase-meta-key {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+    .phase-meta-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .phase-verdict {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      line-height: 1.65;
+    }
+
+    .paradox-block {
+      margin-top: 32px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 32px;
+    }
+    .paradox-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .paradox-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .paradox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .paradox-col {
+      padding: 20px 24px;
+      background: var(--bg-surface);
+    }
+    .paradox-col-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .paradox-col-label.benefit { color: var(--status-success); }
+    .paradox-col-label.capability { color: var(--status-danger); }
+    .paradox-item {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .paradox-item:last-child { border-bottom: none; }
+    .paradox-item .dot { margin-top: 5px; flex-shrink: 0; }
+
+    /* ─── SECTION 03: PROBLEMA ────────────────────────────────────── */
+    .error-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .error-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-left: 3px solid var(--status-danger);
+      display: grid;
+      grid-template-columns: auto 1fr;
+    }
+    .error-code-col {
+      padding: 20px 20px;
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: var(--status-danger-bg);
+      min-width: 100px;
+    }
+    .error-code {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--status-danger);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .error-icon { color: var(--status-danger); display: flex; align-items: center; }
+    .error-body { padding: 20px 24px; }
+    .error-id {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .error-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .error-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .blindness-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .blindness-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .blindness-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .localhost-example {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-left: 2px solid var(--status-warning);
+    }
+    .localhost-example .kw { color: var(--status-warning); font-weight: 600; }
+
+
+    /* ─── SECTION 04: SOLUCIÓN ────────────────────────────────────── */
+    .solution-def {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .solution-def p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .solution-def p:last-child { margin-bottom: 0; }
+    .solution-def strong { color: var(--text-primary); }
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 32px;
+    }
+    .capability-card {
+      padding: 28px 24px;
+      background: var(--bg-surface);
+      transition: background 150ms ease-in-out;
+    }
+    .capability-card:hover { background: var(--bg-surface-hover); }
+    .capability-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-canvas);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+    .capability-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+    .capability-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .capability-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .value-prop-strip {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .vp-cell {
+      padding: 20px 24px;
+      background: var(--bg-surface);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .vp-cell .dot { margin-top: 4px; }
+    .vp-cell-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .vp-cell-text strong { color: var(--text-primary); }
+
+    /* ─── SECTION 05: OPORTUNIDAD ─────────────────────────────────── */
+    .metrics-band {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 40px;
+    }
+    .metric-cell {
+      padding: 32px 24px;
+      background: var(--bg-surface);
+    }
+    .metric-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric-value.blue { color: var(--brand-primary); }
+    .metric-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .target-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-subtle);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 32px;
+    }
+    .target-card {
+      padding: 24px;
+      background: var(--bg-surface);
+    }
+    .target-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .target-context {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .target-pain {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .market-statement {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 32px;
+    }
+    .market-statement-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: block;
+    }
+    .market-statement p {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+    }
+    .market-statement strong { color: var(--brand-primary); font-weight: 600; }
+
+    /* ─── SECTION 06: CIERRE ──────────────────────────────────────── */
+    #cierre {
+      background: var(--text-primary);
+    }
+    .cierre-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 96px 80px;
+    }
+    .cierre-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cierre-eyebrow::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: rgba(255,255,255,0.35);
+    }
+    .cierre-h2 {
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: #FFFFFF;
+      max-width: 540px;
+      margin-bottom: 24px;
+    }
+    .cierre-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+    .cierre-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--brand-primary);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 150ms ease-in-out, border-color 150ms ease-in-out;
+    }
+    .btn-primary:hover { background: var(--brand-hover); border-color: var(--brand-hover); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: color 150ms ease-in-out, border-color 150ms ease-in-out;
+    }
+    .btn-ghost:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.5); }
+
+    .cierre-divider {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 64px;
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cierre-brand {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.4);
+    }
+    .cierre-footnote {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      #navbar { padding: 0 24px; gap: 16px; }
+      .nav-links { display: none; }
+      .section { padding: 56px 32px; }
+      #hero { padding: 56px 32px; }
+      .hero-h1 { font-size: 36px; }
+      .hero-meta-grid { grid-template-columns: 1fr; }
+      .hero-meta-cell { border-right: none; border-bottom: 1px solid var(--border-strong); }
+      .hero-meta-cell:last-child { border-bottom: none; }
+      .story-grid { grid-template-columns: 1fr; }
+      .invoice-card { position: static; }
+      .phase-body { grid-template-columns: 1fr; }
+      .capabilities-grid { grid-template-columns: 1fr; }
+      .metrics-band { grid-template-columns: 1fr; }
+      .target-grid { grid-template-columns: 1fr; }
+      .paradox-grid { grid-template-columns: 1fr; }
+      .value-comparison { grid-template-columns: 1fr; }
+      .value-prop-strip { grid-template-columns: 1fr; }
+      .cierre-inner { padding: 56px 24px; }
+      .cierre-h2 { font-size: 28px; }
+      .cierre-actions { flex-direction: column; align-items: flex-start; }
+      .cierre-inner { padding: 56px 32px; }
+    }
+    /* ─── LOCKSCREEN ──────────────────────────────────────────────── */
+    #lockscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: #111111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transform-origin: 50% 50%;
+    }
+    .ls-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    .ls-scanline {
+      position: absolute;
+      left: 0; right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(37,99,235,0.03) 40%,
+        rgba(37,99,235,0.06) 50%,
+        rgba(37,99,235,0.03) 60%,
+        transparent 100%);
+      animation: lsScan 7s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes lsScan {
+      0%   { top: -100px; }
+      100% { top: 100vh; }
+    }
+    .ls-corner {
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: rgba(255,255,255,0.1);
+      border-style: solid;
+    }
+    .ls-corner-tl { top: 32px; left: 32px; border-width: 1px 0 0 1px; }
+    .ls-corner-tr { top: 32px; right: 32px; border-width: 1px 1px 0 0; }
+    .ls-corner-bl { bottom: 32px; left: 32px; border-width: 0 0 1px 1px; }
+    .ls-corner-br { bottom: 32px; right: 32px; border-width: 0 1px 1px 0; }
+
+    .ls-center {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ls-brand {
+      font-family: 'Inter', sans-serif;
+      font-size: 72px;
+      font-weight: 600;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .ls-doc-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.18);
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .ls-auth-box {
+      width: 360px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: #161616;
+    }
+    .ls-auth-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ls-auth-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #2563EB;
+      animation: lsPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes lsPulse {
+      0%,100% { opacity: 0.3; }
+      50%      { opacity: 1; }
+    }
+    .ls-auth-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+    }
+    .ls-auth-body { padding: 20px 18px; }
+    .ls-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #0D0D0D;
+      margin-bottom: 14px;
+    }
+    .ls-input-row:focus-within {
+      border-color: rgba(37,99,235,0.5);
+    }
+    .ls-prompt {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #2563EB;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .ls-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 17px;
+      color: #FFFFFF;
+      letter-spacing: 0.18em;
+      caret-color: #2563EB;
+    }
+    .ls-input::placeholder {
+      color: rgba(255,255,255,0.1);
+      letter-spacing: 0.05em;
+      font-size: 11px;
+    }
+    .ls-status {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.18);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 200ms ease-out;
+    }
+    .ls-status::before {
+      content: '//';
+      color: rgba(255,255,255,0.08);
+    }
+    .ls-status.error   { color: #DC2626; }
+    .ls-status.success { color: #059669; }
+    .ls-btn {
+      width: 100%;
+      padding: 11px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.4);
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      transition: border-color 150ms ease-out, color 150ms ease-out, background 150ms ease-out;
+    }
+    .ls-btn:hover {
+      border-color: rgba(37,99,235,0.5);
+      color: rgba(255,255,255,0.85);
+      background: rgba(37,99,235,0.07);
+    }
+    .ls-footer {
+      position: absolute;
+      bottom: 28px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.1);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      z-index: 1;
+    }
+
+    /* shake on error */
+    @keyframes lsShake {
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-6px); }
+      40%     { transform: translateX(6px); }
+      60%     { transform: translateX(-4px); }
+      80%     { transform: translateX(4px); }
+    }
+    .ls-auth-box.shake { animation: lsShake 0.4s ease-out; }
+
+    /* unlock animation — CRT off + shoot up */
+    @keyframes lsCrtOff {
+      0%   { transform: scaleY(1);     opacity: 1; }
+      55%  { transform: scaleY(0.006); opacity: 1; }
+      72%  { transform: scaleY(0.006); opacity: 1; }
+      100% { transform: scaleY(0.006) translateY(-140vh); opacity: 0; }
+    }
+    #lockscreen.unlocking {
+      animation: lsCrtOff 0.75s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+      pointer-events: none;
+    }
+
+    /* ─── CONTACT SCREEN ──────────────────────────────────────────── */
+    #contact-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 800;
+      background: #0D0D0D;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      clip-path: inset(50% 0 50% 0);
+      pointer-events: none;
+    }
+    #contact-screen.cs-open {
+      animation: csReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: all;
+    }
+    #contact-screen.cs-close {
+      animation: csHide 0.45s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+      pointer-events: none;
+    }
+    @keyframes csReveal {
+      0%   { clip-path: inset(50% 0 50% 0); }
+      100% { clip-path: inset(0% 0 0% 0); }
+    }
+    @keyframes csHide {
+      0%   { clip-path: inset(0% 0 0% 0); }
+      100% { clip-path: inset(50% 0 50% 0); }
+    }
+
+    .cs-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    .cs-scanline {
+      position: absolute;
+      left: 0; right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(37,99,235,0.04) 50%,
+        transparent 100%);
+      animation: lsScan 7s linear infinite;
+      pointer-events: none;
+    }
+    .cs-center {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .cs-eyebrow {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.15);
+      margin-bottom: 28px;
+    }
+    .cs-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 72px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .cs-divider {
+      width: 32px;
+      height: 1px;
+      background: rgba(37,99,235,0.5);
+      margin-bottom: 20px;
+    }
+    .cs-phone {
+      font-family: 'Fira Code', monospace;
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+    }
+    .cs-back {
+      position: absolute;
+      top: 36px;
+      left: 44px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.2);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0;
+      transition: color 150ms ease-out;
+      z-index: 2;
+    }
+    .cs-back:hover { color: rgba(255,255,255,0.6); }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── LOCKSCREEN ───────────────────────────────────────────────── -->
+  <div id="lockscreen">
+    <div class="ls-grid"></div>
+    <div class="ls-scanline"></div>
+    <div class="ls-corner ls-corner-tl"></div>
+    <div class="ls-corner ls-corner-tr"></div>
+    <div class="ls-corner ls-corner-bl"></div>
+    <div class="ls-corner ls-corner-br"></div>
+
+    <div class="ls-center">
+      <div class="ls-brand">STEINMETZ.</div>
+      <div class="ls-doc-label">Documento Restringido &nbsp;·&nbsp; Acceso Requerido</div>
+
+      <div class="ls-auth-box" id="ls-box">
+        <div class="ls-auth-header">
+          <span class="ls-auth-dot"></span>
+          <span class="ls-auth-title">Autenticación Requerida</span>
+        </div>
+        <div class="ls-auth-body">
+          <div class="ls-input-row">
+            <span class="ls-prompt">&gt;</span>
+            <input
+              id="ls-input"
+              class="ls-input"
+              type="password"
+              maxlength="10"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="credencial de acceso"
+            >
+          </div>
+          <div class="ls-status" id="ls-status">Aguardando credenciales</div>
+          <button class="ls-btn" id="ls-btn">Verificar Acceso</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ls-footer">
+      <span>STZ-BRIEF-v1.0</span>
+      <span>Confidencial</span>
+      <span id="ls-clock"></span>
+    </div>
+  </div>
+
+  <!-- ─── CONTACT SCREEN ──────────────────────────────────────────── -->
+  <div id="contact-screen">
+    <div class="cs-grid"></div>
+    <div class="cs-scanline"></div>
+    <button class="cs-back" id="cs-back">← Volver</button>
+    <div class="cs-center">
+      <p class="cs-eyebrow">Contacto</p>
+      <p class="cs-name">Ian Berndt.</p>
+      <div class="cs-divider"></div>
+      <p class="cs-phone">+56 9 9321 5043</p>
+    </div>
+  </div>
+
+  <!-- ─── NAVBAR ───────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div id="progress-bar"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-name">STEINMETZ</span>
+      <span class="nav-brand-tag">[BRIEF v1.0]</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#historia"   data-section="historia">01 GÉNESIS</a></li>
+      <li><a href="#contexto"   data-section="contexto">02 CONTEXTO</a></li>
+      <li><a href="#problema"   data-section="problema">03 PROBLEMA</a></li>
+      <li><a href="#solucion"   data-section="solucion">04 SOLUCIÓN</a></li>
+      <li><a href="#oportunidad" data-section="oportunidad">05 OPORTUNIDAD</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ─── HERO ─────────────────────────────────────────────────────── -->
+    <div id="hero">
+      <p class="hero-eyebrow">STEINMETZ · BRIEF DE POSICIONAMIENTO · 2025</p>
+
+      <h1 class="hero-h1 fade-in">
+        <span id="hero-brand" style="font-size:80px;font-weight:600;letter-spacing:-0.03em;text-transform:uppercase;display:block;line-height:1;min-height:1em;"></span>
+        La infraestructura que le devuelve el control a quien sabe qué hacer con él.
+      </h1>
+
+      <p class="hero-subtitle fade-in">De idea a producto.</p>
+
+      <p class="hero-tagline fade-in">
+        Plataforma de infraestructura de agentes de IA para empresas. Steinmetz absorbe la complejidad técnica para que los líderes de negocio operen en la Fase 3 sin tocar una sola línea de configuración.
+      </p>
+
+      <div class="hero-meta-grid fade-in">
+        <div class="hero-meta-cell">
+          <p class="hero-meta-label">Sector</p>
+          <p class="hero-meta-value">B2B Corporativo</p>
+        </div>
+        <div class="hero-meta-cell">
+          <p class="hero-meta-label">Modelo</p>
+          <p class="hero-meta-value">SaaS / Infraestructura</p>
+        </div>
+        <div class="hero-meta-cell">
+          <p class="hero-meta-label">Estado</p>
+          <p class="hero-meta-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="dot dot-warning"></span> Pre-Seed
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-terminal fade-in">
+        <div class="terminal-bar">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">steinmetz.brief — axioma fundacional</span>
+        </div>
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span id="typewriter-1"></span>
+        </div>
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span id="typewriter-2"></span><span class="cursor" id="cursor" style="display:none;"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 01: GÉNESIS ──────────────────────────────────────────────── -->
+    <section class="section" id="historia">
+      <p class="section-label"><span class="dot dot-dark"></span>01 — GÉNESIS</p>
+
+      <div class="story-grid">
+        <div class="story-text">
+          <h2 class="fade-in">La Marca de Tiza</h2>
+
+          <p class="fade-in">A principios del siglo XX, el inmenso generador de la planta principal de Henry Ford falló, deteniendo toda la producción. Sus mejores ingenieros trabajaron durante días sin éxito. Desesperado, Ford llamó a Charles Proteus Steinmetz.</p>
+
+          <p class="fade-in">Steinmetz llegó, observó la máquina durante dos días completos. Sin hablar, sin tomar notas. Solo mirando. Luego sacó una tiza, dibujó una única marca en la carcasa del generador y le dijo al equipo de Ford:</p>
+
+          <p class="fade-in" style="font-style:italic;color:var(--text-primary);font-size:15px;line-height:1.6;padding:20px 0;border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);margin:8px 0;">
+            "Abran aquí y quiten exactamente 16 vueltas de cable."
+          </p>
+
+          <p class="fade-in">Al hacerlo, la fábrica volvió a rugir. Días después, Ford recibió una factura por $10,000 dólares. Indignado por el precio de una simple marca de tiza, exigió un desglose. Steinmetz le envió dos líneas.</p>
+
+          <p class="fade-in" style="color:var(--text-secondary);">Ford pagó sin chistar.</p>
+
+          <p class="fade-in" style="font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);line-height:1.7;margin-top:20px;padding-top:16px;border-top:1px solid var(--border-subtle);">// Los $10,000 no eran el precio de una reparación.<br>// Eran el precio de saber exactamente dónde estaba el problema.</p>
+        </div>
+
+        <div class="fade-in">
+          <div class="invoice-card">
+            <div class="invoice-header">
+              <p class="invoice-header-label">Factura No. STZ-1903</p>
+              <p class="invoice-header-title">Charles P. Steinmetz → Henry Ford</p>
+            </div>
+            <div class="invoice-body">
+              <div class="invoice-row">
+                <span class="invoice-row-label">Hacer una marca de tiza en el generador</span>
+                <span class="invoice-row-amount">$1.00</span>
+              </div>
+              <div class="invoice-row">
+                <span class="invoice-row-label">Saber exactamente dónde hacer la marca</span>
+                <span class="invoice-row-amount">$9,999.00</span>
+              </div>
+            </div>
+            <div class="invoice-total">
+              <span class="invoice-total-label">TOTAL</span>
+              <span class="invoice-total-amount">$10,000.00</span>
+            </div>
+            <div class="ford-note">
+              Planta Dearborn, Michigan. c.1903.<br>
+              Ford Motor Company. Pagado.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-divider fade-in">
+        <p class="story-divider-label">Conectando con el presente</p>
+        <p class="story-divider-text">En el mundo corporativo actual, el mismo problema sigue vigente.</p>
+      </div>
+
+      <div class="fade-in">
+        <p style="font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:20px;">
+          En cualquier organización hay personas que entienden el negocio. Saben qué proceso está roto, qué dato falta y qué herramienta lo resolvería. Tienen el conocimiento de los $9,999.
+        </p>
+        <p style="font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:32px;">
+          El sistema actual los obliga a lidiar con el trabajo de $1: configurar servidores, depurar código, negociar con TI. El conocimiento que hace diferencia termina atascado en la burocracia técnica.
+        </p>
+      </div>
+
+      <div class="value-comparison fade-in">
+        <div class="value-col">
+          <p class="value-col-label high">La visión del negocio</p>
+          <p class="value-col-amount high">$9,999</p>
+          <p class="value-col-desc">Saber exactamente qué proceso está roto, qué métrica falta y qué herramienta resolvería el problema. El conocimiento que tiene el líder de la célula.</p>
+        </div>
+        <div class="value-col">
+          <p class="value-col-label low">La ejecución técnica</p>
+          <p class="value-col-amount low">$1</p>
+          <p class="value-col-desc">Escribir el código, configurar el servidor MCP, enrutar las APIs, establecer permisos. Trabajo técnico que el sistema hoy le exige al que no debería hacerlo.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ─── 02: CONTEXTO ─────────────────────────────────────────────── -->
+    <section class="section" id="contexto">
+      <p class="section-label"><span class="dot dot-blue"></span>02 — CONTEXTO DE MERCADO</p>
+
+      <h2 class="section-h2 fade-in">La Evolución del Desarrollo Asistido</h2>
+      <p class="section-intro fade-in">
+        La IA en el desarrollo de software no fue un salto único. Fue una evolución de tres fases distintas. Cada fase redujo la fricción técnica pero reveló un nuevo cuello de botella. Hoy estamos en la frontera de la tercera, y la más poderosa, de todas.
+      </p>
+
+      <div class="phases-list fade-in">
+
+        <div class="phase-card">
+          <div class="phase-top">
+            <span class="phase-number">FASE 01</span>
+            <span class="badge badge-dark">Superada</span>
+          </div>
+          <p class="phase-title">El Oráculo Aislado: el paradigma del Chat</p>
+          <div class="phase-body">
+            <p class="phase-desc">La IA operaba sin contexto del entorno. El usuario enviaba un prompt, recibía código estático y debía integrarlo manualmente. Útil como consulta; ineficiente como flujo de trabajo real.</p>
+            <div class="phase-meta">
+              <div class="phase-meta-row">
+                <span class="phase-meta-key">Perfil requerido</span>
+                <span class="phase-meta-val">Alto conocimiento técnico</span>
+              </div>
+              <div class="phase-meta-row">
+                <span class="phase-meta-key">Ejemplo</span>
+                <span class="phase-meta-val">ChatGPT, Claude.ai</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-verdict">// Útil, pero requiere perfil técnico alto para aprovecharla.</div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-top">
+            <span class="phase-number">FASE 02</span>
+            <span class="badge badge-warning">En adopción</span>
+          </div>
+          <p class="phase-title">El Copiloto Incrustado: IDEs contextuales</p>
+          <div class="phase-body">
+            <p class="phase-desc">Herramientas como Cursor, Claude Code y Copilot se integraron directamente al proyecto: leen la base de código, entienden la arquitectura y sugieren cambios sistémicos. Salto exponencial, pero sigue requiriendo perfil técnico.</p>
+            <div class="phase-meta">
+              <div class="phase-meta-row">
+                <span class="phase-meta-key">Perfil requerido</span>
+                <span class="phase-meta-val">Conocimiento técnico medio</span>
+              </div>
+              <div class="phase-meta-row">
+                <span class="phase-meta-key">Ejemplo</span>
+                <span class="phase-meta-val">Cursor, Claude Code</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-verdict">// Salto exponencial para técnicos. El no-técnico sigue afuera.</div>
+        </div>
+
+        <div class="phase-card active-phase">
+          <div class="phase-top">
+            <span class="phase-number">FASE 03</span>
+            <span class="badge badge-blue">Objetivo</span>
+          </div>
+          <p class="phase-title">La Orquestación Autónoma: agentes centralizados</p>
+          <div class="phase-body">
+            <p class="phase-desc">La IA se convierte en ejecutor activo. El usuario describe lo que necesita en lenguaje natural; un agente central coordina microagentes que diseñan, codifican, prueban y despliegan. El usuario aporta la lógica de negocio. El sistema hace el resto.</p>
+            <div class="phase-meta">
+              <div class="phase-meta-row">
+                <span class="phase-meta-key">Perfil requerido</span>
+                <span class="phase-meta-val">Visión de negocio. Cero técnico.</span>
+              </div>
+              <div class="phase-meta-row">
+                <span class="phase-meta-key">Infra requerida</span>
+                <span class="phase-meta-val">MCP + Agentes + APIs</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-verdict" style="color:var(--brand-primary);">// El poder está disponible. El problema es cruzar el abismo de la implementación.</div>
+        </div>
+
+      </div>
+
+      <div class="paradox-block fade-in">
+        <h3 class="paradox-title">La Paradoja de la Implementación</h3>
+        <p class="paradox-desc">
+          La Fase 3 requiere una infraestructura compleja: MCP servers, enrutamiento de APIs, permisos, sandboxes, seguridad de red. Quien más se beneficia no puede configurarla. Quien puede configurarla no la necesita.
+        </p>
+        <div class="paradox-grid">
+          <div class="paradox-col">
+            <p class="paradox-col-label benefit">Quiénes más se benefician</p>
+            <div class="paradox-item"><span class="dot dot-success"></span><span>Líderes de células de negocio</span></div>
+            <div class="paradox-item"><span class="dot dot-success"></span><span>Analistas y gerentes operativos</span></div>
+            <div class="paradox-item"><span class="dot dot-success"></span><span>COOs, CFOs, directores sin perfil técnico</span></div>
+            <div class="paradox-item"><span class="dot dot-success"></span><span>Equipos de operaciones, logística, finanzas</span></div>
+          </div>
+          <div class="paradox-col">
+            <p class="paradox-col-label capability">Quiénes pueden configurarlo</p>
+            <div class="paradox-item"><span class="dot dot-danger"></span><span>Ingenieros de software avanzados</span></div>
+            <div class="paradox-item"><span class="dot dot-danger"></span><span>Arquitectos de infraestructura cloud</span></div>
+            <div class="paradox-item"><span class="dot dot-danger"></span><span>DevOps con experiencia en protocolos MCP</span></div>
+            <div class="paradox-item"><span class="dot dot-danger"></span><span>...que ya son productivos con la Fase 2</span></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ─── 03: PROBLEMA ─────────────────────────────────────────────── -->
+    <section class="section" id="problema">
+      <p class="section-label"><span class="dot dot-danger" style="background:var(--status-danger)"></span>03 — DIAGNÓSTICO</p>
+
+      <h2 class="section-h2 fade-in">El Cuello de Botella Corporativo</h2>
+      <p class="section-intro fade-in">
+        El desarrollo orquestado por agentes representa un salto cuántico en productividad. Pero su adopción choca contra la realidad operativa de las empresas. El problema, y la oportunidad, radica exclusivamente en el sector B2B corporativo.
+      </p>
+
+      <div class="error-list">
+
+        <div class="error-card fade-in">
+          <div class="error-code-col">
+            <span class="error-code">ERR-001</span>
+            <span class="error-icon"><i data-lucide="alert-triangle" style="width:18px;height:18px;"></i></span>
+          </div>
+          <div class="error-body">
+            <p class="error-id">IT_ROADMAP_COLLAPSE</p>
+            <p class="error-title">El Colapso del Roadmap de TI</p>
+            <p class="error-desc">El negocio necesita herramientas ágiles. TI prioriza estabilidad y gobernanza. El resultado es un retraso de meses o años en la entrega de soluciones que el negocio necesita hoy.</p>
+          </div>
+        </div>
+
+        <div class="error-card fade-in">
+          <div class="error-code-col">
+            <span class="error-code">ERR-002</span>
+            <span class="error-icon"><i data-lucide="shield-off" style="width:18px;height:18px;"></i></span>
+          </div>
+          <div class="error-body">
+            <p class="error-id">SHADOW_TOOL_SYNDROME</p>
+            <p class="error-title">El Síndrome de la Herramienta Sombra</p>
+            <p class="error-desc">Ante la lentitud de TI, los equipos improvisan: hojas de cálculo compartidas, bots sin documentar, scripts sin respaldo. Riesgos de seguridad, silos de información y plataformas imposibles de auditar.</p>
+          </div>
+        </div>
+
+        <div class="error-card fade-in">
+          <div class="error-code-col">
+            <span class="error-code">ERR-003</span>
+            <span class="error-icon"><i data-lucide="eye-off" style="width:18px;height:18px;"></i></span>
+          </div>
+          <div class="error-body">
+            <p class="error-id">INFRASTRUCTURE_BLINDNESS</p>
+            <p class="error-title">La Ceguera de Infraestructura</p>
+            <p class="error-desc">El directorio baja el mandato de "implementar IA", pero nadie sabe cómo ejecutarlo. Se conectan herramientas aisladas o interfaces de chat sin entender que el verdadero trabajo es la infraestructura subyacente.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="blindness-block fade-in">
+        <h3 class="blindness-title">El síntoma más claro</h3>
+        <p class="blindness-desc">El líder de proyecto que solicita conectar un servidor local a la red pública de la empresa, asumiendo que la integración de sistemas complejos es un simple enchufe.</p>
+        <div class="localhost-example">
+          <span class="kw">// Solicitud real de proyecto corporativo</span><br>
+          "Queremos que nuestra IA acceda a los datos del ERP.<br>
+          &nbsp;¿No es solo cuestión de abrir el puerto del localhost?"
+        </div>
+      </div>
+
+      <div class="fade-in" style="border-top:1px solid var(--border-strong);padding-top:24px;margin-top:8px;">
+        <p style="font-size:15px;font-weight:500;color:var(--text-primary);line-height:1.65;letter-spacing:-0.005em;max-width:680px;">
+          Las empresas quieren operar en Fase 3. La barrera no es la voluntad: es la infraestructura que nadie interno sabe instalar, y la brecha entre el mandato y la ejecución sigue creciendo.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ─── 04: SOLUCIÓN ─────────────────────────────────────────────── -->
+    <section class="section" id="solucion">
+      <p class="section-label"><span class="dot dot-blue"></span>04 — SOLUCIÓN</p>
+
+      <h2 class="section-h2 fade-in">Steinmetz: Infraestructura de Agentes como Servicio</h2>
+      <p class="section-intro fade-in">
+        Steinmetz es la capa de infraestructura que absorbe toda la complejidad técnica de la Fase 3 y la expone como un servicio gestionado. El líder de la célula describe lo que necesita; Steinmetz orquesta, ejecuta y entrega.
+      </p>
+
+      <div class="solution-def fade-in">
+        <p>
+          Steinmetz configura, gestiona y mantiene la infraestructura de agentes de IA que las empresas necesitan para operar en Fase 3. <strong>Servidores MCP preconfigurados, pipelines de orquestación de microagentes, seguridad de endpoints y auditoría de ejecución.</strong> Todo gestionado, invisible para el usuario final.
+        </p>
+        <p>
+          El modelo no es vender software de IA genérico. Es construir la <strong>tubería que conecta la lógica de negocio con la ejecución autónoma</strong>, de la misma manera que AWS construyó la tubería que conecta el código con los servidores. El cliente no configura; el cliente produce.
+        </p>
+      </div>
+
+      <div class="capabilities-grid fade-in">
+        <div class="capability-card">
+          <div class="capability-icon">
+            <i data-lucide="server" style="width:18px;height:18px;"></i>
+          </div>
+          <p class="capability-eyebrow">Infraestructura</p>
+          <p class="capability-title">MCP Infrastructure</p>
+          <p class="capability-desc">Servidores Model Context Protocol preconfigurados y gestionados. El cliente no instala, no configura, no mantiene. Solo conecta.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">
+            <i data-lucide="workflow" style="width:18px;height:18px;"></i>
+          </div>
+          <p class="capability-eyebrow">Orquestación</p>
+          <p class="capability-title">Agent Orchestration</p>
+          <p class="capability-desc">Coordinación de microagentes especializados por tarea: diseño, código, pruebas, despliegue. El usuario describe; el sistema ejecuta.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">
+            <i data-lucide="shield-check" style="width:18px;height:18px;"></i>
+          </div>
+          <p class="capability-eyebrow">Seguridad</p>
+          <p class="capability-title">Enterprise Security</p>
+          <p class="capability-desc">Gestión de permisos por célula, sandboxes de ejecución aislados, auditoría de endpoints y trazabilidad completa del código generado.</p>
+        </div>
+      </div>
+
+      <div class="value-prop-strip fade-in">
+        <div class="vp-cell">
+          <span class="dot dot-success" style="margin-top:3px;"></span>
+          <p class="vp-cell-text"><strong>Cero fricción de adopción.</strong> El equipo de negocio empieza a operar en días, no en meses. Sin proyecto de TI, sin consultores externos de infraestructura.</p>
+        </div>
+        <div class="vp-cell">
+          <span class="dot dot-blue" style="margin-top:3px;"></span>
+          <p class="vp-cell-text"><strong>Trazabilidad institucional.</strong> Cada acción de cada agente queda registrada, auditable y atribuible. El directorio tiene visibilidad completa sin necesitar perfiles técnicos.</p>
+        </div>
+        <div class="vp-cell">
+          <span class="dot dot-success" style="margin-top:3px;"></span>
+          <p class="vp-cell-text"><strong>Escalabilidad nativa.</strong> Agregar una nueva célula de trabajo o un nuevo agente especializado no requiere un nuevo proyecto de infraestructura. Solo configuración.</p>
+        </div>
+        <div class="vp-cell">
+          <span class="dot dot-blue" style="margin-top:3px;"></span>
+          <p class="vp-cell-text"><strong>Gobernanza corporativa.</strong> Permisos por rol, aislamiento entre células, políticas de seguridad por capa. Compatible con los estándares de auditoría corporativa.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ─── 05: OPORTUNIDAD ───────────────────────────────────────────── -->
+    <section class="section" id="oportunidad">
+      <p class="section-label"><span class="dot dot-blue"></span>05 — MERCADO</p>
+
+      <h2 class="section-h2 fade-in">El Vacío en el Mercado Corporativo</h2>
+      <p class="section-intro fade-in">
+        La oportunidad de monetización radica exclusivamente en B2B corporativo. El usuario B2C no asumirá el CAPEX ni el OPEX que exige esta arquitectura. Las herramientas de Fase 2 ya los satisfacen. La demanda real está en la empresa que recibió el mandato y no sabe cómo ejecutarlo.
+      </p>
+
+      <div class="metrics-band fade-in">
+        <div class="metric-cell">
+          <p class="metric-eyebrow">Mercado objetivo</p>
+          <p class="metric-value blue">B2B</p>
+          <p class="metric-desc">Exclusivo. Empresas medianas y grandes en industrias con alta fricción operativa: consumo masivo, logística, finanzas, retail.</p>
+        </div>
+        <div class="metric-cell">
+          <p class="metric-eyebrow">Demanda de Fase 3</p>
+          <p class="metric-value">Real.<br>Sin oferta.</p>
+          <p class="metric-desc">Existe demanda desesperada por agentes autónomos en el mundo corporativo. No existe una oferta estructurada que resuelva la brecha de implementación.</p>
+        </div>
+        <div class="metric-cell">
+          <p class="metric-eyebrow">Perfil técnico requerido</p>
+          <p class="metric-value blue">0</p>
+          <p class="metric-desc">El cliente objetivo no necesita saber qué es un servidor MCP. Solo necesita saber qué proceso quiere automatizar.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:15px;font-weight:600;letter-spacing:-0.01em;margin-bottom:16px;" class="fade-in">El cliente objetivo</h3>
+
+      <div class="target-grid fade-in">
+        <div class="target-card">
+          <p class="target-role">COO</p>
+          <p class="target-context">Chief Operating Officer</p>
+          <p class="target-pain">Recibe el mandato de "digitalizar con IA" pero su equipo de operaciones no puede esperar 18 meses a que TI libere el proyecto. Necesita herramientas que funcionen ahora.</p>
+        </div>
+        <div class="target-card">
+          <p class="target-role">CFO</p>
+          <p class="target-context">Chief Financial Officer</p>
+          <p class="target-pain">Quiere dashboards automatizados y reportes generados por agentes, pero no puede justificar contratar un equipo de ingeniería interno para construir la infraestructura.</p>
+        </div>
+        <div class="target-card">
+          <p class="target-role">Gerente Ops</p>
+          <p class="target-context">Líder de Célula de Negocio</p>
+          <p class="target-pain">Sabe exactamente qué necesita. Conoce el proceso roto, la métrica que falta, el flujo a automatizar. Solo le falta la herramienta que lo ejecute sin pedirle que aprenda a programar.</p>
+        </div>
+      </div>
+
+      <div class="market-statement fade-in">
+        <span class="market-statement-label">Propuesta de valor</span>
+        <p>
+          Steinmetz no vende IA. <strong>Vende la capacidad de cruzar el abismo entre el mandato corporativo y la ejecución real.</strong> Es la infraestructura que convierte el conocimiento de los $9,999 en software funcionando, sin que nadie tenga que saber qué es un endpoint.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ─── 06: CIERRE ────────────────────────────────────────────────── -->
+    <section id="cierre">
+      <div class="cierre-inner">
+        <p class="cierre-eyebrow">06 — PRÓXIMO PASO</p>
+
+        <h2 class="cierre-h2 fade-in">
+          El generador está listo para encenderse.
+        </h2>
+        <p class="cierre-sub fade-in">
+          La infraestructura que hace funcionar la Fase 3 en entornos corporativos existe hoy. Steinmetz la gestiona, la asegura y la entrega. Lo que resta es identificar la primera célula de negocio, hacer la marca de tiza, y arrancar la fábrica.
+        </p>
+
+        <div class="cierre-actions fade-in">
+          <button id="open-contact" class="btn-primary" style="cursor:pointer;">
+            <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+            Iniciar conversación
+          </button>
+          <a href="#historia" class="btn-ghost">
+            Leer desde el inicio
+          </a>
+        </div>
+
+        <div class="cierre-divider fade-in">
+          <span class="cierre-brand">STEINMETZ</span>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+            <span class="cierre-footnote">BRIEF v1.0 · CONFIDENCIAL · 2025</span>
+            <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.06em;">Ian Berndt &nbsp;·&nbsp; +56 9 9321 5043</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ─── LUCIDE ICONS ─────────────────────────────────────────────────
+    lucide.createIcons();
+
+    // ─── SCROLL PROGRESS BAR ─────────────────────────────────────────
+    const progressBar = document.getElementById('progress-bar');
+    function updateProgress() {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+      progressBar.style.width = progress + '%';
+    }
+
+    // ─── ACTIVE NAV LINKS ────────────────────────────────────────────
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id], div[id="hero"]');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -40% 0px' });
+
+    sections.forEach(s => navObserver.observe(s));
+
+    // ─── FADE-IN ON SCROLL ────────────────────────────────────────────
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -48px 0px' });
+
+    fadeEls.forEach((el, i) => {
+      // Stagger children within a parent list
+      const delay = el.closest('.error-list, .phases-list') ? i * 40 : 0;
+      el.style.transitionDelay = delay + 'ms';
+      fadeObserver.observe(el);
+    });
+
+    // ─── BRAND TYPEWRITER ─────────────────────────────────────────────
+    (function() {
+      const el   = document.getElementById('hero-brand');
+      const text = 'STEINMETZ.';
+
+      const combos = [
+        { font: 'Inter, sans-serif',      color: '#2563EB' },
+        { font: 'Fira Code, monospace',   color: '#171717' },
+        { font: 'Georgia, serif',         color: '#4F46E5' },
+        { font: 'Courier New, monospace', color: '#525252' },
+        { font: 'Inter, sans-serif',      color: '#171717' },
+        { font: 'Fira Code, monospace',   color: '#2563EB' },
+      ];
+      let ci = 0;
+
+      function applyCombo(combo) {
+        el.style.fontFamily = combo.font;
+        el.style.color      = combo.color;
+      }
+
+      function typeIn(i, combo, done) {
+        applyCombo(combo);
+        el.textContent = text.slice(0, i) + (i < text.length ? '|' : '');
+        if (i > text.length) { done(); return; }
+        setTimeout(() => typeIn(i + 1, combo, done), 65);
+      }
+
+      function eraseOut(i, combo, done) {
+        applyCombo(combo);
+        el.textContent = text.slice(0, i) + (i > 0 ? '|' : '');
+        if (i < 0) { done(); return; }
+        setTimeout(() => eraseOut(i - 1, combo, done), 38);
+      }
+
+      function loop() {
+        const combo = combos[ci % combos.length];
+        typeIn(0, combo, () => {
+          el.textContent = text; // clean — no cursor at rest
+          setTimeout(() => {
+            eraseOut(text.length, combo, () => {
+              el.textContent = '';
+              ci++;
+              setTimeout(loop, 280);
+            });
+          }, 1600);
+        });
+      }
+
+      window.addEventListener('load', () => setTimeout(loop, 200));
+    })();
+
+    // ─── TYPEWRITER ───────────────────────────────────────────────────
+    const line1 = 'La visión del negocio vale $9,999.';
+    const line2 = 'El código vale $1.';
+    const t1 = document.getElementById('typewriter-1');
+    const t2 = document.getElementById('typewriter-2');
+    const cursor = document.getElementById('cursor');
+
+    let idx = 0;
+    let phase = 1;
+    const speed = 32;
+
+    function type() {
+      if (phase === 1) {
+        if (idx < line1.length) {
+          t1.textContent += line1[idx++];
+          setTimeout(type, speed);
+        } else {
+          idx = 0;
+          phase = 2;
+          setTimeout(type, 320);
+        }
+      } else {
+        if (idx === 0) cursor.style.display = 'inline-block';
+        if (idx < line2.length) {
+          t2.textContent += line2[idx++];
+          setTimeout(type, speed);
+        }
+        // cursor stays blinking at end
+      }
+    }
+
+    // Start after fonts load, short delay
+    window.addEventListener('load', () => setTimeout(type, 600));
+
+    // ─── LOCKSCREEN ───────────────────────────────────────────────────
+    (function() {
+      const PASSWORD = '12345';
+      const ls      = document.getElementById('lockscreen');
+      const input   = document.getElementById('ls-input');
+      const btn     = document.getElementById('ls-btn');
+      const status  = document.getElementById('ls-status');
+      const box     = document.getElementById('ls-box');
+      const clock   = document.getElementById('ls-clock');
+
+      // live clock
+      function tickClock() {
+        const n = new Date();
+        clock.textContent = n.toLocaleTimeString('es-CL', { hour12: false });
+      }
+      tickClock();
+      setInterval(tickClock, 1000);
+
+      function setStatus(msg, cls) {
+        status.textContent = msg;
+        status.className = 'ls-status' + (cls ? ' ' + cls : '');
+      }
+
+      function unlock() {
+        setStatus('Acceso autorizado', 'success');
+        btn.disabled = true;
+        input.disabled = true;
+
+        setTimeout(() => {
+          ls.classList.add('unlocking');
+          ls.addEventListener('animationend', () => {
+            ls.style.display = 'none';
+            document.body.style.overflow = '';
+          }, { once: true });
+        }, 600);
+      }
+
+      function deny() {
+        setStatus('Credenciales inválidas', 'error');
+        box.classList.remove('shake');
+        void box.offsetWidth; // reflow to restart animation
+        box.classList.add('shake');
+        input.value = '';
+        setTimeout(() => setStatus('Aguardando credenciales'), 1400);
+      }
+
+      function attempt() {
+        if (input.value === PASSWORD) unlock();
+        else deny();
+      }
+
+      btn.addEventListener('click', attempt);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+      input.addEventListener('input', () => {
+        if (status.classList.contains('error')) setStatus('Aguardando credenciales');
+      });
+
+      // prevent scroll while locked
+      document.body.style.overflow = 'hidden';
+
+      // focus input after a beat
+      window.addEventListener('load', () => setTimeout(() => input.focus(), 400));
+    })();
+
+    // ─── CONTACT SCREEN ───────────────────────────────────────────────
+    (function() {
+      const cs   = document.getElementById('contact-screen');
+      const open = document.getElementById('open-contact');
+      const back = document.getElementById('cs-back');
+
+      function openContact() {
+        cs.classList.remove('cs-close');
+        cs.classList.add('cs-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeContact() {
+        cs.classList.remove('cs-open');
+        cs.classList.add('cs-close');
+        cs.addEventListener('animationend', () => {
+          document.body.style.overflow = '';
+        }, { once: true });
+      }
+
+      open.addEventListener('click', openContact);
+      back.addEventListener('click', closeContact);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && cs.classList.contains('cs-open')) closeContact();
+      });
+    })();
+
+    // ─── SCROLL EVENT ─────────────────────────────────────────────────
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  </script>
+
+</body>
+</html>
