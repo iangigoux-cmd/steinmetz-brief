@@ -1014,28 +1014,98 @@
     }
 
     /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+    /* ─── HERO BRAND ─────────────────────────────────────────────────── */
+    #hero-brand {
+      font-size: 80px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      display: block;
+      line-height: 1;
+      min-height: 1em;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      #navbar { padding: 0 24px; gap: 16px; }
+      /* NAV */
+      #navbar { padding: 0 20px; gap: 12px; }
       .nav-links { display: none; }
-      .section { padding: 56px 32px; }
-      #hero { padding: 56px 32px; }
-      .hero-h1 { font-size: 36px; }
+
+      /* SECTIONS */
+      .section { padding: 48px 24px; }
+      #hero   { padding: 40px 24px 48px; }
+
+      /* HERO TYPOGRAPHY */
+      #hero-brand { font-size: 44px; min-height: auto; }
+      .hero-h1    { font-size: 26px; }
+      .hero-tagline { font-size: 14px; }
+
+      /* HERO META */
       .hero-meta-grid { grid-template-columns: 1fr; }
       .hero-meta-cell { border-right: none; border-bottom: 1px solid var(--border-strong); }
       .hero-meta-cell:last-child { border-bottom: none; }
-      .story-grid { grid-template-columns: 1fr; }
+
+      /* SECTION HEADINGS */
+      .section-h2   { font-size: 24px; }
+      .section-intro { font-size: 13px; }
+
+      /* STORY */
+      .story-grid  { grid-template-columns: 1fr; }
       .invoice-card { position: static; }
-      .phase-body { grid-template-columns: 1fr; }
-      .capabilities-grid { grid-template-columns: 1fr; }
-      .metrics-band { grid-template-columns: 1fr; }
-      .target-grid { grid-template-columns: 1fr; }
-      .paradox-grid { grid-template-columns: 1fr; }
+      .story-text h2 { font-size: 26px; }
+      .story-divider-text { font-size: 17px; }
+
+      /* VALUE COMPARISON */
       .value-comparison { grid-template-columns: 1fr; }
+      .value-col + .value-col { border-left: none; border-top: 1px solid var(--border-strong); }
+      .value-col-amount { font-size: 24px; }
+
+      /* PHASES */
+      .phase-body  { grid-template-columns: 1fr; }
+      .phase-title { font-size: 15px; }
+
+      /* PARADOX */
+      .paradox-grid { grid-template-columns: 1fr; }
+
+      /* ERROR CARDS */
+      .error-code-col { min-width: 72px; padding: 16px 12px; }
+      .error-body { padding: 16px 18px; }
+
+      /* CAPABILITIES */
+      .capabilities-grid { grid-template-columns: 1fr; }
+
+      /* VALUE PROP */
       .value-prop-strip { grid-template-columns: 1fr; }
-      .cierre-inner { padding: 56px 24px; }
-      .cierre-h2 { font-size: 28px; }
-      .cierre-actions { flex-direction: column; align-items: flex-start; }
-      .cierre-inner { padding: 56px 32px; }
+
+      /* METRICS */
+      .metrics-band { grid-template-columns: 1fr; }
+      .metric-value { font-size: 22px; }
+
+      /* TARGETS */
+      .target-grid { grid-template-columns: 1fr; }
+
+      /* MARKET STATEMENT */
+      .market-statement p { font-size: 15px; }
+
+      /* CIERRE */
+      .cierre-inner   { padding: 56px 24px; }
+      .cierre-h2      { font-size: 28px; }
+      .cierre-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .cierre-divider { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+      /* LOCKSCREEN */
+      .ls-brand    { font-size: 40px; letter-spacing: -0.02em; }
+      .ls-auth-box { width: calc(100% - 48px); }
+      .ls-footer   { padding: 0 24px; font-size: 9px; }
+      .ls-corner-tl { top: 20px; left: 20px; }
+      .ls-corner-tr { top: 20px; right: 20px; }
+      .ls-corner-bl { bottom: 20px; left: 20px; }
+      .ls-corner-br { bottom: 20px; right: 20px; }
+
+      /* CONTACT SCREEN */
+      .cs-name { font-size: 40px; }
+      .cs-phone { font-size: 18px; }
+      .cs-back  { top: 24px; left: 24px; }
     }
     /* ─── LOCKSCREEN ──────────────────────────────────────────────── */
     #lockscreen {
@@ -1453,7 +1523,7 @@
       <p class="hero-eyebrow">STEINMETZ · BRIEF DE POSICIONAMIENTO · 2025</p>
 
       <h1 class="hero-h1 fade-in">
-        <span id="hero-brand" style="font-size:80px;font-weight:600;letter-spacing:-0.03em;text-transform:uppercase;display:block;line-height:1;min-height:1em;"></span>
+        <span id="hero-brand"></span>
         La infraestructura que le devuelve el control a quien sabe qué hacer con él.
       </h1>
 
