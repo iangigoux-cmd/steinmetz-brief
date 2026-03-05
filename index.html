@@ -960,36 +960,37 @@
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
+      gap: 10px;
+      padding: 14px 28px;
       background: var(--brand-primary);
       color: #FFFFFF;
-      font-family: var(--font-ui);
-      font-size: 13px;
-      font-weight: 500;
-      border: 1px solid var(--brand-primary);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: background 150ms ease-in-out, border-color 150ms ease-in-out;
-    }
-    .btn-primary:hover { background: var(--brand-hover); border-color: var(--brand-hover); }
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 20px;
-      background: transparent;
-      color: rgba(255,255,255,0.6);
       font-family: var(--font-mono);
       font-size: 12px;
       font-weight: 500;
-      letter-spacing: 0.04em;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius-md);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--brand-primary);
+      cursor: pointer;
+      transition: background 150ms ease-in-out, box-shadow 150ms ease-in-out;
+    }
+    .btn-primary:hover { background: var(--brand-hover); box-shadow: 3px 3px 0 0 rgba(255,255,255,0.15); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.15);
       cursor: pointer;
       transition: color 150ms ease-in-out, border-color 150ms ease-in-out;
     }
-    .btn-ghost:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.5); }
+    .btn-ghost:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.4); }
 
     .cierre-divider {
       border-top: 1px solid rgba(255,255,255,0.1);
@@ -1013,10 +1014,452 @@
       text-transform: uppercase;
     }
 
+    /* ─── GATEWAY ──────────────────────────────────────────────────── */
+    #gateway {
+      position: relative;
+      z-index: 50;
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    #gateway.done {
+      height: auto;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    .gw-screen {
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    /* GW: Hook */
+    .gw-hook {
+      background: #171717;
+      flex-direction: column;
+      padding: 64px;
+    }
+    .gw-hook-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 900px;
+      width: 100%;
+    }
+    .gw-hook-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 64px;
+    }
+    .gw-hook-brand-name {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.3);
+    }
+    .gw-hook-brand-dot {
+      width: 6px; height: 6px;
+      background: var(--brand-primary);
+      animation: gwPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes gwPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    .gw-hook-title {
+      font-size: 64px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: #FFFFFF;
+      margin-bottom: 32px;
+    }
+    .gw-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    #gateway.active .gw-line {
+      animation: gwFadeUp 0.6s ease-out forwards;
+    }
+    #gateway.active .gw-line-1 { animation-delay: 0.3s; }
+    #gateway.active .gw-line-2 { animation-delay: 0.8s; }
+    @keyframes gwFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gw-blue { color: var(--brand-primary); }
+    .gw-dim { color: rgba(255,255,255,0.3); }
+    .gw-hook-sub {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.25);
+      opacity: 0;
+    }
+    #gateway.active .gw-hook-sub {
+      animation: gwFadeUp 0.6s ease-out 1.4s forwards;
+    }
+    .gw-scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+    }
+    #gateway.active .gw-scroll-indicator {
+      animation: gwFadeUp 0.6s ease-out 2s forwards;
+    }
+    .gw-scroll-text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2);
+    }
+    .gw-scroll-line {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.15);
+      animation: gwScrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes gwScrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* GW: Versus */
+    .gw-versus {
+      background: #171717;
+      padding: 40px 64px;
+      flex-direction: column;
+    }
+    .gw-versus-wrapper { max-width: 1100px; width: 100%; }
+    .gw-versus-intro { margin-bottom: 28px; }
+    .gw-versus-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--brand-primary);
+      margin-bottom: 16px;
+      display: block;
+      text-transform: uppercase;
+    }
+    .gw-versus-title {
+      font-size: 38px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+    .gw-versus-desc {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+    .gw-versus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .gw-versus-col { padding: 32px; }
+    .gw-versus-left { border-right: 1px solid rgba(255,255,255,0.08); }
+    .gw-versus-header { margin-bottom: 24px; }
+    .gw-versus-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .gw-versus-label-dim { color: rgba(255,255,255,0.3); }
+    .gw-versus-label-blue { color: var(--brand-primary); }
+    .gw-versus-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.12);
+    }
+    .gw-terminal { min-height: 200px; margin-bottom: 20px; }
+    .gw-term-line {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(255,255,255,0.35);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 200ms ease-out, transform 200ms ease-out;
+    }
+    .gw-term-line.visible { opacity: 1; transform: translateY(0); }
+    .gw-term-line .gw-cmd { color: var(--brand-primary); font-weight: 600; }
+    .gw-term-line .gw-err { color: #EF4444; }
+    .gw-term-line .gw-ok { color: #22C55E; font-weight: 600; }
+    .gw-term-line .gw-white { color: #FFFFFF; }
+    .gw-term-line .gw-fail { color: #EF4444; font-weight: 600; }
+    .gw-versus-result {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transition: opacity 300ms ease-out;
+    }
+    .gw-versus-result.visible { opacity: 1; }
+    .gw-versus-result-bad { color: #EF4444; }
+    .gw-versus-result-good { color: var(--brand-primary); }
+
+    /* GW: Pipeline */
+    .gw-pipeline {
+      background: var(--bg-canvas);
+      flex-direction: column;
+      padding: 64px;
+    }
+    .gw-pipeline-content { max-width: 1100px; width: 100%; }
+    .gw-pipeline-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
+    }
+    .gw-pipeline-input {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .gw-pipeline-prompt {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      flex-shrink: 0;
+    }
+    .gw-pipeline-text {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+    .gw-pipeline-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 18px;
+      background: var(--brand-primary);
+      animation: blink 1s step-start infinite;
+      flex-shrink: 0;
+    }
+    .gw-pipeline-flow {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 56px;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+    .gw-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .gw-node-icon {
+      width: 56px; height: 56px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-tertiary);
+      transition: border-color 300ms ease-out, color 300ms ease-out, box-shadow 300ms ease-out;
+    }
+    .gw-node.active .gw-node-icon {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+      box-shadow: 3px 3px 0 0 var(--brand-primary);
+    }
+    .gw-node.active.gw-node-final .gw-node-icon {
+      border-color: #059669;
+      color: #059669;
+      box-shadow: 3px 3px 0 0 #059669;
+    }
+    .gw-node-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      text-align: center;
+      transition: color 300ms ease-out;
+    }
+    .gw-node.active .gw-node-label { color: var(--text-primary); }
+    .gw-connector {
+      width: 48px; height: 1px;
+      background: var(--border-subtle);
+      flex-shrink: 0;
+      position: relative;
+      margin: 0 4px;
+      margin-top: 24px;
+    }
+    .gw-connector::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--brand-primary);
+      transition: width 300ms ease-out;
+    }
+    .gw-connector.active::after { width: 100%; }
+    .gw-triptych {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .gw-triptych-card {
+      padding: 28px 24px;
+      background: var(--bg-surface);
+    }
+    .gw-triptych-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--brand-primary);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .gw-triptych-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* GW: Gate */
+    .gw-gate {
+      background: #171717;
+      flex-direction: column;
+      padding: 64px;
+    }
+    .gw-gate-content {
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .gw-gate-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 28px;
+    }
+    .gw-gate-title {
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin-bottom: 48px;
+    }
+    .gw-gate-invoice {
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 48px;
+    }
+    .gw-gate-invoice-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    .gw-gate-invoice-row:last-child {
+      border-bottom: none;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .gw-gate-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--brand-primary);
+      transition: background 150ms ease-in-out, box-shadow 150ms ease-in-out;
+    }
+    .gw-gate-cta:hover { background: var(--brand-hover); box-shadow: 3px 3px 0 0 rgba(255,255,255,0.15); }
+    .gw-gate-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.2);
+      margin-top: 48px;
+    }
+
+    /* GW: Transition overlay */
+    #gw-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--bg-canvas);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 400ms ease-in-out;
+    }
+    #gw-transition.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Navbar hidden state */
+    #navbar { transition: transform 200ms ease-in-out, opacity 200ms ease-in-out; }
+    #navbar.nav-hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
     /* ─── RESPONSIVE ──────────────────────────────────────────────── */
     /* ─── HERO BRAND ─────────────────────────────────────────────────── */
     #hero-brand {
-      font-size: 80px;
+      font-size: 110px;
       font-weight: 600;
       letter-spacing: -0.03em;
       text-transform: uppercase;
@@ -1036,7 +1479,7 @@
       #hero   { padding: 40px 24px 48px; }
 
       /* HERO TYPOGRAPHY */
-      #hero-brand { font-size: 44px; min-height: auto; }
+      #hero-brand { font-size: 52px; min-height: auto; }
       .hero-h1    { font-size: 26px; }
       .hero-tagline { font-size: 14px; }
 
@@ -1103,9 +1546,32 @@
       .ls-corner-br { bottom: 20px; right: 20px; }
 
       /* CONTACT SCREEN */
-      .cs-name { font-size: 40px; }
+      .cs-name { font-size: 36px; }
       .cs-phone { font-size: 18px; }
       .cs-back  { top: 24px; left: 24px; }
+
+      /* GATEWAY */
+      .gw-hook { padding: 40px 24px; }
+      .gw-hook-title { font-size: 34px; }
+      .gw-hook-brand { margin-bottom: 40px; }
+      .gw-versus { padding: 32px 24px; }
+      .gw-versus-title { font-size: 26px; }
+      .gw-versus-desc { font-size: 12px; }
+      .gw-versus-grid { grid-template-columns: 1fr; }
+      .gw-versus-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .gw-versus-col { padding: 28px 20px; }
+      .gw-terminal { min-height: auto; }
+      .gw-pipeline { padding: 40px 24px; }
+      .gw-pipeline-input { padding: 16px 18px; }
+      .gw-pipeline-text { font-size: 12px; }
+      .gw-pipeline-flow { padding-bottom: 12px; }
+      .gw-connector { width: 20px; }
+      .gw-node-icon { width: 44px; height: 44px; }
+      .gw-node-label { font-size: 8px; }
+      .gw-triptych { grid-template-columns: 1fr; }
+      .gw-gate { padding: 40px 24px; }
+      .gw-gate-title { font-size: 28px; }
+      .gw-gate-invoice { max-width: 100%; }
     }
     /* ─── LOCKSCREEN ──────────────────────────────────────────────── */
     #lockscreen {
@@ -1395,10 +1861,10 @@
       margin-bottom: 28px;
     }
     .cs-name {
-      font-family: 'Inter', sans-serif;
-      font-size: 72px;
+      font-family: var(--font-mono);
+      font-size: 64px;
       font-weight: 600;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
       color: #FFFFFF;
       line-height: 1;
       margin-bottom: 20px;
@@ -1415,6 +1881,13 @@
       font-weight: 400;
       color: rgba(255,255,255,0.45);
       letter-spacing: 0.06em;
+    }
+    .cs-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.15);
+      margin-top: 48px;
     }
     .cs-back {
       position: absolute;
@@ -1494,14 +1967,166 @@
     <button class="cs-back" id="cs-back">← Volver</button>
     <div class="cs-center">
       <p class="cs-eyebrow">Contacto</p>
-      <p class="cs-name">Ian Berndt.</p>
+      <p class="cs-name">IAN BERNDT.</p>
       <div class="cs-divider"></div>
       <p class="cs-phone">+56 9 9321 5043</p>
+      <p class="cs-meta">Esta pagina fue hecha por Steinmetz.</p>
     </div>
   </div>
 
+  <!-- ─── GATEWAY TRANSITION OVERLAY ──────────────────────────────────── -->
+  <div id="gw-transition"></div>
+
+  <!-- ─── GATEWAY ────────────────────────────────────────────────────── -->
+  <div id="gateway">
+
+    <!-- SCREEN 1: THE HOOK -->
+    <section class="gw-screen gw-hook" id="gw-hook">
+      <div class="gw-hook-content">
+        <div class="gw-hook-brand">
+          <span class="gw-hook-brand-name">STEINMETZ</span>
+          <span class="gw-hook-brand-dot"></span>
+        </div>
+        <h1 class="gw-hook-title">
+          <span class="gw-line gw-line-1">Tu vision vale <span class="gw-blue">$9,999.</span></span>
+          <span class="gw-line gw-line-2">La infraestructura vale <span class="gw-dim">$1.</span></span>
+        </h1>
+        <p class="gw-hook-sub">Nosotros nos encargamos del $1.</p>
+      </div>
+      <div class="gw-scroll-indicator">
+        <span class="gw-scroll-text">SCROLL</span>
+        <div class="gw-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: THE PROBLEM vs SOLUTION -->
+    <section class="gw-screen gw-versus" id="gw-versus">
+      <div class="gw-versus-wrapper">
+        <div class="gw-versus-intro">
+          <p class="gw-versus-eyebrow">EL PROBLEMA</p>
+          <h2 class="gw-versus-title">Llevar IA a produccion<br>no deberia tomar <span class="gw-blue">6 meses.</span></h2>
+          <p class="gw-versus-desc">Agentes autonomos, automatizaciones, pipelines de datos, software — las empresas saben que quieren construir. El problema es la infraestructura que lo hace funcionar.</p>
+        </div>
+        <div class="gw-versus-grid">
+          <div class="gw-versus-col gw-versus-left">
+            <div class="gw-versus-header">
+              <span class="gw-versus-label gw-versus-label-dim">SIN STEINMETZ</span>
+              <span class="gw-versus-sub">Sin infraestructura gestionada</span>
+            </div>
+            <div class="gw-terminal" id="gw-term-left"></div>
+            <div class="gw-versus-result gw-versus-result-bad" id="gw-result-left">
+              <span>6 MESES</span><span>$240K</span><span>3 INGENIEROS</span>
+            </div>
+          </div>
+          <div class="gw-versus-col gw-versus-right">
+            <div class="gw-versus-header">
+              <span class="gw-versus-label gw-versus-label-blue">CON STEINMETZ</span>
+              <span class="gw-versus-sub">Infraestructura gestionada</span>
+            </div>
+            <div class="gw-terminal" id="gw-term-right"></div>
+            <div class="gw-versus-result gw-versus-result-good" id="gw-result-right">
+              <span>4 MINUTOS</span><span>TU + TU IDEA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: THE PIPELINE -->
+    <section class="gw-screen gw-pipeline" id="gw-pipeline">
+      <div class="gw-pipeline-content">
+        <p class="gw-pipeline-eyebrow">ASI FUNCIONA</p>
+
+        <div class="gw-pipeline-input">
+          <span class="gw-pipeline-prompt">&gt;</span>
+          <span class="gw-pipeline-text" id="gw-pipeline-text"></span>
+          <span class="gw-pipeline-cursor"></span>
+        </div>
+
+        <div class="gw-pipeline-flow" id="gw-pipeline-flow">
+          <div class="gw-node" data-step="0">
+            <div class="gw-node-icon"><i data-lucide="lightbulb" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">TU IDEA</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="1">
+            <div class="gw-node-icon"><i data-lucide="server" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">MCP SERVER</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="2">
+            <div class="gw-node-icon"><i data-lucide="workflow" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">ORQUESTADOR</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="3">
+            <div class="gw-node-icon"><i data-lucide="code-2" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">AGENTES</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="4">
+            <div class="gw-node-icon"><i data-lucide="shield-check" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">SEGURIDAD</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="5">
+            <div class="gw-node-icon"><i data-lucide="rocket" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">DEPLOY</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node gw-node-final" data-step="6">
+            <div class="gw-node-icon"><i data-lucide="check-circle-2" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">OPERANDO</span>
+          </div>
+        </div>
+
+        <div class="gw-triptych">
+          <div class="gw-triptych-card">
+            <span class="gw-triptych-label">QUE ES</span>
+            <p class="gw-triptych-text">Infraestructura de agentes de IA como servicio gestionado.</p>
+          </div>
+          <div class="gw-triptych-card">
+            <span class="gw-triptych-label">PARA QUIEN</span>
+            <p class="gw-triptych-text">Lideres de negocio que saben que construir pero no como configurar la infraestructura.</p>
+          </div>
+          <div class="gw-triptych-card">
+            <span class="gw-triptych-label">QUE RESUELVE</span>
+            <p class="gw-triptych-text">La brecha entre "quiero IA en mi empresa" y un sistema funcionando.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: THE GATE -->
+    <section class="gw-screen gw-gate" id="gw-gate">
+      <div class="gw-gate-content">
+        <p class="gw-gate-eyebrow">LA MARCA DE TIZA DEL SIGLO XXI</p>
+        <h2 class="gw-gate-title">El generador esta listo.<br>Solo falta la marca.</h2>
+
+        <div class="gw-gate-invoice">
+          <div class="gw-gate-invoice-row">
+            <span>Hacer una marca de tiza en el generador</span>
+            <span>$1</span>
+          </div>
+          <div class="gw-gate-invoice-row">
+            <span>Saber exactamente donde hacerla</span>
+            <span>$9,999</span>
+          </div>
+        </div>
+
+        <a href="#hero" class="gw-gate-cta" id="gw-gate-cta">
+          Leer el brief completo
+          <i data-lucide="arrow-down" style="width:14px;height:14px;"></i>
+        </a>
+
+        <p class="gw-gate-meta">Esta pagina fue hecha por Steinmetz.</p>
+      </div>
+    </section>
+
+  </div>
+
   <!-- ─── NAVBAR ───────────────────────────────────────────────────── -->
-  <nav id="navbar">
+  <nav id="navbar" class="nav-hidden">
     <div id="progress-bar"></div>
     <div class="nav-brand">
       <span class="nav-brand-name">STEINMETZ</span>
@@ -2142,7 +2767,11 @@
           ls.classList.add('unlocking');
           ls.addEventListener('animationend', () => {
             ls.style.display = 'none';
-            document.body.style.overflow = '';
+            // Keep body overflow hidden — gateway is its own scroll container
+            var gw = document.getElementById('gateway');
+            if (gw) {
+              gw.classList.add('active');
+            }
           }, { once: true });
         }, 600);
       }
@@ -2201,9 +2830,194 @@
       });
     })();
 
+    // ─── GATEWAY: NAVBAR VISIBILITY ────────────────────────────────
+    function checkNavbar() {
+      var gw = document.getElementById('gateway');
+      if (!gw) return;
+      var rect = gw.getBoundingClientRect();
+      if (rect.bottom <= 0) {
+        document.getElementById('navbar').classList.remove('nav-hidden');
+      } else {
+        document.getElementById('navbar').classList.add('nav-hidden');
+      }
+    }
+
+    // ─── GATEWAY: VERSUS TERMINAL ANIMATION ─────────────────────────
+    (function() {
+      var leftLines = [
+        '<span class="gw-cmd">$</span> deploy ai-agent --production',
+        '<span class="gw-err">&#9888;</span> Configurar MCP server...',
+        '<span class="gw-err">&#9888;</span> Enrutar 12 APIs...',
+        '<span class="gw-err">&#9888;</span> Permisos y sandboxes...',
+        '<span class="gw-err">&#9888;</span> Seguridad de red...',
+        '<span class="gw-err">&#9888;</span> Monitoreo y logs...',
+        '<span class="gw-err">&#9888;</span> 6 meses despues...',
+        '<span class="gw-fail">&#10007; STATUS: AUN EN STAGING</span>',
+      ];
+      var rightLines = [
+        '<span class="gw-cmd">$</span> <span class="gw-white">steinmetz deploy</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">Infraestructura lista</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">Agentes desplegados</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">Seguridad configurada</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">En produccion.</span>',
+      ];
+
+      var versusPlayed = false;
+      var versusObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !versusPlayed) {
+            versusPlayed = true;
+            versusObs.unobserve(entry.target);
+            playVersus();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      var versusEl = document.getElementById('gw-versus');
+      if (versusEl) versusObs.observe(versusEl);
+
+      function playVersus() {
+        var termL = document.getElementById('gw-term-left');
+        var termR = document.getElementById('gw-term-right');
+        var resL  = document.getElementById('gw-result-left');
+        var resR  = document.getElementById('gw-result-right');
+
+        leftLines.forEach(function(html, i) {
+          setTimeout(function() {
+            var el = document.createElement('div');
+            el.className = 'gw-term-line';
+            el.innerHTML = html;
+            termL.appendChild(el);
+            requestAnimationFrame(function() { el.classList.add('visible'); });
+
+            if (i === leftLines.length - 1) {
+              setTimeout(function() {
+                resL.classList.add('visible');
+                setTimeout(function() {
+                  rightLines.forEach(function(rhtml, j) {
+                    setTimeout(function() {
+                      var rel = document.createElement('div');
+                      rel.className = 'gw-term-line';
+                      rel.innerHTML = rhtml;
+                      termR.appendChild(rel);
+                      requestAnimationFrame(function() { rel.classList.add('visible'); });
+                      if (j === rightLines.length - 1) {
+                        setTimeout(function() { resR.classList.add('visible'); }, 300);
+                      }
+                    }, j * 250);
+                  });
+                }, 600);
+              }, 400);
+            }
+          }, i * 350);
+        });
+      }
+    })();
+
+    // ─── GATEWAY: PIPELINE ANIMATION (LOOPING) ────────────────────────
+    (function() {
+      var phrases = [
+        '"Necesito un sistema que consolide mis reportes de ventas semanales"',
+        '"Quiero un agente que responda consultas de clientes 24/7"',
+        '"Automatizar el analisis de contratos legales de mi empresa"',
+        '"Un dashboard que genere insights de mis datos en tiempo real"',
+      ];
+      var phraseIdx = 0;
+      var pipelineStarted = false;
+      var isInView = false;
+
+      var pipelineObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          isInView = entry.isIntersecting;
+          if (entry.isIntersecting && !pipelineStarted) {
+            pipelineStarted = true;
+            runCycle();
+          }
+        });
+      }, { threshold: 0.25 });
+
+      var pipelineEl = document.getElementById('gw-pipeline');
+      if (pipelineEl) pipelineObs.observe(pipelineEl);
+
+      function runCycle() {
+        var text = phrases[phraseIdx % phrases.length];
+        phraseIdx++;
+        var textEl = document.getElementById('gw-pipeline-text');
+        var nodes = document.querySelectorAll('#gw-pipeline-flow .gw-node');
+        var connectors = document.querySelectorAll('#gw-pipeline-flow .gw-connector');
+
+        // Reset
+        textEl.textContent = '';
+        nodes.forEach(function(n) { n.classList.remove('active'); });
+        connectors.forEach(function(c) { c.classList.remove('active'); });
+
+        var ti = 0;
+        function typePipeline() {
+          if (ti < text.length) {
+            textEl.textContent += text[ti++];
+            setTimeout(typePipeline, 25);
+          } else {
+            setTimeout(animateNodes, 500);
+          }
+        }
+        typePipeline();
+
+        function animateNodes() {
+          var delay = 0;
+          var totalDelay = 0;
+          nodes.forEach(function(node, i) {
+            if (i === 0) {
+              setTimeout(function() { node.classList.add('active'); }, delay);
+              delay += 400;
+            } else {
+              (function(idx, d) {
+                setTimeout(function() { connectors[idx - 1].classList.add('active'); }, d);
+                setTimeout(function() { node.classList.add('active'); }, d + 300);
+              })(i, delay);
+              delay += 500;
+            }
+            totalDelay = delay;
+          });
+          // Wait for animation to finish, hold, then restart
+          setTimeout(function() {
+            if (isInView) runCycle();
+            else { pipelineStarted = false; }
+          }, totalDelay + 2500);
+        }
+      }
+    })();
+
+    // ─── GATEWAY: CTA TRANSITION ────────────────────────────────────────
+    (function() {
+      var ctaBtn = document.getElementById('gw-gate-cta');
+      if (!ctaBtn) return;
+      ctaBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var overlay = document.getElementById('gw-transition');
+        overlay.classList.add('active');
+
+        setTimeout(function() {
+          // Collapse gateway, release body scroll, jump to brief
+          var gw = document.getElementById('gateway');
+          if (gw) gw.classList.add('done');
+          document.body.style.overflow = '';
+          document.documentElement.style.scrollBehavior = 'auto';
+          var hero = document.getElementById('hero');
+          if (hero) hero.scrollIntoView();
+          document.documentElement.style.scrollBehavior = '';
+          document.getElementById('navbar').classList.remove('nav-hidden');
+
+          setTimeout(function() {
+            overlay.classList.remove('active');
+          }, 400);
+        }, 450);
+      });
+    })();
+
     // ─── SCROLL EVENT ─────────────────────────────────────────────────
-    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('scroll', function() { updateProgress(); checkNavbar(); }, { passive: true });
     updateProgress();
+    checkNavbar();
   </script>
 
 </body>
