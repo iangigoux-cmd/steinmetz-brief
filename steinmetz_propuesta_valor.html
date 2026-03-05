@@ -927,30 +927,280 @@
     }
     .word-reveal.revealed .w { opacity: 1; }
 
-    /* ─── CIERRE RULES ──────────────────────────────────────────── */
-    .cierre-rules {
+    /* ─── RISK DASHBOARD ───────────────────────────────────────── */
+    .risk-dashboard {
+      border: 1px solid var(--border-strong);
+      overflow: hidden;
+    }
+    .risk-dashboard-header {
       display: flex;
-      gap: 1px;
-      background: rgba(255,255,255,0.06);
-      margin-bottom: 48px;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--text-primary);
     }
-    .cierre-rule {
-      flex: 1;
-      padding: 16px 18px;
-      background: rgba(255,255,255,0.03);
-    }
-    .cierre-rule-num {
+    .risk-dashboard-title {
       font-family: var(--font-mono);
       font-size: 10px;
-      color: rgba(255,255,255,0.3);
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 6px;
+      color: rgba(255,255,255,0.4);
+      margin-left: 8px;
     }
-    .cierre-rule-text {
+    .risk-dashboard-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--status-danger);
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .risk-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--status-danger);
+      animation: riskPulse 2s ease-in-out infinite;
+    }
+    @keyframes riskPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-strong);
+    }
+    .risk-card {
+      background: var(--bg-surface);
+      padding: 24px;
+      position: relative;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .risk-card.show { opacity: 1; transform: scale(1); }
+    .risk-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+    }
+    .risk-card.risk-high::before { background: var(--status-danger); }
+    .risk-card.risk-med::before { background: var(--status-warning); }
+    .risk-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .risk-code {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .risk-severity {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .risk-severity.sev-high { color: var(--status-danger); }
+    .risk-severity.sev-med { color: var(--status-warning); }
+    .risk-severity .risk-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: riskPulse 2s ease-in-out infinite;
+    }
+    .risk-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .risk-card-horizon {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .risk-card-text {
       font-size: 12px;
-      color: rgba(255,255,255,0.55);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── PLAYBOOK ─────────────────────────────────────────────── */
+    .playbook-grid {
+      display: flex;
+      align-items: stretch;
+    }
+    .playbook-card {
+      flex: 1;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 28px 24px;
+      border-top: 3px solid var(--brand-primary);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .playbook-card.show { opacity: 1; transform: translateY(0); }
+    .playbook-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .playbook-num {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .playbook-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .playbook-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .playbook-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: var(--border-subtle);
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+    .playbook-arrow.show { opacity: 1; }
+
+    /* ─── CIERRE ENHANCED ──────────────────────────────────────── */
+    .slide-cierre {
+      background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .cierre-watermark {
+      position: absolute;
+      bottom: -30px;
+      right: -20px;
+      font-family: var(--font-ui);
+      font-size: 220px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.015);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .slide-cierre .cierre-h2 {
+      font-size: 48px;
+      max-width: 680px;
+      margin-bottom: 24px;
+    }
+    .cierre-rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 48px;
+    }
+    .cierre-rule-v2 {
+      padding: 24px;
+      background: rgba(255,255,255,0.02);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    }
+    .cierre-rule-v2.show { opacity: 1; transform: translateY(0); }
+    .cierre-rule-num-v2 {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .cierre-rule-text-v2 {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
       line-height: 1.5;
+    }
+    .cierre-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--brand-primary);
+      cursor: pointer;
+      transition: background 150ms, box-shadow 150ms;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--brand-hover);
+      box-shadow: 3px 3px 0 0 rgba(255,255,255,0.15);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: color 150ms, border-color 150ms;
+      text-decoration: none;
+    }
+    .btn-ghost:hover {
+      color: #FFFFFF;
+      border-color: rgba(255,255,255,0.4);
     }
 
     /* ─── SCROLL PROGRESS BAR ──────────────────────────────────── */
@@ -1085,13 +1335,29 @@
 
       /* CIERRE */
       .cierre-h2 { font-size: 26px; }
+      .slide-cierre .cierre-h2 { font-size: 28px; }
       .cierre-sub { font-size: 13px; }
       .cierre-divider { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 40px; }
       .cierre-brand { font-size: 16px; }
+      .cierre-watermark { font-size: 100px; bottom: -10px; right: -10px; }
 
-      /* CIERRE RULES */
-      .cierre-rules { flex-wrap: wrap; }
-      .cierre-rule { flex: none; width: 100%; }
+      /* CIERRE RULES GRID */
+      .cierre-rules-grid { grid-template-columns: 1fr; }
+      .cierre-rule-num-v2 { font-size: 20px; }
+      .cierre-cta { flex-direction: column; align-items: stretch; gap: 10px; }
+      .btn-primary, .btn-ghost { justify-content: center; padding: 12px 20px; font-size: 11px; }
+
+      /* RISK DASHBOARD */
+      .risk-grid { grid-template-columns: 1fr; }
+      .risk-card { padding: 18px; }
+      .risk-code { font-size: 16px; }
+      .risk-card-title { font-size: 13px; }
+
+      /* PLAYBOOK */
+      .playbook-grid { flex-direction: column; gap: 12px; }
+      .playbook-arrow { transform: rotate(90deg); padding: 0; justify-content: center; }
+      .playbook-card { padding: 20px 18px; }
+      .playbook-num { font-size: 24px; }
 
       /* TERMINAL */
       .terminal-block { max-width: 100%; margin-top: 24px; }
@@ -1549,50 +1815,52 @@
   <div class="slide slide-light" data-section="05 — RIESGOS">
     <span class="slide-section-label"><span class="dot dot-danger"></span> 05 — RIESGOS</span>
     <div class="slide-inner slide-content">
-      <p class="subsection-title">Mapa de riesgos</p>
-      <div class="error-cards">
-        <div class="error-card">
-          <div class="error-card-code">RISK-01</div>
-          <div class="error-card-body">
-            <p class="error-card-title">Commoditización eslabones 1-3</p>
-            <div class="error-card-meta">
-              <span class="badge badge-danger" style="font-size:9px;padding:2px 6px;">Alta</span>
-              <span class="badge badge-dark" style="font-size:9px;padding:2px 6px;">1-3 meses</span>
-            </div>
-            <p class="error-card-text">No construir capa de generación. Usar herramientas existentes como infra del eslabón 1-2. El moat está en 5-6.</p>
+      <div class="risk-dashboard">
+        <div class="risk-dashboard-header">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="terminal-dot terminal-dot-r"></span>
+            <span class="terminal-dot terminal-dot-y"></span>
+            <span class="terminal-dot terminal-dot-g"></span>
           </div>
+          <span class="risk-dashboard-title">Risk Assessment</span>
+          <span class="risk-dashboard-count"><span class="risk-pulse"></span> 4 Active</span>
         </div>
-        <div class="error-card">
-          <div class="error-card-code">RISK-02</div>
-          <div class="error-card-body">
-            <p class="error-card-title">Microsoft mejora Power Platform</p>
-            <div class="error-card-meta">
-              <span class="badge badge-warning" style="font-size:9px;padding:2px 6px;">Media</span>
-              <span class="badge badge-dark" style="font-size:9px;padding:2px 6px;">1-3 meses</span>
+        <div class="risk-grid">
+          <div class="risk-card risk-high">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-01</span>
+              <span class="risk-severity sev-high"><span class="risk-dot"></span> Alta</span>
             </div>
-            <p class="error-card-text">Priorizar infra no-Microsoft. Casos en AWS y GCP primero. Alto impacto si no hay casos ancla.</p>
+            <p class="risk-card-title">Commoditización eslabones 1-3</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Impacto bajo si moat en 5-6</p>
+            <p class="risk-card-text">No construir capa de generación. Usar herramientas existentes como infra del eslabón 1-2.</p>
           </div>
-        </div>
-        <div class="error-card">
-          <div class="error-card-code">RISK-03</div>
-          <div class="error-card-body">
-            <p class="error-card-title">Ciclo de ventas enterprise largo</p>
-            <div class="error-card-meta">
-              <span class="badge badge-danger" style="font-size:9px;padding:2px 6px;">Alta</span>
-              <span class="badge badge-dark" style="font-size:9px;padding:2px 6px;">1-3 meses</span>
+          <div class="risk-card risk-med">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-02</span>
+              <span class="risk-severity sev-med"><span class="risk-dot"></span> Media</span>
             </div>
-            <p class="error-card-text">Entrar por COO, no por TI. Expansión célula a célula. Manejable con expansión horizontal.</p>
+            <p class="risk-card-title">Microsoft mejora Power Platform</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Alto impacto si no hay casos ancla</p>
+            <p class="risk-card-text">Priorizar infra no-Microsoft. Desplegar primero en AWS y GCP.</p>
           </div>
-        </div>
-        <div class="error-card">
-          <div class="error-card-code">RISK-04</div>
-          <div class="error-card-body">
-            <p class="error-card-title">Mejora acelerada de Claude Code / Codex</p>
-            <div class="error-card-meta">
-              <span class="badge badge-danger" style="font-size:9px;padding:2px 6px;">Alta</span>
-              <span class="badge badge-dark" style="font-size:9px;padding:2px 6px;">1-3 meses</span>
+          <div class="risk-card risk-high">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-03</span>
+              <span class="risk-severity sev-high"><span class="risk-dot"></span> Alta</span>
             </div>
-            <p class="error-card-text">Ejecutar antes de que las herramientas hagan innecesaria la capa de integración. Alto impacto si no se captura posición.</p>
+            <p class="risk-card-title">Ciclo de ventas enterprise largo</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Manejable con expansión horizontal</p>
+            <p class="risk-card-text">Entrar por COO, no por TI. Expansión célula a célula.</p>
+          </div>
+          <div class="risk-card risk-high">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-04</span>
+              <span class="risk-severity sev-high"><span class="risk-dot"></span> Alta</span>
+            </div>
+            <p class="risk-card-title">Mejora acelerada de Claude Code / Codex</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Alto impacto si no se captura posición</p>
+            <p class="risk-card-text">Ejecutar antes de que las herramientas hagan innecesaria la capa de integración.</p>
           </div>
         </div>
       </div>
@@ -1622,28 +1890,33 @@
   <div class="slide slide-light" data-section="06 — GTM">
     <span class="slide-section-label"><span class="dot dot-blue"></span> 06 — GTM</span>
     <div class="slide-inner slide-content">
-      <p class="big-statement" style="margin-bottom:24px;">La entrada correcta es por el <strong>COO</strong>.</p>
-      <div class="gtm-steps">
-        <div class="gtm-step">
-          <div class="gtm-step-top">
-            <span class="gtm-step-num">PASO 1</span>
-            <span class="gtm-step-title">Identificar al líder con el dolor más urgente</span>
+      <p class="big-statement" style="margin-bottom:32px;">La entrada correcta es por el <strong>COO</strong>.</p>
+      <div class="playbook-grid">
+        <div class="playbook-card">
+          <div class="playbook-card-header">
+            <span class="playbook-num">01</span>
+            <div class="card-icon"><i data-lucide="crosshair" style="width:18px;height:18px;"></i></div>
           </div>
-          <p class="gtm-step-desc">Un gerente de área con un requerimiento sin resolver, que ha intentado canalizarlo por TI sin éxito. Conversación directa con alguien que tiene un problema concreto.</p>
+          <p class="playbook-title">Identificar al líder con el dolor</p>
+          <p class="playbook-desc">Un gerente de área con un requerimiento sin resolver, que ha intentado canalizarlo por TI sin éxito. Conversación directa con alguien que tiene un problema concreto.</p>
         </div>
-        <div class="gtm-step">
-          <div class="gtm-step-top">
-            <span class="gtm-step-num">PASO 2</span>
-            <span class="gtm-step-title">Entregar un resultado en días, no en meses</span>
+        <div class="playbook-arrow"><i data-lucide="arrow-right" style="width:20px;height:20px;"></i></div>
+        <div class="playbook-card">
+          <div class="playbook-card-header">
+            <span class="playbook-num">02</span>
+            <div class="card-icon"><i data-lucide="zap" style="width:18px;height:18px;"></i></div>
           </div>
-          <p class="gtm-step-desc">Una herramienta funcional, conectada a datos reales, deployada en su infraestructura, en un tiempo que TI nunca podría igualar. Esa velocidad es el argumento comercial más poderoso.</p>
+          <p class="playbook-title">Entregar resultado en días, no meses</p>
+          <p class="playbook-desc">Una herramienta funcional, conectada a datos reales, deployada en su infraestructura, en un tiempo que TI nunca podría igualar.</p>
         </div>
-        <div class="gtm-step">
-          <div class="gtm-step-top">
-            <span class="gtm-step-num">PASO 3</span>
-            <span class="gtm-step-title">Dejar que la célula ancla venda internamente</span>
+        <div class="playbook-arrow"><i data-lucide="arrow-right" style="width:20px;height:20px;"></i></div>
+        <div class="playbook-card">
+          <div class="playbook-card-header">
+            <span class="playbook-num">03</span>
+            <div class="card-icon"><i data-lucide="share-2" style="width:18px;height:18px;"></i></div>
           </div>
-          <p class="gtm-step-desc">El gerente de operaciones con su dashboard le cuenta al gerente de finanzas. TI pasa de bloqueo a auditoría. Expansión célula a célula.</p>
+          <p class="playbook-title">Dejar que la célula ancla venda</p>
+          <p class="playbook-desc">El gerente de operaciones con su dashboard le cuenta al de finanzas. TI pasa de bloqueo a auditoría. Expansión célula a célula.</p>
         </div>
       </div>
     </div>
@@ -1652,9 +1925,10 @@
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- SLIDE 15 — CIERRE                                             -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="slide slide-dark" data-section="">
+  <div class="slide slide-dark slide-cierre" data-section="">
+    <span class="cierre-watermark">STEINMETZ</span>
     <div class="slide-inner slide-content">
-      <p style="font-family:var(--font-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:32px;display:flex;align-items:center;gap:12px;">
+      <p style="font-family:var(--font-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:40px;display:flex;align-items:center;gap:12px;">
         <span style="display:inline-block;width:24px;height:1px;background:rgba(255,255,255,0.35);"></span>
         STEINMETZ &middot; CIERRE
       </p>
@@ -1662,35 +1936,44 @@
       <h2 class="cierre-h2">
         Ese mercado no tiene nombre todavía.<br>Steinmetz puede dárselo.
       </h2>
-      <p class="cierre-sub" style="margin-bottom:36px;">
+      <p class="cierre-sub" style="margin-bottom:48px;">
         La cadena de valor está mapeada. La competencia está analizada. El gap está validado. Los riesgos están nombrados. Lo que convierte todo esto en un negocio es el primer deployment en producción.
       </p>
 
-      <div class="cierre-rules">
-        <div class="cierre-rule">
-          <p class="cierre-rule-num">01</p>
-          <p class="cierre-rule-text">Entrar por el COO, no por TI.</p>
+      <div class="cierre-rules-grid">
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">01</p>
+          <p class="cierre-rule-text-v2">Entrar por el COO, no por TI.</p>
         </div>
-        <div class="cierre-rule">
-          <p class="cierre-rule-num">02</p>
-          <p class="cierre-rule-text">Hablar en lenguaje de negocio, no técnico.</p>
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">02</p>
+          <p class="cierre-rule-text-v2">Hablar en lenguaje de negocio, no técnico.</p>
         </div>
-        <div class="cierre-rule">
-          <p class="cierre-rule-num">03</p>
-          <p class="cierre-rule-text">Empezar pequeño y rápido. El contrato grande viene después.</p>
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">03</p>
+          <p class="cierre-rule-text-v2">Empezar pequeño y rápido. El contrato grande viene después.</p>
         </div>
-        <div class="cierre-rule">
-          <p class="cierre-rule-num">04</p>
-          <p class="cierre-rule-text">No competir en precio. Competir en resultado.</p>
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">04</p>
+          <p class="cierre-rule-text-v2">No competir en precio. Competir en resultado.</p>
         </div>
       </div>
 
-      <div class="cierre-divider" style="margin-top:0;">
+      <div class="cierre-cta">
+        <a href="https://wa.me/56993215043" target="_blank" class="btn-primary">
+          <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+          Iniciar conversación
+        </a>
+        <a href="#" class="btn-ghost" id="btn-volver">
+          Volver al inicio
+        </a>
+      </div>
+
+      <div class="cierre-divider">
         <span class="cierre-brand">STEINMETZ</span>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
           <span class="cierre-footnote">Documento Confidencial &middot; v1.0 &middot; 2025</span>
           <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.06em;">Ian Berndt &nbsp;&middot;&nbsp; +56 9 9321 5043</span>
-          <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.12);letter-spacing:0.06em;margin-top:4px;">Esta página fue hecha por Steinmetz.</span>
         </div>
       </div>
     </div>
@@ -1727,7 +2010,7 @@
         Array.from(el.childNodes).forEach(process);
         el.classList.add('word-reveal');
       }
-      document.querySelectorAll('.slide-dark .big-statement').forEach(wrapWords);
+      document.querySelectorAll('.slide-dark .big-statement, .cierre-h2').forEach(wrapWords);
     })();
 
     // ─── SLIDE REFERENCES ─────────────────────────────────────────────
@@ -1863,6 +2146,12 @@
       }
     });
 
+    // ─── VOLVER AL INICIO ─────────────────────────────────────────────
+    document.getElementById('btn-volver').addEventListener('click', function(e) {
+      e.preventDefault();
+      slides[0].scrollIntoView({ behavior: 'smooth' });
+    });
+
     // ─── COMPONENT ANIMATIONS ──────────────────────────────────────────
     function animateSlide(slide) {
       // Word reveal
@@ -1906,6 +2195,28 @@
       slide.querySelectorAll('.vertex-cards, .signal-cards').forEach(function(container) {
         container.querySelectorAll('.vertex-card, .signal-card').forEach(function(card, i) {
           setTimeout(function() { card.classList.add('show'); }, i * 100);
+        });
+      });
+
+      // Risk cards
+      slide.querySelectorAll('.risk-grid').forEach(function(grid) {
+        grid.querySelectorAll('.risk-card').forEach(function(card, i) {
+          setTimeout(function() { card.classList.add('show'); }, i * 120);
+        });
+      });
+
+      // Playbook cards
+      slide.querySelectorAll('.playbook-grid').forEach(function(grid) {
+        var items = grid.querySelectorAll('.playbook-card, .playbook-arrow');
+        items.forEach(function(el, i) {
+          setTimeout(function() { el.classList.add('show'); }, i * 120);
+        });
+      });
+
+      // Cierre rules
+      slide.querySelectorAll('.cierre-rules-grid').forEach(function(grid) {
+        grid.querySelectorAll('.cierre-rule-v2').forEach(function(rule, i) {
+          setTimeout(function() { rule.classList.add('show'); }, i * 100);
         });
       });
 
