@@ -927,6 +927,73 @@
     }
     .word-reveal.revealed .w { opacity: 1; }
 
+    /* ─── CHAIN STRIP ──────────────────────────────────────────── */
+    .chain-strip {
+      display: flex;
+      align-items: stretch;
+      border: 1px solid var(--border-strong);
+      margin-bottom: 28px;
+    }
+    .chain-segment {
+      flex: 1;
+      padding: 20px 24px;
+    }
+    .chain-segment-resolved {
+      background: var(--status-success-bg);
+      border-right: 1px solid var(--border-strong);
+    }
+    .chain-segment-gap {
+      background: var(--status-danger-bg);
+      border-right: 1px solid var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 16px;
+    }
+    .chain-segment-steinmetz {
+      background: var(--brand-surface);
+    }
+    .chain-range {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .chain-segment-resolved .chain-range { color: var(--status-success); }
+    .chain-segment-gap .chain-range { color: var(--status-danger); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+    .chain-segment-steinmetz .chain-range { color: var(--brand-primary); }
+    .chain-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    /* ─── HERO QUOTE ───────────────────────────────────────────── */
+    .hero-quote {
+      border-left: 3px solid var(--brand-primary);
+      padding: 0 0 0 24px;
+      margin-bottom: 32px;
+    }
+    .hero-quote p {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+      letter-spacing: -0.015em;
+      font-style: italic;
+      max-width: 700px;
+    }
+
+    /* ─── MARKET STATEMENT LARGE ───────────────────────────────── */
+    .market-statement-lg p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
     /* ─── RISK DASHBOARD ───────────────────────────────────────── */
     .risk-dashboard {
       border: 1px solid var(--border-strong);
@@ -1347,6 +1414,16 @@
       .cierre-cta { flex-direction: column; align-items: stretch; gap: 10px; }
       .btn-primary, .btn-ghost { justify-content: center; padding: 12px 20px; font-size: 11px; }
 
+      /* CHAIN STRIP */
+      .chain-strip { flex-direction: column; }
+      .chain-segment-resolved { border-right: none; border-bottom: 1px solid var(--border-strong); }
+      .chain-segment-gap { border-right: none; border-bottom: 1px solid var(--border-strong); padding: 12px; }
+      .chain-range { font-size: 18px; }
+
+      /* HERO QUOTE */
+      .hero-quote p { font-size: 18px; }
+      .market-statement-lg p { font-size: 16px; }
+
       /* RISK DASHBOARD */
       .risk-grid { grid-template-columns: 1fr; }
       .risk-card { padding: 18px; }
@@ -1525,9 +1602,23 @@
     <span class="slide-section-label"><span class="dot dot-dark"></span> 01 — CADENA DE VALOR</span>
     <div class="slide-inner slide-content">
       <p class="big-sub" style="margin-top:0;margin-bottom:24px;">Los eslabones 1 al 3 están resueltos y se están commoditizando. Los eslabones 4 al 6 representan el territorio donde la cadena se detiene en prácticamente todas las empresas.</p>
-      <div class="market-statement">
+      <div class="chain-strip">
+        <div class="chain-segment chain-segment-resolved">
+          <p class="chain-range">1 → 3</p>
+          <p class="chain-label">Resueltos · Commoditizándose</p>
+        </div>
+        <div class="chain-segment chain-segment-gap">
+          <p class="chain-range">Ruptura</p>
+          <p class="chain-label">Sin conexión</p>
+        </div>
+        <div class="chain-segment chain-segment-steinmetz">
+          <p class="chain-range">4 → 6</p>
+          <p class="chain-label">Steinmetz · Full chain</p>
+        </div>
+      </div>
+      <div class="market-statement market-statement-lg">
         <span class="market-statement-label">Conclusión</span>
-        <p>De idea a producto deployed en infraestructura corporativa, 100% autónomo. Lo que falta es la capa que conecta el eslabón 3 con el eslabón 6 de forma autónoma, segura y auditable. <strong>Steinmetz es esa capa.</strong></p>
+        <p>Lo que falta es la capa que conecta el eslabón 3 con el 6 de forma autónoma, segura y auditable. <strong>Steinmetz es esa capa.</strong></p>
       </div>
     </div>
   </div>
@@ -1798,11 +1889,11 @@
   <div class="slide slide-light" data-section="04 — GAP DE MERCADO">
     <span class="slide-section-label"><span class="dot dot-warning"></span> 04 — GAP DE MERCADO</span>
     <div class="slide-inner slide-content">
-      <p class="big-sub" style="margin-top:0;margin-bottom:20px;">Las tres condiciones coexisten en prácticamente toda empresa de más de 500 empleados en América Latina que no sea una empresa tecnológica nativa.</p>
-      <div class="callout" style="margin-bottom:24px;">
+      <p class="big-sub" style="margin-top:0;margin-bottom:28px;">Las tres condiciones coexisten en prácticamente toda empresa de más de 500 empleados en América Latina que no sea una empresa tecnológica nativa.</p>
+      <div class="hero-quote">
         <p>El mercado no está esperando que alguien construya la solución. Está esperando que alguien se la presente.</p>
       </div>
-      <div class="market-statement">
+      <div class="market-statement market-statement-lg">
         <span class="market-statement-label">Conclusión</span>
         <p>Steinmetz no entra a competir por un segmento de un mercado existente. <strong>Entra a definir un mercado nuevo en el momento exacto en que ese mercado está buscando un nombre para su problema.</strong></p>
       </div>
