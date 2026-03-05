@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Steinmetz — Propuesta de Valor & Analisis Competitivo</title>
+  <title>Steinmetz — Propuesta de Valor & Análisis Competitivo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -644,6 +644,32 @@
       text-transform: uppercase;
     }
 
+    /* ─── CIERRE RULES ──────────────────────────────────────────── */
+    .cierre-rules {
+      display: flex;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      margin-bottom: 48px;
+    }
+    .cierre-rule {
+      flex: 1;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.03);
+    }
+    .cierre-rule-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .cierre-rule-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
     /* ─── CURSOR BLINK ───────────────────────────────────────────── */
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
@@ -755,6 +781,10 @@
       .cierre-divider { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 40px; }
       .cierre-brand { font-size: 16px; }
 
+      /* CIERRE RULES */
+      .cierre-rules { flex-wrap: wrap; }
+      .cierre-rule { flex: none; width: 100%; }
+
       /* BADGES */
       .badge { font-size: 9px; padding: 2px 6px; }
     }
@@ -765,7 +795,7 @@
 <body>
 
   <!-- ─── FIXED UI ──────────────────────────────────────────────────── -->
-  <div id="slide-counter">01 / 17</div>
+  <div id="slide-counter">01 / 16</div>
 
   <div id="slide-nav">
     <button class="nav-arrow" id="nav-up" aria-label="Slide anterior">&#8593;</button>
@@ -779,7 +809,7 @@
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="slide slide-dark" data-section="">
     <div class="slide-inner slide-content">
-      <p class="hero-subtitle-slide">Propuesta de Valor & Analisis Competitivo</p>
+      <p class="hero-subtitle-slide">Propuesta de Valor & Análisis Competitivo</p>
       <h1 style="margin-bottom:24px;">
         <span id="hero-brand"></span>
       </h1>
@@ -800,7 +830,7 @@
     <span class="slide-section-label"><span class="dot dot-dark"></span> 01 — CADENA DE VALOR</span>
     <div class="slide-inner slide-content">
       <p class="big-statement">El desarrollo de software impulsado por IA no tiene un problema de capacidad. Tiene un problema de <strong>continuidad</strong>.</p>
-      <p class="big-sub">Cada eslabon de la cadena &mdash; desde el prompt inicial hasta el producto en produccion &mdash; ya existe como tecnologia. Lo que no existe es una arquitectura que los conecte todos, de forma autonoma, dentro de los limites de una empresa real.</p>
+      <p class="big-sub">Cada eslabón de la cadena &mdash; desde el prompt inicial hasta el producto en producción &mdash; ya existe como tecnología. Lo que no existe es una arquitectura que los conecte todos, de forma autónoma, dentro de los límites de una empresa real.</p>
     </div>
   </div>
 
@@ -816,9 +846,9 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Eslabon</th>
+              <th>Eslabón</th>
               <th>Estado</th>
-              <th>Quien opera aqui hoy</th>
+              <th>Quién opera aquí hoy</th>
             </tr>
           </thead>
           <tbody>
@@ -842,19 +872,19 @@
             </tr>
             <tr>
               <td class="mono-cell">4</td>
-              <td><strong>Conexion a datos de la empresa</strong></td>
+              <td><strong>Conexión a datos de la empresa</strong></td>
               <td><span class="badge badge-warning"><span class="dot dot-warning" style="width:6px;height:6px;"></span>Parcial</span></td>
               <td>Retool, Superblocks, Appsmith</td>
             </tr>
             <tr>
               <td class="mono-cell">5</td>
-              <td><strong>Aprobaciones de seguridad corporativa</strong></td>
+              <td><strong>Aprobaciones de seguridad corporativa autónomas</strong></td>
               <td><span class="badge badge-danger"><span class="dot dot-danger" style="width:6px;height:6px;"></span>No resuelto</span></td>
               <td class="mono-cell" style="color:var(--text-tertiary);">Nadie</td>
             </tr>
             <tr>
               <td class="mono-cell">6</td>
-              <td><strong>Deployment en infraestructura propia</strong></td>
+              <td><strong>Deployment autónomo en infraestructura propia</strong></td>
               <td><span class="badge badge-danger"><span class="dot dot-danger" style="width:6px;height:6px;"></span>No resuelto</span></td>
               <td class="mono-cell" style="color:var(--text-tertiary);">Nadie</td>
             </tr>
@@ -865,15 +895,15 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SLIDE 3 — 01: CADENA DE VALOR — Conclusion                    -->
+  <!-- SLIDE 3 — 01: CADENA DE VALOR — Conclusión                    -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="slide slide-light" data-section="01 — CADENA DE VALOR">
     <span class="slide-section-label"><span class="dot dot-dark"></span> 01 — CADENA DE VALOR</span>
     <div class="slide-inner slide-content">
-      <p class="big-sub" style="margin-top:0;margin-bottom:24px;">Los eslabones 1 al 3 estan resueltos y se estan commoditizando. Los eslabones 4 al 6 representan el territorio donde la cadena se detiene en practicamente todas las empresas.</p>
+      <p class="big-sub" style="margin-top:0;margin-bottom:24px;">Los eslabones 1 al 3 están resueltos y se están commoditizando. Los eslabones 4 al 6 representan el territorio donde la cadena se detiene en prácticamente todas las empresas.</p>
       <div class="market-statement">
-        <span class="market-statement-label">Conclusion</span>
-        <p>Lo que falta es la infraestructura que conecta el eslabon 3 con el eslabon 6 de forma autonoma, segura y auditable. <strong>Steinmetz es esa infraestructura.</strong></p>
+        <span class="market-statement-label">Conclusión</span>
+        <p>De idea a producto deployed en infraestructura corporativa, 100% autónomo. Lo que falta es la capa que conecta el eslabón 3 con el eslabón 6 de forma autónoma, segura y auditable. <strong>Steinmetz es esa capa.</strong></p>
       </div>
     </div>
   </div>
@@ -884,36 +914,36 @@
   <div class="slide slide-light" data-section="02 — MOAT">
     <span class="slide-section-label"><span class="dot dot-blue"></span> 02 — MOAT</span>
     <div class="slide-inner slide-content">
-      <p class="big-statement">El moat de Steinmetz no esta en los eslabones donde los demas compiten. <strong>Esta exactamente donde se detienen.</strong></p>
-      <p class="big-sub">Construir un mejor generador de codigo es competir con OpenAI. Construir una mejor interfaz es competir con Retool. El moat real no es tecnologico. Es operacional. Y se construye con cada deployment.</p>
+      <p class="big-statement">El moat de Steinmetz no está en los eslabones donde los demás compiten. <strong>Está exactamente donde se detienen.</strong></p>
+      <p class="big-sub">Construir un mejor generador de código es competir con OpenAI. Construir una mejor interfaz es competir con Retool. El moat real no es tecnológico. Es operacional. Y se construye con cada deployment.</p>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SLIDE 5 — 02: MOAT — Los 3 vertices                           -->
+  <!-- SLIDE 5 — 02: MOAT — Los 3 vértices                           -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="slide slide-light" data-section="02 — MOAT">
     <span class="slide-section-label"><span class="dot dot-blue"></span> 02 — MOAT</span>
     <div class="slide-inner slide-content">
-      <p class="subsection-title">Los tres vertices del diferenciador</p>
+      <p class="subsection-title">Los tres vértices del diferenciador</p>
       <div class="vertex-cards">
         <div class="vertex-card">
-          <p class="vertex-card-num">VERTICE 1</p>
-          <p class="vertex-card-title">Velocidad de generacion</p>
+          <p class="vertex-card-num">VÉRTICE 1</p>
+          <p class="vertex-card-title">Velocidad de generación</p>
           <p class="vertex-card-sub">Prompt a software funcional en minutos.</p>
-          <p class="vertex-card-desc">Lovable, Bolt y v0 lo han resuelto para B2C. Steinmetz hereda este vertice sin necesidad de construirlo desde cero.</p>
+          <p class="vertex-card-desc">Lovable, Bolt y v0 lo han resuelto para B2C. Steinmetz hereda este vértice sin necesidad de construirlo desde cero.</p>
         </div>
         <div class="vertex-card">
-          <p class="vertex-card-num">VERTICE 2</p>
+          <p class="vertex-card-num">VÉRTICE 2</p>
           <p class="vertex-card-title">Conectividad enterprise</p>
-          <p class="vertex-card-sub">Conexion a datos, APIs y directorios reales.</p>
-          <p class="vertex-card-desc">Retool y Superblocks lo tienen parcialmente. Su modelo requiere perfil tecnico interno. Steinmetz lo resuelve de forma gestionada.</p>
+          <p class="vertex-card-sub">Conexión a datos, APIs y directorios reales.</p>
+          <p class="vertex-card-desc">Retool y Superblocks lo tienen parcialmente. Su modelo requiere perfil técnico interno. Steinmetz lo resuelve de forma gestionada.</p>
         </div>
         <div class="vertex-card">
-          <p class="vertex-card-num">VERTICE 3</p>
-          <p class="vertex-card-title">Governance corporativa autonoma</p>
-          <p class="vertex-card-sub">Cumplir con seguridad sin intervencion de TI.</p>
-          <p class="vertex-card-desc">Nadie lo tiene. Requiere conocimiento mas alla del codigo: como funcionan las politicas de seguridad en entornos corporativos reales.</p>
+          <p class="vertex-card-num">VÉRTICE 3</p>
+          <p class="vertex-card-title">Governance corporativa autónoma</p>
+          <p class="vertex-card-sub">Cumplir con seguridad sin intervención de TI.</p>
+          <p class="vertex-card-desc">Nadie lo tiene. Requiere conocimiento más allá del código: cómo funcionan las políticas de seguridad en entornos corporativos reales.</p>
         </div>
       </div>
     </div>
@@ -925,7 +955,7 @@
   <div class="slide slide-light" data-section="02 — MOAT">
     <span class="slide-section-label"><span class="dot dot-blue"></span> 02 — MOAT</span>
     <div class="slide-inner slide-content">
-      <p class="subsection-title">El triangulo competitivo</p>
+      <p class="subsection-title">El triángulo competitivo</p>
       <div class="table-wrapper" style="margin-bottom:24px;">
         <table>
           <thead>
@@ -939,39 +969,39 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Generacion rapida desde prompt</strong></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><strong>Generación rápida desde prompt</strong></td>
+              <td><span class="badge badge-success">Sí</span></td>
               <td><span class="badge badge-warning">Parcial</span></td>
               <td><span class="badge badge-danger">No</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
             </tr>
             <tr>
               <td><strong>Conectividad a sistemas empresa</strong></td>
               <td><span class="badge badge-danger">No</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
               <td><span class="badge badge-warning">Parcial</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
             </tr>
             <tr>
-              <td><strong>Governance corporativa autonoma</strong></td>
+              <td><strong>Governance corporativa autónoma</strong></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-danger">No</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
             </tr>
             <tr>
               <td><strong>Deployment en infra propia</strong></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-warning">Parcial</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="window-block">
-        <p class="window-title">12 &ndash; 18 meses</p>
-        <p class="window-desc">La ventana para anclar el posicionamiento de Steinmetz como categoria. No es indefinida porque la commoditizacion avanza. No es inmediata porque la complejidad de governance es una barrera de entrada real.</p>
+        <p class="window-title">1 &ndash; 3 meses</p>
+        <p class="window-desc">La ventana para anclar el posicionamiento de Steinmetz como categoría. La commoditización avanza rápido y los competidores se mueven. La complejidad de governance es una barrera de entrada, pero no es permanente.</p>
       </div>
     </div>
   </div>
@@ -982,8 +1012,8 @@
   <div class="slide slide-light" data-section="03 — COMPETENCIA">
     <span class="slide-section-label"><span class="dot dot-info"></span> 03 — COMPETENCIA</span>
     <div class="slide-inner slide-content">
-      <p class="big-statement">Ningun competidor actual cubre la cadena completa.</p>
-      <p class="big-sub">El mercado no esta saturado. <strong>Esta fragmentado.</strong> Cada competidor resolvio una parte del problema para un perfil de usuario especifico. Lo que no existe es un producto que resuelva el problema completo para el lider de negocio sin equipo tecnico.</p>
+      <p class="big-statement">Ningún competidor actual cubre la cadena completa.</p>
+      <p class="big-sub">El mercado no está saturado. <strong>Está fragmentado.</strong> Cada competidor resolvió una parte del problema para un perfil de usuario específico. Lo que no existe es un producto que resuelva el problema completo para el líder de negocio sin equipo técnico.</p>
     </div>
   </div>
 
@@ -1001,16 +1031,16 @@
               <th>Competidor</th>
               <th>Prompt-first</th>
               <th>Conectividad enterprise</th>
-              <th>Governance autonoma</th>
+              <th>Governance autónoma</th>
               <th>Deploy infra propia</th>
-              <th>Perfil tecnico req.</th>
+              <th>Perfil técnico req.</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Superblocks</strong></td>
               <td><span class="badge badge-warning">Parcial</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td class="mono-cell">Medio-alto</td>
@@ -1018,14 +1048,14 @@
             <tr>
               <td><strong>Retool</strong></td>
               <td><span class="badge badge-danger">No</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td class="mono-cell">Alto</td>
             </tr>
             <tr>
               <td><strong>Lovable / Bolt</strong></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-danger">No</span></td>
@@ -1042,25 +1072,25 @@
             <tr>
               <td><strong>Appsmith / Tooljet</strong></td>
               <td><span class="badge badge-danger">No</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
               <td><span class="badge badge-danger">No</span></td>
               <td><span class="badge badge-warning">Parcial</span></td>
               <td class="mono-cell">Alto</td>
             </tr>
             <tr style="background:var(--brand-surface);">
               <td><strong style="color:var(--brand-primary);">Steinmetz</strong></td>
-              <td><span class="badge badge-success">Si</span></td>
-              <td><span class="badge badge-success">Si</span></td>
-              <td><span class="badge badge-success">Si</span></td>
-              <td><span class="badge badge-success">Si</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
               <td class="mono-cell" style="color:var(--brand-primary);font-weight:600;">Ninguno</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="market-statement" style="margin-top:24px;">
-        <span class="market-statement-label">Conclusion</span>
-        <p><strong>Ese mercado no tiene nombre todavia. Steinmetz puede darselo.</strong></p>
+        <span class="market-statement-label">Conclusión</span>
+        <p><strong>Ese mercado no tiene nombre todavía. Steinmetz puede dárselo.</strong></p>
       </div>
     </div>
   </div>
@@ -1071,66 +1101,66 @@
   <div class="slide slide-light" data-section="04 — GAP DE MERCADO">
     <span class="slide-section-label"><span class="dot dot-warning"></span> 04 — GAP DE MERCADO</span>
     <div class="slide-inner slide-content">
-      <p class="big-statement">El mandato existe. <strong>La ejecucion no.</strong></p>
-      <p class="big-sub">En los ultimos dos anos, practicamente todo directorio corporativo ha dado la instruccion de integrar IA en sus procesos. El mandato viajo de arriba hacia abajo sin un manual de ejecucion. No por falta de voluntad. Por falta de infraestructura.</p>
+      <p class="big-statement">El mandato existe. <strong>La ejecución no.</strong></p>
+      <p class="big-sub">En los últimos dos años, prácticamente todo directorio corporativo ha dado la instrucción de integrar IA en sus procesos. El mandato viajó de arriba hacia abajo sin un manual de ejecución. No por falta de voluntad. Por falta de infraestructura.</p>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SLIDE 10 — 04: GAP — 3 senales + conditions                   -->
+  <!-- SLIDE 10 — 04: GAP — 3 señales + conditions                   -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="slide slide-light" data-section="04 — GAP DE MERCADO">
     <span class="slide-section-label"><span class="dot dot-warning"></span> 04 — GAP DE MERCADO</span>
     <div class="slide-inner slide-content">
-      <p class="subsection-title">Tres senales de demanda validada</p>
+      <p class="subsection-title">Tres señales de demanda validada</p>
       <div class="signal-cards" style="margin-bottom:24px;">
         <div class="signal-card">
-          <p class="signal-card-num">SENAL 1</p>
-          <p class="signal-card-title">El sindrome del localhost</p>
-          <p class="signal-card-desc">Un lider de area con una app funcionando en su computador personal, sin ningun camino claro para llevarla a produccion. Se detuvo donde Steinmetz empieza.</p>
+          <p class="signal-card-num">SEÑAL 1</p>
+          <p class="signal-card-title">El síndrome del localhost</p>
+          <p class="signal-card-desc">Un líder de área con una app funcionando en su computador personal, sin ningún camino claro para llevarla a producción. Se detuvo donde Steinmetz empieza.</p>
         </div>
         <div class="signal-card">
-          <p class="signal-card-num">SENAL 2</p>
-          <p class="signal-card-title">El presupuesto de consultoria de IA</p>
-          <p class="signal-card-desc">Las empresas destinan presupuesto real a consultores de transformacion digital. La existencia del presupuesto confirma que el mercado paga. La baja durabilidad confirma que no esta resuelto.</p>
+          <p class="signal-card-num">SEÑAL 2</p>
+          <p class="signal-card-title">El presupuesto de consultoría de IA</p>
+          <p class="signal-card-desc">Las empresas destinan presupuesto real a consultores de transformación digital. La existencia del presupuesto confirma que el mercado paga. La baja durabilidad confirma que no está resuelto.</p>
         </div>
         <div class="signal-card">
-          <p class="signal-card-num">SENAL 3</p>
+          <p class="signal-card-num">SEÑAL 3</p>
           <p class="signal-card-title">El pricing premium de Retool y Superblocks</p>
-          <p class="signal-card-desc">Deals de 5 y 6 digitos anuales. El mercado paga. Pero requieren perfil tecnico para operar y no resuelven eslabones 5 y 6.</p>
+          <p class="signal-card-desc">Deals de 5 y 6 dígitos anuales. El mercado paga. Pero requieren perfil técnico para operar y no resuelven eslabones 5 y 6.</p>
         </div>
       </div>
       <p class="subsection-title">El mercado addressable</p>
       <div class="conditions">
         <div class="condition-item">
           <span class="condition-num">C1</span>
-          <p class="condition-text"><strong>Empresa mediana o grande</strong> en industria con alta friccion operativa (consumo masivo, logistica, finanzas, retail).</p>
+          <p class="condition-text"><strong>Empresa mediana o grande</strong> en industria con alta fricción operativa (consumo masivo, logística, finanzas, retail).</p>
         </div>
         <div class="condition-item">
           <span class="condition-num">C2</span>
-          <p class="condition-text"><strong>Mandato activo de integracion de IA</strong>, sin equipo tecnico interno capaz de ejecutarlo.</p>
+          <p class="condition-text"><strong>Mandato activo de integración de IA</strong>, sin equipo técnico interno capaz de ejecutarlo.</p>
         </div>
         <div class="condition-item">
           <span class="condition-num">C3</span>
-          <p class="condition-text"><strong>Al menos una celula de negocio</strong> con un requerimiento concreto y un lider que sabe exactamente que necesita.</p>
+          <p class="condition-text"><strong>Al menos una célula de negocio</strong> con un requerimiento concreto y un líder que sabe exactamente qué necesita.</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SLIDE 11 — 04: GAP — Conclusion                               -->
+  <!-- SLIDE 11 — 04: GAP — Conclusión                               -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="slide slide-light" data-section="04 — GAP DE MERCADO">
     <span class="slide-section-label"><span class="dot dot-warning"></span> 04 — GAP DE MERCADO</span>
     <div class="slide-inner slide-content">
-      <p class="big-sub" style="margin-top:0;margin-bottom:20px;">Las tres condiciones coexisten en practicamente toda empresa de mas de 500 empleados en America Latina que no sea una empresa tecnologica nativa.</p>
+      <p class="big-sub" style="margin-top:0;margin-bottom:20px;">Las tres condiciones coexisten en prácticamente toda empresa de más de 500 empleados en América Latina que no sea una empresa tecnológica nativa.</p>
       <div class="callout" style="margin-bottom:24px;">
-        <p>El mercado no esta esperando que alguien construya la solucion. Esta esperando que alguien se la presente.</p>
+        <p>El mercado no está esperando que alguien construya la solución. Está esperando que alguien se la presente.</p>
       </div>
       <div class="market-statement">
-        <span class="market-statement-label">Conclusion</span>
-        <p>Steinmetz no entra a competir por un segmento de un mercado existente. <strong>Entra a definir un mercado nuevo en el momento exacto en que ese mercado esta buscando un nombre para su problema.</strong></p>
+        <span class="market-statement-label">Conclusión</span>
+        <p>Steinmetz no entra a competir por un segmento de un mercado existente. <strong>Entra a definir un mercado nuevo en el momento exacto en que ese mercado está buscando un nombre para su problema.</strong></p>
       </div>
     </div>
   </div>
@@ -1150,37 +1180,37 @@
               <th>Probabilidad</th>
               <th>Horizonte</th>
               <th>Impacto</th>
-              <th>Mitigacion</th>
+              <th>Mitigación</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Commoditizacion eslabones 1-3</strong></td>
+              <td><strong>Commoditización eslabones 1-3</strong></td>
               <td><span class="badge badge-danger">Alta</span></td>
-              <td class="mono-cell">12-18 meses</td>
-              <td>Bajo si el moat esta en 5-6</td>
-              <td>No construir capa de generacion. Usar herramientas existentes como infra del eslabon 1-2.</td>
+              <td class="mono-cell">1-3 meses</td>
+              <td>Bajo si el moat está en 5-6</td>
+              <td>No construir capa de generación. Usar herramientas existentes como infra del eslabón 1-2.</td>
             </tr>
             <tr>
               <td><strong>Microsoft mejora Power Platform</strong></td>
               <td><span class="badge badge-warning">Media</span></td>
-              <td class="mono-cell">18-36 meses</td>
+              <td class="mono-cell">1-3 meses</td>
               <td>Alto si no hay casos ancla</td>
               <td>Priorizar infra no-Microsoft. Casos en AWS y GCP primero.</td>
             </tr>
             <tr>
               <td><strong>Ciclo de ventas enterprise largo</strong></td>
               <td><span class="badge badge-danger">Alta</span></td>
-              <td class="mono-cell">Constante</td>
-              <td>Manejable con expansion horizontal</td>
-              <td>Entrar por COO, no por TI. Expansion celula a celula.</td>
+              <td class="mono-cell">1-3 meses</td>
+              <td>Manejable con expansión horizontal</td>
+              <td>Entrar por COO, no por TI. Expansión célula a célula.</td>
             </tr>
             <tr>
-              <td><strong>Brecha pitch vs. producto</strong></td>
-              <td><span class="badge badge-warning">Media-alta</span></td>
-              <td class="mono-cell">Inmediato</td>
-              <td>Alto en reputacion</td>
-              <td>Vender lo que existe hoy con honestidad. Construir en paralelo.</td>
+              <td><strong>Mejora acelerada de Claude Code / Codex</strong></td>
+              <td><span class="badge badge-danger">Alta</span></td>
+              <td class="mono-cell">1-3 meses</td>
+              <td>Alto si no se captura posición</td>
+              <td>Ejecutar antes de que las herramientas hagan innecesaria la capa de integración.</td>
             </tr>
           </tbody>
         </table>
@@ -1195,12 +1225,12 @@
     <span class="slide-section-label"><span class="dot dot-danger"></span> 05 — RIESGOS</span>
     <div class="slide-inner slide-content">
       <div class="window-block" style="margin-bottom:28px;">
-        <p class="window-title">18 &ndash; 24 meses</p>
-        <p class="window-desc">La ventana para anclar el posicionamiento como categoria es real pero acotada. No es indefinida porque la commoditizacion avanza y Microsoft se mueve eventualmente. No es inmediata porque la complejidad de los eslabones 5 y 6 es una barrera de entrada real.</p>
+        <p class="window-title">1 &ndash; 3 meses</p>
+        <p class="window-desc">La ventana para anclar el posicionamiento como categoría es real pero acotada. La commoditización avanza, las herramientas de coding autónomo mejoran cada semana, y Microsoft se mueve. La complejidad de los eslabones 5 y 6 es una barrera de entrada, pero no es permanente.</p>
       </div>
       <div class="market-statement">
-        <span class="market-statement-label">Conclusion</span>
-        <p>El mayor riesgo no esta en el mercado ni en los competidores. <strong>Esta en no ejecutar con suficiente velocidad para construir el caso ancla antes de que la ventana se cierre.</strong></p>
+        <span class="market-statement-label">Conclusión</span>
+        <p>El mayor riesgo no está en el mercado ni en los competidores. <strong>Está en no ejecutar con suficiente velocidad para construir el caso ancla antes de que la ventana se cierre.</strong></p>
       </div>
     </div>
   </div>
@@ -1216,95 +1246,70 @@
         <div class="gtm-step">
           <div class="gtm-step-top">
             <span class="gtm-step-num">PASO 1</span>
-            <span class="gtm-step-title">Identificar al lider con el dolor mas urgente</span>
+            <span class="gtm-step-title">Identificar al líder con el dolor más urgente</span>
           </div>
-          <p class="gtm-step-desc">Un gerente de area con un requerimiento sin resolver, que ha intentado canalizarlo por TI sin exito. Conversacion directa con alguien que tiene un problema concreto.</p>
+          <p class="gtm-step-desc">Un gerente de área con un requerimiento sin resolver, que ha intentado canalizarlo por TI sin éxito. Conversación directa con alguien que tiene un problema concreto.</p>
         </div>
         <div class="gtm-step">
           <div class="gtm-step-top">
             <span class="gtm-step-num">PASO 2</span>
-            <span class="gtm-step-title">Entregar un resultado en dias, no en meses</span>
+            <span class="gtm-step-title">Entregar un resultado en días, no en meses</span>
           </div>
-          <p class="gtm-step-desc">Una herramienta funcional, conectada a datos reales, deployada en su infraestructura, en un tiempo que TI nunca podria igualar. Esa velocidad es el argumento comercial mas poderoso.</p>
+          <p class="gtm-step-desc">Una herramienta funcional, conectada a datos reales, deployada en su infraestructura, en un tiempo que TI nunca podría igualar. Esa velocidad es el argumento comercial más poderoso.</p>
         </div>
         <div class="gtm-step">
           <div class="gtm-step-top">
             <span class="gtm-step-num">PASO 3</span>
-            <span class="gtm-step-title">Dejar que la celula ancla venda internamente</span>
+            <span class="gtm-step-title">Dejar que la célula ancla venda internamente</span>
           </div>
-          <p class="gtm-step-desc">El gerente de operaciones con su dashboard le cuenta al gerente de finanzas. TI pasa de bloqueo a auditoria. Expansion celula a celula.</p>
+          <p class="gtm-step-desc">El gerente de operaciones con su dashboard le cuenta al gerente de finanzas. TI pasa de bloqueo a auditoría. Expansión célula a célula.</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SLIDE 15 — 06: GTM — How NOT to sell                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="slide slide-light" data-section="06 — GTM">
-    <span class="slide-section-label"><span class="dot dot-blue"></span> 06 — GTM</span>
-    <div class="slide-inner slide-content">
-      <p class="subsection-title">Como NO vender Steinmetz</p>
-      <div class="dont-list" style="margin-bottom:28px;">
-        <div class="dont-item">
-          <span class="dont-icon"><i data-lucide="x-circle" style="width:18px;height:18px;"></i></span>
-          <div>
-            <p class="dont-title">No vender a TI primero</p>
-            <p class="dont-desc">TI es el proceso que Steinmetz reemplaza, no el comprador.</p>
-          </div>
-        </div>
-        <div class="dont-item">
-          <span class="dont-icon"><i data-lucide="x-circle" style="width:18px;height:18px;"></i></span>
-          <div>
-            <p class="dont-title">No vender capacidades tecnicas</p>
-            <p class="dont-desc">Al COO no le importa que es un servidor MCP. Le importa cuanto tiempo tarda en tener la herramienta.</p>
-          </div>
-        </div>
-        <div class="dont-item">
-          <span class="dont-icon"><i data-lucide="x-circle" style="width:18px;height:18px;"></i></span>
-          <div>
-            <p class="dont-title">No proponer proyectos grandes</p>
-            <p class="dont-desc">El modelo es pequeno, rapido y visible. El contrato grande viene despues de que el resultado habla.</p>
-          </div>
-        </div>
-        <div class="dont-item">
-          <span class="dont-icon"><i data-lucide="x-circle" style="width:18px;height:18px;"></i></span>
-          <div>
-            <p class="dont-title">No competir en precio</p>
-            <p class="dont-desc">Steinmetz no es una alternativa mas barata. Es un producto diferente. El pricing refleja el valor del resultado.</p>
-          </div>
-        </div>
-      </div>
-      <div class="market-statement">
-        <span class="market-statement-label">Respuesta al "por que ustedes"</span>
-        <p><strong>No hay otro producto que haga eso hoy. Esa es la respuesta.</strong></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SLIDE 16 — CIERRE                                             -->
+  <!-- SLIDE 15 — CIERRE                                             -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="slide slide-dark" data-section="">
     <div class="slide-inner slide-content">
       <p style="font-family:var(--font-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:32px;display:flex;align-items:center;gap:12px;">
         <span style="display:inline-block;width:24px;height:1px;background:rgba(255,255,255,0.35);"></span>
-        STEINMETZ &middot; PROPUESTA DE VALOR
+        STEINMETZ &middot; CIERRE
       </p>
 
       <h2 class="cierre-h2">
-        Ese mercado no tiene nombre todavia.<br>Steinmetz puede darselo.
+        Ese mercado no tiene nombre todavía.<br>Steinmetz puede dárselo.
       </h2>
-      <p class="cierre-sub">
-        La cadena de valor esta mapeada. La competencia esta analizada. El gap esta validado. Los riesgos estan nombrados. La estrategia de entrada esta definida. Lo que convierte todo esto en un negocio es el primer deployment en produccion.
+      <p class="cierre-sub" style="margin-bottom:36px;">
+        La cadena de valor está mapeada. La competencia está analizada. El gap está validado. Los riesgos están nombrados. Lo que convierte todo esto en un negocio es el primer deployment en producción.
       </p>
 
-      <div class="cierre-divider">
+      <div class="cierre-rules">
+        <div class="cierre-rule">
+          <p class="cierre-rule-num">01</p>
+          <p class="cierre-rule-text">Entrar por el COO, no por TI.</p>
+        </div>
+        <div class="cierre-rule">
+          <p class="cierre-rule-num">02</p>
+          <p class="cierre-rule-text">Hablar en lenguaje de negocio, no técnico.</p>
+        </div>
+        <div class="cierre-rule">
+          <p class="cierre-rule-num">03</p>
+          <p class="cierre-rule-text">Empezar pequeño y rápido. El contrato grande viene después.</p>
+        </div>
+        <div class="cierre-rule">
+          <p class="cierre-rule-num">04</p>
+          <p class="cierre-rule-text">No competir en precio. Competir en resultado.</p>
+        </div>
+      </div>
+
+      <div class="cierre-divider" style="margin-top:0;">
         <span class="cierre-brand">STEINMETZ</span>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
           <span class="cierre-footnote">Documento Confidencial &middot; v1.0 &middot; 2025</span>
           <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.06em;">Ian Berndt &nbsp;&middot;&nbsp; +56 9 9321 5043</span>
-          <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.12);letter-spacing:0.06em;margin-top:4px;">Esta pagina fue hecha por Steinmetz.</span>
+          <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.12);letter-spacing:0.06em;margin-top:4px;">Esta página fue hecha por Steinmetz.</span>
         </div>
       </div>
     </div>
