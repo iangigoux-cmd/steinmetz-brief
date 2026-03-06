@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steinmetz — Propuesta de Valor & Análisis Competitivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <style>
+    /* ─── TOKENS ──────────────────────────────────────────────────── */
+    :root {
+      --bg-canvas:        #F4F4F2;
+      --bg-surface:       #FFFFFF;
+      --bg-surface-hover: #EAEAEA;
+      --border-subtle:    #D4D4D4;
+      --border-strong:    #171717;
+      --text-primary:     #171717;
+      --text-secondary:   #525252;
+      --text-tertiary:    #A3A3A3;
+      --brand-primary:    #2563EB;
+      --brand-hover:      #1D4ED8;
+      --brand-surface:    #EFF6FF;
+      --status-success:   #059669;
+      --status-success-bg:#ECFDF5;
+      --status-warning:   #D97706;
+      --status-warning-bg:#FFFBEB;
+      --status-danger:    #DC2626;
+      --status-danger-bg: #FEF2F2;
+      --status-info:      #4F46E5;
+      --status-info-bg:   #EEF2FF;
+      --font-ui:          'Inter', sans-serif;
+      --font-mono:        'Fira Code', monospace;
+      --radius-sm:        2px;
+      --radius-md:        4px;
+      --shadow-structural:0 4px 12px rgba(0,0,0,0.08), 0 0 0 1px var(--border-strong);
+    }
+
+    /* ─── RESET ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+    body {
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── UTILIDADES ──────────────────────────────────────────────── */
+    .mono { font-family: var(--font-mono); }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .dot-success { background: var(--status-success); }
+    .dot-warning { background: var(--status-warning); }
+    .dot-danger  { background: var(--status-danger); }
+    .dot-info    { background: var(--status-info); }
+    .dot-blue    { background: var(--brand-primary); }
+    .dot-dark    { background: var(--text-primary); }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid currentColor;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .badge-success { color: var(--status-success); background: var(--status-success-bg); }
+    .badge-warning { color: var(--status-warning); background: var(--status-warning-bg); }
+    .badge-danger  { color: var(--status-danger);  background: var(--status-danger-bg); }
+    .badge-info    { color: var(--status-info);    background: var(--status-info-bg); }
+    .badge-blue    { color: var(--brand-primary);  background: var(--brand-surface); border-color: var(--brand-primary); }
+    .badge-dark    { color: var(--text-primary);   background: var(--bg-canvas); border-color: var(--border-strong); }
+
+    /* ─── SLIDES ──────────────────────────────────────────────────── */
+    .slide {
+      min-height: 100vh;
+      height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px;
+    }
+    .slide-dark {
+      background: #171717;
+      color: #FFFFFF;
+    }
+    .slide-light {
+      background: var(--bg-canvas);
+    }
+    .slide-inner {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ─── SLIDE SECTION LABEL (top-left) ─────────────────────────── */
+    .slide-section-label {
+      position: absolute;
+      top: 32px;
+      left: 48px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .slide-dark .slide-section-label {
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── SLIDE CONTENT ANIMATION ────────────────────────────────── */
+    .slide-content > * {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+    }
+    .slide-content.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slide-content.visible > *:nth-child(1) { transition-delay: 0s; }
+    .slide-content.visible > *:nth-child(2) { transition-delay: 0.08s; }
+    .slide-content.visible > *:nth-child(3) { transition-delay: 0.14s; }
+    .slide-content.visible > *:nth-child(4) { transition-delay: 0.2s; }
+    .slide-content.visible > *:nth-child(5) { transition-delay: 0.26s; }
+    .slide-content.visible > *:nth-child(6) { transition-delay: 0.32s; }
+    .slide-content.visible > *:nth-child(7) { transition-delay: 0.38s; }
+    .slide-content.visible > *:nth-child(8) { transition-delay: 0.44s; }
+
+    /* ─── FIXED UI: SLIDE COUNTER ────────────────────────────────── */
+    #slide-counter {
+      position: fixed;
+      bottom: 32px;
+      left: 48px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      z-index: 100;
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+    #slide-counter.on-dark { color: rgba(255,255,255,0.35); }
+
+    /* ─── FIXED UI: NAV ARROWS ───────────────────────────────────── */
+    #slide-nav {
+      position: fixed;
+      bottom: 24px;
+      right: 48px;
+      display: flex;
+      gap: 4px;
+      z-index: 100;
+    }
+    .nav-arrow {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 150ms, color 150ms, border-color 150ms;
+      border-radius: var(--radius-sm);
+    }
+    .nav-arrow:hover {
+      background: var(--bg-surface-hover);
+      color: var(--text-primary);
+    }
+    .nav-arrow.on-dark {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5);
+    }
+    .nav-arrow.on-dark:hover {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ─── FIXED UI: PROGRESS DOTS ────────────────────────────────── */
+    #progress-dots {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 100;
+    }
+    .progress-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border-subtle);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .progress-dot.active {
+      background: var(--brand-primary);
+      transform: scale(1.4);
+    }
+    .progress-dot.on-dark {
+      background: rgba(255,255,255,0.2);
+    }
+    .progress-dot.on-dark.active {
+      background: var(--brand-primary);
+    }
+    .progress-dot::before {
+      content: attr(data-label);
+      position: absolute;
+      right: 16px;
+      white-space: nowrap;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 8px;
+      opacity: 0;
+      transform: translateX(4px);
+      transition: opacity 150ms, transform 150ms;
+      pointer-events: none;
+    }
+    .progress-dot:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .progress-dot.on-dark::before {
+      background: #222;
+      border-color: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ─── BACK NAV ───────────────────────────────────────────────── */
+    .back-nav {
+      position: fixed;
+      top: 16px;
+      left: 20px;
+      z-index: 1000;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 150ms ease-in-out;
+    }
+    .back-nav:hover { color: rgba(255,255,255,0.8); }
+
+    /* ─── PROPUESTA HERO ─────────────────────────────────────────── */
+    .propuesta-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .propuesta-breadcrumb a {
+      color: var(--brand-primary);
+      text-decoration: none;
+      transition: color 150ms ease-in-out;
+    }
+    .propuesta-breadcrumb a:hover { color: #60A5FA; }
+    .breadcrumb-sep { color: rgba(255,255,255,0.2); }
+    .propuesta-hero-title {
+      font-family: var(--font-ui);
+      font-size: 56px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+    }
+    .propuesta-hero-sub {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── HERO SPECIFIC (LEGACY) ─────────────────────────────────── */
+    #hero-brand {
+      font-size: 100px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      display: block;
+      line-height: 1;
+      min-height: 1.1em;
+      color: #FFFFFF;
+    }
+    .hero-subtitle-slide {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brand-primary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .hero-badges-slide {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 40px;
+    }
+    .hero-badges-slide .badge {
+      border-color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.04);
+    }
+    .hero-badges-slide .badge-blue-dark {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+      background: rgba(37,99,235,0.1);
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .scroll-indicator::after {
+      content: '';
+      width: 1px;
+      height: 24px;
+      background: rgba(255,255,255,0.15);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ─── BIG STATEMENT ──────────────────────────────────────────── */
+    .big-statement {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      color: var(--text-primary);
+      max-width: 800px;
+    }
+    .big-statement strong { color: var(--brand-primary); }
+    .slide-dark .big-statement { color: #FFFFFF; font-size: 44px; }
+    .slide-dark .big-statement strong { color: var(--brand-primary); }
+    .big-sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 640px;
+      margin-top: 20px;
+    }
+    .slide-dark .big-sub { color: rgba(255,255,255,0.5); }
+
+    /* ─── TABLES ─────────────────────────────────────────────────── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border-strong);
+      font-size: 13px;
+    }
+    thead th {
+      background: var(--text-primary);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 12px 16px;
+      text-align: left;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      white-space: nowrap;
+    }
+    thead th:last-child { border-right: none; }
+    tbody td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      border-right: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      vertical-align: top;
+    }
+    tbody td:last-child { border-right: none; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: var(--bg-surface-hover); }
+    tbody td strong { color: var(--text-primary); font-weight: 600; }
+    tbody td.mono-cell {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    /* ─── MARKET STATEMENT ───────────────────────────────────────── */
+    .market-statement {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 32px;
+    }
+    .market-statement-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: block;
+    }
+    .market-statement p {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+    }
+    .market-statement strong { color: var(--brand-primary); font-weight: 600; }
+
+    /* ─── VERTEX CARDS ───────────────────────────────────────────── */
+    .vertex-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .vertex-card {
+      background: var(--bg-surface);
+      padding: 28px 24px;
+    }
+    .vertex-card-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .vertex-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .vertex-card-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-style: italic;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .vertex-card-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ─── SIGNAL CARDS ───────────────────────────────────────────── */
+    .signal-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .signal-card {
+      background: var(--bg-surface);
+      padding: 24px;
+    }
+    .signal-card-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .signal-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .signal-card-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ─── CONDITIONS BLOCK ───────────────────────────────────────── */
+    .conditions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .condition-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .condition-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .condition-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .condition-text strong { color: var(--text-primary); }
+
+    /* ─── WINDOW BLOCK ───────────────────────────────────────────── */
+    .window-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 32px;
+    }
+    .window-block .window-title {
+      font-family: var(--font-mono);
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--brand-primary);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .window-block .window-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    /* ─── GTM STEP CARDS ─────────────────────────────────────────── */
+    .gtm-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .gtm-step {
+      background: var(--bg-surface);
+      padding: 20px 24px;
+    }
+    .gtm-step-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .gtm-step-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: 0.08em;
+    }
+    .gtm-step-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+    .gtm-step-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 700px;
+    }
+
+    /* ─── DONT LIST ──────────────────────────────────────────────── */
+    .dont-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .dont-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px 18px;
+      background: var(--status-danger-bg);
+      border: 1px solid var(--border-subtle);
+    }
+    .dont-item .dont-icon {
+      color: var(--status-danger);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .dont-item .dont-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .dont-item .dont-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ─── CALLOUT ────────────────────────────────────────────────── */
+    .callout {
+      border-left: 3px solid var(--brand-primary);
+      background: var(--brand-surface);
+      padding: 16px 20px;
+    }
+    .callout p {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ─── CIERRE SPECIFIC ────────────────────────────────────────── */
+    .cierre-h2 {
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: #FFFFFF;
+      max-width: 580px;
+      margin-bottom: 20px;
+    }
+    .cierre-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 500px;
+    }
+    .cierre-divider {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 56px;
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cierre-brand {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.4);
+    }
+    .cierre-footnote {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── SECTION NUMBER BG ─────────────────────────────────────── */
+    .section-number-bg {
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-ui);
+      font-size: 220px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.03);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ─── CARD ICON ─────────────────────────────────────────────── */
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-canvas);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+
+    /* ─── HERO META GRID (SLIDE) ────────────────────────────────── */
+    .hero-meta-grid-slide {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-top: 40px;
+    }
+    .hero-meta-cell-slide {
+      padding: 16px 20px;
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .hero-meta-cell-slide:last-child { border-right: none; }
+    .hero-meta-label-slide {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 6px;
+    }
+    .hero-meta-value-slide {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ─── TERMINAL BLOCK ───────────────────────────────────────── */
+    .terminal-block {
+      background: #0D0D0D;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      margin-top: 32px;
+      max-width: 560px;
+    }
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot-r { background: #FF5F57; }
+    .terminal-dot-y { background: #FEBC2E; }
+    .terminal-dot-g { background: #28C840; }
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin-left: 8px;
+    }
+    .terminal-body {
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+    }
+    .terminal-line { white-space: pre; }
+    .t-prompt { color: rgba(255,255,255,0.3); }
+    .t-cmd { color: #FFFFFF; }
+    .t-ok { color: #28C840; }
+    .t-warn { color: #FEBC2E; }
+    .t-fail { color: #FF5F57; }
+    .t-hl { color: var(--brand-primary); }
+
+    /* ─── PIPELINE FLOW ────────────────────────────────────────── */
+    .pipeline-flow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 8px 0;
+    }
+    .pipeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      width: 110px;
+    }
+    .pipeline-node-icon {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--status-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+    }
+    .pipeline-node-icon.pn-warn { border-color: var(--status-warning); }
+    .pipeline-node-icon.pn-fail {
+      border: 2px dashed var(--status-danger);
+      background: var(--status-danger-bg);
+    }
+    .pipeline-node-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-align: center;
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+    .pipeline-connector {
+      width: 32px;
+      height: 2px;
+      background: var(--status-success);
+      flex-shrink: 0;
+      margin-top: 23px;
+    }
+    .pipeline-connector.pc-warn {
+      background: none;
+      border-top: 2px dashed var(--status-warning);
+    }
+    .pipeline-connector.pc-fail {
+      background: none;
+      border-top: 2px dashed var(--status-danger);
+    }
+
+    /* ─── ERROR CARDS ──────────────────────────────────────────── */
+    .error-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .error-card {
+      display: flex;
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--status-danger);
+      background: var(--bg-surface);
+    }
+    .error-card-code {
+      padding: 16px;
+      background: var(--status-danger-bg);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--status-danger);
+      white-space: nowrap;
+    }
+    .error-card-body {
+      padding: 16px;
+      flex: 1;
+    }
+    .error-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .error-card-meta {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .error-card-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── TABLE STEINMETZ ROW ──────────────────────────────────── */
+    .row-steinmetz td {
+      font-weight: 600;
+      border-top: 2px solid var(--brand-primary);
+      background: var(--brand-surface);
+    }
+    .row-steinmetz td:first-child {
+      border-left: 3px solid var(--brand-primary);
+    }
+
+    /* ─── ANIM: TERMINAL TYPEWRITER ────────────────────────────── */
+    .terminal-line { opacity: 0; transition: opacity 0.3s ease-out; }
+    .terminal-line.show { opacity: 1; }
+
+    /* ─── ANIM: PIPELINE BUILD ─────────────────────────────────── */
+    .pipeline-node {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    }
+    .pipeline-node.show { opacity: 1; transform: translateY(0); }
+    .pipeline-connector {
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      opacity: 0;
+    }
+    .pipeline-connector.show { transform: scaleX(1); opacity: 1; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      75% { transform: translateX(2px); }
+    }
+    .pipeline-node.shake { animation: shake 0.15s ease-in-out 2; }
+
+    /* ─── ANIM: ERROR CASCADE ──────────────────────────────────── */
+    .error-card {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .error-card.show { opacity: 1; transform: translateX(0); }
+
+    /* ─── ANIM: CARD HOVER & ENTRY ─────────────────────────────── */
+    .vertex-card, .signal-card {
+      opacity: 0;
+      transition: opacity 0.35s ease-out, box-shadow 150ms ease, transform 150ms ease;
+    }
+    .vertex-card.show, .signal-card.show { opacity: 1; }
+    .vertex-card.show:hover, .signal-card.show:hover {
+      box-shadow: 2px 2px 0 0 var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    /* ─── ANIM: WORD REVEAL ────────────────────────────────────── */
+    .word-reveal .w {
+      opacity: 0;
+      display: inline-block;
+      transition: opacity 0.3s ease-out;
+      transition-delay: calc(var(--i) * 30ms);
+    }
+    .word-reveal.revealed .w { opacity: 1; }
+
+    /* ─── CHAIN STRIP ──────────────────────────────────────────── */
+    .chain-strip {
+      display: flex;
+      align-items: stretch;
+      border: 1px solid var(--border-strong);
+      margin-bottom: 28px;
+    }
+    .chain-segment {
+      flex: 1;
+      padding: 20px 24px;
+    }
+    .chain-segment-resolved {
+      background: var(--status-success-bg);
+      border-right: 1px solid var(--border-strong);
+    }
+    .chain-segment-gap {
+      background: var(--status-danger-bg);
+      border-right: 1px solid var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 16px;
+    }
+    .chain-segment-steinmetz {
+      background: var(--brand-surface);
+    }
+    .chain-range {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .chain-segment-resolved .chain-range { color: var(--status-success); }
+    .chain-segment-gap .chain-range { color: var(--status-danger); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+    .chain-segment-steinmetz .chain-range { color: var(--brand-primary); }
+    .chain-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+    }
+
+    /* ─── HERO QUOTE ───────────────────────────────────────────── */
+    .hero-quote {
+      border-left: 3px solid var(--brand-primary);
+      padding: 0 0 0 24px;
+      margin-bottom: 32px;
+    }
+    .hero-quote p {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+      letter-spacing: -0.015em;
+      font-style: italic;
+      max-width: 700px;
+    }
+
+    /* ─── MARKET STATEMENT LARGE ───────────────────────────────── */
+    .market-statement-lg p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    /* ─── SLIDE 11 — GAP CONCLUSION ──────────────────────────── */
+    .gap-conclusion-slide {
+      position: relative;
+    }
+    .gap-conclusion-slide .slide-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100%;
+    }
+    .gap-convergence {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 48px;
+      width: 100%;
+      max-width: 720px;
+    }
+    .gap-condition {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    }
+    .gap-condition.show { opacity: 1; transform: translateY(0); }
+    .gap-condition-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--status-warning);
+      margin-bottom: 4px;
+    }
+    .gap-condition-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.35;
+    }
+    .gap-arrow {
+      flex-shrink: 0;
+      padding: 0 10px;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: rgba(255,255,255,0.2);
+      opacity: 0;
+      transition: opacity 0.35s ease-out;
+    }
+    .gap-arrow.show { opacity: 1; }
+    .gap-result {
+      flex-shrink: 0;
+      padding: 14px 20px;
+      border: 1px solid var(--brand-primary);
+      background: rgba(37,99,235,0.08);
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .gap-result.show { opacity: 1; transform: scale(1); }
+    .gap-result-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--brand-primary);
+      margin-bottom: 2px;
+    }
+    .gap-result-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 500;
+    }
+    .gap-quote-block {
+      margin-bottom: 48px;
+      max-width: 760px;
+      position: relative;
+      padding-left: 28px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .gap-quote-block.show { opacity: 1; transform: translateY(0); }
+    .gap-quote-block::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--brand-primary);
+    }
+    .gap-quote-text {
+      font-size: 32px;
+      font-weight: 500;
+      color: #FFFFFF;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      font-style: italic;
+    }
+    .gap-quote-text em {
+      font-style: normal;
+      color: var(--brand-primary);
+    }
+    .gap-conclusion-box {
+      width: 100%;
+      max-width: 760px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .gap-conclusion-box.show { opacity: 1; transform: translateY(0); }
+    .gap-conclusion-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .gap-conclusion-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .gap-conclusion-body {
+      padding: 24px;
+    }
+    .gap-conclusion-body p {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .gap-conclusion-body strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    /* ─── RISK DASHBOARD ───────────────────────────────────────── */
+    .risk-dashboard {
+      border: 1px solid var(--border-strong);
+      overflow: hidden;
+    }
+    .risk-dashboard-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--text-primary);
+    }
+    .risk-dashboard-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      margin-left: 8px;
+    }
+    .risk-dashboard-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--status-danger);
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .risk-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--status-danger);
+      animation: riskPulse 2s ease-in-out infinite;
+    }
+    @keyframes riskPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-strong);
+    }
+    .risk-card {
+      background: var(--bg-surface);
+      padding: 24px;
+      position: relative;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .risk-card.show { opacity: 1; transform: scale(1); }
+    .risk-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+    }
+    .risk-card.risk-high::before { background: var(--status-danger); }
+    .risk-card.risk-med::before { background: var(--status-warning); }
+    .risk-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .risk-code {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .risk-severity {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .risk-severity.sev-high { color: var(--status-danger); }
+    .risk-severity.sev-med { color: var(--status-warning); }
+    .risk-severity .risk-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: riskPulse 2s ease-in-out infinite;
+    }
+    .risk-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .risk-card-horizon {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .risk-card-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── PLAYBOOK ─────────────────────────────────────────────── */
+    .playbook-grid {
+      display: flex;
+      align-items: stretch;
+    }
+    .playbook-card {
+      flex: 1;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 28px 24px;
+      border-top: 3px solid var(--brand-primary);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .playbook-card.show { opacity: 1; transform: translateY(0); }
+    .playbook-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .playbook-num {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .playbook-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .playbook-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .playbook-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: var(--border-subtle);
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+    .playbook-arrow.show { opacity: 1; }
+
+    /* ─── CIERRE ENHANCED ──────────────────────────────────────── */
+    .slide-cierre {
+      background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .cierre-watermark {
+      position: absolute;
+      bottom: -30px;
+      right: -20px;
+      font-family: var(--font-ui);
+      font-size: 220px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.015);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .slide-cierre .cierre-h2 {
+      font-size: 48px;
+      max-width: 680px;
+      margin-bottom: 24px;
+    }
+    .cierre-rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 48px;
+    }
+    .cierre-rule-v2 {
+      padding: 24px;
+      background: rgba(255,255,255,0.02);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    }
+    .cierre-rule-v2.show { opacity: 1; transform: translateY(0); }
+    .cierre-rule-num-v2 {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .cierre-rule-text-v2 {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+    .cierre-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--brand-primary);
+      cursor: pointer;
+      transition: background 150ms, box-shadow 150ms;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--brand-hover);
+      box-shadow: 3px 3px 0 0 rgba(255,255,255,0.15);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: color 150ms, border-color 150ms;
+      text-decoration: none;
+    }
+    .btn-ghost:hover {
+      color: #FFFFFF;
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    /* ─── SCROLL PROGRESS BAR ──────────────────────────────────── */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--brand-primary);
+      z-index: 200;
+      width: 0;
+      transition: width 0.3s ease-out;
+    }
+
+    /* ─── SLIDE TRANSITION ACCENT ──────────────────────────────── */
+    .slide-accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background: var(--brand-primary);
+      transition: width 0.3s ease-out;
+    }
+    .slide-dark .slide-accent { background: var(--brand-primary); }
+    .slide.active-slide .slide-accent { width: 100%; }
+
+    /* ─── CURSOR BLINK ───────────────────────────────────────────── */
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ─── SUBSECTION HEADING ─────────────────────────────────────── */
+    .subsection-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .subsection-title::before {
+      content: '';
+      width: 3px;
+      height: 16px;
+      background: var(--brand-primary);
+      flex-shrink: 0;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* SLIDE LAYOUT */
+      .slide {
+        padding: 56px 24px 72px;
+        align-items: flex-start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .slide-inner { width: 100%; }
+
+      /* FIXED UI */
+      .slide-section-label { left: 24px; top: 16px; font-size: 9px; }
+      #slide-counter { left: 24px; bottom: 16px; font-size: 10px; }
+      #slide-nav { right: 24px; bottom: 12px; }
+      .nav-arrow { width: 32px; height: 32px; font-size: 13px; }
+      #progress-dots { display: none; }
+
+      /* HERO */
+      #hero-brand { font-size: 44px; min-height: auto; }
+      .propuesta-hero-title { font-size: 28px; }
+      .propuesta-breadcrumb { margin-bottom: 24px; }
+      .back-nav { top: 12px; left: 14px; font-size: 9px; }
+      .hero-subtitle-slide { font-size: 11px; margin-bottom: 20px; }
+      .hero-meta-grid { grid-template-columns: 1fr; }
+      .hero-meta-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); padding: 12px 0; }
+      .hero-meta-cell:last-child { border-bottom: none; }
+      .hero-badges-slide { gap: 6px; margin-top: 24px; }
+      .hero-badges-slide .badge { font-size: 9px; padding: 2px 6px; }
+      .scroll-indicator { bottom: 24px; font-size: 9px; }
+
+      /* BIG STATEMENTS */
+      .big-statement { font-size: 22px; line-height: 1.25; }
+      .big-sub { font-size: 13px; margin-top: 14px; }
+
+      /* SECTION LABELS & HEADINGS */
+      .section-label-slide { font-size: 10px; margin-bottom: 12px; }
+      .subsection-title { font-size: 14px; margin-bottom: 12px; }
+
+      /* TABLES */
+      .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -24px; padding: 0 24px; }
+      table { font-size: 12px; min-width: 500px; }
+      thead th { font-size: 9px; padding: 10px 12px; }
+      tbody td { padding: 10px 12px; font-size: 12px; }
+
+      /* CARDS: VERTEX */
+      .vertex-cards { grid-template-columns: 1fr; }
+      .vertex-card { padding: 20px 18px; }
+      .vertex-card-title { font-size: 14px; }
+      .vertex-card-sub { font-size: 10px; margin-bottom: 8px; }
+      .vertex-card-desc { font-size: 11px; }
+
+      /* CARDS: SIGNAL */
+      .signal-cards { grid-template-columns: 1fr; }
+      .signal-card { padding: 18px; }
+      .signal-card-title { font-size: 13px; }
+      .signal-card-desc { font-size: 11px; }
+
+      /* CONDITIONS */
+      .condition-item { padding: 12px 14px; }
+      .condition-text { font-size: 12px; }
+
+      /* GTM STEPS */
+      .gtm-step { padding: 16px 18px; }
+      .gtm-step-title { font-size: 14px; }
+      .gtm-step-desc { font-size: 11px; }
+
+      /* DONT LIST */
+      .dont-list { grid-template-columns: 1fr; gap: 8px; }
+      .dont-item { padding: 14px 16px; }
+      .dont-item .dont-title { font-size: 12px; }
+      .dont-item .dont-desc { font-size: 10px; }
+
+      /* WINDOW BLOCK */
+      .window-block { padding: 24px 20px; }
+      .window-block .window-title { font-size: 28px; }
+      .window-block .window-desc { font-size: 13px; }
+
+      /* MARKET STATEMENT */
+      .market-statement { padding: 24px 20px; }
+      .market-statement p { font-size: 15px; }
+
+      /* CALLOUT */
+      .callout { padding: 14px 18px; }
+      .callout p { font-size: 13px; }
+
+      /* CIERRE */
+      .cierre-h2 { font-size: 26px; }
+      .slide-cierre .cierre-h2 { font-size: 28px; }
+      .cierre-sub { font-size: 13px; }
+      .cierre-divider { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 40px; }
+      .cierre-brand { font-size: 16px; }
+      .cierre-watermark { font-size: 100px; bottom: -10px; right: -10px; }
+
+      /* CIERRE RULES GRID */
+      .cierre-rules-grid { grid-template-columns: 1fr; }
+      .cierre-rule-num-v2 { font-size: 20px; }
+      .cierre-cta { flex-direction: column; align-items: stretch; gap: 10px; }
+      .btn-primary, .btn-ghost { justify-content: center; padding: 12px 20px; font-size: 11px; }
+
+      /* CHAIN STRIP */
+      .chain-strip { flex-direction: column; }
+      .chain-segment-resolved { border-right: none; border-bottom: 1px solid var(--border-strong); }
+      .chain-segment-gap { border-right: none; border-bottom: 1px solid var(--border-strong); padding: 12px; }
+      .chain-range { font-size: 18px; }
+
+      /* HERO QUOTE */
+      .hero-quote p { font-size: 18px; }
+      .market-statement-lg p { font-size: 16px; }
+
+      /* GAP CONCLUSION SLIDE 11 */
+      .gap-convergence { flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
+      .gap-condition { flex: 1 1 auto; min-width: 80px; padding: 10px 12px; }
+      .gap-arrow { padding: 0 6px; font-size: 12px; }
+      .gap-result { min-width: 100px; }
+      .gap-quote-text { font-size: 22px; }
+      .gap-quote-block { margin-bottom: 32px; padding-left: 20px; }
+      .gap-conclusion-body p { font-size: 15px; }
+
+      /* RISK DASHBOARD */
+      .risk-grid { grid-template-columns: 1fr; }
+      .risk-card { padding: 18px; }
+      .risk-code { font-size: 16px; }
+      .risk-card-title { font-size: 13px; }
+
+      /* PLAYBOOK */
+      .playbook-grid { flex-direction: column; gap: 12px; }
+      .playbook-arrow { transform: rotate(90deg); padding: 0; justify-content: center; }
+      .playbook-card { padding: 20px 18px; }
+      .playbook-num { font-size: 24px; }
+
+      /* TERMINAL */
+      .terminal-block { max-width: 100%; margin-top: 24px; }
+      .terminal-body { font-size: 10px; padding: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+      /* PIPELINE */
+      .pipeline-flow { overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding-bottom: 8px; }
+      .pipeline-node { width: 85px; }
+      .pipeline-node-icon { width: 40px; height: 40px; }
+      .pipeline-node-label { font-size: 9px; }
+      .pipeline-connector { width: 20px; margin-top: 19px; }
+
+      /* ERROR CARDS */
+      .error-card { flex-direction: column; }
+      .error-card-code { padding: 10px 14px; }
+      .error-card-body { padding: 12px 14px; }
+      .error-card-title { font-size: 13px; }
+
+      /* SECTION NUMBER BG */
+      .section-number-bg { font-size: 100px; right: 24px; }
+
+      /* CARD ICON */
+      .card-icon { width: 30px; height: 30px; margin-bottom: 10px; }
+
+      /* HERO META GRID */
+      .hero-meta-grid-slide { grid-template-columns: 1fr; }
+      .hero-meta-cell-slide { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); padding: 12px 16px; }
+      .hero-meta-cell-slide:last-child { border-bottom: none; }
+
+      /* DARK SLIDE BIG STATEMENT */
+      .slide-dark .big-statement { font-size: 26px; }
+
+      /* BADGES */
+      .badge { font-size: 9px; padding: 2px 6px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── FIXED UI ──────────────────────────────────────────────────── -->
+  <div id="scroll-progress"></div>
+  <div id="slide-counter">01 / 16</div>
+
+  <a href="/" class="back-nav">
+    <span style="font-size:14px;">&larr;</span> BRIEF
+  </a>
+
+  <div id="slide-nav">
+    <button class="nav-arrow" id="nav-up" aria-label="Slide anterior">&#8593;</button>
+    <button class="nav-arrow" id="nav-down" aria-label="Slide siguiente">&#8595;</button>
+  </div>
+
+  <div id="progress-dots"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 0 — HERO / COVER                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-dark" data-section="">
+    <div class="slide-inner slide-content" style="justify-content:center;">
+      <nav class="propuesta-breadcrumb">
+        <a href="/">STEINMETZ</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>PROPUESTA DE VALOR</span>
+      </nav>
+      <h1 class="propuesta-hero-title">Propuesta de Valor<br>& Análisis Competitivo</h1>
+      <p class="propuesta-hero-sub">Ya conoces la historia. Ahora los números.</p>
+      <div class="hero-badges-slide" style="margin-top:32px;">
+        <span class="badge badge-blue-dark"><span class="dot dot-blue" style="width:6px;height:6px;"></span>B2B Enterprise</span>
+        <span class="badge"><span class="dot dot-warning" style="width:6px;height:6px;"></span>Pre-Seed</span>
+        <span class="badge">6 Secciones</span>
+        <span class="badge">v1.0 &middot; Confidencial</span>
+      </div>
+    </div>
+    <div class="scroll-indicator">Scroll</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 1 — 01: CADENA DE VALOR — Intro                         -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-dark" data-section="01 — CADENA DE VALOR">
+    <span class="section-number-bg">01</span>
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 01 — CADENA DE VALOR</span>
+    <div class="slide-inner slide-content">
+      <p class="big-statement">El desarrollo de software impulsado por IA no tiene un problema de capacidad. Tiene un problema de <strong>continuidad</strong>.</p>
+      <div class="terminal-block">
+        <div class="terminal-header">
+          <span class="terminal-dot terminal-dot-r"></span>
+          <span class="terminal-dot terminal-dot-y"></span>
+          <span class="terminal-dot terminal-dot-g"></span>
+          <span class="terminal-title">steinmetz-cli</span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">steinmetz deploy --target=corporate</span></div>
+          <div class="terminal-line"><span class="t-prompt">→ </span>eslabón 1: prompt ............ <span class="t-ok">OK</span></div>
+          <div class="terminal-line"><span class="t-prompt">→ </span>eslabón 2: generación ....... <span class="t-ok">OK</span></div>
+          <div class="terminal-line"><span class="t-prompt">→ </span>eslabón 3: backend .......... <span class="t-ok">OK</span></div>
+          <div class="terminal-line"><span class="t-prompt">→ </span>eslabón 4: conexión datos ... <span class="t-warn">PARTIAL</span></div>
+          <div class="terminal-line"><span class="t-prompt">→ </span>eslabón 5: governance ....... <span class="t-fail">FAIL</span></div>
+          <div class="terminal-line"><span class="t-prompt">→ </span>eslabón 6: deployment ....... <span class="t-fail">BLOCKED</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 2 — 01: CADENA DE VALOR — Los 6 eslabones (pipeline)    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="01 — CADENA DE VALOR">
+    <span class="slide-section-label"><span class="dot dot-dark"></span> 01 — CADENA DE VALOR</span>
+    <div class="slide-inner slide-content">
+      <p class="subsection-title">Los seis eslabones del estado actual</p>
+      <div class="pipeline-flow">
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon"><i data-lucide="message-square" style="width:20px;height:20px;"></i></div>
+          <p class="pipeline-node-label">Prompt</p>
+          <span class="badge badge-success" style="font-size:9px;padding:2px 6px;">Resuelto</span>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon"><i data-lucide="code" style="width:20px;height:20px;"></i></div>
+          <p class="pipeline-node-label">Generación</p>
+          <span class="badge badge-success" style="font-size:9px;padding:2px 6px;">Resuelto</span>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon"><i data-lucide="server" style="width:20px;height:20px;"></i></div>
+          <p class="pipeline-node-label">Backend</p>
+          <span class="badge badge-success" style="font-size:9px;padding:2px 6px;">Resuelto</span>
+        </div>
+        <div class="pipeline-connector pc-warn"></div>
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon pn-warn"><i data-lucide="database" style="width:20px;height:20px;"></i></div>
+          <p class="pipeline-node-label">Conexión</p>
+          <span class="badge badge-warning" style="font-size:9px;padding:2px 6px;">Parcial</span>
+        </div>
+        <div class="pipeline-connector pc-fail"></div>
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon pn-fail"><i data-lucide="shield-off" style="width:20px;height:20px;"></i></div>
+          <p class="pipeline-node-label">Governance</p>
+          <span class="badge badge-danger" style="font-size:9px;padding:2px 6px;">No resuelto</span>
+        </div>
+        <div class="pipeline-connector pc-fail"></div>
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon pn-fail"><i data-lucide="rocket" style="width:20px;height:20px;"></i></div>
+          <p class="pipeline-node-label">Deploy</p>
+          <span class="badge badge-danger" style="font-size:9px;padding:2px 6px;">Bloqueado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 3 — 01: CADENA DE VALOR — Conclusión                    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="01 — CADENA DE VALOR">
+    <span class="slide-section-label"><span class="dot dot-dark"></span> 01 — CADENA DE VALOR</span>
+    <div class="slide-inner slide-content">
+      <p class="big-sub" style="margin-top:0;margin-bottom:24px;">Los eslabones 1 al 3 están resueltos y se están commoditizando. Los eslabones 4 al 6 representan el territorio donde la cadena se detiene en prácticamente todas las empresas.</p>
+      <div class="chain-strip">
+        <div class="chain-segment chain-segment-resolved">
+          <p class="chain-range">1 → 3</p>
+          <p class="chain-label">Resueltos · Commoditizándose</p>
+        </div>
+        <div class="chain-segment chain-segment-gap">
+          <p class="chain-range">Ruptura</p>
+          <p class="chain-label">Sin conexión</p>
+        </div>
+        <div class="chain-segment chain-segment-steinmetz">
+          <p class="chain-range">4 → 6</p>
+          <p class="chain-label">Steinmetz · Full chain</p>
+        </div>
+      </div>
+      <div class="market-statement market-statement-lg">
+        <span class="market-statement-label">Conclusión</span>
+        <p>Lo que falta es la capa que conecta el eslabón 3 con el 6 de forma autónoma, segura y auditable. <strong>Steinmetz es esa capa.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 4 — 02: MOAT — Intro                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-dark" data-section="02 — MOAT">
+    <span class="section-number-bg">02</span>
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 02 — MOAT</span>
+    <div class="slide-inner slide-content">
+      <p class="big-statement">El moat de Steinmetz no está en los eslabones donde los demás compiten. <strong>Está exactamente donde se detienen.</strong></p>
+      <div class="terminal-block">
+        <div class="terminal-header">
+          <span class="terminal-dot terminal-dot-r"></span>
+          <span class="terminal-dot terminal-dot-y"></span>
+          <span class="terminal-dot terminal-dot-g"></span>
+          <span class="terminal-title">steinmetz-cli</span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">compare --chain-coverage</span></div>
+          <div class="terminal-line">lovable    ██░░░░  2/6</div>
+          <div class="terminal-line">retool     ░██░░░  2/6</div>
+          <div class="terminal-line"><span class="t-hl">steinmetz</span>  ██████  6/6  <span class="t-hl">← full chain</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 5 — 02: MOAT — Los 3 vértices                           -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="02 — MOAT">
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 02 — MOAT</span>
+    <div class="slide-inner slide-content">
+      <p class="subsection-title">Los tres vértices del diferenciador</p>
+      <div class="vertex-cards">
+        <div class="vertex-card">
+          <div class="card-icon"><i data-lucide="zap" style="width:18px;height:18px;"></i></div>
+          <p class="vertex-card-num">VÉRTICE 1</p>
+          <p class="vertex-card-title">Velocidad de generación</p>
+          <p class="vertex-card-sub">Prompt a software funcional en minutos.</p>
+          <p class="vertex-card-desc">Lovable, Bolt y v0 lo han resuelto para B2C. Steinmetz hereda este vértice sin necesidad de construirlo desde cero.</p>
+        </div>
+        <div class="vertex-card">
+          <div class="card-icon"><i data-lucide="plug" style="width:18px;height:18px;"></i></div>
+          <p class="vertex-card-num">VÉRTICE 2</p>
+          <p class="vertex-card-title">Conectividad enterprise</p>
+          <p class="vertex-card-sub">Conexión a datos, APIs y directorios reales.</p>
+          <p class="vertex-card-desc">Retool y Superblocks lo tienen parcialmente. Su modelo requiere perfil técnico interno. Steinmetz lo resuelve de forma gestionada.</p>
+        </div>
+        <div class="vertex-card">
+          <div class="card-icon"><i data-lucide="shield-check" style="width:18px;height:18px;"></i></div>
+          <p class="vertex-card-num">VÉRTICE 3</p>
+          <p class="vertex-card-title">Governance corporativa autónoma</p>
+          <p class="vertex-card-sub">Cumplir con seguridad sin intervención de TI.</p>
+          <p class="vertex-card-desc">Nadie lo tiene. Requiere conocimiento más allá del código: cómo funcionan las políticas de seguridad en entornos corporativos reales.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 6 — 02: MOAT — Triangle table + window                  -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="02 — MOAT">
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 02 — MOAT</span>
+    <div class="slide-inner slide-content">
+      <p class="subsection-title">El triángulo competitivo</p>
+      <div class="table-wrapper" style="margin-bottom:24px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Capacidad</th>
+              <th>Lovable / Bolt</th>
+              <th>Retool / Superblocks</th>
+              <th>MS Power Platform</th>
+              <th>Steinmetz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Generación rápida desde prompt</strong></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+            </tr>
+            <tr>
+              <td><strong>Conectividad a sistemas empresa</strong></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+            </tr>
+            <tr>
+              <td><strong>Governance corporativa autónoma</strong></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+            </tr>
+            <tr>
+              <td><strong>Deployment en infra propia</strong></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="window-block">
+        <p class="window-title">1 &ndash; 3 meses</p>
+        <p class="window-desc">La ventana para anclar el posicionamiento de Steinmetz como categoría. La commoditización avanza rápido y los competidores se mueven. La complejidad de governance es una barrera de entrada, pero no es permanente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 7 — 03: COMPETENCIA — Intro                             -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-dark" data-section="03 — COMPETENCIA">
+    <span class="section-number-bg">03</span>
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 03 — COMPETENCIA</span>
+    <div class="slide-inner slide-content">
+      <p class="big-statement">Ningún competidor actual cubre la cadena completa. <strong>Está fragmentado.</strong></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 8 — 03: COMPETENCIA — Mapa consolidado                  -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="03 — COMPETENCIA">
+    <span class="slide-section-label"><span class="dot dot-info"></span> 03 — COMPETENCIA</span>
+    <div class="slide-inner slide-content">
+      <p class="subsection-title">Mapa competitivo consolidado</p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Competidor</th>
+              <th>Prompt-first</th>
+              <th>Conectividad enterprise</th>
+              <th>Governance autónoma</th>
+              <th>Deploy infra propia</th>
+              <th>Perfil técnico req.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Superblocks</strong></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td class="mono-cell">Medio-alto</td>
+            </tr>
+            <tr>
+              <td><strong>Retool</strong></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td class="mono-cell">Alto</td>
+            </tr>
+            <tr>
+              <td><strong>Lovable / Bolt</strong></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td class="mono-cell">Ninguno</td>
+            </tr>
+            <tr>
+              <td><strong>MS Power Platform</strong></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td class="mono-cell">Medio</td>
+            </tr>
+            <tr>
+              <td><strong>Appsmith / Tooljet</strong></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-danger">No</span></td>
+              <td><span class="badge badge-warning">Parcial</span></td>
+              <td class="mono-cell">Alto</td>
+            </tr>
+            <tr class="row-steinmetz">
+              <td><strong style="color:var(--brand-primary);">Steinmetz</strong></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td><span class="badge badge-success">Sí</span></td>
+              <td class="mono-cell" style="color:var(--brand-primary);font-weight:600;">Ninguno</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="market-statement" style="margin-top:24px;">
+        <span class="market-statement-label">Conclusión</span>
+        <p><strong>Ese mercado no tiene nombre todavía. Steinmetz puede dárselo.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 9 — 04: GAP — Intro                                     -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-dark" data-section="04 — GAP DE MERCADO">
+    <span class="section-number-bg">04</span>
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 04 — GAP DE MERCADO</span>
+    <div class="slide-inner slide-content">
+      <p class="big-statement">El mandato existe. <strong>La ejecución no.</strong></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 10 — 04: GAP — 3 señales + conditions                   -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="04 — GAP DE MERCADO">
+    <span class="slide-section-label"><span class="dot dot-warning"></span> 04 — GAP DE MERCADO</span>
+    <div class="slide-inner slide-content">
+      <p class="subsection-title">Tres señales de demanda validada</p>
+      <div class="signal-cards" style="margin-bottom:24px;">
+        <div class="signal-card">
+          <div class="card-icon"><i data-lucide="monitor" style="width:18px;height:18px;"></i></div>
+          <p class="signal-card-num">SEÑAL 1</p>
+          <p class="signal-card-title">El síndrome del localhost</p>
+          <p class="signal-card-desc">Un líder de área con una app funcionando en su computador personal, sin ningún camino claro para llevarla a producción. Se detuvo donde Steinmetz empieza.</p>
+        </div>
+        <div class="signal-card">
+          <div class="card-icon"><i data-lucide="wallet" style="width:18px;height:18px;"></i></div>
+          <p class="signal-card-num">SEÑAL 2</p>
+          <p class="signal-card-title">El presupuesto de consultoría de IA</p>
+          <p class="signal-card-desc">Las empresas destinan presupuesto real a consultores de transformación digital. La existencia del presupuesto confirma que el mercado paga. La baja durabilidad confirma que no está resuelto.</p>
+        </div>
+        <div class="signal-card">
+          <div class="card-icon"><i data-lucide="trending-up" style="width:18px;height:18px;"></i></div>
+          <p class="signal-card-num">SEÑAL 3</p>
+          <p class="signal-card-title">El pricing premium de Retool y Superblocks</p>
+          <p class="signal-card-desc">Deals de 5 y 6 dígitos anuales. El mercado paga. Pero requieren perfil técnico para operar y no resuelven eslabones 5 y 6.</p>
+        </div>
+      </div>
+      <p class="subsection-title">El mercado addressable</p>
+      <div class="conditions">
+        <div class="condition-item">
+          <span class="condition-num">C1</span>
+          <p class="condition-text"><strong>Empresa mediana o grande</strong> en industria con alta fricción operativa (consumo masivo, logística, finanzas, retail).</p>
+        </div>
+        <div class="condition-item">
+          <span class="condition-num">C2</span>
+          <p class="condition-text"><strong>Mandato activo de integración de IA</strong>, sin equipo técnico interno capaz de ejecutarlo.</p>
+        </div>
+        <div class="condition-item">
+          <span class="condition-num">C3</span>
+          <p class="condition-text"><strong>Al menos una célula de negocio</strong> con un requerimiento concreto y un líder que sabe exactamente qué necesita.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 11 — 04: GAP — Conclusión                               -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-dark gap-conclusion-slide" data-section="04 — GAP DE MERCADO">
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 04 — GAP DE MERCADO</span>
+    <div class="slide-inner slide-content">
+
+      <!-- Convergence strip: C1 + C2 + C3 → MERCADO -->
+      <div class="gap-convergence">
+        <div class="gap-condition">
+          <p class="gap-condition-code">C1</p>
+          <p class="gap-condition-label">Empresa mediana+<br>alta fricción</p>
+        </div>
+        <span class="gap-arrow">+</span>
+        <div class="gap-condition">
+          <p class="gap-condition-code">C2</p>
+          <p class="gap-condition-label">Mandato IA<br>sin ejecución</p>
+        </div>
+        <span class="gap-arrow">+</span>
+        <div class="gap-condition">
+          <p class="gap-condition-code">C3</p>
+          <p class="gap-condition-label">Célula con<br>dolor concreto</p>
+        </div>
+        <span class="gap-arrow">→</span>
+        <div class="gap-result">
+          <p class="gap-result-code">MERCADO</p>
+          <p class="gap-result-label">Nuevo segmento</p>
+        </div>
+      </div>
+
+      <!-- The dramatic quote -->
+      <div class="gap-quote-block">
+        <p class="gap-quote-text">El mercado no está esperando que alguien construya la solución.<br><em>Está esperando que alguien se la presente.</em></p>
+      </div>
+
+      <!-- Conclusion panel -->
+      <div class="gap-conclusion-box">
+        <div class="gap-conclusion-header">
+          <span class="dot dot-blue" style="width:6px;height:6px;"></span>
+          <span class="gap-conclusion-tag">Conclusión · Sección 04</span>
+        </div>
+        <div class="gap-conclusion-body">
+          <p>Steinmetz no entra a competir por un segmento de un mercado existente. <strong>Entra a definir un mercado nuevo en el momento exacto en que ese mercado está buscando un nombre para su problema.</strong></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 12 — 05: RIESGOS — Risk map table                       -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="05 — RIESGOS">
+    <span class="slide-section-label"><span class="dot dot-danger"></span> 05 — RIESGOS</span>
+    <div class="slide-inner slide-content">
+      <div class="risk-dashboard">
+        <div class="risk-dashboard-header">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="terminal-dot terminal-dot-r"></span>
+            <span class="terminal-dot terminal-dot-y"></span>
+            <span class="terminal-dot terminal-dot-g"></span>
+          </div>
+          <span class="risk-dashboard-title">Risk Assessment</span>
+          <span class="risk-dashboard-count"><span class="risk-pulse"></span> 4 Active</span>
+        </div>
+        <div class="risk-grid">
+          <div class="risk-card risk-high">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-01</span>
+              <span class="risk-severity sev-high"><span class="risk-dot"></span> Alta</span>
+            </div>
+            <p class="risk-card-title">Commoditización eslabones 1-3</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Impacto bajo si moat en 5-6</p>
+            <p class="risk-card-text">No construir capa de generación. Usar herramientas existentes como infra del eslabón 1-2.</p>
+          </div>
+          <div class="risk-card risk-med">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-02</span>
+              <span class="risk-severity sev-med"><span class="risk-dot"></span> Media</span>
+            </div>
+            <p class="risk-card-title">Microsoft mejora Power Platform</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Alto impacto si no hay casos ancla</p>
+            <p class="risk-card-text">Priorizar infra no-Microsoft. Desplegar primero en AWS y GCP.</p>
+          </div>
+          <div class="risk-card risk-high">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-03</span>
+              <span class="risk-severity sev-high"><span class="risk-dot"></span> Alta</span>
+            </div>
+            <p class="risk-card-title">Ciclo de ventas enterprise largo</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Manejable con expansión horizontal</p>
+            <p class="risk-card-text">Entrar por COO, no por TI. Expansión célula a célula.</p>
+          </div>
+          <div class="risk-card risk-high">
+            <div class="risk-card-top">
+              <span class="risk-code">RISK-04</span>
+              <span class="risk-severity sev-high"><span class="risk-dot"></span> Alta</span>
+            </div>
+            <p class="risk-card-title">Mejora acelerada de Claude Code / Codex</p>
+            <p class="risk-card-horizon">Horizonte: 1-3 meses · Alto impacto si no se captura posición</p>
+            <p class="risk-card-text">Ejecutar antes de que las herramientas hagan innecesaria la capa de integración.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 13 — 05: RIESGOS — Window + conclusion                  -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="05 — RIESGOS">
+    <span class="slide-section-label"><span class="dot dot-danger"></span> 05 — RIESGOS</span>
+    <div class="slide-inner slide-content">
+      <div class="window-block" style="margin-bottom:28px;">
+        <p class="window-title">1 &ndash; 3 meses</p>
+        <p class="window-desc">La ventana para anclar el posicionamiento como categoría es real pero acotada. La commoditización avanza, las herramientas de coding autónomo mejoran cada semana, y Microsoft se mueve. La complejidad de los eslabones 5 y 6 es una barrera de entrada, pero no es permanente.</p>
+      </div>
+      <div class="market-statement">
+        <span class="market-statement-label">Conclusión</span>
+        <p>El mayor riesgo no está en el mercado ni en los competidores. <strong>Está en no ejecutar con suficiente velocidad para construir el caso ancla antes de que la ventana se cierre.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 14 — 06: GTM — Strategy                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-light" data-section="06 — GTM">
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 06 — GTM</span>
+    <div class="slide-inner slide-content">
+      <p class="big-statement" style="margin-bottom:32px;">La entrada correcta es por el <strong>COO</strong>.</p>
+      <div class="playbook-grid">
+        <div class="playbook-card">
+          <div class="playbook-card-header">
+            <span class="playbook-num">01</span>
+            <div class="card-icon"><i data-lucide="crosshair" style="width:18px;height:18px;"></i></div>
+          </div>
+          <p class="playbook-title">Identificar al líder con el dolor</p>
+          <p class="playbook-desc">Un gerente de área con un requerimiento sin resolver, que ha intentado canalizarlo por TI sin éxito. Conversación directa con alguien que tiene un problema concreto.</p>
+        </div>
+        <div class="playbook-arrow"><i data-lucide="arrow-right" style="width:20px;height:20px;"></i></div>
+        <div class="playbook-card">
+          <div class="playbook-card-header">
+            <span class="playbook-num">02</span>
+            <div class="card-icon"><i data-lucide="zap" style="width:18px;height:18px;"></i></div>
+          </div>
+          <p class="playbook-title">Entregar resultado en días, no meses</p>
+          <p class="playbook-desc">Una herramienta funcional, conectada a datos reales, deployada en su infraestructura, en un tiempo que TI nunca podría igualar.</p>
+        </div>
+        <div class="playbook-arrow"><i data-lucide="arrow-right" style="width:20px;height:20px;"></i></div>
+        <div class="playbook-card">
+          <div class="playbook-card-header">
+            <span class="playbook-num">03</span>
+            <div class="card-icon"><i data-lucide="share-2" style="width:18px;height:18px;"></i></div>
+          </div>
+          <p class="playbook-title">Dejar que la célula ancla venda</p>
+          <p class="playbook-desc">El gerente de operaciones con su dashboard le cuenta al de finanzas. TI pasa de bloqueo a auditoría. Expansión célula a célula.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 15 — CIERRE                                             -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="slide slide-dark slide-cierre" data-section="">
+    <span class="cierre-watermark">STEINMETZ</span>
+    <div class="slide-inner slide-content">
+      <p style="font-family:var(--font-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:40px;display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-block;width:24px;height:1px;background:rgba(255,255,255,0.35);"></span>
+        STEINMETZ &middot; CIERRE
+      </p>
+
+      <h2 class="cierre-h2">
+        Ese mercado no tiene nombre todavía.<br>Steinmetz puede dárselo.
+      </h2>
+      <p class="cierre-sub" style="margin-bottom:48px;">
+        La cadena de valor está mapeada. La competencia está analizada. El gap está validado. Los riesgos están nombrados. Lo que convierte todo esto en un negocio es el primer deployment en producción.
+      </p>
+
+      <div class="cierre-rules-grid">
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">01</p>
+          <p class="cierre-rule-text-v2">Entrar por el COO, no por TI.</p>
+        </div>
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">02</p>
+          <p class="cierre-rule-text-v2">Hablar en lenguaje de negocio, no técnico.</p>
+        </div>
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">03</p>
+          <p class="cierre-rule-text-v2">Empezar pequeño y rápido. El contrato grande viene después.</p>
+        </div>
+        <div class="cierre-rule-v2">
+          <p class="cierre-rule-num-v2">04</p>
+          <p class="cierre-rule-text-v2">No competir en precio. Competir en resultado.</p>
+        </div>
+      </div>
+
+      <div class="cierre-cta">
+        <a href="https://wa.me/56993215043" target="_blank" class="btn-primary">
+          <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+          Iniciar conversación
+        </a>
+        <a href="/" class="btn-ghost">
+          <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
+          Volver al Brief
+        </a>
+        <a href="#" class="btn-ghost" id="btn-volver">
+          Volver al inicio
+        </a>
+      </div>
+
+      <div class="cierre-divider">
+        <span class="cierre-brand">STEINMETZ</span>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <span class="cierre-footnote">Documento Confidencial &middot; v1.0 &middot; 2025</span>
+          <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.06em;">Ian Berndt &nbsp;&middot;&nbsp; +56 9 9321 5043</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── LUCIDE ICONS ─────────────────────────────────────────────────
+    lucide.createIcons();
+
+    // ─── WORD REVEAL: WRAP WORDS ─────────────────────────────────────
+    (function() {
+      function wrapWords(el) {
+        var i = 0;
+        function process(node) {
+          if (node.nodeType === 3) {
+            var parts = node.textContent.split(/(\s+)/);
+            var frag = document.createDocumentFragment();
+            parts.forEach(function(p) {
+              if (/^\s+$/.test(p) || p === '') {
+                if (p) frag.appendChild(document.createTextNode(p));
+              } else {
+                var s = document.createElement('span');
+                s.className = 'w';
+                s.style.setProperty('--i', i++);
+                s.textContent = p;
+                frag.appendChild(s);
+              }
+            });
+            node.parentNode.replaceChild(frag, node);
+          } else if (node.nodeType === 1) {
+            Array.from(node.childNodes).forEach(process);
+          }
+        }
+        Array.from(el.childNodes).forEach(process);
+        el.classList.add('word-reveal');
+      }
+      document.querySelectorAll('.slide-dark .big-statement, .cierre-h2').forEach(wrapWords);
+    })();
+
+    // ─── SLIDE REFERENCES ─────────────────────────────────────────────
+    var slides = document.querySelectorAll('.slide');
+
+    // Add accent line to each slide
+    slides.forEach(function(s) {
+      var accent = document.createElement('div');
+      accent.className = 'slide-accent';
+      s.appendChild(accent);
+    });
+    var totalSlides = slides.length;
+    var currentSlide = 0;
+
+    // ─── BUILD PROGRESS DOTS ──────────────────────────────────────────
+    var dotsContainer = document.getElementById('progress-dots');
+    slides.forEach(function(s, i) {
+      var dot = document.createElement('div');
+      dot.className = 'progress-dot';
+      if (i === 0) dot.classList.add('active');
+      var label = s.dataset.section || (i === 0 ? 'HERO' : 'CIERRE');
+      var num = (i + 1) < 10 ? '0' + (i + 1) : '' + (i + 1);
+      dot.setAttribute('data-label', num + ' \u00B7 ' + label);
+      dot.addEventListener('click', function() {
+        slides[i].scrollIntoView({ behavior: 'smooth' });
+      });
+      dotsContainer.appendChild(dot);
+    });
+    var progressDots = dotsContainer.querySelectorAll('.progress-dot');
+
+    // ─── SLIDE COUNTER ────────────────────────────────────────────────
+    var counter = document.getElementById('slide-counter');
+    var navUp = document.getElementById('nav-up');
+    var navDown = document.getElementById('nav-down');
+
+    function padNum(n) {
+      return n < 10 ? '0' + n : '' + n;
+    }
+
+    var progressBar = document.getElementById('scroll-progress');
+
+    function updateUI(index) {
+      currentSlide = index;
+
+      // Counter with section name
+      var section = slides[index].dataset.section;
+      var counterText = padNum(index + 1) + ' / ' + padNum(totalSlides);
+      if (section) counterText += ' \u00B7 ' + section.replace(/^\d+\s*—\s*/, '');
+      counter.textContent = counterText;
+
+      // Progress bar
+      progressBar.style.width = ((index + 1) / totalSlides * 100) + '%';
+
+      // Slide accent
+      slides.forEach(function(s, i) {
+        s.classList.toggle('active-slide', i === index);
+      });
+
+      // Dark mode detection
+      var isDark = slides[index].classList.contains('slide-dark');
+      counter.classList.toggle('on-dark', isDark);
+      navUp.classList.toggle('on-dark', isDark);
+      navDown.classList.toggle('on-dark', isDark);
+
+      progressDots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === index);
+        dot.classList.toggle('on-dark', isDark);
+      });
+    }
+
+    // ─── INTERSECTION OBSERVER — TRACK CURRENT SLIDE ──────────────────
+    var slideObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var index = Array.prototype.indexOf.call(slides, entry.target);
+          updateUI(index);
+
+          // Animate content in
+          var content = entry.target.querySelector('.slide-content');
+          if (content && !content.classList.contains('visible')) {
+            content.classList.add('visible');
+          }
+
+          // Component animations (once per slide)
+          if (!entry.target.dataset.animated) {
+            entry.target.dataset.animated = '1';
+            setTimeout(function() { animateSlide(entry.target); }, 300);
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    slides.forEach(function(slide) {
+      slideObserver.observe(slide);
+    });
+
+    // ─── NAV ARROWS ──────────────────────────────────────────────────
+    navUp.addEventListener('click', function() {
+      if (currentSlide > 0) {
+        slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    navDown.addEventListener('click', function() {
+      if (currentSlide < totalSlides - 1) {
+        slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // ─── KEYBOARD NAVIGATION ─────────────────────────────────────────
+    // Section intro slide indices: 1=01, 4=02, 7=03, 9=04, 12=05, 14=06
+    var sectionMap = { '1': 1, '2': 4, '3': 7, '4': 9, '5': 12, '6': 14 };
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault();
+        if (currentSlide < totalSlides - 1) {
+          slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentSlide > 0) {
+          slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        slides[0].scrollIntoView({ behavior: 'smooth' });
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        slides[totalSlides - 1].scrollIntoView({ behavior: 'smooth' });
+      } else if (sectionMap[e.key]) {
+        e.preventDefault();
+        slides[sectionMap[e.key]].scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // ─── VOLVER AL INICIO ─────────────────────────────────────────────
+    document.getElementById('btn-volver').addEventListener('click', function(e) {
+      e.preventDefault();
+      slides[0].scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ─── COMPONENT ANIMATIONS ──────────────────────────────────────────
+    function animateSlide(slide) {
+      // Word reveal
+      slide.querySelectorAll('.word-reveal').forEach(function(el) {
+        el.classList.add('revealed');
+      });
+
+      // Terminal typewriter
+      slide.querySelectorAll('.terminal-block').forEach(function(term) {
+        var lines = term.querySelectorAll('.terminal-line');
+        lines.forEach(function(line, i) {
+          setTimeout(function() { line.classList.add('show'); }, i * 150);
+        });
+      });
+
+      // Pipeline build
+      slide.querySelectorAll('.pipeline-flow').forEach(function(flow) {
+        var children = flow.children;
+        var d = 0;
+        for (var i = 0; i < children.length; i++) {
+          (function(el, delay) {
+            setTimeout(function() {
+              el.classList.add('show');
+              if (el.querySelector && el.querySelector('.pn-fail')) {
+                setTimeout(function() { el.classList.add('shake'); }, 350);
+              }
+            }, delay);
+          })(children[i], d);
+          d += 100;
+        }
+      });
+
+      // Error cards cascade
+      slide.querySelectorAll('.error-cards').forEach(function(container) {
+        container.querySelectorAll('.error-card').forEach(function(card, i) {
+          setTimeout(function() { card.classList.add('show'); }, i * 150);
+        });
+      });
+
+      // Vertex & signal cards
+      slide.querySelectorAll('.vertex-cards, .signal-cards').forEach(function(container) {
+        container.querySelectorAll('.vertex-card, .signal-card').forEach(function(card, i) {
+          setTimeout(function() { card.classList.add('show'); }, i * 100);
+        });
+      });
+
+      // Risk cards
+      slide.querySelectorAll('.risk-grid').forEach(function(grid) {
+        grid.querySelectorAll('.risk-card').forEach(function(card, i) {
+          setTimeout(function() { card.classList.add('show'); }, i * 120);
+        });
+      });
+
+      // Playbook cards
+      slide.querySelectorAll('.playbook-grid').forEach(function(grid) {
+        var items = grid.querySelectorAll('.playbook-card, .playbook-arrow');
+        items.forEach(function(el, i) {
+          setTimeout(function() { el.classList.add('show'); }, i * 120);
+        });
+      });
+
+      // Gap conclusion (slide 11)
+      slide.querySelectorAll('.gap-convergence').forEach(function(conv) {
+        var conditions = conv.querySelectorAll('.gap-condition');
+        var arrows = conv.querySelectorAll('.gap-arrow');
+        var result = conv.querySelector('.gap-result');
+        var d = 0;
+        conditions.forEach(function(c, i) {
+          setTimeout(function() { c.classList.add('show'); }, d);
+          d += 180;
+          if (arrows[i]) {
+            (function(arrow, delay) {
+              setTimeout(function() { arrow.classList.add('show'); }, delay);
+            })(arrows[i], d);
+            d += 100;
+          }
+        });
+        if (result) {
+          setTimeout(function() { result.classList.add('show'); }, d + 200);
+        }
+      });
+      slide.querySelectorAll('.gap-quote-block').forEach(function(q) {
+        setTimeout(function() { q.classList.add('show'); }, 900);
+      });
+      slide.querySelectorAll('.gap-conclusion-box').forEach(function(b) {
+        setTimeout(function() { b.classList.add('show'); }, 1300);
+      });
+
+      // Cierre rules
+      slide.querySelectorAll('.cierre-rules-grid').forEach(function(grid) {
+        grid.querySelectorAll('.cierre-rule-v2').forEach(function(rule, i) {
+          setTimeout(function() { rule.classList.add('show'); }, i * 100);
+        });
+      });
+
+      // CountUp
+      slide.querySelectorAll('.window-block .window-title').forEach(function(el) {
+        var text = el.textContent;
+        var nums = [];
+        var tpl = text.replace(/\d+/g, function(n) {
+          nums.push(parseInt(n));
+          return '\uE000' + (nums.length - 1);
+        });
+        if (!nums.length) return;
+        var dur = 400;
+        var start = performance.now();
+        function tick(now) {
+          var t = Math.min((now - start) / dur, 1);
+          var e = 1 - Math.pow(1 - t, 3);
+          var out = tpl;
+          nums.forEach(function(n, i) {
+            out = out.replace('\uE000' + i, Math.round(e * n));
+          });
+          el.textContent = out;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        el.textContent = tpl.replace(/\uE000\d/g, '0');
+        requestAnimationFrame(tick);
+      });
+    }
+
+    // ─── HERO TYPEWRITER (removed — hero simplified) ──────────────────
+
+    // ─── INITIAL STATE ───────────────────────────────────────────────
+    updateUI(0);
+    // Trigger first slide animation
+    var firstContent = slides[0].querySelector('.slide-content');
+    if (firstContent) {
+      setTimeout(function() { firstContent.classList.add('visible'); }, 100);
+    }
+  </script>
+
+</body>
+</html>
