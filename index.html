@@ -119,16 +119,8 @@
     .badge-blue    { color: var(--brand-primary);  background: var(--brand-surface); border-color: var(--brand-primary); }
     .badge-dark    { color: var(--text-primary);   background: var(--bg-canvas); border-color: var(--border-strong); }
 
-    /* ─── FADE-IN ─────────────────────────────────────────────────── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 200ms ease-out, transform 200ms ease-out;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* ─── FADE-IN (GSAP-controlled) ──────────────────────────────── */
+    /* Initial state set by gsap.set() — no CSS transition needed */
 
     /* ─── NAVBAR ──────────────────────────────────────────────────── */
     #navbar {
@@ -207,10 +199,12 @@
       margin: 0 auto;
       padding: 96px 80px;
       position: relative;
-      overflow: hidden;
+      overflow: clip;
+      overflow-x: clip;
+      overflow-y: visible;
     }
     .section + .section {
-      border-top: 1px solid var(--border-subtle);
+      border-top: none;
     }
 
     /* ─── DARK SECTIONS ─────────────────────────────────────────── */
@@ -286,33 +280,44 @@
       color: rgba(0,0,0,0.025);
       pointer-events: none;
       user-select: none;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 800ms ease-out, transform 800ms ease-out;
+      will-change: transform, opacity;
     }
-    .section-number-bg.visible { opacity: 1; transform: translateY(0); }
     .section-dark .section-number-bg { color: rgba(255,255,255,0.03); }
 
     /* ─── TRANSITION STRIP ──────────────────────────────────────── */
     .transition-strip {
-      padding: 28px 80px;
+      padding: 56px 80px;
       text-align: center;
-      border-top: 1px solid var(--border-strong);
-      border-bottom: 1px solid var(--border-strong);
-      background: var(--bg-surface);
+      border: none;
+      position: relative;
+      /* Dark → Light bridge (default) */
+      background: linear-gradient(to bottom, #171717, var(--bg-canvas));
     }
     .transition-strip p {
       font-family: var(--font-mono);
       font-size: 12px;
       letter-spacing: 0.04em;
-      color: var(--text-tertiary);
+      color: rgba(120,120,120,0.6);
+      position: relative;
     }
+    /* Decorative line */
+    .transition-strip::before {
+      content: '';
+      display: block;
+      width: 0;
+      height: 1px;
+      background: rgba(128,128,128,0.25);
+      margin: 0 auto 20px;
+      transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .transition-strip.strip-visible::before {
+      width: 80px;
+    }
+    /* Light → Dark bridge */
     .transition-strip-dark {
-      background: #1E1E1E;
-      border-top-color: rgba(255,255,255,0.06);
-      border-bottom-color: rgba(255,255,255,0.06);
+      background: linear-gradient(to bottom, var(--bg-canvas), #171717);
     }
-    .transition-strip-dark p { color: rgba(255,255,255,0.2); }
+    .transition-strip-dark p { color: rgba(255,255,255,0.25); }
 
     /* ─── HERO FICHA TECNICA ────────────────────────────────────── */
     .hero-divider {
@@ -335,7 +340,8 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 88px 80px 80px;
-      border-bottom: 1px solid var(--border-strong);
+      border-bottom: none;
+      will-change: transform, opacity;
     }
     .hero-eyebrow {
       font-family: var(--font-mono);
@@ -1055,6 +1061,7 @@
       line-height: 1;
       pointer-events: none;
       user-select: none;
+      will-change: transform, opacity;
     }
     .cierre-inner {
       max-width: 1400px;
@@ -1685,6 +1692,7 @@
       border: 1px solid var(--border-strong);
       overflow: hidden;
       margin-bottom: 40px;
+      will-change: transform, opacity;
     }
     .error-terminal-header {
       display: flex;
@@ -1820,7 +1828,7 @@
       /* DARK SECTIONS */
       .section-dark { padding: 48px 24px; }
       .section-number-bg { font-size: 100px; top: 20px; right: 20px; }
-      .transition-strip { padding: 20px 24px; }
+      .transition-strip { padding: 36px 24px; }
       .transition-strip p { font-size: 11px; }
 
       /* CIERRE */
@@ -2477,7 +2485,7 @@
         <p class="hero-ficha-label">Ficha Técnica</p>
       </div>
 
-      <div class="hero-terminal fade-in">
+      <div class="hero-terminal">
         <div class="terminal-bar">
           <span class="terminal-dot"></span>
           <span class="terminal-dot"></span>
@@ -2715,7 +2723,7 @@
         El desarrollo orquestado por agentes representa un salto cuántico en productividad. Pero su adopción choca contra la realidad operativa de las empresas. El problema, y la oportunidad, radica exclusivamente en el sector B2B corporativo.
       </p>
 
-      <div class="error-terminal fade-in">
+      <div class="error-terminal">
         <div class="error-terminal-header">
           <span class="terminal-dot"></span>
           <span class="terminal-dot"></span>
@@ -2810,7 +2818,7 @@
         </p>
       </div>
 
-      <div class="capabilities-grid fade-in">
+      <div class="capabilities-grid">
         <div class="capability-card">
           <div class="capability-icon">
             <i data-lucide="server" style="width:18px;height:18px;"></i>
@@ -2877,7 +2885,7 @@
         La oportunidad de monetización radica exclusivamente en B2B corporativo. El usuario B2C no asumirá el CAPEX ni el OPEX que exige esta arquitectura. Las herramientas de Fase 2 ya los satisfacen. La demanda real está en la empresa que recibió el mandato y no sabe cómo ejecutarlo.
       </p>
 
-      <div class="metrics-band fade-in">
+      <div class="metrics-band">
         <div class="metric-cell">
           <p class="metric-eyebrow">Mercado objetivo</p>
           <p class="metric-value blue">B2B</p>
@@ -2897,7 +2905,7 @@
 
       <h3 style="font-size:15px;font-weight:600;letter-spacing:-0.01em;margin-bottom:16px;" class="fade-in">El cliente objetivo</h3>
 
-      <div class="target-grid fade-in">
+      <div class="target-grid">
         <div class="target-card">
           <p class="target-role">COO</p>
           <p class="target-context">Chief Operating Officer</p>
@@ -2935,14 +2943,14 @@
       <div class="cierre-inner">
         <p class="cierre-eyebrow">06 — PRÓXIMO PASO</p>
 
-        <h2 class="cierre-h2 fade-in">
+        <h2 class="cierre-h2 cierre-reveal">
           El generador está listo para encenderse.
         </h2>
-        <p class="cierre-sub fade-in">
+        <p class="cierre-sub cierre-reveal">
           La infraestructura que hace funcionar la Fase 3 en entornos corporativos existe hoy. Steinmetz la gestiona, la asegura y la entrega. Lo que resta es identificar la primera célula de negocio, hacer la marca de tiza, y arrancar la fábrica.
         </p>
 
-        <div class="cierre-proof-strip fade-in">
+        <div class="cierre-proof-strip cierre-reveal">
           <div class="cierre-proof-cell">
             <span class="dot dot-warning"></span>
             <span class="cierre-proof-text">Pre-Seed</span>
@@ -2961,7 +2969,7 @@
           </div>
         </div>
 
-        <div class="cierre-actions fade-in">
+        <div class="cierre-actions cierre-reveal">
           <button id="open-contact" class="btn-primary" style="cursor:pointer;padding:16px 32px;">
             <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
             Iniciar conversación
@@ -2975,7 +2983,7 @@
           </a>
         </div>
 
-        <div class="cierre-divider fade-in">
+        <div class="cierre-divider cierre-reveal">
           <span class="cierre-brand">STEINMETZ</span>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
             <span class="cierre-footnote">BRIEF v1.0 · CONFIDENCIAL · 2025</span>
@@ -2987,7 +2995,13 @@
 
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
   <script>
+    // ─── GSAP SETUP ─────────────────────────────────────────────────
+    gsap.registerPlugin(ScrollTrigger);
+
     // ─── LUCIDE ICONS ─────────────────────────────────────────────────
     lucide.createIcons();
 
@@ -3019,73 +3033,311 @@
 
     sections.forEach(s => navObserver.observe(s));
 
-    // ─── FADE-IN ON SCROLL ────────────────────────────────────────────
-    const fadeEls = document.querySelectorAll('.fade-in');
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -48px 0px' });
+    // ─── FADE-IN ON SCROLL (GSAP ScrollTrigger) ───────────────────────
+    gsap.set('.fade-in', { opacity: 0, y: 20 });
 
-    fadeEls.forEach((el, i) => {
-      // Stagger children within a parent list
-      const delay = el.closest('.error-list, .phases-list') ? i * 40 : 0;
-      el.style.transitionDelay = delay + 'ms';
-      fadeObserver.observe(el);
+    ScrollTrigger.batch('.fade-in', {
+      onEnter: (batch) => {
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power2.out',
+          stagger: 0.1,
+          overwrite: true
+        });
+      },
+      start: 'top 90%',
     });
 
-    // ─── SECTION NUMBER BG FADE-IN ──────────────────────────────────
-    const sectionNums = document.querySelectorAll('.section-number-bg');
-    const numObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          numObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -100px 0px' });
-    sectionNums.forEach(el => numObserver.observe(el));
-
-    // ─── SECTION LABEL LINE REVEAL ──────────────────────────────────
-    const sectionLabels = document.querySelectorAll('.section-label');
-    const labelObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('label-visible');
-          labelObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -48px 0px' });
-    sectionLabels.forEach(el => labelObserver.observe(el));
-
-    // ─── COUNTUP: VALUE COMPARISON ──────────────────────────────────
-    document.querySelectorAll('.value-col-amount').forEach(el => {
-      const original = el.textContent;
-      const numObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            numObs.unobserve(entry.target);
-            const match = original.match(/\$([\d,]+)/);
-            if (!match) return;
-            const target = parseInt(match[1].replace(/,/g, ''));
-            const dur = 600;
-            const start = performance.now();
-            function tick(now) {
-              const t = Math.min((now - start) / dur, 1);
-              const e = 1 - Math.pow(1 - t, 3);
-              const val = Math.round(e * target);
-              el.textContent = '$' + val.toLocaleString('en-US');
-              if (t < 1) requestAnimationFrame(tick);
-            }
-            el.textContent = '$0';
-            requestAnimationFrame(tick);
+    // ─── HERO PARALLAX (desktop only) ──────────────────────────────────
+    ScrollTrigger.matchMedia({
+      '(min-width: 769px)': function() {
+        // Hero fades and drifts up as user scrolls into section 01
+        gsap.to('#hero', {
+          opacity: 0,
+          y: -80,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#hero',
+            start: 'center center',
+            end: 'bottom top',
+            scrub: true
           }
         });
-      }, { rootMargin: '0px 0px -48px 0px' });
-      numObs.observe(el);
+        // Invoice card subtle depth shift
+        gsap.to('.invoice-card', {
+          y: -30,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#historia',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      }
+    });
+
+    // ─── SECTION NUMBER BG (GSAP + parallax) ──────────────────────────
+    gsap.set('.section-number-bg', { opacity: 0 });
+    gsap.utils.toArray('.section-number-bg').forEach(el => {
+      const section = el.closest('.section, section');
+      // Fade in once (all devices)
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => gsap.to(el, { opacity: 1, duration: 1, ease: 'power2.out' })
+      });
+    });
+    // Parallax scrub — desktop only
+    ScrollTrigger.matchMedia({
+      '(min-width: 769px)': function() {
+        gsap.utils.toArray('.section-number-bg').forEach(el => {
+          const section = el.closest('.section, section');
+          gsap.fromTo(el, { y: 50 }, {
+            y: -50,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true
+            }
+          });
+        });
+      }
+    });
+
+    // ─── TRANSITION STRIP ANIMATIONS ─────────────────────────────────
+    gsap.utils.toArray('.transition-strip').forEach(strip => {
+      const p = strip.querySelector('p');
+      // Line reveal via class toggle
+      ScrollTrigger.create({
+        trigger: strip,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => strip.classList.add('strip-visible')
+      });
+      // Text fade-in
+      gsap.fromTo(p, { opacity: 0, y: 8 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: strip,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // ─── SECTION LABEL LINE REVEAL (GSAP) ──────────────────────────────
+    gsap.utils.toArray('.section-label').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 90%',
+        onEnter: () => el.classList.add('label-visible'),
+        once: true
+      });
+    });
+
+    // ─── COUNTUP: VALUE COMPARISON (GSAP) ──────────────────────────────
+    document.querySelectorAll('.value-col-amount').forEach(el => {
+      const original = el.textContent;
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 90%',
+        once: true,
+        onEnter: () => {
+          const match = original.match(/\$([\d,]+)/);
+          if (!match) return;
+          const target = parseInt(match[1].replace(/,/g, ''));
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 0.8,
+            ease: 'power2.out',
+            onUpdate: () => {
+              el.textContent = '$' + Math.round(obj.val).toLocaleString('en-US');
+            }
+          });
+        }
+      });
+    });
+
+    // ─── ERROR TERMINAL: PINNED CARD REVEAL ────────────────────────────
+    gsap.set('.error-card', { opacity: 0, x: -30 });
+    gsap.set('.error-terminal-footer', { opacity: 0 });
+
+    ScrollTrigger.matchMedia({
+      // Desktop: pin terminal, reveal cards sequentially on scroll
+      '(min-width: 769px)': function() {
+        // Fade in the terminal container first
+        gsap.fromTo('.error-terminal',
+          { opacity: 0, scale: 0.97 },
+          {
+            opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out',
+            scrollTrigger: {
+              trigger: '.error-terminal',
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+
+        // Pin + sequential card reveal
+        const errorTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.error-terminal',
+            start: 'top 20%',
+            end: '+=600',
+            pin: true,
+            scrub: 0.5,
+            pinSpacing: true,
+          }
+        });
+
+        errorTl
+          .to('.error-card:nth-child(1)', { opacity: 1, x: 0, duration: 0.3, ease: 'power2.out' })
+          .to('.error-card:nth-child(2)', { opacity: 1, x: 0, duration: 0.3, ease: 'power2.out' }, '+=0.05')
+          .to('.error-card:nth-child(3)', { opacity: 1, x: 0, duration: 0.3, ease: 'power2.out' }, '+=0.05')
+          .to('.error-terminal-footer', { opacity: 1, duration: 0.2 }, '+=0.08');
+      },
+      // Mobile: simple stagger, no pin
+      '(max-width: 768px)': function() {
+        gsap.set('.error-card', { opacity: 0, y: 15, x: 0 });
+        gsap.fromTo('.error-terminal',
+          { opacity: 0, y: 15 },
+          {
+            opacity: 1, y: 0, duration: 0.5,
+            scrollTrigger: { trigger: '.error-terminal', start: 'top 90%', toggleActions: 'play none none none' }
+          }
+        );
+        ScrollTrigger.batch('.error-card', {
+          onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, duration: 0.5, ease: 'power2.out' }),
+          start: 'top 92%'
+        });
+        ScrollTrigger.create({
+          trigger: '.error-terminal-footer',
+          start: 'top 92%',
+          once: true,
+          onEnter: () => gsap.to('.error-terminal-footer', { opacity: 1, duration: 0.4 })
+        });
+      }
+    });
+
+    // ─── CAPABILITY CARDS: SEQUENTIAL REVEAL ─────────────────────────────
+    gsap.set('.capability-card', { opacity: 0, y: 30 });
+    gsap.utils.toArray('.capability-card').forEach((card, i) => {
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        delay: i * 0.12,
+        scrollTrigger: {
+          trigger: '.capabilities-grid',
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // ─── TYPE-SPECIFIC: SECTION TITLES — clip-path wipe ─────────────────
+    gsap.utils.toArray('.section-h2.fade-in').forEach(el => {
+      // Override the generic fade-in: fully opaque but clipped
+      gsap.set(el, { opacity: 1, y: 0, clipPath: 'inset(0 0 100% 0)' });
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => gsap.to(el, {
+          clipPath: 'inset(0 0 0% 0)',
+          duration: 0.8,
+          ease: 'power3.out'
+        })
+      });
+    });
+
+    // ─── TYPE-SPECIFIC: HERO TERMINAL — scale up ─────────────────────────
+    gsap.set('.hero-terminal', { opacity: 0, scale: 0.95 });
+    ScrollTrigger.create({
+      trigger: '.hero-terminal',
+      start: 'top 85%',
+      once: true,
+      onEnter: () => gsap.to('.hero-terminal', {
+        opacity: 1,
+        scale: 1,
+        duration: 0.7,
+        ease: 'power2.out'
+      })
+    });
+
+    // ─── TYPE-SPECIFIC: METRIC CELLS — elastic pop ───────────────────────
+    gsap.set('.metric-cell', { opacity: 0, scale: 0.9, y: 15 });
+    gsap.utils.toArray('.metric-cell').forEach((cell, i) => {
+      gsap.to(cell, {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'back.out(1.4)',
+        delay: i * 0.12,
+        scrollTrigger: {
+          trigger: '.metrics-band',
+          start: 'top 82%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // ─── TYPE-SPECIFIC: TARGET CARDS — stagger from left ─────────────────
+    gsap.set('.target-card', { opacity: 0, x: -25 });
+    gsap.utils.toArray('.target-card').forEach((card, i) => {
+      gsap.to(card, {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        delay: i * 0.15,
+        scrollTrigger: {
+          trigger: '.target-grid',
+          start: 'top 82%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // ─── TYPE-SPECIFIC: CIERRE — cinematic sequence ──────────────────────
+    gsap.set('.cierre-reveal', { opacity: 0, y: 25 });
+    gsap.set('.cierre-watermark', { opacity: 0, scale: 0.8 });
+    gsap.set('.cierre-proof-cell', { opacity: 0, y: 10 });
+
+    ScrollTrigger.create({
+      trigger: '#cierre',
+      start: 'top 60%',
+      once: true,
+      onEnter: () => {
+        const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+        tl
+          // Watermark grows from behind
+          .to('.cierre-watermark', { opacity: 1, scale: 1, duration: 1.2, ease: 'power1.out' }, 0)
+          // Title wipes in
+          .to('.cierre-h2', { opacity: 1, y: 0, duration: 0.7 }, 0.2)
+          // Subtitle
+          .to('.cierre-sub', { opacity: 1, y: 0, duration: 0.6 }, 0.5)
+          // Proof cells stagger
+          .to('.cierre-proof-cell', { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 }, 0.7)
+          // Proof strip container
+          .to('.cierre-proof-strip', { opacity: 1, y: 0, duration: 0.5 }, 0.65)
+          // CTAs
+          .to('.cierre-actions', { opacity: 1, y: 0, duration: 0.5 }, 1.0)
+          // Footer
+          .to('.cierre-divider', { opacity: 1, y: 0, duration: 0.5 }, 1.2);
+      }
     });
 
     // ─── BRAND TYPEWRITER ─────────────────────────────────────────────
@@ -3447,6 +3699,8 @@
 
           setTimeout(function() {
             overlay.classList.remove('active');
+            // Recalculate all ScrollTrigger positions after layout change
+            ScrollTrigger.refresh();
           }, 400);
         }, 450);
       });
