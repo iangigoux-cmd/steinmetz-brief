@@ -994,6 +994,154 @@
       line-height: 1.5;
     }
 
+    /* ─── SLIDE 11 — GAP CONCLUSION ──────────────────────────── */
+    .gap-conclusion-slide {
+      position: relative;
+    }
+    .gap-conclusion-slide .slide-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100%;
+    }
+    .gap-convergence {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 48px;
+      width: 100%;
+      max-width: 720px;
+    }
+    .gap-condition {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    }
+    .gap-condition.show { opacity: 1; transform: translateY(0); }
+    .gap-condition-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--status-warning);
+      margin-bottom: 4px;
+    }
+    .gap-condition-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.35;
+    }
+    .gap-arrow {
+      flex-shrink: 0;
+      padding: 0 10px;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: rgba(255,255,255,0.2);
+      opacity: 0;
+      transition: opacity 0.35s ease-out;
+    }
+    .gap-arrow.show { opacity: 1; }
+    .gap-result {
+      flex-shrink: 0;
+      padding: 14px 20px;
+      border: 1px solid var(--brand-primary);
+      background: rgba(37,99,235,0.08);
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .gap-result.show { opacity: 1; transform: scale(1); }
+    .gap-result-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--brand-primary);
+      margin-bottom: 2px;
+    }
+    .gap-result-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 500;
+    }
+    .gap-quote-block {
+      margin-bottom: 48px;
+      max-width: 760px;
+      position: relative;
+      padding-left: 28px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .gap-quote-block.show { opacity: 1; transform: translateY(0); }
+    .gap-quote-block::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--brand-primary);
+    }
+    .gap-quote-text {
+      font-size: 32px;
+      font-weight: 500;
+      color: #FFFFFF;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      font-style: italic;
+    }
+    .gap-quote-text em {
+      font-style: normal;
+      color: var(--brand-primary);
+    }
+    .gap-conclusion-box {
+      width: 100%;
+      max-width: 760px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .gap-conclusion-box.show { opacity: 1; transform: translateY(0); }
+    .gap-conclusion-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .gap-conclusion-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .gap-conclusion-body {
+      padding: 24px;
+    }
+    .gap-conclusion-body p {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .gap-conclusion-body strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
     /* ─── RISK DASHBOARD ───────────────────────────────────────── */
     .risk-dashboard {
       border: 1px solid var(--border-strong);
@@ -1423,6 +1571,15 @@
       /* HERO QUOTE */
       .hero-quote p { font-size: 18px; }
       .market-statement-lg p { font-size: 16px; }
+
+      /* GAP CONCLUSION SLIDE 11 */
+      .gap-convergence { flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
+      .gap-condition { flex: 1 1 auto; min-width: 80px; padding: 10px 12px; }
+      .gap-arrow { padding: 0 6px; font-size: 12px; }
+      .gap-result { min-width: 100px; }
+      .gap-quote-text { font-size: 22px; }
+      .gap-quote-block { margin-bottom: 32px; padding-left: 20px; }
+      .gap-conclusion-body p { font-size: 15px; }
 
       /* RISK DASHBOARD */
       .risk-grid { grid-template-columns: 1fr; }
@@ -1886,17 +2043,49 @@
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- SLIDE 11 — 04: GAP — Conclusión                               -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="slide slide-light" data-section="04 — GAP DE MERCADO">
-    <span class="slide-section-label"><span class="dot dot-warning"></span> 04 — GAP DE MERCADO</span>
+  <div class="slide slide-dark gap-conclusion-slide" data-section="04 — GAP DE MERCADO">
+    <span class="slide-section-label"><span class="dot dot-blue"></span> 04 — GAP DE MERCADO</span>
     <div class="slide-inner slide-content">
-      <p class="big-sub" style="margin-top:0;margin-bottom:28px;">Las tres condiciones coexisten en prácticamente toda empresa de más de 500 empleados en América Latina que no sea una empresa tecnológica nativa.</p>
-      <div class="hero-quote">
-        <p>El mercado no está esperando que alguien construya la solución. Está esperando que alguien se la presente.</p>
+
+      <!-- Convergence strip: C1 + C2 + C3 → MERCADO -->
+      <div class="gap-convergence">
+        <div class="gap-condition">
+          <p class="gap-condition-code">C1</p>
+          <p class="gap-condition-label">Empresa mediana+<br>alta fricción</p>
+        </div>
+        <span class="gap-arrow">+</span>
+        <div class="gap-condition">
+          <p class="gap-condition-code">C2</p>
+          <p class="gap-condition-label">Mandato IA<br>sin ejecución</p>
+        </div>
+        <span class="gap-arrow">+</span>
+        <div class="gap-condition">
+          <p class="gap-condition-code">C3</p>
+          <p class="gap-condition-label">Célula con<br>dolor concreto</p>
+        </div>
+        <span class="gap-arrow">→</span>
+        <div class="gap-result">
+          <p class="gap-result-code">MERCADO</p>
+          <p class="gap-result-label">Nuevo segmento</p>
+        </div>
       </div>
-      <div class="market-statement market-statement-lg">
-        <span class="market-statement-label">Conclusión</span>
-        <p>Steinmetz no entra a competir por un segmento de un mercado existente. <strong>Entra a definir un mercado nuevo en el momento exacto en que ese mercado está buscando un nombre para su problema.</strong></p>
+
+      <!-- The dramatic quote -->
+      <div class="gap-quote-block">
+        <p class="gap-quote-text">El mercado no está esperando que alguien construya la solución.<br><em>Está esperando que alguien se la presente.</em></p>
       </div>
+
+      <!-- Conclusion panel -->
+      <div class="gap-conclusion-box">
+        <div class="gap-conclusion-header">
+          <span class="dot dot-blue" style="width:6px;height:6px;"></span>
+          <span class="gap-conclusion-tag">Conclusión · Sección 04</span>
+        </div>
+        <div class="gap-conclusion-body">
+          <p>Steinmetz no entra a competir por un segmento de un mercado existente. <strong>Entra a definir un mercado nuevo en el momento exacto en que ese mercado está buscando un nombre para su problema.</strong></p>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -2302,6 +2491,33 @@
         items.forEach(function(el, i) {
           setTimeout(function() { el.classList.add('show'); }, i * 120);
         });
+      });
+
+      // Gap conclusion (slide 11)
+      slide.querySelectorAll('.gap-convergence').forEach(function(conv) {
+        var conditions = conv.querySelectorAll('.gap-condition');
+        var arrows = conv.querySelectorAll('.gap-arrow');
+        var result = conv.querySelector('.gap-result');
+        var d = 0;
+        conditions.forEach(function(c, i) {
+          setTimeout(function() { c.classList.add('show'); }, d);
+          d += 180;
+          if (arrows[i]) {
+            (function(arrow, delay) {
+              setTimeout(function() { arrow.classList.add('show'); }, delay);
+            })(arrows[i], d);
+            d += 100;
+          }
+        });
+        if (result) {
+          setTimeout(function() { result.classList.add('show'); }, d + 200);
+        }
+      });
+      slide.querySelectorAll('.gap-quote-block').forEach(function(q) {
+        setTimeout(function() { q.classList.add('show'); }, 900);
+      });
+      slide.querySelectorAll('.gap-conclusion-box').forEach(function(b) {
+        setTimeout(function() { b.classList.add('show'); }, 1300);
       });
 
       // Cierre rules
