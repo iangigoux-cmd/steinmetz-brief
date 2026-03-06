@@ -79,6 +79,12 @@
       flex: 1;
       height: 1px;
       background: var(--border-subtle);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 600ms ease-out 200ms;
+    }
+    .section-label.label-visible::after {
+      transform: scaleX(1);
     }
     .dot {
       width: 8px; height: 8px;
@@ -200,9 +206,128 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 96px 80px;
+      position: relative;
+      overflow: hidden;
     }
     .section + .section {
       border-top: 1px solid var(--border-subtle);
+    }
+
+    /* ─── DARK SECTIONS ─────────────────────────────────────────── */
+    .section-dark {
+      background: #171717;
+      max-width: none;
+      border-top: none !important;
+    }
+    .section-dark + .section { border-top: none; }
+    .section-dark .section-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-dark .section-label { color: rgba(255,255,255,0.3); }
+    .section-dark .section-label::after { background: rgba(255,255,255,0.08); }
+    .section-dark .section-h2 { color: #FFFFFF; }
+    .section-dark .section-intro { color: rgba(255,255,255,0.5); }
+    .section-dark .dot-dark { background: rgba(255,255,255,0.3); }
+    .section-dark .badge-dark { color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
+    .section-dark .badge-warning { background: rgba(217,119,6,0.1); }
+    .section-dark .badge-blue { background: rgba(37,99,235,0.1); }
+
+    /* Dark phase cards */
+    .section-dark .phase-card {
+      background: rgba(255,255,255,0.02);
+      border-bottom-color: rgba(255,255,255,0.06);
+    }
+    .section-dark .phases-list { border-color: rgba(255,255,255,0.08); }
+    .section-dark .phase-title { color: #FFFFFF; }
+    .section-dark .phase-desc { color: rgba(255,255,255,0.45); }
+    .section-dark .phase-number { color: rgba(255,255,255,0.25); }
+    .section-dark .phase-meta-key { color: rgba(255,255,255,0.2); }
+    .section-dark .phase-meta-val { color: rgba(255,255,255,0.7); }
+    .section-dark .phase-verdict { color: rgba(255,255,255,0.2); }
+    .section-dark .phase-card.active-phase { border-top-color: var(--brand-primary); background: rgba(37,99,235,0.04); }
+    .section-dark .phase-card.active-phase .phase-verdict { color: var(--brand-primary); }
+    .section-dark .phase-card.active-phase::before { color: var(--brand-primary); }
+
+    /* Dark paradox */
+    .section-dark .paradox-block { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08); }
+    .section-dark .paradox-title { color: #FFFFFF; }
+    .section-dark .paradox-desc { color: rgba(255,255,255,0.45); }
+    .section-dark .paradox-grid { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); }
+    .section-dark .paradox-col { background: rgba(255,255,255,0.02); }
+    .section-dark .paradox-item { color: rgba(255,255,255,0.5); border-bottom-color: rgba(255,255,255,0.06); }
+
+    /* Dark solution */
+    .section-dark .solution-def { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08); }
+    .section-dark .solution-def p { color: rgba(255,255,255,0.5); }
+    .section-dark .solution-def strong { color: #FFFFFF; }
+    .section-dark .capabilities-grid { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); }
+    .section-dark .capability-card { background: rgba(255,255,255,0.02); }
+    .section-dark .capability-card:hover { background: rgba(255,255,255,0.05); }
+    .section-dark .capability-icon { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+    .section-dark .capability-eyebrow { color: rgba(255,255,255,0.25); }
+    .section-dark .capability-title { color: #FFFFFF; }
+    .section-dark .capability-desc { color: rgba(255,255,255,0.45); }
+    .section-dark .value-prop-strip { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); }
+    .section-dark .vp-cell { background: rgba(255,255,255,0.02); }
+    .section-dark .vp-cell-text { color: rgba(255,255,255,0.45); }
+    .section-dark .vp-cell-text strong { color: #FFFFFF; }
+
+    /* ─── SECTION NUMBER BG ─────────────────────────────────────── */
+    .section-number-bg {
+      position: absolute;
+      top: 40px;
+      right: 48px;
+      font-family: var(--font-ui);
+      font-size: 200px;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: rgba(0,0,0,0.025);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 800ms ease-out, transform 800ms ease-out;
+    }
+    .section-number-bg.visible { opacity: 1; transform: translateY(0); }
+    .section-dark .section-number-bg { color: rgba(255,255,255,0.03); }
+
+    /* ─── TRANSITION STRIP ──────────────────────────────────────── */
+    .transition-strip {
+      padding: 28px 80px;
+      text-align: center;
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+    }
+    .transition-strip p {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+    }
+    .transition-strip-dark {
+      background: #1E1E1E;
+      border-top-color: rgba(255,255,255,0.06);
+      border-bottom-color: rgba(255,255,255,0.06);
+    }
+    .transition-strip-dark p { color: rgba(255,255,255,0.2); }
+
+    /* ─── HERO FICHA TECNICA ────────────────────────────────────── */
+    .hero-divider {
+      border-top: 1px solid var(--border-strong);
+      margin: 40px 0 0;
+      padding-top: 32px;
+    }
+    .hero-ficha-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      margin-bottom: 12px;
     }
 
     /* ─── HERO ────────────────────────────────────────────────────── */
@@ -913,11 +1038,30 @@
     /* ─── SECTION 06: CIERRE ──────────────────────────────────────── */
     #cierre {
       background: var(--text-primary);
+      position: relative;
+      overflow: hidden;
+      background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .cierre-watermark {
+      position: absolute;
+      bottom: -30px;
+      right: -20px;
+      font-family: var(--font-ui);
+      font-size: 200px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.015);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
     }
     .cierre-inner {
       max-width: 1400px;
       margin: 0 auto;
       padding: 96px 80px;
+      position: relative;
+      z-index: 1;
     }
     .cierre-eyebrow {
       font-family: var(--font-mono);
@@ -937,20 +1081,42 @@
       background: rgba(255,255,255,0.35);
     }
     .cierre-h2 {
-      font-size: 42px;
+      font-size: 52px;
       font-weight: 600;
       letter-spacing: -0.03em;
       line-height: 1.1;
       color: #FFFFFF;
-      max-width: 540px;
+      max-width: 620px;
       margin-bottom: 24px;
     }
     .cierre-sub {
-      font-size: 14px;
+      font-size: 15px;
       color: rgba(255,255,255,0.5);
       line-height: 1.7;
-      max-width: 480px;
+      max-width: 520px;
       margin-bottom: 48px;
+    }
+    .cierre-proof-strip {
+      display: flex;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 48px;
+    }
+    .cierre-proof-cell {
+      flex: 1;
+      padding: 14px 20px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cierre-proof-cell:last-child { border-right: none; }
+    .cierre-proof-text {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
     }
     .cierre-actions {
       display: flex;
@@ -1456,6 +1622,123 @@
     #navbar { transition: transform 200ms ease-in-out, opacity 200ms ease-in-out; }
     #navbar.nav-hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
+    /* ─── PHASE CARDS ENHANCED ────────────────────────────────────── */
+    .phase-card {
+      position: relative;
+      border-left: 3px solid transparent;
+    }
+    .phase-card:nth-child(1) { border-left-color: var(--text-tertiary); }
+    .phase-card:nth-child(2) { border-left-color: var(--status-warning); }
+    .phase-card:nth-child(3) { border-left-color: var(--brand-primary); }
+    .section-dark .phase-card:nth-child(1) { border-left-color: rgba(255,255,255,0.15); }
+    .section-dark .phase-card:nth-child(2) { border-left-color: var(--status-warning); }
+    .section-dark .phase-card:nth-child(3) { border-left-color: var(--brand-primary); }
+    .phase-num-big {
+      font-family: var(--font-mono);
+      font-size: 48px;
+      font-weight: 600;
+      color: rgba(0,0,0,0.04);
+      line-height: 1;
+      position: absolute;
+      right: 24px;
+      top: 20px;
+    }
+    .section-dark .phase-num-big { color: rgba(255,255,255,0.04); }
+
+    /* ─── PARADOX CONFRONTATION ───────────────────────────────────── */
+    .paradox-col.paradox-benefit { background: var(--status-success-bg); }
+    .paradox-col.paradox-capability { background: var(--status-danger-bg); }
+    .section-dark .paradox-col.paradox-benefit { background: rgba(5,150,105,0.06); }
+    .section-dark .paradox-col.paradox-capability { background: rgba(220,38,38,0.06); }
+    .paradox-divider-badge {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--status-danger);
+      background: var(--bg-surface);
+      border: 1px solid var(--status-danger);
+      padding: 4px 12px;
+      text-transform: uppercase;
+    }
+    .section-dark .paradox-divider-badge { background: #171717; }
+    .paradox-callout {
+      margin-top: 20px;
+      padding: 16px 20px;
+      border-left: 3px solid var(--brand-primary);
+      background: var(--brand-surface);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.6;
+      letter-spacing: -0.005em;
+    }
+    .section-dark .paradox-callout { background: rgba(37,99,235,0.06); color: rgba(255,255,255,0.75); }
+
+    /* ─── ERROR TERMINAL WRAPPER ──────────────────────────────────── */
+    .error-terminal {
+      border: 1px solid var(--border-strong);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .error-terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--text-primary);
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .error-terminal-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .error-terminal .error-list {
+      margin-bottom: 0;
+      padding: 16px;
+      gap: 12px;
+    }
+    .error-terminal .error-card {
+      border: 1px solid var(--border-subtle);
+    }
+    .error-terminal-footer {
+      padding: 10px 16px;
+      border-top: 1px solid var(--border-strong);
+      background: var(--status-danger-bg);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--status-danger);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── CAPABILITY MINI-TERMINAL ────────────────────────────────── */
+    .cap-terminal {
+      margin-top: 12px;
+      padding: 8px 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-subtle);
+    }
+    .cap-terminal .cap-prompt { color: var(--brand-primary); font-weight: 600; }
+    .cap-terminal .cap-ok { color: var(--status-success); font-weight: 600; }
+    .section-dark .cap-terminal { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.35); }
+
     /* ─── RESPONSIVE ──────────────────────────────────────────────── */
     /* ─── HERO BRAND ─────────────────────────────────────────────────── */
     #hero-brand {
@@ -1509,8 +1792,12 @@
 
       /* PARADOX */
       .paradox-grid { grid-template-columns: 1fr; }
+      .paradox-divider-badge { position: static; transform: none; display: block; text-align: center; padding: 6px 12px; margin: -1px 0; }
+      .paradox-callout { font-size: 13px; }
+      .phase-num-big { font-size: 36px; right: 16px; top: 14px; }
 
       /* ERROR CARDS */
+      .error-terminal .error-list { padding: 12px; gap: 10px; }
       .error-code-col { min-width: 72px; padding: 16px 12px; }
       .error-body { padding: 16px 18px; }
 
@@ -1530,9 +1817,19 @@
       /* MARKET STATEMENT */
       .market-statement p { font-size: 15px; }
 
+      /* DARK SECTIONS */
+      .section-dark { padding: 48px 24px; }
+      .section-number-bg { font-size: 100px; top: 20px; right: 20px; }
+      .transition-strip { padding: 20px 24px; }
+      .transition-strip p { font-size: 11px; }
+
       /* CIERRE */
       .cierre-inner   { padding: 56px 24px; }
       .cierre-h2      { font-size: 28px; }
+      .cierre-watermark { font-size: 100px; bottom: -10px; right: -10px; }
+      .cierre-proof-strip { flex-direction: column; }
+      .cierre-proof-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .cierre-proof-cell:last-child { border-bottom: none; }
       .cierre-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
       .cierre-divider { flex-direction: column; align-items: flex-start; gap: 8px; }
 
@@ -2175,6 +2472,10 @@
         </div>
       </div>
 
+      <div class="hero-divider fade-in">
+        <p class="hero-ficha-label">Ficha Técnica</p>
+      </div>
+
       <div class="hero-terminal fade-in">
         <div class="terminal-bar">
           <span class="terminal-dot"></span>
@@ -2191,10 +2492,16 @@
           <span id="typewriter-2"></span><span class="cursor" id="cursor" style="display:none;"></span>
         </div>
       </div>
+
+      <a href="#historia" class="hero-cta fade-in" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:12px 24px;border:1px solid var(--border-strong);font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);transition:color 150ms,border-color 150ms,background 150ms;">
+        Leer el brief
+        <i data-lucide="arrow-down" style="width:14px;height:14px;"></i>
+      </a>
     </div>
 
     <!-- ─── 01: GÉNESIS ──────────────────────────────────────────────── -->
     <section class="section" id="historia">
+      <span class="section-number-bg">01</span>
       <p class="section-label"><span class="dot dot-dark"></span>01 — GÉNESIS</p>
 
       <div class="story-grid">
@@ -2273,8 +2580,15 @@
 
     </section>
 
+    <!-- ─── TRANSITION: 01 → 02 ───────────────────────────────────────── -->
+    <div class="transition-strip transition-strip-dark">
+      <p>La tiza fue el inicio. El contexto es lo que sigue.</p>
+    </div>
+
     <!-- ─── 02: CONTEXTO ─────────────────────────────────────────────── -->
-    <section class="section" id="contexto">
+    <section class="section section-dark" id="contexto">
+      <span class="section-number-bg">02</span>
+      <div class="section-inner">
       <p class="section-label"><span class="dot dot-blue"></span>02 — CONTEXTO DE MERCADO</p>
 
       <h2 class="section-h2 fade-in">La Evolución del Desarrollo Asistido</h2>
@@ -2285,6 +2599,7 @@
       <div class="phases-list fade-in">
 
         <div class="phase-card">
+          <span class="phase-num-big">01</span>
           <div class="phase-top">
             <span class="phase-number">FASE 01</span>
             <span class="badge badge-dark">Superada</span>
@@ -2307,6 +2622,7 @@
         </div>
 
         <div class="phase-card">
+          <span class="phase-num-big">02</span>
           <div class="phase-top">
             <span class="phase-number">FASE 02</span>
             <span class="badge badge-warning">En adopción</span>
@@ -2329,6 +2645,7 @@
         </div>
 
         <div class="phase-card active-phase">
+          <span class="phase-num-big">03</span>
           <div class="phase-top">
             <span class="phase-number">FASE 03</span>
             <span class="badge badge-blue">Objetivo</span>
@@ -2357,15 +2674,16 @@
         <p class="paradox-desc">
           La Fase 3 requiere una infraestructura compleja: MCP servers, enrutamiento de APIs, permisos, sandboxes, seguridad de red. Quien más se beneficia no puede configurarla. Quien puede configurarla no la necesita.
         </p>
-        <div class="paradox-grid">
-          <div class="paradox-col">
+        <div class="paradox-grid" style="position:relative;">
+          <span class="paradox-divider-badge">≠ BRECHA</span>
+          <div class="paradox-col paradox-benefit">
             <p class="paradox-col-label benefit">Quiénes más se benefician</p>
             <div class="paradox-item"><span class="dot dot-success"></span><span>Líderes de células de negocio</span></div>
             <div class="paradox-item"><span class="dot dot-success"></span><span>Analistas y gerentes operativos</span></div>
             <div class="paradox-item"><span class="dot dot-success"></span><span>COOs, CFOs, directores sin perfil técnico</span></div>
             <div class="paradox-item"><span class="dot dot-success"></span><span>Equipos de operaciones, logística, finanzas</span></div>
           </div>
-          <div class="paradox-col">
+          <div class="paradox-col paradox-capability">
             <p class="paradox-col-label capability">Quiénes pueden configurarlo</p>
             <div class="paradox-item"><span class="dot dot-danger"></span><span>Ingenieros de software avanzados</span></div>
             <div class="paradox-item"><span class="dot dot-danger"></span><span>Arquitectos de infraestructura cloud</span></div>
@@ -2373,12 +2691,22 @@
             <div class="paradox-item"><span class="dot dot-danger"></span><span>...que ya son productivos con la Fase 2</span></div>
           </div>
         </div>
+        <div class="paradox-callout">
+          Los que más lo necesitan no pueden configurarlo. Los que pueden configurarlo no lo necesitan. <strong style="color:var(--brand-primary);">Steinmetz cierra esa brecha.</strong>
+        </div>
       </div>
 
+      </div><!-- /section-inner -->
     </section>
+
+    <!-- ─── TRANSITION: 02 → 03 ───────────────────────────────────────── -->
+    <div class="transition-strip">
+      <p>El contexto define la oportunidad. El diagnóstico define la urgencia.</p>
+    </div>
 
     <!-- ─── 03: PROBLEMA ─────────────────────────────────────────────── -->
     <section class="section" id="problema">
+      <span class="section-number-bg">03</span>
       <p class="section-label"><span class="dot dot-danger" style="background:var(--status-danger)"></span>03 — DIAGNÓSTICO</p>
 
       <h2 class="section-h2 fade-in">El Cuello de Botella Corporativo</h2>
@@ -2386,44 +2714,56 @@
         El desarrollo orquestado por agentes representa un salto cuántico en productividad. Pero su adopción choca contra la realidad operativa de las empresas. El problema, y la oportunidad, radica exclusivamente en el sector B2B corporativo.
       </p>
 
-      <div class="error-list">
-
-        <div class="error-card fade-in">
-          <div class="error-code-col">
-            <span class="error-code">ERR-001</span>
-            <span class="error-icon"><i data-lucide="alert-triangle" style="width:18px;height:18px;"></i></span>
-          </div>
-          <div class="error-body">
-            <p class="error-id">IT_ROADMAP_COLLAPSE</p>
-            <p class="error-title">El Colapso del Roadmap de TI</p>
-            <p class="error-desc">El negocio necesita herramientas ágiles. TI prioriza estabilidad y gobernanza. El resultado es un retraso de meses o años en la entrega de soluciones que el negocio necesita hoy.</p>
-          </div>
+      <div class="error-terminal fade-in">
+        <div class="error-terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="error-terminal-title">steinmetz.diagnostic — sistema de detección</span>
         </div>
+        <div class="error-list">
 
-        <div class="error-card fade-in">
-          <div class="error-code-col">
-            <span class="error-code">ERR-002</span>
-            <span class="error-icon"><i data-lucide="shield-off" style="width:18px;height:18px;"></i></span>
+          <div class="error-card">
+            <div class="error-code-col">
+              <span class="error-code">ERR-001</span>
+              <span class="error-icon"><i data-lucide="alert-triangle" style="width:18px;height:18px;"></i></span>
+            </div>
+            <div class="error-body">
+              <p class="error-id">IT_ROADMAP_COLLAPSE</p>
+              <p class="error-title">El Colapso del Roadmap de TI</p>
+              <p class="error-desc">El negocio necesita herramientas ágiles. TI prioriza estabilidad y gobernanza. El resultado es un retraso de meses o años en la entrega de soluciones que el negocio necesita hoy.</p>
+            </div>
           </div>
-          <div class="error-body">
-            <p class="error-id">SHADOW_TOOL_SYNDROME</p>
-            <p class="error-title">El Síndrome de la Herramienta Sombra</p>
-            <p class="error-desc">Ante la lentitud de TI, los equipos improvisan: hojas de cálculo compartidas, bots sin documentar, scripts sin respaldo. Riesgos de seguridad, silos de información y plataformas imposibles de auditar.</p>
+
+          <div class="error-card">
+            <div class="error-code-col">
+              <span class="error-code">ERR-002</span>
+              <span class="error-icon"><i data-lucide="shield-off" style="width:18px;height:18px;"></i></span>
+            </div>
+            <div class="error-body">
+              <p class="error-id">SHADOW_TOOL_SYNDROME</p>
+              <p class="error-title">El Síndrome de la Herramienta Sombra</p>
+              <p class="error-desc">Ante la lentitud de TI, los equipos improvisan: hojas de cálculo compartidas, bots sin documentar, scripts sin respaldo. Riesgos de seguridad, silos de información y plataformas imposibles de auditar.</p>
+            </div>
           </div>
+
+          <div class="error-card">
+            <div class="error-code-col">
+              <span class="error-code">ERR-003</span>
+              <span class="error-icon"><i data-lucide="eye-off" style="width:18px;height:18px;"></i></span>
+            </div>
+            <div class="error-body">
+              <p class="error-id">INFRASTRUCTURE_BLINDNESS</p>
+              <p class="error-title">La Ceguera de Infraestructura</p>
+              <p class="error-desc">El directorio baja el mandato de "implementar IA", pero nadie sabe cómo ejecutarlo. Se conectan herramientas aisladas o interfaces de chat sin entender que el verdadero trabajo es la infraestructura subyacente.</p>
+            </div>
+          </div>
+
         </div>
-
-        <div class="error-card fade-in">
-          <div class="error-code-col">
-            <span class="error-code">ERR-003</span>
-            <span class="error-icon"><i data-lucide="eye-off" style="width:18px;height:18px;"></i></span>
-          </div>
-          <div class="error-body">
-            <p class="error-id">INFRASTRUCTURE_BLINDNESS</p>
-            <p class="error-title">La Ceguera de Infraestructura</p>
-            <p class="error-desc">El directorio baja el mandato de "implementar IA", pero nadie sabe cómo ejecutarlo. Se conectan herramientas aisladas o interfaces de chat sin entender que el verdadero trabajo es la infraestructura subyacente.</p>
-          </div>
+        <div class="error-terminal-footer">
+          <span class="dot dot-danger"></span>
+          3 errores críticos detectados · requiere intervención
         </div>
-
       </div>
 
       <div class="blindness-block fade-in">
@@ -2444,8 +2784,15 @@
 
     </section>
 
+    <!-- ─── TRANSITION: 03 → 04 ───────────────────────────────────────── -->
+    <div class="transition-strip transition-strip-dark">
+      <p>El diagnóstico está hecho. La solución es estructural.</p>
+    </div>
+
     <!-- ─── 04: SOLUCIÓN ─────────────────────────────────────────────── -->
-    <section class="section" id="solucion">
+    <section class="section section-dark" id="solucion">
+      <span class="section-number-bg">04</span>
+      <div class="section-inner">
       <p class="section-label"><span class="dot dot-blue"></span>04 — SOLUCIÓN</p>
 
       <h2 class="section-h2 fade-in">Steinmetz: Infraestructura de Agentes como Servicio</h2>
@@ -2470,6 +2817,7 @@
           <p class="capability-eyebrow">Infraestructura</p>
           <p class="capability-title">MCP Infrastructure</p>
           <p class="capability-desc">Servidores Model Context Protocol preconfigurados y gestionados. El cliente no instala, no configura, no mantiene. Solo conecta.</p>
+          <div class="cap-terminal"><span class="cap-prompt">$</span> steinmetz mcp --status → <span class="cap-ok">ACTIVE</span></div>
         </div>
         <div class="capability-card">
           <div class="capability-icon">
@@ -2478,6 +2826,7 @@
           <p class="capability-eyebrow">Orquestación</p>
           <p class="capability-title">Agent Orchestration</p>
           <p class="capability-desc">Coordinación de microagentes especializados por tarea: diseño, código, pruebas, despliegue. El usuario describe; el sistema ejecuta.</p>
+          <div class="cap-terminal"><span class="cap-prompt">$</span> steinmetz agents --list → <span class="cap-ok">4 RUNNING</span></div>
         </div>
         <div class="capability-card">
           <div class="capability-icon">
@@ -2486,6 +2835,7 @@
           <p class="capability-eyebrow">Seguridad</p>
           <p class="capability-title">Enterprise Security</p>
           <p class="capability-desc">Gestión de permisos por célula, sandboxes de ejecución aislados, auditoría de endpoints y trazabilidad completa del código generado.</p>
+          <div class="cap-terminal"><span class="cap-prompt">$</span> steinmetz audit --report → <span class="cap-ok">COMPLIANT</span></div>
         </div>
       </div>
 
@@ -2508,10 +2858,17 @@
         </div>
       </div>
 
+      </div><!-- /section-inner -->
     </section>
+
+    <!-- ─── TRANSITION: 04 → 05 ───────────────────────────────────────── -->
+    <div class="transition-strip">
+      <p>La solución existe. El mercado la está buscando.</p>
+    </div>
 
     <!-- ─── 05: OPORTUNIDAD ───────────────────────────────────────────── -->
     <section class="section" id="oportunidad">
+      <span class="section-number-bg">05</span>
       <p class="section-label"><span class="dot dot-blue"></span>05 — MERCADO</p>
 
       <h2 class="section-h2 fade-in">El Vacío en el Mercado Corporativo</h2>
@@ -2566,8 +2923,14 @@
 
     </section>
 
+    <!-- ─── TRANSITION: 05 → CIERRE ──────────────────────────────────── -->
+    <div class="transition-strip transition-strip-dark">
+      <p>—— EL GENERADOR ESTÁ LISTO ——</p>
+    </div>
+
     <!-- ─── 06: CIERRE ────────────────────────────────────────────────── -->
     <section id="cierre">
+      <span class="cierre-watermark">STEINMETZ</span>
       <div class="cierre-inner">
         <p class="cierre-eyebrow">06 — PRÓXIMO PASO</p>
 
@@ -2578,8 +2941,27 @@
           La infraestructura que hace funcionar la Fase 3 en entornos corporativos existe hoy. Steinmetz la gestiona, la asegura y la entrega. Lo que resta es identificar la primera célula de negocio, hacer la marca de tiza, y arrancar la fábrica.
         </p>
 
+        <div class="cierre-proof-strip fade-in">
+          <div class="cierre-proof-cell">
+            <span class="dot dot-warning"></span>
+            <span class="cierre-proof-text">Pre-Seed</span>
+          </div>
+          <div class="cierre-proof-cell">
+            <span class="dot dot-blue"></span>
+            <span class="cierre-proof-text">B2B Corp</span>
+          </div>
+          <div class="cierre-proof-cell">
+            <span class="dot dot-success"></span>
+            <span class="cierre-proof-text">LATAM First</span>
+          </div>
+          <div class="cierre-proof-cell">
+            <span class="dot dot-info"></span>
+            <span class="cierre-proof-text">Célula Ancla</span>
+          </div>
+        </div>
+
         <div class="cierre-actions fade-in">
-          <button id="open-contact" class="btn-primary" style="cursor:pointer;">
+          <button id="open-contact" class="btn-primary" style="cursor:pointer;padding:16px 32px;">
             <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
             Iniciar conversación
           </button>
@@ -2648,6 +3030,57 @@
       const delay = el.closest('.error-list, .phases-list') ? i * 40 : 0;
       el.style.transitionDelay = delay + 'ms';
       fadeObserver.observe(el);
+    });
+
+    // ─── SECTION NUMBER BG FADE-IN ──────────────────────────────────
+    const sectionNums = document.querySelectorAll('.section-number-bg');
+    const numObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          numObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -100px 0px' });
+    sectionNums.forEach(el => numObserver.observe(el));
+
+    // ─── SECTION LABEL LINE REVEAL ──────────────────────────────────
+    const sectionLabels = document.querySelectorAll('.section-label');
+    const labelObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('label-visible');
+          labelObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -48px 0px' });
+    sectionLabels.forEach(el => labelObserver.observe(el));
+
+    // ─── COUNTUP: VALUE COMPARISON ──────────────────────────────────
+    document.querySelectorAll('.value-col-amount').forEach(el => {
+      const original = el.textContent;
+      const numObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            numObs.unobserve(entry.target);
+            const match = original.match(/\$([\d,]+)/);
+            if (!match) return;
+            const target = parseInt(match[1].replace(/,/g, ''));
+            const dur = 600;
+            const start = performance.now();
+            function tick(now) {
+              const t = Math.min((now - start) / dur, 1);
+              const e = 1 - Math.pow(1 - t, 3);
+              const val = Math.round(e * target);
+              el.textContent = '$' + val.toLocaleString('en-US');
+              if (t < 1) requestAnimationFrame(tick);
+            }
+            el.textContent = '$0';
+            requestAnimationFrame(tick);
+          }
+        });
+      }, { rootMargin: '0px 0px -48px 0px' });
+      numObs.observe(el);
     });
 
     // ─── BRAND TYPEWRITER ─────────────────────────────────────────────
