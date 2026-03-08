@@ -42,6 +42,7 @@
     /* ─── RESET ───────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    main { scroll-behavior: smooth; }
     body {
       background: var(--bg-canvas);
       color: var(--text-primary);
@@ -198,8 +199,25 @@
       border: 1px solid var(--border-subtle);
     }
 
-    /* ─── MAIN WRAPPER ────────────────────────────────────────────── */
-    main { padding-top: var(--nav-h); }
+    /* ─── MAIN WRAPPER (scroll-snap) ─────────────────────────────── */
+    main {
+      padding-top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ─── SLIDE BASE ─────────────────────────────────────────────── */
+    .slide {
+      min-height: calc(100vh - var(--nav-h));
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
 
     /* ─── SECTION BASE ────────────────────────────────────────────── */
     .section {
@@ -208,18 +226,22 @@
       padding: 96px 80px;
       position: relative;
       overflow: hidden;
+      width: 100%;
     }
     .section + .section {
       border-top: 1px solid var(--border-subtle);
     }
 
-    /* ─── DARK SECTIONS ─────────────────────────────────────────── */
-    .section-dark {
+    /* ─── DARK SLIDES ──────────────────────────────────────────── */
+    .slide-dark {
       background: #171717;
+    }
+    .slide-dark + .slide .section { border-top: none; }
+
+    .section-dark {
       max-width: none;
       border-top: none !important;
     }
-    .section-dark + .section { border-top: none; }
     .section-dark .section-inner {
       max-width: 1400px;
       margin: 0 auto;
@@ -263,13 +285,14 @@
     .section-number-bg.visible { opacity: 1; transform: translateY(0); }
     .section-dark .section-number-bg { color: rgba(255,255,255,0.03); }
 
-    /* ─── TRANSITION STRIP ──────────────────────────────────────── */
+    /* ─── TRANSITION STRIP (inside slide, as footer) ────────────── */
     .transition-strip {
-      padding: 28px 80px;
+      padding: 20px 80px;
       text-align: center;
       border-top: 1px solid var(--border-strong);
-      border-bottom: 1px solid var(--border-strong);
       background: var(--bg-surface);
+      margin-top: auto;
+      flex-shrink: 0;
     }
     .transition-strip p {
       font-family: var(--font-mono);
@@ -278,9 +301,8 @@
       color: var(--text-tertiary);
     }
     .transition-strip-dark {
-      background: #1E1E1E;
+      background: rgba(255,255,255,0.02);
       border-top-color: rgba(255,255,255,0.06);
-      border-bottom-color: rgba(255,255,255,0.06);
     }
     .transition-strip-dark p { color: rgba(255,255,255,0.2); }
 
@@ -304,8 +326,8 @@
     #hero {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 88px 80px 80px;
-      border-bottom: 1px solid var(--border-strong);
+      padding: 88px 80px 48px;
+      width: 100%;
     }
     .hero-eyebrow {
       font-family: var(--font-mono);
@@ -1354,6 +1376,10 @@
 
     /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
     @media (max-width: 768px) {
+      /* DISABLE SNAP ON MOBILE */
+      main { scroll-snap-type: none; height: auto; overflow: visible; }
+      .slide { min-height: auto; scroll-snap-align: none; }
+
       /* NAV */
       #navbar { padding: 0 20px; gap: 12px; }
       .nav-links { display: none; }
@@ -2018,7 +2044,8 @@
 
   <main>
 
-    <!-- ─── HERO ─────────────────────────────────────────────────────── -->
+    <!-- ─── SLIDE: HERO ──────────────────────────────────────────────── -->
+    <div class="slide">
     <div id="hero">
       <p class="hero-eyebrow">STEINMETZ · BRIEF DE POSICIONAMIENTO · 2025</p>
 
@@ -2076,8 +2103,10 @@
         <i data-lucide="arrow-down" style="width:14px;height:14px;"></i>
       </a>
     </div>
+    </div><!-- /slide hero -->
 
-    <!-- ─── 01: GÉNESIS ──────────────────────────────────────────────── -->
+    <!-- ─── SLIDE: 01 LA HISTORIA ────────────────────────────────────── -->
+    <div class="slide">
     <section class="section" id="historia">
       <span class="section-number-bg">01</span>
       <p class="section-label"><span class="dot dot-dark"></span>01 — LA HISTORIA</p>
@@ -2130,13 +2159,13 @@
       </div>
 
     </section>
-
-    <!-- ─── TRANSITION: 01 → 02 ───────────────────────────────────────── -->
     <div class="transition-strip transition-strip-dark">
       <p>Hoy, el mismo problema persiste. Y tiene nombre.</p>
     </div>
+    </div><!-- /slide 01 -->
 
-    <!-- ─── 02: EL PROBLEMA ────────────────────────────────────────────── -->
+    <!-- ─── SLIDE: 02 EL PROBLEMA ────────────────────────────────────── -->
+    <div class="slide slide-dark">
     <section class="section section-dark" id="problema">
       <span class="section-number-bg">02</span>
       <div class="section-inner">
@@ -2196,13 +2225,13 @@
 
       </div><!-- /section-inner -->
     </section>
-
-    <!-- ─── TRANSITION: 02 → 03 ───────────────────────────────────────── -->
     <div class="transition-strip">
       <p>La brecha tiene solución. Se llama Steinmetz.</p>
     </div>
+    </div><!-- /slide 02 -->
 
-    <!-- ─── 03: LA SOLUCIÓN ──────────────────────────────────────────── -->
+    <!-- ─── SLIDE: 03 LA SOLUCIÓN ────────────────────────────────────── -->
+    <div class="slide">
     <section class="section" id="solucion">
       <span class="section-number-bg">03</span>
       <p class="section-label"><span class="dot dot-blue"></span>03 — LA SOLUCIÓN</p>
@@ -2250,13 +2279,13 @@
       </div>
 
     </section>
-
-    <!-- ─── TRANSITION: 03 → CIERRE ──────────────────────────────────── -->
     <div class="transition-strip transition-strip-dark">
       <p>—— EL GENERADOR ESTÁ LISTO ——</p>
     </div>
+    </div><!-- /slide 03 -->
 
-    <!-- ─── 06: CIERRE ────────────────────────────────────────────────── -->
+    <!-- ─── SLIDE: CIERRE ────────────────────────────────────────────── -->
+    <div class="slide slide-dark">
     <section id="cierre">
       <span class="cierre-watermark">STEINMETZ</span>
       <div class="cierre-inner">
@@ -2311,6 +2340,7 @@
         </div>
       </div>
     </section>
+    </div><!-- /slide cierre -->
 
   </main>
 
@@ -2320,10 +2350,18 @@
 
     // ─── SCROLL PROGRESS BAR ─────────────────────────────────────────
     const progressBar = document.getElementById('progress-bar');
+    const mainEl = document.querySelector('main');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
     function updateProgress() {
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
-      progressBar.style.width = progress + '%';
+      if (isMobile) {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+        progressBar.style.width = progress + '%';
+      } else {
+        const total = mainEl.scrollHeight - mainEl.clientHeight;
+        const progress = total > 0 ? (mainEl.scrollTop / total) * 100 : 0;
+        progressBar.style.width = progress + '%';
+      }
     }
 
     // ─── ACTIVE NAV LINKS ────────────────────────────────────────────
@@ -2342,7 +2380,7 @@
           });
         }
       });
-    }, { rootMargin: '-40% 0px -40% 0px' });
+    }, { root: isMobile ? null : mainEl, rootMargin: '-40% 0px -40% 0px' });
 
     sections.forEach(s => navObserver.observe(s));
 
@@ -2355,7 +2393,7 @@
           fadeObserver.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '0px 0px -48px 0px' });
+    }, { root: isMobile ? null : mainEl, rootMargin: '0px 0px -48px 0px' });
 
     fadeEls.forEach((el, i) => {
       // Stagger children within a parent list
@@ -2373,7 +2411,7 @@
           numObserver.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '0px 0px -100px 0px' });
+    }, { root: isMobile ? null : mainEl, rootMargin: '0px 0px -100px 0px' });
     sectionNums.forEach(el => numObserver.observe(el));
 
     // ─── SECTION LABEL LINE REVEAL ──────────────────────────────────
@@ -2385,7 +2423,7 @@
           labelObserver.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '0px 0px -48px 0px' });
+    }, { root: isMobile ? null : mainEl, rootMargin: '0px 0px -48px 0px' });
     sectionLabels.forEach(el => labelObserver.observe(el));
 
     // ─── BRAND TYPEWRITER ─────────────────────────────────────────────
@@ -2752,8 +2790,24 @@
       });
     })();
 
+    // ─── ANCHOR SCROLL (into main container) ──────────────────────────
+    if (!isMobile) {
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var target = document.querySelector(a.getAttribute('href'));
+          if (target && mainEl.contains(target)) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
     // ─── SCROLL EVENT ─────────────────────────────────────────────────
-    window.addEventListener('scroll', function() { updateProgress(); checkNavbar(); }, { passive: true });
+    mainEl.addEventListener('scroll', function() { updateProgress(); checkNavbar(); }, { passive: true });
+    if (isMobile) {
+      window.addEventListener('scroll', function() { updateProgress(); checkNavbar(); }, { passive: true });
+    }
     updateProgress();
     checkNavbar();
   </script>
