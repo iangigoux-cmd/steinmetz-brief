@@ -210,7 +210,9 @@
 
     /* ─── SLIDE BASE ─────────────────────────────────────────────── */
     .slide {
-      min-height: calc(100vh - var(--nav-h));
+      height: calc(100vh - var(--nav-h));
+      max-height: calc(100vh - var(--nav-h));
+      overflow: hidden;
       scroll-snap-align: start;
       scroll-snap-stop: always;
       display: flex;
@@ -223,7 +225,7 @@
     .section {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 96px 80px;
+      padding: 64px 80px;
       position: relative;
       overflow: hidden;
       width: 100%;
@@ -1318,22 +1320,18 @@
     .section-dark .paradox-col.paradox-benefit { background: rgba(5,150,105,0.06); }
     .section-dark .paradox-col.paradox-capability { background: rgba(220,38,38,0.06); }
     .paradox-divider-badge {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.1em;
       color: var(--status-danger);
-      background: var(--bg-surface);
       border: 1px solid var(--status-danger);
       padding: 4px 12px;
       text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 12px;
+      display: inline-block;
     }
-    .section-dark .paradox-divider-badge { background: #171717; }
     .paradox-callout {
       margin-top: 20px;
       padding: 16px 20px;
@@ -1378,7 +1376,7 @@
     @media (max-width: 768px) {
       /* DISABLE SNAP ON MOBILE */
       main { scroll-snap-type: none; height: auto; overflow: visible; }
-      .slide { min-height: auto; scroll-snap-align: none; }
+      .slide { height: auto; max-height: none; overflow: visible; min-height: auto; scroll-snap-align: none; }
 
       /* NAV */
       #navbar { padding: 0 20px; gap: 12px; }
@@ -1408,7 +1406,7 @@
       .story-text h2 { font-size: 26px; }
       /* PARADOX */
       .paradox-grid { grid-template-columns: 1fr; }
-      .paradox-divider-badge { position: static; transform: none; display: block; text-align: center; padding: 6px 12px; margin: -1px 0; }
+      .paradox-divider-badge { display: block; text-align: center; padding: 6px 12px; margin: -1px 0; }
       .paradox-callout { font-size: 13px; }
       /* PHASE TIMELINE */
       .phase-timeline { flex-direction: column; gap: 0; }
@@ -2201,8 +2199,8 @@
         <p class="paradox-desc">
           La Fase 3 requiere una infraestructura compleja: MCP servers, enrutamiento de APIs, permisos, sandboxes, seguridad de red. Quien más se beneficia no puede configurarla. Quien puede configurarla no la necesita.
         </p>
-        <div class="paradox-grid" style="position:relative;">
-          <span class="paradox-divider-badge">≠ BRECHA</span>
+        <div class="paradox-divider-badge">≠ BRECHA</div>
+        <div class="paradox-grid">
           <div class="paradox-col paradox-benefit">
             <p class="paradox-col-label benefit">Quiénes más se benefician</p>
             <div class="paradox-item"><span class="dot dot-success"></span><span>Líderes de células de negocio</span></div>
