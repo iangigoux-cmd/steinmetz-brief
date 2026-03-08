@@ -233,22 +233,6 @@
     .section-dark .badge-warning { background: rgba(217,119,6,0.1); }
     .section-dark .badge-blue { background: rgba(37,99,235,0.1); }
 
-    /* Dark phase cards */
-    .section-dark .phase-card {
-      background: rgba(255,255,255,0.02);
-      border-bottom-color: rgba(255,255,255,0.06);
-    }
-    .section-dark .phases-list { border-color: rgba(255,255,255,0.08); }
-    .section-dark .phase-title { color: #FFFFFF; }
-    .section-dark .phase-desc { color: rgba(255,255,255,0.45); }
-    .section-dark .phase-number { color: rgba(255,255,255,0.25); }
-    .section-dark .phase-meta-key { color: rgba(255,255,255,0.2); }
-    .section-dark .phase-meta-val { color: rgba(255,255,255,0.7); }
-    .section-dark .phase-verdict { color: rgba(255,255,255,0.2); }
-    .section-dark .phase-card.active-phase { border-top-color: var(--brand-primary); background: rgba(37,99,235,0.04); }
-    .section-dark .phase-card.active-phase .phase-verdict { color: var(--brand-primary); }
-    .section-dark .phase-card.active-phase::before { color: var(--brand-primary); }
-
     /* Dark paradox */
     .section-dark .paradox-block { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08); }
     .section-dark .paradox-title { color: #FFFFFF; }
@@ -257,21 +241,7 @@
     .section-dark .paradox-col { background: rgba(255,255,255,0.02); }
     .section-dark .paradox-item { color: rgba(255,255,255,0.5); border-bottom-color: rgba(255,255,255,0.06); }
 
-    /* Dark solution */
-    .section-dark .solution-def { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08); }
-    .section-dark .solution-def p { color: rgba(255,255,255,0.5); }
-    .section-dark .solution-def strong { color: #FFFFFF; }
-    .section-dark .capabilities-grid { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); }
-    .section-dark .capability-card { background: rgba(255,255,255,0.02); }
-    .section-dark .capability-card:hover { background: rgba(255,255,255,0.05); }
-    .section-dark .capability-icon { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
-    .section-dark .capability-eyebrow { color: rgba(255,255,255,0.25); }
-    .section-dark .capability-title { color: #FFFFFF; }
-    .section-dark .capability-desc { color: rgba(255,255,255,0.45); }
-    .section-dark .value-prop-strip { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); }
-    .section-dark .vp-cell { background: rgba(255,255,255,0.02); }
-    .section-dark .vp-cell-text { color: rgba(255,255,255,0.45); }
-    .section-dark .vp-cell-text strong { color: #FFFFFF; }
+    /* Dark capabilities (no longer used in dark section, but kept for safety) */
 
     /* ─── SECTION NUMBER BG ─────────────────────────────────────── */
     .section-number-bg {
@@ -548,67 +518,7 @@
       line-height: 1.6;
     }
 
-    .story-divider {
-      margin: 56px 0;
-      padding: 28px 0;
-      border-top: 1px solid var(--border-strong);
-      border-bottom: 1px solid var(--border-strong);
-    }
-    .story-divider-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-tertiary);
-      margin-bottom: 12px;
-    }
-    .story-divider-text {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-      line-height: 1.4;
-    }
-
-    .value-comparison {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid var(--border-strong);
-      margin-top: 32px;
-    }
-    .value-col {
-      padding: 24px;
-    }
-    .value-col + .value-col {
-      border-left: 1px solid var(--border-strong);
-    }
-    .value-col-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 12px;
-    }
-    .value-col-label.high { color: var(--brand-primary); }
-    .value-col-label.low  { color: var(--text-tertiary); }
-    .value-col-amount {
-      font-family: var(--font-mono);
-      font-size: 32px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-    .value-col-amount.high { color: var(--brand-primary); }
-    .value-col-amount.low  { color: var(--text-tertiary); }
-    .value-col-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* ─── SECTION 02: CONTEXTO ────────────────────────────────────── */
+    /* ─── SECTION 02: EL PROBLEMA ──────────────────────────────────── */
     .section-h2 {
       font-size: 32px;
       font-weight: 600;
@@ -624,98 +534,47 @@
       max-width: 600px;
       margin-bottom: 40px;
     }
-    .phases-list {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--border-strong);
-    }
-    .phase-card {
-      padding: 28px 32px;
-      border-bottom: 1px solid var(--border-subtle);
-      background: var(--bg-surface);
-      transition: background 150ms ease-in-out;
-    }
-    .phase-card:last-child { border-bottom: none; }
-    .phase-card.active-phase {
-      border: none;
-      border-top: 3px solid var(--brand-primary);
-      background: var(--bg-surface);
-      position: relative;
-    }
-    .phase-card.active-phase::before {
-      content: 'FASE ACTUAL';
-      position: absolute;
-      top: 12px;
-      right: 20px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--brand-primary);
-      letter-spacing: 0.08em;
-    }
-    .phase-top {
+
+    /* ─── PHASE TIMELINE (compact) ─────────────────────────────────── */
+    .phase-timeline {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 48px;
     }
-    .phase-number {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .phase-title {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-      flex: 1;
-    }
-    .phase-body {
-      display: grid;
-      grid-template-columns: 1fr 240px;
-      gap: 24px;
-      align-items: start;
-    }
-    .phase-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-    .phase-meta {
+    .phase-node {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 8px;
+      padding: 20px 32px;
     }
-    .phase-meta-row {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .phase-meta-key {
+    .phase-node-num {
       font-family: var(--font-mono);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-tertiary);
+      font-size: 28px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.15);
+      line-height: 1;
     }
-    .phase-meta-val {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-primary);
+    .phase-node.active .phase-node-num {
+      color: var(--brand-primary);
+    }
+    .phase-node-title {
+      font-size: 12px;
       font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      margin-bottom: 4px;
     }
-    .phase-verdict {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-subtle);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-tertiary);
-      line-height: 1.65;
+    .phase-node.active .phase-node-title {
+      color: #fff;
+    }
+    .phase-connector {
+      width: 48px;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      flex-shrink: 0;
     }
 
     .paradox-block {
@@ -771,107 +630,7 @@
     .paradox-item:last-child { border-bottom: none; }
     .paradox-item .dot { margin-top: 5px; flex-shrink: 0; }
 
-    /* ─── SECTION 03: PROBLEMA ────────────────────────────────────── */
-    .error-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-    .error-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      border-left: 3px solid var(--status-danger);
-      display: grid;
-      grid-template-columns: auto 1fr;
-    }
-    .error-code-col {
-      padding: 20px 20px;
-      border-right: 1px solid var(--border-subtle);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      background: var(--status-danger-bg);
-      min-width: 100px;
-    }
-    .error-code {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--status-danger);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .error-icon { color: var(--status-danger); display: flex; align-items: center; }
-    .error-body { padding: 20px 24px; }
-    .error-id {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
-    }
-    .error-title {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-    .error-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    .blindness-block {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      padding: 32px;
-      margin-bottom: 32px;
-    }
-    .blindness-title {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 12px;
-    }
-    .blindness-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 20px;
-    }
-    .localhost-example {
-      background: var(--bg-canvas);
-      border: 1px solid var(--border-subtle);
-      padding: 16px 20px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text-secondary);
-      border-left: 2px solid var(--status-warning);
-    }
-    .localhost-example .kw { color: var(--status-warning); font-weight: 600; }
-
-
-    /* ─── SECTION 04: SOLUCIÓN ────────────────────────────────────── */
-    .solution-def {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      padding: 32px;
-      margin-bottom: 32px;
-    }
-    .solution-def p {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 12px;
-    }
-    .solution-def p:last-child { margin-bottom: 0; }
-    .solution-def strong { color: var(--text-primary); }
+    /* ─── SECTION 03: LA SOLUCIÓN ──────────────────────────────────── */
     .capabilities-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -916,97 +675,6 @@
       font-size: 12px;
       color: var(--text-secondary);
       line-height: 1.7;
-    }
-
-    .value-prop-strip {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--border-strong);
-      border: 1px solid var(--border-strong);
-    }
-    .vp-cell {
-      padding: 20px 24px;
-      background: var(--bg-surface);
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .vp-cell .dot { margin-top: 4px; }
-    .vp-cell-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-    .vp-cell-text strong { color: var(--text-primary); }
-
-    /* ─── SECTION 05: OPORTUNIDAD ─────────────────────────────────── */
-    .metrics-band {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-strong);
-      border: 1px solid var(--border-strong);
-      margin-bottom: 40px;
-    }
-    .metric-cell {
-      padding: 32px 24px;
-      background: var(--bg-surface);
-    }
-    .metric-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-tertiary);
-      margin-bottom: 8px;
-    }
-    .metric-value {
-      font-family: var(--font-mono);
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .metric-value.blue { color: var(--brand-primary); }
-    .metric-desc {
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .target-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-subtle);
-      border: 1px solid var(--border-strong);
-      margin-bottom: 32px;
-    }
-    .target-card {
-      padding: 24px;
-      background: var(--bg-surface);
-    }
-    .target-role {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-    .target-context {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 12px;
-    }
-    .target-pain {
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.65;
     }
 
     .market-statement {
@@ -1622,29 +1290,6 @@
     #navbar { transition: transform 200ms ease-in-out, opacity 200ms ease-in-out; }
     #navbar.nav-hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
-    /* ─── PHASE CARDS ENHANCED ────────────────────────────────────── */
-    .phase-card {
-      position: relative;
-      border-left: 3px solid transparent;
-    }
-    .phase-card:nth-child(1) { border-left-color: var(--text-tertiary); }
-    .phase-card:nth-child(2) { border-left-color: var(--status-warning); }
-    .phase-card:nth-child(3) { border-left-color: var(--brand-primary); }
-    .section-dark .phase-card:nth-child(1) { border-left-color: rgba(255,255,255,0.15); }
-    .section-dark .phase-card:nth-child(2) { border-left-color: var(--status-warning); }
-    .section-dark .phase-card:nth-child(3) { border-left-color: var(--brand-primary); }
-    .phase-num-big {
-      font-family: var(--font-mono);
-      font-size: 48px;
-      font-weight: 600;
-      color: rgba(0,0,0,0.04);
-      line-height: 1;
-      position: absolute;
-      right: 24px;
-      top: 20px;
-    }
-    .section-dark .phase-num-big { color: rgba(255,255,255,0.04); }
-
     /* ─── PARADOX CONFRONTATION ───────────────────────────────────── */
     .paradox-col.paradox-benefit { background: var(--status-success-bg); }
     .paradox-col.paradox-capability { background: var(--status-danger-bg); }
@@ -1680,50 +1325,6 @@
     }
     .section-dark .paradox-callout { background: rgba(37,99,235,0.06); color: rgba(255,255,255,0.75); }
 
-    /* ─── ERROR TERMINAL WRAPPER ──────────────────────────────────── */
-    .error-terminal {
-      border: 1px solid var(--border-strong);
-      overflow: hidden;
-      margin-bottom: 40px;
-    }
-    .error-terminal-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      background: var(--text-primary);
-      border-bottom: 1px solid var(--border-strong);
-    }
-    .error-terminal-title {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    .error-terminal .error-list {
-      margin-bottom: 0;
-      padding: 16px;
-      gap: 12px;
-    }
-    .error-terminal .error-card {
-      border: 1px solid var(--border-subtle);
-    }
-    .error-terminal-footer {
-      padding: 10px 16px;
-      border-top: 1px solid var(--border-strong);
-      background: var(--status-danger-bg);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--status-danger);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
 
     /* ─── CAPABILITY MINI-TERMINAL ────────────────────────────────── */
     .cap-terminal {
@@ -1779,40 +1380,18 @@
       .story-grid  { grid-template-columns: 1fr; }
       .invoice-card { position: static; }
       .story-text h2 { font-size: 26px; }
-      .story-divider-text { font-size: 17px; }
-
-      /* VALUE COMPARISON */
-      .value-comparison { grid-template-columns: 1fr; }
-      .value-col + .value-col { border-left: none; border-top: 1px solid var(--border-strong); }
-      .value-col-amount { font-size: 24px; }
-
-      /* PHASES */
-      .phase-body  { grid-template-columns: 1fr; }
-      .phase-title { font-size: 15px; }
-
       /* PARADOX */
       .paradox-grid { grid-template-columns: 1fr; }
       .paradox-divider-badge { position: static; transform: none; display: block; text-align: center; padding: 6px 12px; margin: -1px 0; }
       .paradox-callout { font-size: 13px; }
-      .phase-num-big { font-size: 36px; right: 16px; top: 14px; }
-
-      /* ERROR CARDS */
-      .error-terminal .error-list { padding: 12px; gap: 10px; }
-      .error-code-col { min-width: 72px; padding: 16px 12px; }
-      .error-body { padding: 16px 18px; }
+      /* PHASE TIMELINE */
+      .phase-timeline { flex-direction: column; gap: 0; }
+      .phase-connector { width: 1px; height: 24px; }
+      .phase-node { padding: 12px 20px; }
+      .phase-node-num { font-size: 22px; }
 
       /* CAPABILITIES */
       .capabilities-grid { grid-template-columns: 1fr; }
-
-      /* VALUE PROP */
-      .value-prop-strip { grid-template-columns: 1fr; }
-
-      /* METRICS */
-      .metrics-band { grid-template-columns: 1fr; }
-      .metric-value { font-size: 22px; }
-
-      /* TARGETS */
-      .target-grid { grid-template-columns: 1fr; }
 
       /* MARKET STATEMENT */
       .market-statement p { font-size: 15px; }
@@ -2430,11 +2009,9 @@
       <span class="nav-brand-tag">[BRIEF v1.0]</span>
     </div>
     <ul class="nav-links">
-      <li><a href="#historia"   data-section="historia">01 GÉNESIS</a></li>
-      <li><a href="#contexto"   data-section="contexto">02 CONTEXTO</a></li>
-      <li><a href="#problema"   data-section="problema">03 PROBLEMA</a></li>
-      <li><a href="#solucion"   data-section="solucion">04 SOLUCIÓN</a></li>
-      <li><a href="#oportunidad" data-section="oportunidad">05 OPORTUNIDAD</a></li>
+      <li><a href="#historia"   data-section="historia">01 HISTORIA</a></li>
+      <li><a href="#problema"   data-section="problema">02 PROBLEMA</a></li>
+      <li><a href="#solucion"   data-section="solucion">03 SOLUCIÓN</a></li>
       <li><a href="/propuesta/" style="color:var(--brand-primary);font-weight:600;">PROPUESTA</a></li>
     </ul>
   </nav>
@@ -2503,7 +2080,7 @@
     <!-- ─── 01: GÉNESIS ──────────────────────────────────────────────── -->
     <section class="section" id="historia">
       <span class="section-number-bg">01</span>
-      <p class="section-label"><span class="dot dot-dark"></span>01 — GÉNESIS</p>
+      <p class="section-label"><span class="dot dot-dark"></span>01 — LA HISTORIA</p>
 
       <div class="story-grid">
         <div class="story-text">
@@ -2552,122 +2129,42 @@
         </div>
       </div>
 
-      <div class="story-divider fade-in">
-        <p class="story-divider-label">Conectando con el presente</p>
-        <p class="story-divider-text">En el mundo corporativo actual, el mismo problema sigue vigente.</p>
-      </div>
-
-      <div class="fade-in">
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:20px;">
-          En cualquier organización hay personas que entienden el negocio. Saben qué proceso está roto, qué dato falta y qué herramienta lo resolvería. Tienen el conocimiento de los $9,999.
-        </p>
-        <p style="font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:32px;">
-          El sistema actual los obliga a lidiar con el trabajo de $1: configurar servidores, depurar código, negociar con TI. El conocimiento que hace diferencia termina atascado en la burocracia técnica.
-        </p>
-      </div>
-
-      <div class="value-comparison fade-in">
-        <div class="value-col">
-          <p class="value-col-label high">La visión del negocio</p>
-          <p class="value-col-amount high">$9,999</p>
-          <p class="value-col-desc">Saber exactamente qué proceso está roto, qué métrica falta y qué herramienta resolvería el problema. El conocimiento que tiene el líder de la célula.</p>
-        </div>
-        <div class="value-col">
-          <p class="value-col-label low">La ejecución técnica</p>
-          <p class="value-col-amount low">$1</p>
-          <p class="value-col-desc">Escribir el código, configurar el servidor MCP, enrutar las APIs, establecer permisos. Trabajo técnico que el sistema hoy le exige al que no debería hacerlo.</p>
-        </div>
-      </div>
-
     </section>
 
     <!-- ─── TRANSITION: 01 → 02 ───────────────────────────────────────── -->
     <div class="transition-strip transition-strip-dark">
-      <p>La tiza fue el inicio. El contexto es lo que sigue.</p>
+      <p>Hoy, el mismo problema persiste. Y tiene nombre.</p>
     </div>
 
-    <!-- ─── 02: CONTEXTO ─────────────────────────────────────────────── -->
-    <section class="section section-dark" id="contexto">
+    <!-- ─── 02: EL PROBLEMA ────────────────────────────────────────────── -->
+    <section class="section section-dark" id="problema">
       <span class="section-number-bg">02</span>
       <div class="section-inner">
-      <p class="section-label"><span class="dot dot-blue"></span>02 — CONTEXTO DE MERCADO</p>
+      <p class="section-label"><span class="dot dot-blue"></span>02 — EL PROBLEMA</p>
 
-      <h2 class="section-h2 fade-in">La Evolución del Desarrollo Asistido</h2>
+      <h2 class="section-h2 fade-in">La Paradoja de la Fase 3</h2>
       <p class="section-intro fade-in">
-        La IA en el desarrollo de software no fue un salto único. Fue una evolución de tres fases distintas. Cada fase redujo la fricción técnica pero reveló un nuevo cuello de botella. Hoy estamos en la frontera de la tercera, y la más poderosa, de todas.
+        La IA en el desarrollo de software evolucionó en tres fases. La tercera — orquestación autónoma — es la más poderosa. Y tiene un problema fundamental.
       </p>
 
-      <div class="phases-list fade-in">
-
-        <div class="phase-card">
-          <span class="phase-num-big">01</span>
-          <div class="phase-top">
-            <span class="phase-number">FASE 01</span>
-            <span class="badge badge-dark">Superada</span>
-          </div>
-          <p class="phase-title">El Oráculo Aislado: el paradigma del Chat</p>
-          <div class="phase-body">
-            <p class="phase-desc">La IA operaba sin contexto del entorno. El usuario enviaba un prompt, recibía código estático y debía integrarlo manualmente. Útil como consulta; ineficiente como flujo de trabajo real.</p>
-            <div class="phase-meta">
-              <div class="phase-meta-row">
-                <span class="phase-meta-key">Perfil requerido</span>
-                <span class="phase-meta-val">Alto conocimiento técnico</span>
-              </div>
-              <div class="phase-meta-row">
-                <span class="phase-meta-key">Ejemplo</span>
-                <span class="phase-meta-val">ChatGPT, Claude.ai</span>
-              </div>
-            </div>
-          </div>
-          <div class="phase-verdict">// Útil, pero requiere perfil técnico alto para aprovecharla.</div>
+      <div class="phase-timeline fade-in">
+        <div class="phase-node">
+          <span class="phase-node-num">01</span>
+          <span class="phase-node-title">Chat aislado</span>
+          <span class="badge badge-dark">Superada</span>
         </div>
-
-        <div class="phase-card">
-          <span class="phase-num-big">02</span>
-          <div class="phase-top">
-            <span class="phase-number">FASE 02</span>
-            <span class="badge badge-warning">En adopción</span>
-          </div>
-          <p class="phase-title">El Copiloto Incrustado: IDEs contextuales</p>
-          <div class="phase-body">
-            <p class="phase-desc">Herramientas como Cursor, Claude Code y Copilot se integraron directamente al proyecto: leen la base de código, entienden la arquitectura y sugieren cambios sistémicos. Salto exponencial, pero sigue requiriendo perfil técnico.</p>
-            <div class="phase-meta">
-              <div class="phase-meta-row">
-                <span class="phase-meta-key">Perfil requerido</span>
-                <span class="phase-meta-val">Conocimiento técnico medio</span>
-              </div>
-              <div class="phase-meta-row">
-                <span class="phase-meta-key">Ejemplo</span>
-                <span class="phase-meta-val">Cursor, Claude Code</span>
-              </div>
-            </div>
-          </div>
-          <div class="phase-verdict">// Salto exponencial para técnicos. El no-técnico sigue afuera.</div>
+        <div class="phase-connector"></div>
+        <div class="phase-node">
+          <span class="phase-node-num">02</span>
+          <span class="phase-node-title">Copiloto en IDE</span>
+          <span class="badge badge-warning">En adopción</span>
         </div>
-
-        <div class="phase-card active-phase">
-          <span class="phase-num-big">03</span>
-          <div class="phase-top">
-            <span class="phase-number">FASE 03</span>
-            <span class="badge badge-blue">Objetivo</span>
-          </div>
-          <p class="phase-title">La Orquestación Autónoma: agentes centralizados</p>
-          <div class="phase-body">
-            <p class="phase-desc">La IA se convierte en ejecutor activo. El usuario describe lo que necesita en lenguaje natural; un agente central coordina microagentes que diseñan, codifican, prueban y despliegan. El usuario aporta la lógica de negocio. El sistema hace el resto.</p>
-            <div class="phase-meta">
-              <div class="phase-meta-row">
-                <span class="phase-meta-key">Perfil requerido</span>
-                <span class="phase-meta-val">Visión de negocio. Cero técnico.</span>
-              </div>
-              <div class="phase-meta-row">
-                <span class="phase-meta-key">Infra requerida</span>
-                <span class="phase-meta-val">MCP + Agentes + APIs</span>
-              </div>
-            </div>
-          </div>
-          <div class="phase-verdict" style="color:var(--brand-primary);">// El poder está disponible. El problema es cruzar el abismo de la implementación.</div>
+        <div class="phase-connector"></div>
+        <div class="phase-node active">
+          <span class="phase-node-num">03</span>
+          <span class="phase-node-title">Orquestación autónoma</span>
+          <span class="badge badge-blue">Objetivo</span>
         </div>
-
       </div>
 
       <div class="paradox-block fade-in">
@@ -2702,113 +2199,18 @@
 
     <!-- ─── TRANSITION: 02 → 03 ───────────────────────────────────────── -->
     <div class="transition-strip">
-      <p>El contexto define la oportunidad. El diagnóstico define la urgencia.</p>
+      <p>La brecha tiene solución. Se llama Steinmetz.</p>
     </div>
 
-    <!-- ─── 03: PROBLEMA ─────────────────────────────────────────────── -->
-    <section class="section" id="problema">
+    <!-- ─── 03: LA SOLUCIÓN ──────────────────────────────────────────── -->
+    <section class="section" id="solucion">
       <span class="section-number-bg">03</span>
-      <p class="section-label"><span class="dot dot-danger" style="background:var(--status-danger)"></span>03 — DIAGNÓSTICO</p>
-
-      <h2 class="section-h2 fade-in">El Cuello de Botella Corporativo</h2>
-      <p class="section-intro fade-in">
-        El desarrollo orquestado por agentes representa un salto cuántico en productividad. Pero su adopción choca contra la realidad operativa de las empresas. El problema, y la oportunidad, radica exclusivamente en el sector B2B corporativo.
-      </p>
-
-      <div class="error-terminal fade-in">
-        <div class="error-terminal-header">
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
-          <span class="error-terminal-title">steinmetz.diagnostic — sistema de detección</span>
-        </div>
-        <div class="error-list">
-
-          <div class="error-card">
-            <div class="error-code-col">
-              <span class="error-code">ERR-001</span>
-              <span class="error-icon"><i data-lucide="alert-triangle" style="width:18px;height:18px;"></i></span>
-            </div>
-            <div class="error-body">
-              <p class="error-id">IT_ROADMAP_COLLAPSE</p>
-              <p class="error-title">El Colapso del Roadmap de TI</p>
-              <p class="error-desc">El negocio necesita herramientas ágiles. TI prioriza estabilidad y gobernanza. El resultado es un retraso de meses o años en la entrega de soluciones que el negocio necesita hoy.</p>
-            </div>
-          </div>
-
-          <div class="error-card">
-            <div class="error-code-col">
-              <span class="error-code">ERR-002</span>
-              <span class="error-icon"><i data-lucide="shield-off" style="width:18px;height:18px;"></i></span>
-            </div>
-            <div class="error-body">
-              <p class="error-id">SHADOW_TOOL_SYNDROME</p>
-              <p class="error-title">El Síndrome de la Herramienta Sombra</p>
-              <p class="error-desc">Ante la lentitud de TI, los equipos improvisan: hojas de cálculo compartidas, bots sin documentar, scripts sin respaldo. Riesgos de seguridad, silos de información y plataformas imposibles de auditar.</p>
-            </div>
-          </div>
-
-          <div class="error-card">
-            <div class="error-code-col">
-              <span class="error-code">ERR-003</span>
-              <span class="error-icon"><i data-lucide="eye-off" style="width:18px;height:18px;"></i></span>
-            </div>
-            <div class="error-body">
-              <p class="error-id">INFRASTRUCTURE_BLINDNESS</p>
-              <p class="error-title">La Ceguera de Infraestructura</p>
-              <p class="error-desc">El directorio baja el mandato de "implementar IA", pero nadie sabe cómo ejecutarlo. Se conectan herramientas aisladas o interfaces de chat sin entender que el verdadero trabajo es la infraestructura subyacente.</p>
-            </div>
-          </div>
-
-        </div>
-        <div class="error-terminal-footer">
-          <span class="dot dot-danger"></span>
-          3 errores críticos detectados · requiere intervención
-        </div>
-      </div>
-
-      <div class="blindness-block fade-in">
-        <h3 class="blindness-title">El síntoma más claro</h3>
-        <p class="blindness-desc">El líder de proyecto que solicita conectar un servidor local a la red pública de la empresa, asumiendo que la integración de sistemas complejos es un simple enchufe.</p>
-        <div class="localhost-example">
-          <span class="kw">// Solicitud real de proyecto corporativo</span><br>
-          "Queremos que nuestra IA acceda a los datos del ERP.<br>
-          &nbsp;¿No es solo cuestión de abrir el puerto del localhost?"
-        </div>
-      </div>
-
-      <div class="fade-in" style="border-top:1px solid var(--border-strong);padding-top:24px;margin-top:8px;">
-        <p style="font-size:15px;font-weight:500;color:var(--text-primary);line-height:1.65;letter-spacing:-0.005em;max-width:680px;">
-          Las empresas quieren operar en Fase 3. La barrera no es la voluntad: es la infraestructura que nadie interno sabe instalar, y la brecha entre el mandato y la ejecución sigue creciendo.
-        </p>
-      </div>
-
-    </section>
-
-    <!-- ─── TRANSITION: 03 → 04 ───────────────────────────────────────── -->
-    <div class="transition-strip transition-strip-dark">
-      <p>El diagnóstico está hecho. La solución es estructural.</p>
-    </div>
-
-    <!-- ─── 04: SOLUCIÓN ─────────────────────────────────────────────── -->
-    <section class="section section-dark" id="solucion">
-      <span class="section-number-bg">04</span>
-      <div class="section-inner">
-      <p class="section-label"><span class="dot dot-blue"></span>04 — SOLUCIÓN</p>
+      <p class="section-label"><span class="dot dot-blue"></span>03 — LA SOLUCIÓN</p>
 
       <h2 class="section-h2 fade-in">Steinmetz: Infraestructura de Agentes como Servicio</h2>
       <p class="section-intro fade-in">
-        Steinmetz es la capa de infraestructura que absorbe toda la complejidad técnica de la Fase 3 y la expone como un servicio gestionado. El líder de la célula describe lo que necesita; Steinmetz orquesta, ejecuta y entrega.
+        Steinmetz configura, gestiona y mantiene la infraestructura de agentes de IA que las empresas necesitan para operar en Fase 3. Servidores MCP, pipelines de orquestación, seguridad de endpoints. Todo gestionado. El cliente no configura; el cliente produce.
       </p>
-
-      <div class="solution-def fade-in">
-        <p>
-          Steinmetz configura, gestiona y mantiene la infraestructura de agentes de IA que las empresas necesitan para operar en Fase 3. <strong>Servidores MCP preconfigurados, pipelines de orquestación de microagentes, seguridad de endpoints y auditoría de ejecución.</strong> Todo gestionado, invisible para el usuario final.
-        </p>
-        <p>
-          El modelo no es vender software de IA genérico. Es construir la <strong>tubería que conecta la lógica de negocio con la ejecución autónoma</strong>, de la misma manera que AWS construyó la tubería que conecta el código con los servidores. El cliente no configura; el cliente produce.
-        </p>
-      </div>
 
       <div class="capabilities-grid fade-in">
         <div class="capability-card">
@@ -2840,81 +2242,6 @@
         </div>
       </div>
 
-      <div class="value-prop-strip fade-in">
-        <div class="vp-cell">
-          <span class="dot dot-success" style="margin-top:3px;"></span>
-          <p class="vp-cell-text"><strong>Cero fricción de adopción.</strong> El equipo de negocio empieza a operar en días, no en meses. Sin proyecto de TI, sin consultores externos de infraestructura.</p>
-        </div>
-        <div class="vp-cell">
-          <span class="dot dot-blue" style="margin-top:3px;"></span>
-          <p class="vp-cell-text"><strong>Trazabilidad institucional.</strong> Cada acción de cada agente queda registrada, auditable y atribuible. El directorio tiene visibilidad completa sin necesitar perfiles técnicos.</p>
-        </div>
-        <div class="vp-cell">
-          <span class="dot dot-success" style="margin-top:3px;"></span>
-          <p class="vp-cell-text"><strong>Escalabilidad nativa.</strong> Agregar una nueva célula de trabajo o un nuevo agente especializado no requiere un nuevo proyecto de infraestructura. Solo configuración.</p>
-        </div>
-        <div class="vp-cell">
-          <span class="dot dot-blue" style="margin-top:3px;"></span>
-          <p class="vp-cell-text"><strong>Gobernanza corporativa.</strong> Permisos por rol, aislamiento entre células, políticas de seguridad por capa. Compatible con los estándares de auditoría corporativa.</p>
-        </div>
-      </div>
-
-      </div><!-- /section-inner -->
-    </section>
-
-    <!-- ─── TRANSITION: 04 → 05 ───────────────────────────────────────── -->
-    <div class="transition-strip">
-      <p>La solución existe. El mercado la está buscando.</p>
-    </div>
-
-    <!-- ─── 05: OPORTUNIDAD ───────────────────────────────────────────── -->
-    <section class="section" id="oportunidad">
-      <span class="section-number-bg">05</span>
-      <p class="section-label"><span class="dot dot-blue"></span>05 — MERCADO</p>
-
-      <h2 class="section-h2 fade-in">El Vacío en el Mercado Corporativo</h2>
-      <p class="section-intro fade-in">
-        La oportunidad de monetización radica exclusivamente en B2B corporativo. El usuario B2C no asumirá el CAPEX ni el OPEX que exige esta arquitectura. Las herramientas de Fase 2 ya los satisfacen. La demanda real está en la empresa que recibió el mandato y no sabe cómo ejecutarlo.
-      </p>
-
-      <div class="metrics-band fade-in">
-        <div class="metric-cell">
-          <p class="metric-eyebrow">Mercado objetivo</p>
-          <p class="metric-value blue">B2B</p>
-          <p class="metric-desc">Exclusivo. Empresas medianas y grandes en industrias con alta fricción operativa: consumo masivo, logística, finanzas, retail.</p>
-        </div>
-        <div class="metric-cell">
-          <p class="metric-eyebrow">Demanda de Fase 3</p>
-          <p class="metric-value">Real.<br>Sin oferta.</p>
-          <p class="metric-desc">Existe demanda desesperada por agentes autónomos en el mundo corporativo. No existe una oferta estructurada que resuelva la brecha de implementación.</p>
-        </div>
-        <div class="metric-cell">
-          <p class="metric-eyebrow">Perfil técnico requerido</p>
-          <p class="metric-value blue">0</p>
-          <p class="metric-desc">El cliente objetivo no necesita saber qué es un servidor MCP. Solo necesita saber qué proceso quiere automatizar.</p>
-        </div>
-      </div>
-
-      <h3 style="font-size:15px;font-weight:600;letter-spacing:-0.01em;margin-bottom:16px;" class="fade-in">El cliente objetivo</h3>
-
-      <div class="target-grid fade-in">
-        <div class="target-card">
-          <p class="target-role">COO</p>
-          <p class="target-context">Chief Operating Officer</p>
-          <p class="target-pain">Recibe el mandato de "digitalizar con IA" pero su equipo de operaciones no puede esperar 18 meses a que TI libere el proyecto. Necesita herramientas que funcionen ahora.</p>
-        </div>
-        <div class="target-card">
-          <p class="target-role">CFO</p>
-          <p class="target-context">Chief Financial Officer</p>
-          <p class="target-pain">Quiere dashboards automatizados y reportes generados por agentes, pero no puede justificar contratar un equipo de ingeniería interno para construir la infraestructura.</p>
-        </div>
-        <div class="target-card">
-          <p class="target-role">Gerente Ops</p>
-          <p class="target-context">Líder de Célula de Negocio</p>
-          <p class="target-pain">Sabe exactamente qué necesita. Conoce el proceso roto, la métrica que falta, el flujo a automatizar. Solo le falta la herramienta que lo ejecute sin pedirle que aprenda a programar.</p>
-        </div>
-      </div>
-
       <div class="market-statement fade-in">
         <span class="market-statement-label">Propuesta de valor</span>
         <p>
@@ -2924,7 +2251,7 @@
 
     </section>
 
-    <!-- ─── TRANSITION: 05 → CIERRE ──────────────────────────────────── -->
+    <!-- ─── TRANSITION: 03 → CIERRE ──────────────────────────────────── -->
     <div class="transition-strip transition-strip-dark">
       <p>—— EL GENERADOR ESTÁ LISTO ——</p>
     </div>
@@ -3032,7 +2359,7 @@
 
     fadeEls.forEach((el, i) => {
       // Stagger children within a parent list
-      const delay = el.closest('.error-list, .phases-list') ? i * 40 : 0;
+      const delay = 0;
       el.style.transitionDelay = delay + 'ms';
       fadeObserver.observe(el);
     });
@@ -3060,33 +2387,6 @@
       });
     }, { rootMargin: '0px 0px -48px 0px' });
     sectionLabels.forEach(el => labelObserver.observe(el));
-
-    // ─── COUNTUP: VALUE COMPARISON ──────────────────────────────────
-    document.querySelectorAll('.value-col-amount').forEach(el => {
-      const original = el.textContent;
-      const numObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            numObs.unobserve(entry.target);
-            const match = original.match(/\$([\d,]+)/);
-            if (!match) return;
-            const target = parseInt(match[1].replace(/,/g, ''));
-            const dur = 600;
-            const start = performance.now();
-            function tick(now) {
-              const t = Math.min((now - start) / dur, 1);
-              const e = 1 - Math.pow(1 - t, 3);
-              const val = Math.round(e * target);
-              el.textContent = '$' + val.toLocaleString('en-US');
-              if (t < 1) requestAnimationFrame(tick);
-            }
-            el.textContent = '$0';
-            requestAnimationFrame(tick);
-          }
-        });
-      }, { rootMargin: '0px 0px -48px 0px' });
-      numObs.observe(el);
-    });
 
     // ─── BRAND TYPEWRITER ─────────────────────────────────────────────
     (function() {
