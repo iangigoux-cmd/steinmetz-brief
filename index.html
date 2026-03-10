@@ -202,7 +202,7 @@
     /* ─── MAIN WRAPPER (scroll-snap) ─────────────────────────────── */
     main {
       padding-top: var(--nav-h);
-      height: calc(100vh - var(--nav-h));
+      height: 100vh;
       overflow-y: auto;
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
@@ -210,9 +210,7 @@
 
     /* ─── SLIDE BASE ─────────────────────────────────────────────── */
     .slide {
-      height: calc(100vh - var(--nav-h));
-      max-height: calc(100vh - var(--nav-h));
-      overflow: hidden;
+      min-height: calc(100vh - var(--nav-h));
       scroll-snap-align: start;
       scroll-snap-stop: always;
       display: flex;
@@ -225,9 +223,8 @@
     .section {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 64px 80px;
+      padding: 48px 80px;
       position: relative;
-      overflow: hidden;
       width: 100%;
     }
     .section + .section {
@@ -308,27 +305,12 @@
     }
     .transition-strip-dark p { color: rgba(255,255,255,0.2); }
 
-    /* ─── HERO FICHA TECNICA ────────────────────────────────────── */
-    .hero-divider {
-      border-top: 1px solid var(--border-strong);
-      margin: 40px 0 0;
-      padding-top: 32px;
-    }
-    .hero-ficha-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-tertiary);
-      margin-bottom: 12px;
-    }
 
     /* ─── HERO ────────────────────────────────────────────────────── */
     #hero {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 88px 80px 48px;
+      padding: 48px 80px;
       width: 100%;
     }
     .hero-eyebrow {
@@ -349,13 +331,13 @@
       background: var(--text-tertiary);
     }
     .hero-h1 {
-      font-size: 52px;
+      font-size: 40px;
       font-weight: 600;
-      line-height: 1.08;
+      line-height: 1.12;
       letter-spacing: -0.03em;
       color: var(--text-primary);
-      max-width: 680px;
-      margin-bottom: 24px;
+      max-width: 640px;
+      margin-bottom: 20px;
     }
     .hero-subtitle {
       font-family: var(--font-mono);
@@ -366,19 +348,11 @@
       margin-bottom: 20px;
       text-transform: uppercase;
     }
-    .hero-tagline {
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-width: 520px;
-      margin-bottom: 48px;
-    }
     .hero-meta-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       border: 1px solid var(--border-strong);
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
     .hero-meta-cell {
       padding: 16px 20px;
@@ -400,112 +374,27 @@
       font-weight: 500;
       color: var(--text-primary);
     }
-    .hero-terminal {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      padding: 24px 28px;
-    }
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-    .terminal-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-    }
-    .terminal-dot:nth-child(1) { background: #DC2626; }
-    .terminal-dot:nth-child(2) { background: #D97706; }
-    .terminal-dot:nth-child(3) { background: #059669; }
-    .terminal-title {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-tertiary);
-      margin-left: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .terminal-line {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: var(--text-primary);
-      line-height: 1.8;
-      min-height: 1.8em;
-    }
-    .terminal-line .prompt {
-      color: var(--brand-primary);
-      font-weight: 600;
-      margin-right: 10px;
-    }
-    .terminal-line .value-high {
-      color: var(--brand-primary);
-      font-weight: 600;
-    }
-    .terminal-line .value-low {
-      color: var(--text-tertiary);
-    }
-    .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1em;
-      background: var(--text-primary);
-      margin-left: 2px;
-      vertical-align: text-bottom;
-      animation: blink 1s step-start infinite;
-    }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
     /* ─── SECTION 01: HISTORIA ────────────────────────────────────── */
-    .story-grid {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 48px;
-      align-items: start;
-    }
-    .story-text h2 {
-      font-size: 36px;
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
-      margin-bottom: 24px;
+    .pull-quote {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: italic;
       color: var(--text-primary);
-    }
-    .story-text p {
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 16px;
-      font-size: 14px;
+      line-height: 1.6;
+      padding: 16px 0 16px 20px;
+      border-left: 3px solid var(--brand-primary);
+      margin-bottom: 28px;
+      max-width: 520px;
     }
     .invoice-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-strong);
-      position: sticky;
-      top: calc(var(--nav-h) + 24px);
     }
-    .invoice-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-strong);
-      background: var(--text-primary);
-    }
-    .invoice-header-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 4px;
-    }
-    .invoice-header-title {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      color: #FFFFFF;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+    .invoice-compact {
+      max-width: 420px;
+      margin: 0 auto;
     }
     .invoice-body { padding: 20px; }
     .invoice-row {
@@ -533,14 +422,6 @@
     }
     .invoice-total-label { font-weight: 600; color: var(--text-primary); }
     .invoice-total-amount { font-weight: 600; color: var(--text-primary); font-size: 16px; }
-    .ford-note {
-      padding: 12px 20px;
-      border-top: 1px solid var(--border-subtle);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-tertiary);
-      line-height: 1.6;
-    }
 
     /* ─── SECTION 02: EL PROBLEMA ──────────────────────────────────── */
     .section-h2 {
@@ -559,66 +440,11 @@
       margin-bottom: 40px;
     }
 
-    /* ─── PHASE TIMELINE (compact) ─────────────────────────────────── */
-    .phase-timeline {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 48px;
-    }
-    .phase-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 20px 32px;
-    }
-    .phase-node-num {
-      font-family: var(--font-mono);
-      font-size: 28px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.15);
-      line-height: 1;
-    }
-    .phase-node.active .phase-node-num {
-      color: var(--brand-primary);
-    }
-    .phase-node-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.4);
-      text-align: center;
-      margin-bottom: 4px;
-    }
-    .phase-node.active .phase-node-title {
-      color: #fff;
-    }
-    .phase-connector {
-      width: 48px;
-      height: 1px;
-      background: rgba(255,255,255,0.12);
-      flex-shrink: 0;
-    }
-
     .paradox-block {
       margin-top: 32px;
       background: var(--bg-surface);
       border: 1px solid var(--border-strong);
-      padding: 32px;
-    }
-    .paradox-title {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-    }
-    .paradox-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 24px;
+      padding: 24px;
     }
     .paradox-grid {
       display: grid;
@@ -628,7 +454,7 @@
       border: 1px solid var(--border-strong);
     }
     .paradox-col {
-      padding: 20px 24px;
+      padding: 16px 20px;
       background: var(--bg-surface);
     }
     .paradox-col-label {
@@ -1376,7 +1202,7 @@
     @media (max-width: 768px) {
       /* DISABLE SNAP ON MOBILE */
       main { scroll-snap-type: none; height: auto; overflow: visible; }
-      .slide { height: auto; max-height: none; overflow: visible; min-height: auto; scroll-snap-align: none; }
+      .slide { min-height: auto; scroll-snap-align: none; }
 
       /* NAV */
       #navbar { padding: 0 20px; gap: 12px; }
@@ -1389,7 +1215,6 @@
       /* HERO TYPOGRAPHY */
       #hero-brand { font-size: 52px; min-height: auto; }
       .hero-h1    { font-size: 26px; }
-      .hero-tagline { font-size: 14px; }
 
       /* HERO META */
       .hero-meta-grid { grid-template-columns: 1fr; }
@@ -1400,19 +1225,12 @@
       .section-h2   { font-size: 24px; }
       .section-intro { font-size: 13px; }
 
-      /* STORY */
-      .story-grid  { grid-template-columns: 1fr; }
-      .invoice-card { position: static; }
-      .story-text h2 { font-size: 26px; }
+      /* INVOICE */
+      .invoice-compact { max-width: 100%; }
       /* PARADOX */
       .paradox-grid { grid-template-columns: 1fr; }
       .paradox-divider-badge { display: block; text-align: center; padding: 6px 12px; margin: -1px 0; }
       .paradox-callout { font-size: 13px; }
-      /* PHASE TIMELINE */
-      .phase-timeline { flex-direction: column; gap: 0; }
-      .phase-connector { width: 1px; height: 24px; }
-      .phase-node { padding: 12px 20px; }
-      .phase-node-num { font-size: 22px; }
 
       /* CAPABILITIES */
       .capabilities-grid { grid-template-columns: 1fr; }
@@ -2054,10 +1872,6 @@
 
       <p class="hero-subtitle fade-in">De idea a producto.</p>
 
-      <p class="hero-tagline fade-in">
-        Plataforma de infraestructura de agentes de IA para empresas. Steinmetz absorbe la complejidad técnica para que los líderes de negocio operen en la Fase 3 sin tocar una sola línea de configuración.
-      </p>
-
       <div class="hero-meta-grid fade-in">
         <div class="hero-meta-cell">
           <p class="hero-meta-label">Sector</p>
@@ -2075,27 +1889,6 @@
         </div>
       </div>
 
-      <div class="hero-divider fade-in">
-        <p class="hero-ficha-label">Ficha Técnica</p>
-      </div>
-
-      <div class="hero-terminal fade-in">
-        <div class="terminal-bar">
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
-          <span class="terminal-title">steinmetz.brief — axioma fundacional</span>
-        </div>
-        <div class="terminal-line">
-          <span class="prompt">$</span>
-          <span id="typewriter-1"></span>
-        </div>
-        <div class="terminal-line">
-          <span class="prompt">$</span>
-          <span id="typewriter-2"></span><span class="cursor" id="cursor" style="display:none;"></span>
-        </div>
-      </div>
-
       <a href="#historia" class="hero-cta fade-in" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:12px 24px;border:1px solid var(--border-strong);font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);transition:color 150ms,border-color 150ms,background 150ms;">
         Leer el brief
         <i data-lucide="arrow-down" style="width:14px;height:14px;"></i>
@@ -2109,50 +1902,30 @@
       <span class="section-number-bg">01</span>
       <p class="section-label"><span class="dot dot-dark"></span>01 — LA HISTORIA</p>
 
-      <div class="story-grid">
-        <div class="story-text">
-          <h2 class="fade-in">La Marca de Tiza</h2>
+      <h2 class="section-h2 fade-in">La Marca de Tiza</h2>
 
-          <p class="fade-in">A principios del siglo XX, el inmenso generador de la planta principal de Henry Ford falló, deteniendo toda la producción. Sus mejores ingenieros trabajaron durante días sin éxito. Desesperado, Ford llamó a Charles Proteus Steinmetz.</p>
+      <p class="section-intro fade-in" style="max-width:640px;">
+        En 1903, el generador de Henry Ford falló. Sus ingenieros no pudieron arreglarlo. Charles Steinmetz observó la máquina dos días, hizo una marca de tiza y dijo: "Quiten 16 vueltas de cable." La fábrica volvió a rugir.
+      </p>
 
-          <p class="fade-in">Steinmetz llegó, observó la máquina durante dos días completos. Sin hablar, sin tomar notas. Solo mirando. Luego sacó una tiza, dibujó una única marca en la carcasa del generador y le dijo al equipo de Ford:</p>
+      <div class="pull-quote fade-in">
+        "Hacer una marca de tiza: $1. Saber dónde hacerla: $9,999."
+      </div>
 
-          <p class="fade-in" style="font-style:italic;color:var(--text-primary);font-size:15px;line-height:1.6;padding:20px 0;border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);margin:8px 0;">
-            "Abran aquí y quiten exactamente 16 vueltas de cable."
-          </p>
-
-          <p class="fade-in">Al hacerlo, la fábrica volvió a rugir. Días después, Ford recibió una factura por $10,000 dólares. Indignado por el precio de una simple marca de tiza, exigió un desglose. Steinmetz le envió dos líneas.</p>
-
-          <p class="fade-in" style="color:var(--text-secondary);">Ford pagó sin chistar.</p>
-
-          <p class="fade-in" style="font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);line-height:1.7;margin-top:20px;padding-top:16px;border-top:1px solid var(--border-subtle);">// Los $10,000 no eran el precio de una reparación.<br>// Eran el precio de saber exactamente dónde estaba el problema.</p>
-        </div>
-
-        <div class="fade-in">
-          <div class="invoice-card">
-            <div class="invoice-header">
-              <p class="invoice-header-label">Factura No. STZ-1903</p>
-              <p class="invoice-header-title">Charles P. Steinmetz → Henry Ford</p>
-            </div>
-            <div class="invoice-body">
-              <div class="invoice-row">
-                <span class="invoice-row-label">Hacer una marca de tiza en el generador</span>
-                <span class="invoice-row-amount">$1.00</span>
-              </div>
-              <div class="invoice-row">
-                <span class="invoice-row-label">Saber exactamente dónde hacer la marca</span>
-                <span class="invoice-row-amount">$9,999.00</span>
-              </div>
-            </div>
-            <div class="invoice-total">
-              <span class="invoice-total-label">TOTAL</span>
-              <span class="invoice-total-amount">$10,000.00</span>
-            </div>
-            <div class="ford-note">
-              Planta Dearborn, Michigan. c.1903.<br>
-              Ford Motor Company. Pagado.
-            </div>
+      <div class="invoice-card invoice-compact fade-in">
+        <div class="invoice-body">
+          <div class="invoice-row">
+            <span class="invoice-row-label">Marca de tiza en el generador</span>
+            <span class="invoice-row-amount">$1</span>
           </div>
+          <div class="invoice-row">
+            <span class="invoice-row-label">Saber exactamente dónde hacerla</span>
+            <span class="invoice-row-amount">$9,999</span>
+          </div>
+        </div>
+        <div class="invoice-total">
+          <span class="invoice-total-label">TOTAL</span>
+          <span class="invoice-total-amount">$10,000</span>
         </div>
       </div>
 
@@ -2171,60 +1944,30 @@
 
       <h2 class="section-h2 fade-in">La Paradoja de la Fase 3</h2>
       <p class="section-intro fade-in">
-        La IA en el desarrollo de software evolucionó en tres fases. La tercera — orquestación autónoma — es la más poderosa. Y tiene un problema fundamental.
+        Los agentes autónomos son la fase más poderosa de la IA en empresas. Pero requieren una infraestructura que sólo pueden configurar quienes no la necesitan.
       </p>
 
-      <div class="phase-timeline fade-in">
-        <div class="phase-node">
-          <span class="phase-node-num">01</span>
-          <span class="phase-node-title">Chat aislado</span>
-          <span class="badge badge-dark">Superada</span>
-        </div>
-        <div class="phase-connector"></div>
-        <div class="phase-node">
-          <span class="phase-node-num">02</span>
-          <span class="phase-node-title">Copiloto en IDE</span>
-          <span class="badge badge-warning">En adopción</span>
-        </div>
-        <div class="phase-connector"></div>
-        <div class="phase-node active">
-          <span class="phase-node-num">03</span>
-          <span class="phase-node-title">Orquestación autónoma</span>
-          <span class="badge badge-blue">Objetivo</span>
-        </div>
-      </div>
-
-      <div class="paradox-block fade-in">
-        <h3 class="paradox-title">La Paradoja de la Implementación</h3>
-        <p class="paradox-desc">
-          La Fase 3 requiere una infraestructura compleja: MCP servers, enrutamiento de APIs, permisos, sandboxes, seguridad de red. Quien más se beneficia no puede configurarla. Quien puede configurarla no la necesita.
-        </p>
+      <div class="paradox-block fade-in" style="margin-top:24px;">
         <div class="paradox-divider-badge">≠ BRECHA</div>
         <div class="paradox-grid">
           <div class="paradox-col paradox-benefit">
-            <p class="paradox-col-label benefit">Quiénes más se benefician</p>
-            <div class="paradox-item"><span class="dot dot-success"></span><span>Líderes de células de negocio</span></div>
-            <div class="paradox-item"><span class="dot dot-success"></span><span>Analistas y gerentes operativos</span></div>
+            <div class="paradox-item"><span class="dot dot-success"></span><span>Líderes de negocio y equipos operativos</span></div>
             <div class="paradox-item"><span class="dot dot-success"></span><span>COOs, CFOs, directores sin perfil técnico</span></div>
-            <div class="paradox-item"><span class="dot dot-success"></span><span>Equipos de operaciones, logística, finanzas</span></div>
           </div>
           <div class="paradox-col paradox-capability">
-            <p class="paradox-col-label capability">Quiénes pueden configurarlo</p>
-            <div class="paradox-item"><span class="dot dot-danger"></span><span>Ingenieros de software avanzados</span></div>
-            <div class="paradox-item"><span class="dot dot-danger"></span><span>Arquitectos de infraestructura cloud</span></div>
+            <div class="paradox-item"><span class="dot dot-danger"></span><span>Ingenieros de infraestructura cloud</span></div>
             <div class="paradox-item"><span class="dot dot-danger"></span><span>DevOps con experiencia en protocolos MCP</span></div>
-            <div class="paradox-item"><span class="dot dot-danger"></span><span>...que ya son productivos con la Fase 2</span></div>
           </div>
         </div>
         <div class="paradox-callout">
-          Los que más lo necesitan no pueden configurarlo. Los que pueden configurarlo no lo necesitan. <strong style="color:var(--brand-primary);">Steinmetz cierra esa brecha.</strong>
+          Steinmetz cierra esa brecha.
         </div>
       </div>
 
       </div><!-- /section-inner -->
     </section>
     <div class="transition-strip">
-      <p>La brecha tiene solución. Se llama Steinmetz.</p>
+      <p>La brecha tiene solución.</p>
     </div>
     </div><!-- /slide 02 -->
 
@@ -2474,40 +2217,6 @@
 
       window.addEventListener('load', () => setTimeout(loop, 200));
     })();
-
-    // ─── TYPEWRITER ───────────────────────────────────────────────────
-    const line1 = 'La visión del negocio vale $9,999.';
-    const line2 = 'El código vale $1.';
-    const t1 = document.getElementById('typewriter-1');
-    const t2 = document.getElementById('typewriter-2');
-    const cursor = document.getElementById('cursor');
-
-    let idx = 0;
-    let phase = 1;
-    const speed = 32;
-
-    function type() {
-      if (phase === 1) {
-        if (idx < line1.length) {
-          t1.textContent += line1[idx++];
-          setTimeout(type, speed);
-        } else {
-          idx = 0;
-          phase = 2;
-          setTimeout(type, 320);
-        }
-      } else {
-        if (idx === 0) cursor.style.display = 'inline-block';
-        if (idx < line2.length) {
-          t2.textContent += line2[idx++];
-          setTimeout(type, speed);
-        }
-        // cursor stays blinking at end
-      }
-    }
-
-    // Start after fonts load, short delay
-    window.addEventListener('load', () => setTimeout(type, 600));
 
     // ─── LOCKSCREEN ───────────────────────────────────────────────────
     (function() {
