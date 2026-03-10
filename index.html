@@ -201,8 +201,11 @@
 
     /* ─── MAIN WRAPPER (scroll-snap) ─────────────────────────────── */
     main {
-      padding-top: var(--nav-h);
-      height: 100vh;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      bottom: 0;
       overflow-y: auto;
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
@@ -224,7 +227,7 @@
     .section {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 32px 80px 56px;
+      padding: 32px 80px 52px;
       position: relative;
       width: 100%;
     }
@@ -494,7 +497,7 @@
       margin-bottom: 32px;
     }
     .capability-card {
-      padding: 28px 24px;
+      padding: 20px;
       background: var(--bg-surface);
       transition: background 150ms ease-in-out;
     }
@@ -508,15 +511,6 @@
       justify-content: center;
       margin-bottom: 16px;
       color: var(--text-primary);
-    }
-    .capability-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-tertiary);
-      margin-bottom: 6px;
     }
     .capability-title {
       font-size: 14px;
@@ -534,7 +528,7 @@
     .market-statement {
       background: var(--bg-surface);
       border: 1px solid var(--border-strong);
-      padding: 32px;
+      padding: 24px;
     }
     .market-statement-label {
       font-family: var(--font-mono);
@@ -682,8 +676,8 @@
 
     .cierre-divider {
       border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 64px;
-      padding-top: 32px;
+      margin-top: 40px;
+      padding-top: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1176,19 +1170,6 @@
     .section-dark .paradox-callout { background: rgba(37,99,235,0.06); color: rgba(255,255,255,0.75); }
 
 
-    /* ─── CAPABILITY MINI-TERMINAL ────────────────────────────────── */
-    .cap-terminal {
-      margin-top: 12px;
-      padding: 8px 12px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-tertiary);
-      background: var(--bg-canvas);
-      border: 1px solid var(--border-subtle);
-    }
-    .cap-terminal .cap-prompt { color: var(--brand-primary); font-weight: 600; }
-    .cap-terminal .cap-ok { color: var(--status-success); font-weight: 600; }
-    .section-dark .cap-terminal { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.35); }
 
     /* ─── RESPONSIVE ──────────────────────────────────────────────── */
     /* ─── HERO BRAND ─────────────────────────────────────────────────── */
@@ -1205,7 +1186,7 @@
     /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       /* DISABLE SNAP ON MOBILE */
-      main { scroll-snap-type: none; height: auto; overflow: visible; }
+      main { position: static; scroll-snap-type: none; height: auto; overflow: visible; }
       .slide { height: auto; overflow: visible; scroll-snap-align: none; }
       .transition-strip { position: static; }
 
@@ -1982,45 +1963,36 @@
       <span class="section-number-bg">03</span>
       <p class="section-label"><span class="dot dot-blue"></span>03 — LA SOLUCIÓN</p>
 
-      <h2 class="section-h2 fade-in">Steinmetz: Infraestructura de Agentes como Servicio</h2>
-      <p class="section-intro fade-in">
-        Steinmetz configura, gestiona y mantiene la infraestructura de agentes de IA que las empresas necesitan para operar en Fase 3. Servidores MCP, pipelines de orquestación, seguridad de endpoints. Todo gestionado. El cliente no configura; el cliente produce.
-      </p>
+      <h2 class="section-h2 fade-in">Infraestructura de Agentes como Servicio</h2>
 
       <div class="capabilities-grid fade-in">
         <div class="capability-card">
           <div class="capability-icon">
             <i data-lucide="server" style="width:18px;height:18px;"></i>
           </div>
-          <p class="capability-eyebrow">Infraestructura</p>
           <p class="capability-title">MCP Infrastructure</p>
-          <p class="capability-desc">Servidores Model Context Protocol preconfigurados y gestionados. El cliente no instala, no configura, no mantiene. Solo conecta.</p>
-          <div class="cap-terminal"><span class="cap-prompt">$</span> steinmetz mcp --status → <span class="cap-ok">ACTIVE</span></div>
+          <p class="capability-desc">Servidores MCP preconfigurados y gestionados.</p>
         </div>
         <div class="capability-card">
           <div class="capability-icon">
             <i data-lucide="workflow" style="width:18px;height:18px;"></i>
           </div>
-          <p class="capability-eyebrow">Orquestación</p>
           <p class="capability-title">Agent Orchestration</p>
-          <p class="capability-desc">Coordinación de microagentes especializados por tarea: diseño, código, pruebas, despliegue. El usuario describe; el sistema ejecuta.</p>
-          <div class="cap-terminal"><span class="cap-prompt">$</span> steinmetz agents --list → <span class="cap-ok">4 RUNNING</span></div>
+          <p class="capability-desc">Coordinación de agentes especializados por tarea.</p>
         </div>
         <div class="capability-card">
           <div class="capability-icon">
             <i data-lucide="shield-check" style="width:18px;height:18px;"></i>
           </div>
-          <p class="capability-eyebrow">Seguridad</p>
           <p class="capability-title">Enterprise Security</p>
-          <p class="capability-desc">Gestión de permisos por célula, sandboxes de ejecución aislados, auditoría de endpoints y trazabilidad completa del código generado.</p>
-          <div class="cap-terminal"><span class="cap-prompt">$</span> steinmetz audit --report → <span class="cap-ok">COMPLIANT</span></div>
+          <p class="capability-desc">Permisos, sandboxes y auditoría completa.</p>
         </div>
       </div>
 
       <div class="market-statement fade-in">
         <span class="market-statement-label">Propuesta de valor</span>
         <p>
-          Steinmetz no vende IA. <strong>Vende la capacidad de cruzar el abismo entre el mandato corporativo y la ejecución real.</strong> Es la infraestructura que convierte el conocimiento de los $9,999 en software funcionando, sin que nadie tenga que saber qué es un endpoint.
+          Steinmetz convierte el conocimiento de los <strong>$9,999 en software funcionando.</strong>
         </p>
       </div>
 
@@ -2035,13 +2007,13 @@
     <section id="cierre">
       <span class="cierre-watermark">STEINMETZ</span>
       <div class="cierre-inner">
-        <p class="cierre-eyebrow">06 — PRÓXIMO PASO</p>
+        <p class="cierre-eyebrow">PRÓXIMO PASO</p>
 
-        <h2 class="cierre-h2 fade-in">
+        <h2 class="cierre-h2 fade-in" style="font-size:44px;">
           El generador está listo para encenderse.
         </h2>
         <p class="cierre-sub fade-in">
-          La infraestructura que hace funcionar la Fase 3 en entornos corporativos existe hoy. Steinmetz la gestiona, la asegura y la entrega. Lo que resta es identificar la primera célula de negocio, hacer la marca de tiza, y arrancar la fábrica.
+          Lo que resta es hacer la marca de tiza.
         </p>
 
         <div class="cierre-proof-strip fade-in">
@@ -2068,9 +2040,6 @@
             <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
             Iniciar conversación
           </button>
-          <a href="#historia" class="btn-ghost">
-            Leer desde el inicio
-          </a>
           <a href="/propuesta/" class="btn-ghost" style="border-color:var(--brand-primary);color:var(--brand-primary);">
             Propuesta de Valor
             <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
