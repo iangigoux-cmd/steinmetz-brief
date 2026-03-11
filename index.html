@@ -427,6 +427,112 @@
     .invoice-total-label { font-weight: 600; color: var(--text-primary); }
     .invoice-total-amount { font-weight: 600; color: var(--text-primary); font-size: 16px; }
 
+    /* ─── HISTORIA LAYOUT ───────────────────────────────────────── */
+    .historia-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+    }
+    .historia-story {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .historia-story .section-intro {
+      margin-bottom: 0;
+    }
+    .historia-pullquote {
+      position: relative;
+      padding: 16px 0 16px 24px;
+      margin: 4px 0;
+      border-left: 2px solid var(--brand-primary);
+    }
+    .historia-pullquote p {
+      font-family: var(--font-ui);
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+    .historia-pullquote .pullquote-attr {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 8px;
+    }
+    .historia-artifact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .invoice-featured {
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 6px 6px 0 rgba(0,0,0,0.06);
+    }
+    .invoice-featured .invoice-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .invoice-featured .invoice-header-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+    }
+    .invoice-featured .invoice-header-date {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+    }
+    .invoice-featured .invoice-row-amount {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .invoice-featured .invoice-total-amount {
+      font-size: 20px;
+      color: var(--brand-primary);
+    }
+    .historia-coda {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-align: center;
+      letter-spacing: 0.03em;
+      line-height: 1.7;
+    }
+    .historia-coda strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .historia-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .historia-artifact {
+        align-items: flex-start;
+      }
+      .invoice-featured {
+        max-width: 100%;
+      }
+    }
+
     /* ─── SECTION 02: EL PROBLEMA ──────────────────────────────────── */
     .section-h2 {
       font-size: 32px;
@@ -1885,30 +1991,51 @@
       <span class="section-number-bg">01</span>
       <p class="section-label"><span class="dot dot-dark"></span>01 — LA HISTORIA</p>
 
-      <h2 class="section-h2 fade-in">La Marca de Tiza</h2>
+      <div class="historia-grid">
+        <div class="historia-story">
+          <h2 class="section-h2 fade-in" style="font-size:36px;line-height:1.15;margin-bottom:4px;">La Marca<br>de Tiza</h2>
 
-      <p class="section-intro fade-in" style="max-width:640px;">
-        En 1903, el generador de la planta de Henry Ford falló y detuvo toda la producción. Sus mejores ingenieros trabajaron días sin éxito. Desesperado, Ford llamó a Charles Steinmetz — el ingeniero más brillante de su época.
-      </p>
+          <p class="section-intro fade-in" style="max-width:none;margin-bottom:0;">
+            En 1903, el generador de la planta de Henry Ford falló y detuvo toda la producción. Sus mejores ingenieros trabajaron días sin éxito. Desesperado, Ford llamó a Charles Steinmetz — el ingeniero más brillante de su época.
+          </p>
 
-      <p class="fade-in" style="font-size:14px;color:var(--text-secondary);line-height:1.75;max-width:640px;margin-bottom:20px;">
-        Steinmetz observó la máquina dos días enteros. Luego sacó una tiza, dibujó una marca en la carcasa y dijo: <em>"Quiten 16 vueltas de cable."</em> La fábrica volvió a rugir. Cuando Ford recibió la factura por $10,000, exigió un desglose. Steinmetz le envió dos líneas:
-      </p>
+          <p class="fade-in" style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+            Steinmetz observó la máquina dos días enteros. Luego sacó una tiza, dibujó una marca en la carcasa y dijo una sola instrucción. La fábrica volvió a rugir.
+          </p>
 
-      <div class="invoice-card invoice-compact fade-in">
-        <div class="invoice-body">
-          <div class="invoice-row">
-            <span class="invoice-row-label">Marca de tiza en el generador</span>
-            <span class="invoice-row-amount">$1</span>
+          <div class="historia-pullquote fade-in">
+            <p>"Quiten 16 vueltas de cable."</p>
+            <div class="pullquote-attr">— Charles Steinmetz, 1903</div>
           </div>
-          <div class="invoice-row">
-            <span class="invoice-row-label">Saber exactamente dónde hacerla</span>
-            <span class="invoice-row-amount">$9,999</span>
-          </div>
+
+          <p class="fade-in" style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+            Cuando Ford recibió la factura por $10,000, exigió un desglose. Steinmetz le envió dos líneas.
+          </p>
         </div>
-        <div class="invoice-total">
-          <span class="invoice-total-label">TOTAL</span>
-          <span class="invoice-total-amount">$10,000</span>
+
+        <div class="historia-artifact fade-in">
+          <div class="invoice-card invoice-featured">
+            <div class="invoice-header">
+              <span class="invoice-header-title">Factura N° 1903-GE</span>
+              <span class="invoice-header-date">General Electric Co.</span>
+            </div>
+            <div class="invoice-body">
+              <div class="invoice-row">
+                <span class="invoice-row-label">Marca de tiza en el generador</span>
+                <span class="invoice-row-amount">$1</span>
+              </div>
+              <div class="invoice-row">
+                <span class="invoice-row-label">Saber exactamente dónde hacerla</span>
+                <span class="invoice-row-amount">$9,999</span>
+              </div>
+            </div>
+            <div class="invoice-total">
+              <span class="invoice-total-label">TOTAL</span>
+              <span class="invoice-total-amount">$10,000</span>
+            </div>
+          </div>
+
+          <p class="historia-coda">La visión del negocio vale <strong>$9,999</strong>.<br>La ejecución técnica vale <strong>$1</strong>.</p>
         </div>
       </div>
 
@@ -2195,6 +2322,21 @@
       const box     = document.getElementById('ls-box');
       const clock   = document.getElementById('ls-clock');
 
+      // If already unlocked (returning from propuesta), skip lockscreen + gateway
+      if (sessionStorage.getItem('steinmetz-unlocked')) {
+        ls.style.display = 'none';
+        var gw = document.getElementById('gateway');
+        if (gw) gw.classList.add('done');
+        document.body.style.overflow = '';
+        document.getElementById('navbar').classList.remove('nav-hidden');
+        // Jump to hero after DOM is ready
+        requestAnimationFrame(function() {
+          var hero = document.getElementById('hero');
+          if (hero) hero.scrollIntoView();
+        });
+        return; // skip rest of lockscreen init
+      }
+
       // live clock
       function tickClock() {
         const n = new Date();
@@ -2209,6 +2351,7 @@
       }
 
       function unlock() {
+        sessionStorage.setItem('steinmetz-unlocked', '1');
         setStatus('Acceso autorizado', 'success');
         btn.disabled = true;
         input.disabled = true;
@@ -2352,14 +2495,14 @@
                       termR.appendChild(rel);
                       requestAnimationFrame(function() { rel.classList.add('visible'); });
                       if (j === rightLines.length - 1) {
-                        setTimeout(function() { resR.classList.add('visible'); }, 300);
+                        setTimeout(function() { resR.classList.add('visible'); }, 200);
                       }
-                    }, j * 250);
+                    }, j * 140);
                   });
-                }, 600);
-              }, 400);
+                }, 350);
+              }, 250);
             }
-          }, i * 350);
+          }, i * 180);
         });
       }
     })();
