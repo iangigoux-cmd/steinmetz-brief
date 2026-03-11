@@ -428,35 +428,50 @@
     .invoice-total-amount { font-weight: 600; color: var(--text-primary); font-size: 16px; }
 
     /* ─── HISTORIA LAYOUT ───────────────────────────────────────── */
-    .historia-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-      width: 100%;
-    }
-    .historia-story {
+    .historia-flow {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      align-items: center;
+      gap: 0;
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
     }
-    .historia-story .section-intro {
-      margin-bottom: 0;
+    .historia-flow .section-h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+    .historia-context {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 20px;
     }
     .historia-pullquote {
       position: relative;
-      padding: 16px 0 16px 24px;
-      margin: 4px 0;
-      border-left: 2px solid var(--brand-primary);
+      padding: 20px 0;
+      margin: 0 0 20px;
+      width: 100%;
     }
+    .historia-pullquote::before,
+    .historia-pullquote::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 0 auto;
+    }
+    .historia-pullquote::before { margin-bottom: 20px; }
+    .historia-pullquote::after { margin-top: 20px; }
     .historia-pullquote p {
       font-family: var(--font-ui);
-      font-size: 18px;
+      font-size: 22px;
       font-style: italic;
       font-weight: 500;
-      line-height: 1.5;
+      line-height: 1.4;
       color: var(--text-primary);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
     .historia-pullquote .pullquote-attr {
       font-family: var(--font-mono);
@@ -466,21 +481,22 @@
       color: var(--text-tertiary);
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      margin-top: 8px;
+      margin-top: 10px;
     }
-    .historia-artifact {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+    .historia-bridge {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
     .invoice-featured {
-      max-width: 380px;
+      max-width: 400px;
       width: 100%;
-      box-shadow: 6px 6px 0 rgba(0,0,0,0.06);
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.06);
+      margin-bottom: 20px;
     }
     .invoice-featured .invoice-header {
-      padding: 14px 20px;
+      padding: 12px 20px;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-between;
@@ -500,37 +516,23 @@
       color: var(--text-tertiary);
     }
     .invoice-featured .invoice-row-amount {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
     }
     .invoice-featured .invoice-total-amount {
-      font-size: 20px;
+      font-size: 18px;
       color: var(--brand-primary);
     }
     .historia-coda {
       font-family: var(--font-mono);
       font-size: 11px;
       color: var(--text-tertiary);
-      text-align: center;
       letter-spacing: 0.03em;
       line-height: 1.7;
     }
     .historia-coda strong {
       color: var(--text-primary);
       font-weight: 600;
-    }
-
-    @media (max-width: 900px) {
-      .historia-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      .historia-artifact {
-        align-items: flex-start;
-      }
-      .invoice-featured {
-        max-width: 100%;
-      }
     }
 
     /* ─── SECTION 02: EL PROBLEMA ──────────────────────────────────── */
@@ -1991,52 +1993,42 @@
       <span class="section-number-bg">01</span>
       <p class="section-label"><span class="dot dot-dark"></span>01 — LA HISTORIA</p>
 
-      <div class="historia-grid">
-        <div class="historia-story">
-          <h2 class="section-h2 fade-in" style="font-size:36px;line-height:1.15;margin-bottom:4px;">La Marca<br>de Tiza</h2>
+      <div class="historia-flow">
+        <h2 class="section-h2 fade-in">La Marca de Tiza</h2>
 
-          <p class="section-intro fade-in" style="max-width:none;margin-bottom:0;">
-            En 1903, el generador de la planta de Henry Ford falló y detuvo toda la producción. Sus mejores ingenieros trabajaron días sin éxito. Desesperado, Ford llamó a Charles Steinmetz — el ingeniero más brillante de su época.
-          </p>
+        <p class="historia-context fade-in">
+          1903. El generador de la planta de Henry Ford falla y detiene toda la producción. Sus mejores ingenieros trabajan días sin éxito. Desesperado, Ford llama a Charles Steinmetz. Dos días observando la máquina. Una marca de tiza en la carcasa.
+        </p>
 
-          <p class="fade-in" style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
-            Steinmetz observó la máquina dos días enteros. Luego sacó una tiza, dibujó una marca en la carcasa y dijo una sola instrucción. La fábrica volvió a rugir.
-          </p>
-
-          <div class="historia-pullquote fade-in">
-            <p>"Quiten 16 vueltas de cable."</p>
-            <div class="pullquote-attr">— Charles Steinmetz, 1903</div>
-          </div>
-
-          <p class="fade-in" style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
-            Cuando Ford recibió la factura por $10,000, exigió un desglose. Steinmetz le envió dos líneas.
-          </p>
+        <div class="historia-pullquote fade-in">
+          <p>"Quiten 16 vueltas de cable."</p>
+          <div class="pullquote-attr">— Charles Steinmetz, 1903</div>
         </div>
 
-        <div class="historia-artifact fade-in">
-          <div class="invoice-card invoice-featured">
-            <div class="invoice-header">
-              <span class="invoice-header-title">Factura N° 1903-GE</span>
-              <span class="invoice-header-date">General Electric Co.</span>
+        <p class="historia-bridge fade-in">La fábrica volvió a rugir. Ford recibió la factura por $10,000 y exigió un desglose.</p>
+
+        <div class="invoice-card invoice-featured fade-in">
+          <div class="invoice-header">
+            <span class="invoice-header-title">Factura N° 1903-GE</span>
+            <span class="invoice-header-date">General Electric Co.</span>
+          </div>
+          <div class="invoice-body">
+            <div class="invoice-row">
+              <span class="invoice-row-label">Marca de tiza en el generador</span>
+              <span class="invoice-row-amount">$1</span>
             </div>
-            <div class="invoice-body">
-              <div class="invoice-row">
-                <span class="invoice-row-label">Marca de tiza en el generador</span>
-                <span class="invoice-row-amount">$1</span>
-              </div>
-              <div class="invoice-row">
-                <span class="invoice-row-label">Saber exactamente dónde hacerla</span>
-                <span class="invoice-row-amount">$9,999</span>
-              </div>
-            </div>
-            <div class="invoice-total">
-              <span class="invoice-total-label">TOTAL</span>
-              <span class="invoice-total-amount">$10,000</span>
+            <div class="invoice-row">
+              <span class="invoice-row-label">Saber exactamente dónde hacerla</span>
+              <span class="invoice-row-amount">$9,999</span>
             </div>
           </div>
-
-          <p class="historia-coda">La visión del negocio vale <strong>$9,999</strong>.<br>La ejecución técnica vale <strong>$1</strong>.</p>
+          <div class="invoice-total">
+            <span class="invoice-total-label">TOTAL</span>
+            <span class="invoice-total-amount">$10,000</span>
+          </div>
         </div>
+
+        <p class="historia-coda fade-in">La visión del negocio vale <strong>$9,999</strong>. La ejecución técnica vale <strong>$1</strong>.</p>
       </div>
 
     </section>
