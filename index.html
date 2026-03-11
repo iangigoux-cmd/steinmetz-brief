@@ -201,11 +201,8 @@
 
     /* ─── MAIN WRAPPER (scroll-snap) ─────────────────────────────── */
     main {
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      right: 0;
-      bottom: 0;
+      margin-top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
       overflow-y: auto;
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
@@ -1186,7 +1183,7 @@
     /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       /* DISABLE SNAP ON MOBILE */
-      main { position: static; scroll-snap-type: none; height: auto; overflow: visible; }
+      main { scroll-snap-type: none; height: auto; overflow: visible; }
       .slide { height: auto; overflow: visible; scroll-snap-align: none; }
       .transition-strip { position: static; }
 
