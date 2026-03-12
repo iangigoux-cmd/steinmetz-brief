@@ -895,16 +895,17 @@
 
     // ─── HERO ─────────────────────────────────────────────────────
     function initHero() {
-      var tl = gsap.timeline();
-      tl.to('.hero-eyebrow',   { opacity: 1, y: 0, duration: 0.4 * DUR, delay: 0.1 })
-        .from('.hero-h1 .line', { opacity: 0, y: 24, duration: 0.6 * DUR, stagger: 0.15, ease: 'power3.out' }, '-=0.1')
-        .to('.hero-sub',        { opacity: 1, y: 0, duration: 0.5 * DUR }, '-=0.2')
-        .to('.btn-cta-hero',    { opacity: 1, scale: 1, duration: 0.4 * DUR }, '-=0.1');
-
-      // Set initial states
+      // Set initial states BEFORE timeline
       gsap.set('.hero-eyebrow', { y: 8 });
+      gsap.set('.hero-h1 .line', { y: 24 });
       gsap.set('.hero-sub', { y: 12 });
       gsap.set('.btn-cta-hero', { scale: 0.96 });
+
+      var tl = gsap.timeline();
+      tl.to('.hero-eyebrow',    { opacity: 1, y: 0, duration: 0.4 * DUR, delay: 0.1 })
+        .to('.hero-h1 .line',   { opacity: 1, y: 0, duration: 0.6 * DUR, stagger: 0.15, ease: 'power3.out' }, '-=0.1')
+        .to('.hero-sub',        { opacity: 1, y: 0, duration: 0.5 * DUR }, '-=0.2')
+        .to('.btn-cta-hero',    { opacity: 1, scale: 1, duration: 0.4 * DUR }, '-=0.1');
     }
 
     // ─── HISTORIA (scroll-pinned beats) ───────────────────────────
@@ -1029,6 +1030,8 @@
 
     // ─── PIPELINE ─────────────────────────────────────────────────
     function initPipeline() {
+      gsap.set('.eslabon', { y: 16 });
+
       ScrollTrigger.create({
         trigger: '#pipeline',
         start: 'top 65%',
@@ -1046,8 +1049,6 @@
           });
         }
       });
-      // Set initial state
-      gsap.set('.eslabon', { y: 16 });
     }
 
     // ─── CASO REAL ────────────────────────────────────────────────
@@ -1067,6 +1068,10 @@
 
     // ─── CTA FINAL ────────────────────────────────────────────────
     function initCTAFinal() {
+      // Set initial states BEFORE trigger
+      gsap.set('.cta-headline .line', { y: 20 });
+      gsap.set('.btn-cta-final', { scale: 0.95 });
+
       ScrollTrigger.create({
         trigger: '#cta-final',
         start: 'top 70%',
@@ -1079,9 +1084,6 @@
             .to('.cta-factura',        { opacity: 0.35, duration: 0.4 * DUR }, '-=0.1');
         }
       });
-      // Set initial states
-      gsap.set('.cta-headline .line', { y: 20 });
-      gsap.set('.btn-cta-final', { scale: 0.95 });
     }
 
     // ─── NAVBAR ───────────────────────────────────────────────────
