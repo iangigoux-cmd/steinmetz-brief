@@ -428,100 +428,26 @@
     .invoice-total-amount { font-weight: 600; color: var(--text-primary); font-size: 16px; }
 
     /* ─── HISTORIA LAYOUT ───────────────────────────────────────── */
-    .historia-flow {
-      display: flex;
-      flex-direction: column;
+    .historia-layout {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 56px;
       align-items: center;
-      gap: 0;
-      max-width: 560px;
+      max-width: 800px;
       margin: 0 auto;
-      text-align: center;
     }
-    .historia-flow .section-h2 {
+    .historia-text .section-h2 {
       font-size: 28px;
-      margin-bottom: 16px;
-    }
-    .historia-context {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.75;
       margin-bottom: 20px;
     }
-    .historia-pullquote {
-      position: relative;
-      padding: 20px 0;
-      margin: 0 0 20px;
-      width: 100%;
-    }
-    .historia-pullquote::before,
-    .historia-pullquote::after {
-      content: '';
-      display: block;
-      width: 48px;
-      height: 1px;
-      background: var(--border-subtle);
-      margin: 0 auto;
-    }
-    .historia-pullquote::before { margin-bottom: 20px; }
-    .historia-pullquote::after { margin-top: 20px; }
-    .historia-pullquote p {
-      font-family: var(--font-ui);
-      font-size: 22px;
-      font-style: italic;
-      font-weight: 500;
-      line-height: 1.4;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-    }
-    .historia-pullquote .pullquote-attr {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-style: normal;
-      font-weight: 400;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 10px;
-    }
-    .historia-bridge {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-    .invoice-featured {
-      max-width: 400px;
-      width: 100%;
-      box-shadow: 4px 4px 0 rgba(0,0,0,0.06);
-      margin-bottom: 20px;
-    }
-    .invoice-featured .invoice-header {
-      padding: 12px 20px;
-      border-bottom: 1px solid var(--border-subtle);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .invoice-featured .invoice-header-title {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-tertiary);
-    }
-    .invoice-featured .invoice-header-date {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-tertiary);
-    }
-    .invoice-featured .invoice-row-amount {
+    .historia-text p {
       font-size: 14px;
-      font-weight: 600;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 12px;
     }
-    .invoice-featured .invoice-total-amount {
-      font-size: 18px;
-      color: var(--brand-primary);
+    .historia-text p:last-of-type {
+      margin-bottom: 0;
     }
     .historia-coda {
       font-family: var(--font-mono);
@@ -529,10 +455,51 @@
       color: var(--text-tertiary);
       letter-spacing: 0.03em;
       line-height: 1.7;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
     }
     .historia-coda strong {
       color: var(--text-primary);
       font-weight: 600;
+    }
+    .historia-aside .invoice-card {
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .historia-aside .invoice-header {
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-canvas);
+    }
+    .historia-aside .invoice-header-title {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+    }
+    .historia-aside .invoice-header-date {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--text-tertiary);
+    }
+    .historia-aside .invoice-body { padding: 12px 16px; }
+    .historia-aside .invoice-row {
+      font-size: 11px;
+      padding: 6px 0;
+    }
+    .historia-aside .invoice-total {
+      padding: 10px 16px;
+      font-size: 11px;
+    }
+    .historia-aside .invoice-total-amount {
+      font-size: 14px;
+      color: var(--brand-primary);
     }
 
     /* ─── SECTION 02: EL PROBLEMA ──────────────────────────────────── */
@@ -1318,6 +1285,8 @@
 
       /* INVOICE */
       .invoice-compact { max-width: 100%; }
+      .historia-layout { grid-template-columns: 1fr; gap: 24px; }
+      .historia-aside { max-width: 280px; }
       /* PARADOX */
       .paradox-grid { grid-template-columns: 1fr; }
       .paradox-divider-badge { display: block; text-align: center; padding: 6px 12px; margin: -1px 0; }
@@ -1993,42 +1962,35 @@
       <span class="section-number-bg">01</span>
       <p class="section-label"><span class="dot dot-dark"></span>01 — LA HISTORIA</p>
 
-      <div class="historia-flow">
-        <h2 class="section-h2 fade-in">La Marca de Tiza</h2>
-
-        <p class="historia-context fade-in">
-          1903. El generador de la planta de Henry Ford falla y detiene toda la producción. Sus mejores ingenieros trabajan días sin éxito. Desesperado, Ford llama a Charles Steinmetz. Dos días observando la máquina. Una marca de tiza en la carcasa.
-        </p>
-
-        <div class="historia-pullquote fade-in">
-          <p>"Quiten 16 vueltas de cable."</p>
-          <div class="pullquote-attr">— Charles Steinmetz, 1903</div>
+      <div class="historia-layout">
+        <div class="historia-text">
+          <h2 class="section-h2 fade-in">La Marca de Tiza</h2>
+          <p class="fade-in">1903. El generador de la planta de Henry Ford falla y detiene toda la producción. Sus mejores ingenieros trabajan días sin éxito. Ford llama a Charles Steinmetz — el mayor experto mundial en corriente alterna. Llega. Observa la máquina en silencio durante dos días. Al tercero, toma un trozo de tiza, hace una pequeña marca en la carcasa y dice: <em>"Quiten 16 vueltas de cable en este punto."</em> La fábrica volvió a rugir.</p>
+          <p class="fade-in">Ford recibió la factura por $10,000 y exigió un desglose. La respuesta fue simple: $1 por hacer la marca de tiza, $9,999 por saber exactamente dónde hacerla.</p>
+          <p class="historia-coda fade-in">La visión del negocio vale <strong>$9,999</strong>. La ejecución técnica vale <strong>$1</strong>.</p>
         </div>
-
-        <p class="historia-bridge fade-in">La fábrica volvió a rugir. Ford recibió la factura por $10,000 y exigió un desglose.</p>
-
-        <div class="invoice-card invoice-featured fade-in">
-          <div class="invoice-header">
-            <span class="invoice-header-title">Factura N° 1903-GE</span>
-            <span class="invoice-header-date">General Electric Co.</span>
-          </div>
-          <div class="invoice-body">
-            <div class="invoice-row">
-              <span class="invoice-row-label">Marca de tiza en el generador</span>
-              <span class="invoice-row-amount">$1</span>
+        <div class="historia-aside fade-in">
+          <div class="invoice-card">
+            <div class="invoice-header">
+              <span class="invoice-header-title">N° 1903-GE</span>
+              <span class="invoice-header-date">General Electric</span>
             </div>
-            <div class="invoice-row">
-              <span class="invoice-row-label">Saber exactamente dónde hacerla</span>
-              <span class="invoice-row-amount">$9,999</span>
+            <div class="invoice-body">
+              <div class="invoice-row">
+                <span class="invoice-row-label">Marca de tiza</span>
+                <span class="invoice-row-amount">$1</span>
+              </div>
+              <div class="invoice-row">
+                <span class="invoice-row-label">Saber dónde hacerla</span>
+                <span class="invoice-row-amount">$9,999</span>
+              </div>
             </div>
-          </div>
-          <div class="invoice-total">
-            <span class="invoice-total-label">TOTAL</span>
-            <span class="invoice-total-amount">$10,000</span>
+            <div class="invoice-total">
+              <span class="invoice-total-label">TOTAL</span>
+              <span class="invoice-total-amount">$10,000</span>
+            </div>
           </div>
         </div>
-
-        <p class="historia-coda fade-in">La visión del negocio vale <strong>$9,999</strong>. La ejecución técnica vale <strong>$1</strong>.</p>
       </div>
 
     </section>
