@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Steinmetz — Infraestructura de Software con IA</title>
+  <title>Steinmetz — Brief de Posicionamiento</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
   <style>
     /* ─── TOKENS ──────────────────────────────────────────────────── */
@@ -23,76 +24,158 @@
       --brand-hover:      #1D4ED8;
       --brand-surface:    #EFF6FF;
       --status-success:   #059669;
+      --status-success-bg:#ECFDF5;
       --status-warning:   #D97706;
+      --status-warning-bg:#FFFBEB;
       --status-danger:    #DC2626;
-      --bg-dark:          #0A0A0A;
-      --bg-dark-surface:  #141414;
-      --bg-dark-border:   #262626;
+      --status-danger-bg: #FEF2F2;
+      --status-info:      #4F46E5;
+      --status-info-bg:   #EEF2FF;
       --font-ui:          'Inter', sans-serif;
       --font-mono:        'Fira Code', monospace;
+      --radius-sm:        2px;
+      --radius-md:        4px;
+      --shadow-structural:0 4px 12px rgba(0,0,0,0.08), 0 0 0 1px var(--border-strong);
+      --nav-h:            56px;
     }
 
     /* ─── RESET ───────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    main { scroll-behavior: smooth; }
     body {
-      background: var(--bg-dark);
+      background: var(--bg-canvas);
       color: var(--text-primary);
       font-family: var(--font-ui);
       font-size: 14px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      cursor: none;
-      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
 
-    /* ─── CUSTOM CURSOR ───────────────────────────────────────────── */
-    .custom-cursor {
-      position: fixed;
-      width: 12px; height: 12px;
-      border: 1.5px solid var(--brand-primary);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 150ms ease-in-out, height 150ms ease-in-out, background 150ms ease-in-out;
+    /* ─── UTILIDADES ──────────────────────────────────────────────── */
+    .mono        { font-family: var(--font-mono); }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
     }
-    .custom-cursor.hover {
-      width: 20px; height: 20px;
-      background: var(--brand-primary);
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 600ms ease-out 200ms;
+    }
+    .section-label.label-visible::after {
+      transform: scaleX(1);
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .dot-success { background: var(--status-success); }
+    .dot-warning { background: var(--status-warning); }
+    .dot-danger  { background: var(--status-danger); }
+    .dot-info    { background: var(--status-info); }
+    .dot-blue    { background: var(--brand-primary); }
+    .dot-dark    { background: var(--text-primary); }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid currentColor;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-success { color: var(--status-success); background: var(--status-success-bg); }
+    .badge-warning { color: var(--status-warning); background: var(--status-warning-bg); }
+    .badge-danger  { color: var(--status-danger);  background: var(--status-danger-bg); }
+    .badge-info    { color: var(--status-info);    background: var(--status-info-bg); }
+    .badge-blue    { color: var(--brand-primary);  background: var(--brand-surface); border-color: var(--brand-primary); }
+    .badge-dark    { color: var(--text-primary);   background: var(--bg-canvas); border-color: var(--border-strong); }
+
+    /* ─── FADE-IN ─────────────────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 200ms ease-out, transform 200ms ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* ─── NAVBAR ───────────────────────────────────────────────────── */
+    /* ─── NAVBAR ──────────────────────────────────────────────────── */
     #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 56px;
+      height: var(--nav-h);
+      background: var(--bg-canvas);
+      border-bottom: 1px solid var(--border-strong);
+      z-index: 100;
       display: flex;
       align-items: center;
       padding: 0 48px;
       gap: 48px;
-      background: transparent;
-      border-bottom: 1px solid transparent;
-      z-index: 100;
-      transition: background 200ms ease-in-out, border-color 200ms ease-in-out;
     }
-    #navbar.scrolled {
-      background: rgba(10,10,10,0.95);
-      border-color: var(--bg-dark-border);
-      backdrop-filter: blur(8px);
+    #progress-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--brand-primary);
+      width: 0%;
+      transition: width 100ms linear;
     }
     .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .nav-brand-name {
       font-family: var(--font-ui);
       font-size: 15px;
       font-weight: 600;
       letter-spacing: -0.02em;
-      color: #FFFFFF;
+      color: var(--text-primary);
+    }
+    .nav-brand-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
     }
     .nav-links {
-      list-style: none;
       display: flex;
-      gap: 32px;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
       margin-left: auto;
     }
     .nav-links a {
@@ -100,1030 +183,2442 @@
       font-size: 11px;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       color: var(--text-tertiary);
-      transition: color 150ms linear;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: color 150ms ease-in-out, background 150ms ease-in-out;
     }
-    .nav-links a:hover { color: var(--text-primary); color: #FFFFFF; }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 20px;
-      background: var(--brand-primary);
-      color: #FFFFFF;
-      font-family: var(--font-ui);
-      font-size: 13px;
-      font-weight: 600;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 150ms linear;
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--bg-surface-hover);
     }
-    .btn-primary:hover { background: var(--brand-hover); }
-    .nav-cta { margin-left: 16px; }
+    .nav-links a.active {
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
 
-    /* ─── HERO ─────────────────────────────────────────────────────── */
-    #hero {
-      min-height: 100vh;
-      background: var(--bg-dark);
-      display: flex;
-      align-items: center;
-      padding: 0 80px;
-      position: relative;
+    /* ─── MAIN WRAPPER (scroll-snap) ─────────────────────────────── */
+    main {
+      margin-top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
     }
-    .hero-content { max-width: 820px; }
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #404040;
-      margin-bottom: 28px;
-      opacity: 0;
-    }
-    .hero-h1 {
-      font-family: var(--font-ui);
-      font-size: 72px;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      color: #FFFFFF;
-      margin-bottom: 28px;
-    }
-    .hero-h1 .line {
-      display: block;
-      opacity: 0;
-    }
-    .hero-sub {
-      font-family: var(--font-ui);
-      font-size: 18px;
-      font-weight: 400;
-      color: var(--text-tertiary);
-      max-width: 520px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-      opacity: 0;
-    }
-    .btn-cta-hero {
-      display: inline-block;
-      padding: 14px 32px;
-      background: var(--brand-primary);
-      color: #FFFFFF;
-      font-family: var(--font-ui);
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 150ms linear;
-      opacity: 0;
-    }
-    .btn-cta-hero:hover { background: var(--brand-hover); }
 
-    /* ─── HISTORIA (scroll-pinned) ─────────────────────────────────── */
-    #historia {
-      height: 100vh;
-      background: var(--bg-dark);
+    /* ─── SLIDE BASE ─────────────────────────────────────────────── */
+    .slide {
+      height: calc(100vh - var(--nav-h));
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
       position: relative;
       overflow: hidden;
     }
-    .beat-eyebrow {
+
+    /* ─── SECTION BASE ────────────────────────────────────────────── */
+    .section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 80px;
+      position: relative;
+      width: 100%;
+    }
+    .section + .section {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* ─── DARK SLIDES ──────────────────────────────────────────── */
+    .slide-dark {
+      background: #171717;
+    }
+    .slide-dark + .slide .section { border-top: none; }
+
+    .section-dark {
+      max-width: none;
+      border-top: none !important;
+    }
+    .section-dark .section-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-dark .section-label { color: rgba(255,255,255,0.3); }
+    .section-dark .section-label::after { background: rgba(255,255,255,0.08); }
+    .section-dark .section-h2 { color: #FFFFFF; }
+    .section-dark .section-intro { color: rgba(255,255,255,0.5); }
+    .section-dark .dot-dark { background: rgba(255,255,255,0.3); }
+    .section-dark .badge-dark { color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
+    .section-dark .badge-warning { background: rgba(217,119,6,0.1); }
+    .section-dark .badge-blue { background: rgba(37,99,235,0.1); }
+
+    /* Dark paradox */
+    .section-dark .paradox-block { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.08); }
+    .section-dark .paradox-title { color: #FFFFFF; }
+    .section-dark .paradox-desc { color: rgba(255,255,255,0.45); }
+    .section-dark .paradox-grid { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); }
+    .section-dark .paradox-col { background: rgba(255,255,255,0.02); }
+    .section-dark .paradox-item { color: rgba(255,255,255,0.5); border-bottom-color: rgba(255,255,255,0.06); }
+
+    /* Dark capabilities (no longer used in dark section, but kept for safety) */
+
+    /* ─── SECTION NUMBER BG ─────────────────────────────────────── */
+    .section-number-bg {
       position: absolute;
-      top: 48px;
-      left: 80px;
+      top: 40px;
+      right: 48px;
+      font-family: var(--font-ui);
+      font-size: 200px;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: rgba(0,0,0,0.025);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 800ms ease-out, transform 800ms ease-out;
+    }
+    .section-number-bg.visible { opacity: 1; transform: translateY(0); }
+    .section-dark .section-number-bg { color: rgba(255,255,255,0.03); }
+
+    /* ─── TRANSITION STRIP (absolute bottom of slide) ─────────── */
+    .transition-strip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 80px;
+      text-align: center;
+      border-top: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      z-index: 2;
+    }
+    .transition-strip p {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+    }
+    .transition-strip-dark {
+      background: rgba(255,255,255,0.02);
+      border-top-color: rgba(255,255,255,0.06);
+    }
+    .transition-strip-dark p { color: rgba(255,255,255,0.2); }
+
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    #hero {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 80px;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--text-tertiary);
+    }
+    .hero-h1 {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brand-primary);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 32px;
+    }
+    .hero-meta-cell {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border-strong);
+    }
+    .hero-meta-cell:last-child { border-right: none; }
+    .hero-meta-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+    .hero-meta-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ─── SECTION 01: HISTORIA ────────────────────────────────────── */
+    .pull-quote {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 16px 0 16px 20px;
+      border-left: 3px solid var(--brand-primary);
+      margin-bottom: 28px;
+      max-width: 520px;
+    }
+    .invoice-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+    }
+    .invoice-compact {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .invoice-body { padding: 20px; }
+    .invoice-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .invoice-row:last-of-type { border-bottom: none; }
+    .invoice-row-label { color: var(--text-secondary); flex: 1; }
+    .invoice-row-amount { color: var(--text-primary); font-weight: 500; text-align: right; flex-shrink: 0; }
+    .invoice-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-strong);
+      background: var(--bg-canvas);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    .invoice-total-label { font-weight: 600; color: var(--text-primary); }
+    .invoice-total-amount { font-weight: 600; color: var(--text-primary); font-size: 16px; }
+
+    /* ─── HISTORIA LAYOUT ───────────────────────────────────────── */
+    .historia-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .historia-flow .section-h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+    .historia-context {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .historia-pullquote {
+      position: relative;
+      padding: 20px 0;
+      margin: 0 0 20px;
+      width: 100%;
+    }
+    .historia-pullquote::before,
+    .historia-pullquote::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 0 auto;
+    }
+    .historia-pullquote::before { margin-bottom: 20px; }
+    .historia-pullquote::after { margin-top: 20px; }
+    .historia-pullquote p {
+      font-family: var(--font-ui);
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .historia-pullquote .pullquote-attr {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 10px;
+    }
+    .historia-bridge {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .invoice-featured {
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+    .invoice-featured .invoice-header {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .invoice-featured .invoice-header-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+    }
+    .invoice-featured .invoice-header-date {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-tertiary);
+    }
+    .invoice-featured .invoice-row-amount {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .invoice-featured .invoice-total-amount {
+      font-size: 18px;
+      color: var(--brand-primary);
+    }
+    .historia-coda {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.03em;
+      line-height: 1.7;
+    }
+    .historia-coda strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ─── SECTION 02: EL PROBLEMA ──────────────────────────────────── */
+    .section-h2 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .section-intro {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .paradox-block {
+      margin-top: 32px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 24px;
+    }
+    .paradox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .paradox-col {
+      padding: 16px 20px;
+      background: var(--bg-surface);
+    }
+    .paradox-col-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .paradox-col-label.benefit { color: var(--status-success); }
+    .paradox-col-label.capability { color: var(--status-danger); }
+    .paradox-item {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .paradox-item:last-child { border-bottom: none; }
+    .paradox-item .dot { margin-top: 5px; flex-shrink: 0; }
+
+    /* ─── SECTION 03: LA SOLUCIÓN ──────────────────────────────────── */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 32px;
+    }
+    .capability-card {
+      padding: 20px;
+      background: var(--bg-surface);
+      transition: background 150ms ease-in-out;
+    }
+    .capability-card:hover { background: var(--bg-surface-hover); }
+    .capability-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-canvas);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+    .capability-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .capability-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .market-statement {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 24px;
+    }
+    .market-statement-label {
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #404040;
-    }
-    .beat {
-      position: absolute;
-      max-width: 640px;
-      text-align: center;
-      color: #FFFFFF;
-      padding: 0 24px;
-    }
-    .beat[hidden] { display: none; }
-    .beat p {
-      font-family: var(--font-ui);
-      font-size: 24px;
-      font-weight: 400;
-      line-height: 1.55;
-      color: rgba(255,255,255,0.75);
-    }
-    .beat p strong {
-      color: #FFFFFF;
-      font-weight: 500;
-    }
-    .beat-progress {
-      position: absolute;
-      right: 48px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .beat-progress .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--bg-dark-border);
-      transition: background 200ms ease-out;
-    }
-    .beat-progress .dot.active { background: var(--brand-primary); }
-
-    /* Spiral SVG */
-    .beat-spiral {
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .spiral-endpoint { opacity: 0; }
-
-    /* Invoice (beat 4) */
-    .invoice-block {
-      font-family: var(--font-mono);
-      font-size: 16px;
-      color: #FFFFFF;
-      border: 1px solid var(--bg-dark-border);
-      padding: 24px 32px;
-      display: inline-block;
-      text-align: left;
-      margin-top: 32px;
-    }
-    .invoice-row {
-      display: flex;
-      gap: 16px;
-      align-items: baseline;
-      padding: 6px 0;
-    }
-    .invoice-label { white-space: nowrap; }
-    .invoice-dots { color: #404040; flex: 1; overflow: hidden; white-space: nowrap; }
-    .invoice-amount { white-space: nowrap; font-weight: 500; }
-    .invoice-row.highlight .invoice-amount { color: var(--brand-primary); font-size: 22px; font-weight: 600; }
-    .invoice-divider { border-top: 1px solid #404040; margin: 8px 0; transform-origin: left; }
-    .invoice-row.total { font-weight: 600; }
-
-    /* ─── COSTO ────────────────────────────────────────────────────── */
-    #costo {
-      background: var(--bg-canvas);
-      padding: 120px 80px;
-    }
-    .costo-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
       color: var(--text-tertiary);
-      margin-bottom: 20px;
-    }
-    .costo-headline {
-      font-family: var(--font-ui);
-      font-size: 36px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      color: var(--text-primary);
-      margin-bottom: 56px;
-      max-width: 500px;
-    }
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 1px solid var(--border-subtle);
-    }
-    .metric-card {
-      padding: 40px 32px;
-      border-right: 1px solid var(--border-subtle);
-      transition: border-color 300ms ease-out;
-    }
-    .metric-card:last-child { border-right: none; }
-    .metric-number {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 52px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-    }
-    .metric-label {
-      font-family: var(--font-ui);
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* ─── PIPELINE ─────────────────────────────────────────────────── */
-    #pipeline {
-      background: var(--bg-surface);
-      padding: 120px 80px;
-    }
-    .pipeline-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-tertiary);
-      margin-bottom: 20px;
-    }
-    .pipeline-headline {
-      font-family: var(--font-ui);
-      font-size: 36px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      color: var(--text-primary);
-      margin-bottom: 56px;
-      max-width: 420px;
-    }
-    .pipeline-list {
-      display: flex;
-      flex-direction: column;
-      max-width: 720px;
-      position: relative;
-    }
-    .eslabon {
-      display: grid;
-      grid-template-columns: 40px 1fr auto;
-      gap: 16px;
-      align-items: start;
-      padding: 20px 0;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border-subtle);
-      opacity: 0;
+      display: block;
     }
-    .eslabon:last-child { border-bottom: none; }
-    .esl-num {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-tertiary);
-      padding-top: 2px;
-    }
-    .esl-body { display: flex; flex-direction: column; gap: 4px; }
-    .esl-name {
-      font-family: var(--font-ui);
-      font-size: 14px;
+    .market-statement p {
+      font-size: 17px;
       font-weight: 500;
-    }
-    .eslabon.resolved .esl-name { color: var(--text-secondary); }
-    .eslabon.steinmetz-only .esl-name { color: var(--text-primary); font-weight: 600; }
-    .esl-desc {
-      font-family: var(--font-ui);
-      font-size: 13px;
-      color: var(--text-tertiary);
-      line-height: 1.5;
-    }
-    .esl-badge {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 3px 8px;
-      border-radius: 2px;
-      border: 1px solid currentColor;
-      align-self: center;
-      white-space: nowrap;
-    }
-    .esl-badge.resolved { color: var(--text-tertiary); }
-    .esl-badge.steinmetz { color: var(--brand-primary); }
-    .esl-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--brand-primary);
-      animation: blink 1.5s ease-in-out infinite;
-      align-self: center;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-    .pipeline-footer {
-      font-family: var(--font-ui);
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-top: 40px;
-      max-width: 520px;
-    }
-
-    /* ─── CASO REAL ────────────────────────────────────────────────── */
-    #caso {
-      background: var(--bg-canvas);
-      padding: 120px 80px;
-    }
-    .caso-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-tertiary);
-      margin-bottom: 20px;
-    }
-    .caso-headline {
-      font-family: var(--font-ui);
-      font-size: 36px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
       color: var(--text-primary);
-      margin-bottom: 28px;
-      max-width: 460px;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
     }
-    .caso-body {
-      font-family: var(--font-ui);
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 520px;
-      margin-bottom: 32px;
-    }
-    .caso-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .caso-stack span {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-tertiary);
-      padding: 4px 10px;
-      border: 1px solid var(--border-subtle);
-      border-radius: 2px;
-    }
+    .market-statement strong { color: var(--brand-primary); font-weight: 600; }
 
-    /* ─── CTA FINAL ────────────────────────────────────────────────── */
-    #cta-final {
-      min-height: 80vh;
-      background: var(--brand-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px;
+    /* ─── SECTION 06: CIERRE ──────────────────────────────────────── */
+    #cierre {
+      background: var(--text-primary);
       position: relative;
       overflow: hidden;
+      background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 20px 20px;
     }
-    .cta-content { position: relative; z-index: 1; }
-    .cta-headline {
+    .cierre-watermark {
+      position: absolute;
+      bottom: -30px;
+      right: -20px;
       font-family: var(--font-ui);
-      font-size: 48px;
+      font-size: 200px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.015);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .cierre-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 96px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .cierre-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cierre-eyebrow::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: rgba(255,255,255,0.35);
+    }
+    .cierre-h2 {
+      font-size: 52px;
       font-weight: 600;
       letter-spacing: -0.03em;
       line-height: 1.1;
       color: #FFFFFF;
-      margin-bottom: 20px;
+      max-width: 620px;
+      margin-bottom: 24px;
     }
-    .cta-headline .line {
-      display: block;
-      opacity: 0;
-    }
-    .cta-sub {
-      font-family: var(--font-ui);
-      font-size: 18px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.65);
-      max-width: 480px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-      opacity: 0;
-    }
-    .btn-cta-final {
-      display: inline-block;
-      padding: 16px 40px;
-      background: var(--text-primary);
-      color: #FFFFFF;
-      font-family: var(--font-ui);
+    .cierre-sub {
       font-size: 15px;
-      font-weight: 600;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 4px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 150ms linear, color 150ms linear, border-color 150ms linear;
-      opacity: 0;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 48px;
     }
-    .btn-cta-final:hover {
-      background: #FFFFFF;
-      color: var(--text-primary);
-      border-color: var(--text-primary);
+    .cierre-proof-strip {
+      display: flex;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 48px;
     }
-    .cta-factura {
-      margin-top: 32px;
+    .cierre-proof-cell {
+      flex: 1;
+      padding: 14px 20px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cierre-proof-cell:last-child { border-right: none; }
+    .cierre-proof-text {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+    }
+    .cierre-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--brand-primary);
+      color: #FFFFFF;
       font-family: var(--font-mono);
       font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--brand-primary);
+      cursor: pointer;
+      transition: background 150ms ease-in-out, box-shadow 150ms ease-in-out;
+    }
+    .btn-primary:hover { background: var(--brand-hover); box-shadow: 3px 3px 0 0 rgba(255,255,255,0.15); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: color 150ms ease-in-out, border-color 150ms ease-in-out;
+    }
+    .btn-ghost:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.4); }
+
+    .cierre-divider {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 40px;
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cierre-brand {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.4);
+    }
+    .cierre-footnote {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── GATEWAY ──────────────────────────────────────────────────── */
+    #gateway {
+      position: relative;
+      z-index: 50;
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    #gateway.done {
+      height: auto;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    .gw-screen {
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    /* GW: Hook */
+    .gw-hook {
+      background: #171717;
+      flex-direction: column;
+      padding: 64px;
+    }
+    .gw-hook-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 900px;
+      width: 100%;
+    }
+    .gw-hook-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 64px;
+    }
+    .gw-hook-brand-name {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       color: rgba(255,255,255,0.3);
+    }
+    .gw-hook-brand-dot {
+      width: 6px; height: 6px;
+      background: var(--brand-primary);
+      animation: gwPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes gwPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    .gw-hook-title {
+      font-size: 64px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: #FFFFFF;
+      margin-bottom: 32px;
+    }
+    .gw-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    #gateway.active .gw-line {
+      animation: gwFadeUp 0.6s ease-out forwards;
+    }
+    #gateway.active .gw-line-1 { animation-delay: 0.3s; }
+    #gateway.active .gw-line-2 { animation-delay: 0.8s; }
+    @keyframes gwFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gw-blue { color: var(--brand-primary); }
+    .gw-dim { color: rgba(255,255,255,0.3); }
+    .gw-hook-sub {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.25);
       opacity: 0;
     }
-
-    /* ─── FOCUS STATES ─────────────────────────────────────────────── */
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid var(--brand-primary);
-      outline-offset: 2px;
+    #gateway.active .gw-hook-sub {
+      animation: gwFadeUp 0.6s ease-out 1.4s forwards;
+    }
+    .gw-scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+    }
+    #gateway.active .gw-scroll-indicator {
+      animation: gwFadeUp 0.6s ease-out 2s forwards;
+    }
+    .gw-scroll-text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2);
+    }
+    .gw-scroll-line {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.15);
+      animation: gwScrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes gwScrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
 
-    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+    /* GW: Versus */
+    .gw-versus {
+      background: #171717;
+      padding: 40px 64px;
+      flex-direction: column;
+    }
+    .gw-versus-wrapper { max-width: 1100px; width: 100%; }
+    .gw-versus-intro { margin-bottom: 28px; }
+    .gw-versus-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--brand-primary);
+      margin-bottom: 16px;
+      display: block;
+      text-transform: uppercase;
+    }
+    .gw-versus-title {
+      font-size: 38px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+    .gw-versus-desc {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+    .gw-versus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .gw-versus-col { padding: 32px; }
+    .gw-versus-left { border-right: 1px solid rgba(255,255,255,0.08); }
+    .gw-versus-header { margin-bottom: 24px; }
+    .gw-versus-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .gw-versus-label-dim { color: rgba(255,255,255,0.3); }
+    .gw-versus-label-blue { color: var(--brand-primary); }
+    .gw-versus-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.12);
+    }
+    .gw-terminal { min-height: 200px; margin-bottom: 20px; }
+    .gw-term-line {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(255,255,255,0.35);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 200ms ease-out, transform 200ms ease-out;
+    }
+    .gw-term-line.visible { opacity: 1; transform: translateY(0); }
+    .gw-term-line .gw-cmd { color: var(--brand-primary); font-weight: 600; }
+    .gw-term-line .gw-err { color: #EF4444; }
+    .gw-term-line .gw-ok { color: #22C55E; font-weight: 600; }
+    .gw-term-line .gw-white { color: #FFFFFF; }
+    .gw-term-line .gw-fail { color: #EF4444; font-weight: 600; }
+    .gw-versus-result {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transition: opacity 300ms ease-out;
+    }
+    .gw-versus-result.visible { opacity: 1; }
+    .gw-versus-result-bad { color: #EF4444; }
+    .gw-versus-result-good { color: var(--brand-primary); }
+
+    /* GW: Pipeline */
+    .gw-pipeline {
+      background: var(--bg-canvas);
+      flex-direction: column;
+      padding: 64px;
+    }
+    .gw-pipeline-content { max-width: 1100px; width: 100%; }
+    .gw-pipeline-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
+    }
+    .gw-pipeline-input {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .gw-pipeline-prompt {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      flex-shrink: 0;
+    }
+    .gw-pipeline-text {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+    .gw-pipeline-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 18px;
+      background: var(--brand-primary);
+      animation: blink 1s step-start infinite;
+      flex-shrink: 0;
+    }
+    .gw-pipeline-flow {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 56px;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+    .gw-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .gw-node-icon {
+      width: 56px; height: 56px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-tertiary);
+      transition: border-color 300ms ease-out, color 300ms ease-out, box-shadow 300ms ease-out;
+    }
+    .gw-node.active .gw-node-icon {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+      box-shadow: 3px 3px 0 0 var(--brand-primary);
+    }
+    .gw-node.active.gw-node-final .gw-node-icon {
+      border-color: #059669;
+      color: #059669;
+      box-shadow: 3px 3px 0 0 #059669;
+    }
+    .gw-node-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      text-align: center;
+      transition: color 300ms ease-out;
+    }
+    .gw-node.active .gw-node-label { color: var(--text-primary); }
+    .gw-connector {
+      width: 48px; height: 1px;
+      background: var(--border-subtle);
+      flex-shrink: 0;
+      position: relative;
+      margin: 0 4px;
+      margin-top: 24px;
+    }
+    .gw-connector::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--brand-primary);
+      transition: width 300ms ease-out;
+    }
+    .gw-connector.active::after { width: 100%; }
+    .gw-triptych {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-strong);
+      border: 1px solid var(--border-strong);
+    }
+    .gw-triptych-card {
+      padding: 28px 24px;
+      background: var(--bg-surface);
+    }
+    .gw-triptych-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--brand-primary);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .gw-triptych-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* GW: Gate */
+    .gw-gate {
+      background: #171717;
+      flex-direction: column;
+      padding: 64px;
+    }
+    .gw-gate-content {
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .gw-gate-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 28px;
+    }
+    .gw-gate-title {
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin-bottom: 48px;
+    }
+    .gw-gate-invoice {
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 48px;
+    }
+    .gw-gate-invoice-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    .gw-gate-invoice-row:last-child {
+      border-bottom: none;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .gw-gate-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--brand-primary);
+      transition: background 150ms ease-in-out, box-shadow 150ms ease-in-out;
+    }
+    .gw-gate-cta:hover { background: var(--brand-hover); box-shadow: 3px 3px 0 0 rgba(255,255,255,0.15); }
+    .gw-gate-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.2);
+      margin-top: 48px;
+    }
+
+    /* GW: Transition overlay */
+    #gw-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--bg-canvas);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 400ms ease-in-out;
+    }
+    #gw-transition.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Navbar hidden state */
+    #navbar { transition: transform 200ms ease-in-out, opacity 200ms ease-in-out; }
+    #navbar.nav-hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+    /* ─── PARADOX CONFRONTATION ───────────────────────────────────── */
+    .paradox-col.paradox-benefit { background: var(--status-success-bg); }
+    .paradox-col.paradox-capability { background: var(--status-danger-bg); }
+    .section-dark .paradox-col.paradox-benefit { background: rgba(5,150,105,0.06); }
+    .section-dark .paradox-col.paradox-capability { background: rgba(220,38,38,0.06); }
+    .paradox-divider-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--status-danger);
+      border: 1px solid var(--status-danger);
+      padding: 4px 12px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .paradox-callout {
+      margin-top: 20px;
+      padding: 16px 20px;
+      border-left: 3px solid var(--brand-primary);
+      background: var(--brand-surface);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.6;
+      letter-spacing: -0.005em;
+    }
+    .section-dark .paradox-callout { background: rgba(37,99,235,0.06); color: rgba(255,255,255,0.75); }
+
+
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+    /* ─── HERO BRAND ─────────────────────────────────────────────────── */
+    #hero-brand {
+      font-size: 110px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      display: block;
+      line-height: 1;
+      min-height: 1em;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      body { cursor: auto; }
-      .custom-cursor { display: none; }
+      /* DISABLE SNAP ON MOBILE */
+      main { scroll-snap-type: none; height: auto; overflow: visible; }
+      .slide { height: auto; overflow: visible; scroll-snap-align: none; }
+      .transition-strip { position: static; }
 
-      #navbar { padding: 0 24px; gap: 16px; }
+      /* NAV */
+      #navbar { padding: 0 20px; gap: 12px; }
       .nav-links { display: none; }
-      .nav-cta { margin-left: auto; font-size: 12px; padding: 7px 14px; }
 
-      #hero { padding: 0 32px; }
-      .hero-h1 { font-size: 40px; }
-      .hero-sub { font-size: 16px; }
+      /* SECTIONS */
+      .section { padding: 48px 24px; }
+      #hero   { padding: 40px 24px 48px; }
 
-      .beat-eyebrow { left: 32px; top: 32px; }
-      .beat p { font-size: 18px; }
-      .beat-progress { right: 20px; }
-      .beat-spiral { display: none; }
-      .invoice-block { font-size: 13px; padding: 18px 20px; }
+      /* HERO TYPOGRAPHY */
+      #hero-brand { font-size: 52px; min-height: auto; }
+      .hero-h1    { font-size: 26px; }
 
-      #costo { padding: 80px 32px; }
-      .costo-headline { font-size: 28px; }
-      .metrics-grid { grid-template-columns: 1fr; }
-      .metric-card { border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 28px 24px; }
-      .metric-card:last-child { border-bottom: none; }
-      .metric-number { font-size: 40px; }
+      /* HERO META */
+      .hero-meta-grid { grid-template-columns: 1fr; }
+      .hero-meta-cell { border-right: none; border-bottom: 1px solid var(--border-strong); }
+      .hero-meta-cell:last-child { border-bottom: none; }
 
-      #pipeline { padding: 80px 32px; }
-      .pipeline-headline { font-size: 28px; }
-      .eslabon { grid-template-columns: 32px 1fr; gap: 12px; }
-      .esl-badge { grid-column: 2; }
+      /* SECTION HEADINGS */
+      .section-h2   { font-size: 24px; }
+      .section-intro { font-size: 13px; }
 
-      #caso { padding: 80px 32px; }
-      .caso-headline { font-size: 28px; }
+      /* INVOICE */
+      .invoice-compact { max-width: 100%; }
+      /* PARADOX */
+      .paradox-grid { grid-template-columns: 1fr; }
+      .paradox-divider-badge { display: block; text-align: center; padding: 6px 12px; margin: -1px 0; }
+      .paradox-callout { font-size: 13px; }
 
-      #cta-final { padding: 60px 32px; }
-      .cta-headline { font-size: 32px; }
-      .cta-sub { font-size: 15px; }
+      /* CAPABILITIES */
+      .capabilities-grid { grid-template-columns: 1fr; }
+
+      /* MARKET STATEMENT */
+      .market-statement p { font-size: 15px; }
+
+      /* DARK SECTIONS */
+      .section-dark { padding: 48px 24px; }
+      .section-number-bg { font-size: 100px; top: 20px; right: 20px; }
+      .transition-strip { padding: 20px 24px; }
+      .transition-strip p { font-size: 11px; }
+
+      /* CIERRE */
+      .cierre-inner   { padding: 56px 24px; }
+      .cierre-h2      { font-size: 28px; }
+      .cierre-watermark { font-size: 100px; bottom: -10px; right: -10px; }
+      .cierre-proof-strip { flex-direction: column; }
+      .cierre-proof-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .cierre-proof-cell:last-child { border-bottom: none; }
+      .cierre-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .cierre-divider { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+      /* LOCKSCREEN */
+      .ls-brand    { font-size: 40px; letter-spacing: -0.02em; }
+      .ls-auth-box { width: calc(100% - 48px); }
+      .ls-footer   { padding: 0 24px; font-size: 9px; }
+      .ls-corner-tl { top: 20px; left: 20px; }
+      .ls-corner-tr { top: 20px; right: 20px; }
+      .ls-corner-bl { bottom: 20px; left: 20px; }
+      .ls-corner-br { bottom: 20px; right: 20px; }
+
+      /* CONTACT SCREEN */
+      .cs-name { font-size: 36px; }
+      .cs-phone { font-size: 18px; }
+      .cs-back  { top: 24px; left: 24px; }
+
+      /* GATEWAY */
+      .gw-hook { padding: 40px 24px; }
+      .gw-hook-title { font-size: 34px; }
+      .gw-hook-brand { margin-bottom: 40px; }
+      .gw-versus { padding: 32px 24px; }
+      .gw-versus-title { font-size: 26px; }
+      .gw-versus-desc { font-size: 12px; }
+      .gw-versus-grid { grid-template-columns: 1fr; }
+      .gw-versus-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .gw-versus-col { padding: 28px 20px; }
+      .gw-terminal { min-height: auto; }
+      .gw-pipeline { padding: 40px 24px; }
+      .gw-pipeline-input { padding: 16px 18px; }
+      .gw-pipeline-text { font-size: 12px; }
+      .gw-pipeline-flow { padding-bottom: 12px; }
+      .gw-connector { width: 20px; }
+      .gw-node-icon { width: 44px; height: 44px; }
+      .gw-node-label { font-size: 8px; }
+      .gw-triptych { grid-template-columns: 1fr; }
+      .gw-gate { padding: 40px 24px; }
+      .gw-gate-title { font-size: 28px; }
+      .gw-gate-invoice { max-width: 100%; }
+    }
+    /* ─── LOCKSCREEN ──────────────────────────────────────────────── */
+    #lockscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: #111111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transform-origin: 50% 50%;
+    }
+    .ls-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    .ls-scanline {
+      position: absolute;
+      left: 0; right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(37,99,235,0.03) 40%,
+        rgba(37,99,235,0.06) 50%,
+        rgba(37,99,235,0.03) 60%,
+        transparent 100%);
+      animation: lsScan 7s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes lsScan {
+      0%   { top: -100px; }
+      100% { top: 100vh; }
+    }
+    .ls-corner {
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: rgba(255,255,255,0.1);
+      border-style: solid;
+    }
+    .ls-corner-tl { top: 32px; left: 32px; border-width: 1px 0 0 1px; }
+    .ls-corner-tr { top: 32px; right: 32px; border-width: 1px 1px 0 0; }
+    .ls-corner-bl { bottom: 32px; left: 32px; border-width: 0 0 1px 1px; }
+    .ls-corner-br { bottom: 32px; right: 32px; border-width: 0 1px 1px 0; }
+
+    .ls-center {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ls-brand {
+      font-family: 'Inter', sans-serif;
+      font-size: 72px;
+      font-weight: 600;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .ls-doc-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.18);
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .ls-auth-box {
+      width: 360px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: #161616;
+    }
+    .ls-auth-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ls-auth-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #2563EB;
+      animation: lsPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes lsPulse {
+      0%,100% { opacity: 0.3; }
+      50%      { opacity: 1; }
+    }
+    .ls-auth-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+    }
+    .ls-auth-body { padding: 20px 18px; }
+    .ls-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #0D0D0D;
+      margin-bottom: 14px;
+    }
+    .ls-input-row:focus-within {
+      border-color: rgba(37,99,235,0.5);
+    }
+    .ls-prompt {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #2563EB;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .ls-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 17px;
+      color: #FFFFFF;
+      letter-spacing: 0.18em;
+      caret-color: #2563EB;
+    }
+    .ls-input::placeholder {
+      color: rgba(255,255,255,0.1);
+      letter-spacing: 0.05em;
+      font-size: 11px;
+    }
+    .ls-status {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.18);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 200ms ease-out;
+    }
+    .ls-status::before {
+      content: '//';
+      color: rgba(255,255,255,0.08);
+    }
+    .ls-status.error   { color: #DC2626; }
+    .ls-status.success { color: #059669; }
+    .ls-btn {
+      width: 100%;
+      padding: 11px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.4);
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      transition: border-color 150ms ease-out, color 150ms ease-out, background 150ms ease-out;
+    }
+    .ls-btn:hover {
+      border-color: rgba(37,99,235,0.5);
+      color: rgba(255,255,255,0.85);
+      background: rgba(37,99,235,0.07);
+    }
+    .ls-footer {
+      position: absolute;
+      bottom: 28px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.1);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      z-index: 1;
     }
 
-    /* ─── PREFERS REDUCED MOTION ───────────────────────────────────── */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
+    /* shake on error */
+    @keyframes lsShake {
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-6px); }
+      40%     { transform: translateX(6px); }
+      60%     { transform: translateX(-4px); }
+      80%     { transform: translateX(4px); }
     }
+    .ls-auth-box.shake { animation: lsShake 0.4s ease-out; }
+
+    /* unlock animation — CRT off + shoot up */
+    @keyframes lsCrtOff {
+      0%   { transform: scaleY(1);     opacity: 1; }
+      55%  { transform: scaleY(0.006); opacity: 1; }
+      72%  { transform: scaleY(0.006); opacity: 1; }
+      100% { transform: scaleY(0.006) translateY(-140vh); opacity: 0; }
+    }
+    #lockscreen.unlocking {
+      animation: lsCrtOff 0.75s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+      pointer-events: none;
+    }
+
+    /* ─── CONTACT SCREEN ──────────────────────────────────────────── */
+    #contact-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 800;
+      background: #0D0D0D;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      clip-path: inset(50% 0 50% 0);
+      pointer-events: none;
+    }
+    #contact-screen.cs-open {
+      animation: csReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: all;
+    }
+    #contact-screen.cs-close {
+      animation: csHide 0.45s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+      pointer-events: none;
+    }
+    @keyframes csReveal {
+      0%   { clip-path: inset(50% 0 50% 0); }
+      100% { clip-path: inset(0% 0 0% 0); }
+    }
+    @keyframes csHide {
+      0%   { clip-path: inset(0% 0 0% 0); }
+      100% { clip-path: inset(50% 0 50% 0); }
+    }
+
+    .cs-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    .cs-scanline {
+      position: absolute;
+      left: 0; right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(37,99,235,0.04) 50%,
+        transparent 100%);
+      animation: lsScan 7s linear infinite;
+      pointer-events: none;
+    }
+    .cs-center {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .cs-eyebrow {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.15);
+      margin-bottom: 28px;
+    }
+    .cs-name {
+      font-family: var(--font-mono);
+      font-size: 64px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .cs-divider {
+      width: 32px;
+      height: 1px;
+      background: rgba(37,99,235,0.5);
+      margin-bottom: 20px;
+    }
+    .cs-phone {
+      font-family: 'Fira Code', monospace;
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+    }
+    .cs-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.15);
+      margin-top: 48px;
+    }
+    .cs-back {
+      position: absolute;
+      top: 36px;
+      left: 44px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.2);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0;
+      transition: color 150ms ease-out;
+      z-index: 2;
+    }
+    .cs-back:hover { color: rgba(255,255,255,0.6); }
+
   </style>
 </head>
 
 <body>
 
-  <!-- ─── NAVBAR ──────────────────────────────────────────────────── -->
-  <nav id="navbar">
-    <div class="nav-brand">STEINMETZ</div>
+  <!-- ─── LOCKSCREEN ───────────────────────────────────────────────── -->
+  <div id="lockscreen">
+    <div class="ls-grid"></div>
+    <div class="ls-scanline"></div>
+    <div class="ls-corner ls-corner-tl"></div>
+    <div class="ls-corner ls-corner-tr"></div>
+    <div class="ls-corner ls-corner-bl"></div>
+    <div class="ls-corner ls-corner-br"></div>
+
+    <div class="ls-center">
+      <div class="ls-brand">STEINMETZ.</div>
+      <div class="ls-doc-label">Documento Restringido &nbsp;·&nbsp; Acceso Requerido</div>
+
+      <div class="ls-auth-box" id="ls-box">
+        <div class="ls-auth-header">
+          <span class="ls-auth-dot"></span>
+          <span class="ls-auth-title">Autenticación Requerida</span>
+        </div>
+        <div class="ls-auth-body">
+          <div class="ls-input-row">
+            <span class="ls-prompt">&gt;</span>
+            <input
+              id="ls-input"
+              class="ls-input"
+              type="password"
+              maxlength="10"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="credencial de acceso"
+            >
+          </div>
+          <div class="ls-status" id="ls-status">Aguardando credenciales</div>
+          <button class="ls-btn" id="ls-btn">Verificar Acceso</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ls-footer">
+      <span>STZ-BRIEF-v1.0</span>
+      <span>Confidencial</span>
+      <span id="ls-clock"></span>
+    </div>
+  </div>
+
+  <!-- ─── CONTACT SCREEN ──────────────────────────────────────────── -->
+  <div id="contact-screen">
+    <div class="cs-grid"></div>
+    <div class="cs-scanline"></div>
+    <button class="cs-back" id="cs-back">← Volver</button>
+    <div class="cs-center">
+      <p class="cs-eyebrow">Contacto</p>
+      <p class="cs-name">IAN BERNDT.</p>
+      <div class="cs-divider"></div>
+      <p class="cs-phone">+56 9 9321 5043</p>
+      <p class="cs-meta">Esta pagina fue hecha por Steinmetz.</p>
+    </div>
+  </div>
+
+  <!-- ─── GATEWAY TRANSITION OVERLAY ──────────────────────────────────── -->
+  <div id="gw-transition"></div>
+
+  <!-- ─── GATEWAY ────────────────────────────────────────────────────── -->
+  <div id="gateway">
+
+    <!-- SCREEN 1: THE HOOK -->
+    <section class="gw-screen gw-hook" id="gw-hook">
+      <div class="gw-hook-content">
+        <div class="gw-hook-brand">
+          <span class="gw-hook-brand-name">STEINMETZ</span>
+          <span class="gw-hook-brand-dot"></span>
+        </div>
+        <h1 class="gw-hook-title">
+          <span class="gw-line gw-line-1">Tu vision vale <span class="gw-blue">$9,999.</span></span>
+          <span class="gw-line gw-line-2">La infraestructura vale <span class="gw-dim">$1.</span></span>
+        </h1>
+        <p class="gw-hook-sub">Nosotros nos encargamos del $1.</p>
+      </div>
+      <div class="gw-scroll-indicator">
+        <span class="gw-scroll-text">SCROLL</span>
+        <div class="gw-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: THE PROBLEM vs SOLUTION -->
+    <section class="gw-screen gw-versus" id="gw-versus">
+      <div class="gw-versus-wrapper">
+        <div class="gw-versus-intro">
+          <p class="gw-versus-eyebrow">EL PROBLEMA</p>
+          <h2 class="gw-versus-title">Llevar IA a produccion<br>no deberia tomar <span class="gw-blue">6 meses.</span></h2>
+          <p class="gw-versus-desc">Agentes autonomos, automatizaciones, pipelines de datos, software — las empresas saben que quieren construir. El problema es la infraestructura que lo hace funcionar.</p>
+        </div>
+        <div class="gw-versus-grid">
+          <div class="gw-versus-col gw-versus-left">
+            <div class="gw-versus-header">
+              <span class="gw-versus-label gw-versus-label-dim">SIN STEINMETZ</span>
+              <span class="gw-versus-sub">Sin infraestructura gestionada</span>
+            </div>
+            <div class="gw-terminal" id="gw-term-left"></div>
+            <div class="gw-versus-result gw-versus-result-bad" id="gw-result-left">
+              <span>6 MESES</span><span>$240K</span><span>3 INGENIEROS</span>
+            </div>
+          </div>
+          <div class="gw-versus-col gw-versus-right">
+            <div class="gw-versus-header">
+              <span class="gw-versus-label gw-versus-label-blue">CON STEINMETZ</span>
+              <span class="gw-versus-sub">Infraestructura gestionada</span>
+            </div>
+            <div class="gw-terminal" id="gw-term-right"></div>
+            <div class="gw-versus-result gw-versus-result-good" id="gw-result-right">
+              <span>4 MINUTOS</span><span>TU + TU IDEA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: THE PIPELINE -->
+    <section class="gw-screen gw-pipeline" id="gw-pipeline">
+      <div class="gw-pipeline-content">
+        <p class="gw-pipeline-eyebrow">ASI FUNCIONA</p>
+
+        <div class="gw-pipeline-input">
+          <span class="gw-pipeline-prompt">&gt;</span>
+          <span class="gw-pipeline-text" id="gw-pipeline-text"></span>
+          <span class="gw-pipeline-cursor"></span>
+        </div>
+
+        <div class="gw-pipeline-flow" id="gw-pipeline-flow">
+          <div class="gw-node" data-step="0">
+            <div class="gw-node-icon"><i data-lucide="lightbulb" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">TU IDEA</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="1">
+            <div class="gw-node-icon"><i data-lucide="server" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">MCP SERVER</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="2">
+            <div class="gw-node-icon"><i data-lucide="workflow" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">ORQUESTADOR</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="3">
+            <div class="gw-node-icon"><i data-lucide="code-2" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">AGENTES</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="4">
+            <div class="gw-node-icon"><i data-lucide="shield-check" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">SEGURIDAD</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node" data-step="5">
+            <div class="gw-node-icon"><i data-lucide="rocket" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">DEPLOY</span>
+          </div>
+          <div class="gw-connector"></div>
+          <div class="gw-node gw-node-final" data-step="6">
+            <div class="gw-node-icon"><i data-lucide="check-circle-2" style="width:18px;height:18px;"></i></div>
+            <span class="gw-node-label">OPERANDO</span>
+          </div>
+        </div>
+
+        <div class="gw-triptych">
+          <div class="gw-triptych-card">
+            <span class="gw-triptych-label">QUE ES</span>
+            <p class="gw-triptych-text">Infraestructura de agentes de IA como servicio gestionado.</p>
+          </div>
+          <div class="gw-triptych-card">
+            <span class="gw-triptych-label">PARA QUIEN</span>
+            <p class="gw-triptych-text">Lideres de negocio que saben que construir pero no como configurar la infraestructura.</p>
+          </div>
+          <div class="gw-triptych-card">
+            <span class="gw-triptych-label">QUE RESUELVE</span>
+            <p class="gw-triptych-text">La brecha entre "quiero IA en mi empresa" y un sistema funcionando.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: THE GATE -->
+    <section class="gw-screen gw-gate" id="gw-gate">
+      <div class="gw-gate-content">
+        <p class="gw-gate-eyebrow">LA MARCA DE TIZA DEL SIGLO XXI</p>
+        <h2 class="gw-gate-title">El generador esta listo.<br>Solo falta la marca.</h2>
+
+        <div class="gw-gate-invoice">
+          <div class="gw-gate-invoice-row">
+            <span>Hacer una marca de tiza en el generador</span>
+            <span>$1</span>
+          </div>
+          <div class="gw-gate-invoice-row">
+            <span>Saber exactamente donde hacerla</span>
+            <span>$9,999</span>
+          </div>
+        </div>
+
+        <a href="#hero" class="gw-gate-cta" id="gw-gate-cta">
+          Leer el brief completo
+          <i data-lucide="arrow-down" style="width:14px;height:14px;"></i>
+        </a>
+
+        <p class="gw-gate-meta">Esta pagina fue hecha por Steinmetz.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ─── NAVBAR ───────────────────────────────────────────────────── -->
+  <nav id="navbar" class="nav-hidden">
+    <div id="progress-bar"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-name">STEINMETZ</span>
+      <span class="nav-brand-tag">[BRIEF v1.0]</span>
+    </div>
     <ul class="nav-links">
-      <li><a href="#pipeline">Producto</a></li>
-      <li><a href="#caso">Clientes</a></li>
-      <li><a href="/propuesta/">Propuesta</a></li>
+      <li><a href="#historia"   data-section="historia">01 HISTORIA</a></li>
+      <li><a href="#problema"   data-section="problema">02 PROBLEMA</a></li>
+      <li><a href="#solucion"   data-section="solucion">03 SOLUCIÓN</a></li>
+      <li><a href="/propuesta/" style="color:var(--brand-primary);font-weight:600;">PROPUESTA</a></li>
     </ul>
-    <a href="#cta-final" class="btn-primary nav-cta">Solicitar Acceso</a>
   </nav>
 
   <main>
 
-    <!-- ─── SECTION 01: HERO ──────────────────────────────────────── -->
-    <section id="hero">
-      <div class="hero-content">
-        <p class="hero-eyebrow">STEINMETZ &middot; INFRASTRUCTURE PLATFORM</p>
-        <h1 class="hero-h1">
-          <span class="line">Las personas que m&aacute;s</span>
-          <span class="line">valen en tu empresa</span>
-          <span class="line">est&aacute;n haciendo el trabajo</span>
-          <span class="line">que no les corresponde.</span>
-        </h1>
-        <p class="hero-sub">
-          Cada hora que un l&iacute;der de operaciones gasta intentando hacer software con IA es una hora que no est&aacute; donde importa.
-        </p>
-        <a href="#historia" class="btn-cta-hero">Ver c&oacute;mo lo resolvemos &darr;</a>
+    <!-- ─── SLIDE: HERO ──────────────────────────────────────────────── -->
+    <div class="slide">
+    <div id="hero">
+      <p class="hero-eyebrow">STEINMETZ · BRIEF DE POSICIONAMIENTO · 2025</p>
+
+      <h1 class="hero-h1 fade-in">
+        <span id="hero-brand"></span>
+        La infraestructura que le devuelve el control a quien sabe qué hacer con él.
+      </h1>
+
+      <p class="hero-subtitle fade-in">De idea a producto.</p>
+
+      <div class="hero-meta-grid fade-in">
+        <div class="hero-meta-cell">
+          <p class="hero-meta-label">Sector</p>
+          <p class="hero-meta-value">B2B Corporativo</p>
+        </div>
+        <div class="hero-meta-cell">
+          <p class="hero-meta-label">Modelo</p>
+          <p class="hero-meta-value">SaaS / Infraestructura</p>
+        </div>
+        <div class="hero-meta-cell">
+          <p class="hero-meta-label">Estado</p>
+          <p class="hero-meta-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="dot dot-warning"></span> Pre-Seed
+          </p>
+        </div>
       </div>
+
+      <a href="#historia" class="hero-cta fade-in" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:12px 24px;border:1px solid var(--border-strong);font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);transition:color 150ms,border-color 150ms,background 150ms;">
+        Leer el brief
+        <i data-lucide="arrow-down" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+    </div><!-- /slide hero -->
+
+    <!-- ─── SLIDE: 01 LA HISTORIA ────────────────────────────────────── -->
+    <div class="slide">
+    <section class="section" id="historia">
+      <span class="section-number-bg">01</span>
+      <p class="section-label"><span class="dot dot-dark"></span>01 — LA HISTORIA</p>
+
+      <div class="historia-flow">
+        <h2 class="section-h2 fade-in">La Marca de Tiza</h2>
+
+        <p class="historia-context fade-in">
+          1903. El generador de la planta de Henry Ford falla y detiene toda la producción. Sus mejores ingenieros trabajan días sin éxito. Desesperado, Ford llama a Charles Steinmetz. Dos días observando la máquina. Una marca de tiza en la carcasa.
+        </p>
+
+        <div class="historia-pullquote fade-in">
+          <p>"Quiten 16 vueltas de cable."</p>
+          <div class="pullquote-attr">— Charles Steinmetz, 1903</div>
+        </div>
+
+        <p class="historia-bridge fade-in">La fábrica volvió a rugir. Ford recibió la factura por $10,000 y exigió un desglose.</p>
+
+        <div class="invoice-card invoice-featured fade-in">
+          <div class="invoice-header">
+            <span class="invoice-header-title">Factura N° 1903-GE</span>
+            <span class="invoice-header-date">General Electric Co.</span>
+          </div>
+          <div class="invoice-body">
+            <div class="invoice-row">
+              <span class="invoice-row-label">Marca de tiza en el generador</span>
+              <span class="invoice-row-amount">$1</span>
+            </div>
+            <div class="invoice-row">
+              <span class="invoice-row-label">Saber exactamente dónde hacerla</span>
+              <span class="invoice-row-amount">$9,999</span>
+            </div>
+          </div>
+          <div class="invoice-total">
+            <span class="invoice-total-label">TOTAL</span>
+            <span class="invoice-total-amount">$10,000</span>
+          </div>
+        </div>
+
+        <p class="historia-coda fade-in">La visión del negocio vale <strong>$9,999</strong>. La ejecución técnica vale <strong>$1</strong>.</p>
+      </div>
+
     </section>
+    </div><!-- /slide 01 -->
 
-    <!-- ─── SECTION 02: HISTORIA (scroll-pinned) ──────────────────── -->
-    <section id="historia">
-      <p class="beat-eyebrow">ORIGEN DEL NOMBRE</p>
+    <!-- ─── SLIDE: 02 EL PROBLEMA ────────────────────────────────────── -->
+    <div class="slide slide-dark">
+    <section class="section section-dark" id="problema">
+      <span class="section-number-bg">02</span>
+      <div class="section-inner">
+      <p class="section-label"><span class="dot dot-blue"></span>02 — EL PROBLEMA</p>
 
-      <div class="beat" data-beat="0">
+      <h2 class="section-h2 fade-in">La Paradoja de la Fase 3</h2>
+      <p class="section-intro fade-in">
+        La IA en empresas avanza en fases: chat aislado, copiloto en IDE, y orquestación autónoma. La tercera fase — agentes que ejecutan tareas completas de forma autónoma — es la más transformadora. Pero tiene un problema fundamental: requiere infraestructura compleja (MCP servers, APIs, sandboxes, seguridad) que sólo pueden configurar quienes no la necesitan.
+      </p>
+
+      <div class="paradox-block fade-in" style="margin-top:20px;">
+        <div class="paradox-divider-badge">≠ BRECHA</div>
+        <div class="paradox-grid">
+          <div class="paradox-col paradox-benefit">
+            <p class="paradox-col-label benefit">Quiénes más se benefician</p>
+            <div class="paradox-item"><span class="dot dot-success"></span><span>Líderes de negocio y equipos operativos</span></div>
+            <div class="paradox-item"><span class="dot dot-success"></span><span>COOs, CFOs, directores sin perfil técnico</span></div>
+          </div>
+          <div class="paradox-col paradox-capability">
+            <p class="paradox-col-label capability">Quiénes pueden configurarlo</p>
+            <div class="paradox-item"><span class="dot dot-danger"></span><span>Ingenieros de infraestructura cloud</span></div>
+            <div class="paradox-item"><span class="dot dot-danger"></span><span>DevOps con experiencia en protocolos MCP</span></div>
+          </div>
+        </div>
+        <div class="paradox-callout">
+          Los que más lo necesitan no pueden configurarlo. Los que pueden configurarlo no lo necesitan. <strong style="color:var(--brand-primary);">Steinmetz cierra esa brecha.</strong>
+        </div>
+      </div>
+
+      </div><!-- /section-inner -->
+    </section>
+    </div><!-- /slide 02 -->
+
+    <!-- ─── SLIDE: 03 LA SOLUCIÓN ────────────────────────────────────── -->
+    <div class="slide">
+    <section class="section" id="solucion">
+      <span class="section-number-bg">03</span>
+      <p class="section-label"><span class="dot dot-blue"></span>03 — LA SOLUCIÓN</p>
+
+      <h2 class="section-h2 fade-in">Infraestructura de Agentes como Servicio</h2>
+      <p class="section-intro fade-in">
+        Steinmetz configura, gestiona y mantiene toda la infraestructura que las empresas necesitan para operar con agentes autónomos. El cliente no configura; el cliente produce.
+      </p>
+
+      <div class="capabilities-grid fade-in">
+        <div class="capability-card">
+          <div class="capability-icon">
+            <i data-lucide="server" style="width:18px;height:18px;"></i>
+          </div>
+          <p class="capability-title">MCP Infrastructure</p>
+          <p class="capability-desc">Servidores Model Context Protocol preconfigurados y gestionados. El cliente solo conecta.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">
+            <i data-lucide="workflow" style="width:18px;height:18px;"></i>
+          </div>
+          <p class="capability-title">Agent Orchestration</p>
+          <p class="capability-desc">Coordinación de agentes especializados por tarea: diseño, código, pruebas, despliegue.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">
+            <i data-lucide="shield-check" style="width:18px;height:18px;"></i>
+          </div>
+          <p class="capability-title">Enterprise Security</p>
+          <p class="capability-desc">Permisos por célula, sandboxes aislados, auditoría de endpoints y trazabilidad completa.</p>
+        </div>
+      </div>
+
+      <div class="market-statement fade-in">
+        <span class="market-statement-label">Propuesta de valor</span>
         <p>
-          <strong>1920.</strong> La planta de Henry Ford en Dearborn
-          llevaba semanas detenida.
-        </p>
-        <p style="margin-top:20px;">
-          El generador principal hab&iacute;a fallado.
-          Los mejores ingenieros del pa&iacute;s
-          lo intentaron.
-        </p>
-        <p style="margin-top:20px;"><strong>Ninguno pudo.</strong></p>
-      </div>
-
-      <div class="beat" data-beat="1" hidden>
-        <p>
-          Ford llam&oacute; a <strong>Charles Proteus Steinmetz.</strong>
-        </p>
-        <p style="margin-top:20px;">
-          El mayor experto mundial
-          en corriente alterna.
-        </p>
-        <p style="margin-top:20px;">
-          Lleg&oacute;. Observ&oacute; la m&aacute;quina
-          en silencio durante dos d&iacute;as.
-          Sin tocar nada.
+          Steinmetz no vende IA. <strong>Vende la capacidad de cruzar el abismo entre la visión y la ejecución.</strong> Convierte el conocimiento de los $9,999 en software funcionando.
         </p>
       </div>
 
-      <div class="beat" data-beat="2" hidden>
-        <p>Al tercer d&iacute;a,</p>
-        <p style="margin-top:16px;">tom&oacute; un trozo de <strong>tiza.</strong></p>
-        <p style="margin-top:20px;">
-          Hizo una peque&ntilde;a marca
-          en la carcasa del generador.
-        </p>
-        <p style="margin-top:20px;">
-          <strong>&ldquo;Quiten exactamente 16 vueltas
-          de cable en este punto.&rdquo;</strong>
-        </p>
-        <p style="margin-top:20px;">La m&aacute;quina arranc&oacute;.</p>
-
-        <svg class="beat-spiral" width="120" height="120" viewBox="0 0 120 120">
-          <path class="spiral-path" d="M60,60 C63,55 70,50 75,54 C80,58 80,68 75,73 C70,78 59,78 54,73 C49,68 49,56 55,50 C61,44 74,44 80,51 C86,58 86,72 79,79 C72,86 57,86 49,78" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
-          <circle class="spiral-endpoint" cx="49" cy="78" r="5" fill="#2563EB"/>
-        </svg>
-      </div>
-
-      <div class="beat" data-beat="3" hidden>
-        <p>Ford recibi&oacute; la factura:</p>
-        <div class="invoice-block">
-          <div class="invoice-row">
-            <span class="invoice-label">Hacer la marca de tiza</span>
-            <span class="invoice-dots">&middot; &middot; &middot; &middot; &middot;</span>
-            <span class="invoice-amount">$1</span>
-          </div>
-          <div class="invoice-row highlight">
-            <span class="invoice-label">Saber d&oacute;nde hacerla</span>
-            <span class="invoice-dots">&middot; &middot; &middot; &middot;</span>
-            <span class="invoice-amount">$9,999</span>
-          </div>
-          <div class="invoice-divider"></div>
-          <div class="invoice-row total">
-            <span class="invoice-label">TOTAL</span>
-            <span class="invoice-dots">&middot; &middot; &middot; &middot; &middot; &middot; &middot; &middot;</span>
-            <span class="invoice-amount">$10,000</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="beat" data-beat="4" hidden>
-        <p>El error de Ford no fue el generador.</p>
-        <p style="margin-top:20px;">
-          Fue usar a sus mejores ingenieros
-          &mdash; las personas que valen <strong>$9,999</strong> &mdash;
-          para buscar el punto donde hacer la marca.
-        </p>
-        <p style="margin-top:20px;"><strong>Eso les cost&oacute; semanas.</strong></p>
-      </div>
-
-      <div class="beat" data-beat="5" hidden>
-        <p><strong>Hoy pasa exactamente lo mismo.</strong></p>
-        <p style="margin-top:20px;">
-          Tu Jefe de Innovaci&oacute;n.<br>
-          Tu COO.<br>
-          Tu Gerente de Operaciones.
-        </p>
-        <p style="margin-top:20px;">
-          Personas que valen <strong>$9,999 la hora</strong>
-          gastando ese tiempo en el $1:
-          intentar hacer software con IA.
-        </p>
-      </div>
-
-      <div class="beat" data-beat="6" hidden>
-        <p><strong>Steinmetz hace el $1.</strong></p>
-        <p style="margin-top:20px;">
-          Nosotros construimos,
-          desplegamos y mantenemos
-          el software con IA
-          dentro de tu infraestructura.
-        </p>
-        <p style="margin-top:20px;">
-          Para que las personas que valen $9,999
-          hagan exactamente eso:
-          <strong>lo que solo ellas saben hacer.</strong>
-        </p>
-      </div>
-
-      <div class="beat-progress">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
     </section>
+    </div><!-- /slide 03 -->
 
-    <!-- ─── SECTION 03: EL COSTO REAL ─────────────────────────────── -->
-    <section id="costo">
-      <p class="costo-eyebrow">EL COSTO QUE NADIE MIDE</p>
-      <h2 class="costo-headline">Cada semana que pasa<br>es dinero sobre la mesa.</h2>
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <span class="metric-number" data-target="5" data-suffix=" hrs">0</span>
-          <p class="metric-label">por semana gasta un l&iacute;der de operaciones intentando hacer software con IA</p>
-        </div>
-        <div class="metric-card">
-          <span class="metric-number" data-target="260" data-prefix="$" data-suffix="K">$0</span>
-          <p class="metric-label">anuales perdidos en tiempo de liderazgo mal usado &mdash; en una empresa de 500 personas</p>
-        </div>
-        <div class="metric-card">
-          <span class="metric-number">0</span>
-          <p class="metric-label">de ese tiempo resulta en software en producci&oacute;n real</p>
-        </div>
-      </div>
-    </section>
+    <!-- ─── SLIDE: CIERRE ────────────────────────────────────────────── -->
+    <div class="slide slide-dark">
+    <section id="cierre">
+      <span class="cierre-watermark">STEINMETZ</span>
+      <div class="cierre-inner">
+        <p class="cierre-eyebrow">PRÓXIMO PASO</p>
 
-    <!-- ─── SECTION 04: PIPELINE ──────────────────────────────────── -->
-    <section id="pipeline">
-      <p class="pipeline-eyebrow">DE PROMPT A PRODUCCI&Oacute;N</p>
-      <h2 class="pipeline-headline">La cadena completa.<br>Conectada. Aut&oacute;noma.</h2>
-
-      <div class="pipeline-list">
-        <div class="eslabon resolved" data-index="1">
-          <span class="esl-num">01</span>
-          <div class="esl-body">
-            <span class="esl-name">PROMPT</span>
-            <p class="esl-desc">Lenguaje natural &rarr; requerimiento t&eacute;cnico</p>
-          </div>
-          <span class="esl-badge resolved">Resuelto por todos</span>
-        </div>
-
-        <div class="eslabon resolved" data-index="2">
-          <span class="esl-num">02</span>
-          <div class="esl-body">
-            <span class="esl-name">C&Oacute;DIGO</span>
-            <p class="esl-desc">Software generado con IA</p>
-          </div>
-          <span class="esl-badge resolved">Resuelto por todos</span>
-        </div>
-
-        <div class="eslabon resolved" data-index="3">
-          <span class="esl-num">03</span>
-          <div class="esl-body">
-            <span class="esl-name">BACKEND</span>
-            <p class="esl-desc">Desplegado, funcional, con usuarios reales</p>
-          </div>
-          <span class="esl-badge resolved">Resuelto por varios</span>
-        </div>
-
-        <div class="eslabon resolved" data-index="4">
-          <span class="esl-num">04</span>
-          <div class="esl-body">
-            <span class="esl-name">DATOS</span>
-            <p class="esl-desc">Conectado a tu ERP, tus bases de datos, tu nube</p>
-          </div>
-          <span class="esl-badge resolved">Resuelto parcialmente</span>
-        </div>
-
-        <div class="eslabon steinmetz-only" data-index="5">
-          <span class="esl-num">05</span>
-          <div class="esl-body">
-            <span class="esl-name">SEGURIDAD</span>
-            <p class="esl-desc">Gobernanza autom&aacute;tica. Compliance corporativo.</p>
-          </div>
-          <span class="esl-badge steinmetz">Solo Steinmetz</span>
-          <span class="esl-dot"></span>
-        </div>
-
-        <div class="eslabon steinmetz-only" data-index="6">
-          <span class="esl-num">06</span>
-          <div class="esl-body">
-            <span class="esl-name">TU INFRAESTRUCTURA</span>
-            <p class="esl-desc">Desplegado en tu dominio. En tus servidores.</p>
-          </div>
-          <span class="esl-badge steinmetz">Solo Steinmetz</span>
-          <span class="esl-dot"></span>
-        </div>
-      </div>
-
-      <p class="pipeline-footer">
-        Los primeros 4 eslabones los resuelve cualquier herramienta.
-        Los &uacute;ltimos 2 son los que bloquean a cada empresa.
-        <strong>Steinmetz conecta los 6.</strong>
-      </p>
-    </section>
-
-    <!-- ─── SECTION 05: CASO REAL ─────────────────────────────────── -->
-    <section id="caso">
-      <p class="caso-eyebrow">CASO DE USO &middot; VALIDADO</p>
-      <h2 class="caso-headline">200 usuarios.<br>Producci&oacute;n real.<br>En menos de 30 d&iacute;as.</h2>
-      <p class="caso-body">
-        Un sistema de gesti&oacute;n de auditor&iacute;as
-        para una empresa del grupo CCU &mdash;
-        construido, integrado y desplegado
-        dentro de su infraestructura corporativa.
-      </p>
-      <p class="caso-body">
-        Sin meses de consultor&iacute;a.
-        Sin negociar con TI durante semanas.
-        Sin que el equipo t&eacute;cnico interno
-        perdiera un solo d&iacute;a de trabajo.
-      </p>
-      <div class="caso-stack">
-        <span>FastAPI</span>
-        <span>React</span>
-        <span>PostgreSQL</span>
-        <span>Azure</span>
-        <span>Microsoft Graph API</span>
-      </div>
-    </section>
-
-    <!-- ─── SECTION 06: CTA FINAL ─────────────────────────────────── -->
-    <section id="cta-final">
-      <div class="cta-content">
-        <h2 class="cta-headline">
-          <span class="line">Tu primer software en producci&oacute;n</span>
-          <span class="line">en menos de 30 d&iacute;as.</span>
+        <h2 class="cierre-h2 fade-in" style="font-size:44px;">
+          El generador está listo para encenderse.
         </h2>
-        <p class="cta-sub">
-          Sin contratar un equipo de desarrollo.
-          Sin negociar meses con TI.
-          Sin que tus l&iacute;deres pierdan una hora m&aacute;s
-          en el trabajo del $1.
+        <p class="cierre-sub fade-in">
+          Lo que resta es hacer la marca de tiza.
         </p>
-        <a href="https://wa.me/56993215043" class="btn-cta-final" target="_blank" rel="noopener">Iniciar conversaci&oacute;n</a>
-        <p class="cta-factura">Hacer la marca de tiza &middot; $1 &middot; Saber d&oacute;nde &middot; $9,999</p>
+
+        <div class="cierre-proof-strip fade-in">
+          <div class="cierre-proof-cell">
+            <span class="dot dot-warning"></span>
+            <span class="cierre-proof-text">Pre-Seed</span>
+          </div>
+          <div class="cierre-proof-cell">
+            <span class="dot dot-blue"></span>
+            <span class="cierre-proof-text">B2B Corp</span>
+          </div>
+          <div class="cierre-proof-cell">
+            <span class="dot dot-success"></span>
+            <span class="cierre-proof-text">LATAM First</span>
+          </div>
+          <div class="cierre-proof-cell">
+            <span class="dot dot-info"></span>
+            <span class="cierre-proof-text">Célula Ancla</span>
+          </div>
+        </div>
+
+        <div class="cierre-actions fade-in">
+          <button id="open-contact" class="btn-primary" style="cursor:pointer;padding:16px 32px;">
+            <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+            Iniciar conversación
+          </button>
+          <a href="/propuesta/" class="btn-ghost" style="border-color:var(--brand-primary);color:var(--brand-primary);">
+            Propuesta de Valor
+            <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+          </a>
+        </div>
+
+        <div class="cierre-divider fade-in">
+          <span class="cierre-brand">STEINMETZ</span>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+            <span class="cierre-footnote">BRIEF v1.0 · CONFIDENCIAL · 2025</span>
+            <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.06em;">Ian Berndt &nbsp;·&nbsp; +56 9 9321 5043</span>
+          </div>
+        </div>
       </div>
     </section>
+    </div><!-- /slide cierre -->
 
   </main>
 
-  <!-- ─── GSAP ────────────────────────────────────────────────────── -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
   <script>
-    gsap.registerPlugin(ScrollTrigger);
+    // ─── LUCIDE ICONS ─────────────────────────────────────────────────
+    lucide.createIcons();
 
-    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var DUR = prefersReduced ? 0.01 : 1;
+    // ─── SCROLL PROGRESS BAR ─────────────────────────────────────────
+    const progressBar = document.getElementById('progress-bar');
+    const mainEl = document.querySelector('main');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    function updateProgress() {
+      if (isMobile) {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+        progressBar.style.width = progress + '%';
+      } else {
+        const total = mainEl.scrollHeight - mainEl.clientHeight;
+        const progress = total > 0 ? (mainEl.scrollTop / total) * 100 : 0;
+        progressBar.style.width = progress + '%';
+      }
+    }
 
-    window.addEventListener('load', function() {
-      ScrollTrigger.refresh();
-      initHero();
-      initHistoria();
-      initCosto();
-      initPipeline();
-      initCasoReal();
-      initCTAFinal();
-      initNavbar();
-      initCursor();
+    // ─── ACTIVE NAV LINKS ────────────────────────────────────────────
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id], div[id="hero"]');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { root: isMobile ? null : mainEl, rootMargin: '-40% 0px -40% 0px' });
+
+    sections.forEach(s => navObserver.observe(s));
+
+    // ─── FADE-IN ON SCROLL ────────────────────────────────────────────
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { root: isMobile ? null : mainEl, rootMargin: '0px 0px -48px 0px' });
+
+    fadeEls.forEach((el, i) => {
+      // Stagger children within a parent list
+      const delay = 0;
+      el.style.transitionDelay = delay + 'ms';
+      fadeObserver.observe(el);
     });
 
-    // ─── HERO ─────────────────────────────────────────────────────
-    function initHero() {
-      // Set initial states BEFORE timeline
-      gsap.set('.hero-eyebrow', { y: 8 });
-      gsap.set('.hero-h1 .line', { y: 24 });
-      gsap.set('.hero-sub', { y: 12 });
-      gsap.set('.btn-cta-hero', { scale: 0.96 });
-
-      var tl = gsap.timeline();
-      tl.to('.hero-eyebrow',    { opacity: 1, y: 0, duration: 0.4 * DUR, delay: 0.1 })
-        .to('.hero-h1 .line',   { opacity: 1, y: 0, duration: 0.6 * DUR, stagger: 0.15, ease: 'power3.out' }, '-=0.1')
-        .to('.hero-sub',        { opacity: 1, y: 0, duration: 0.5 * DUR }, '-=0.2')
-        .to('.btn-cta-hero',    { opacity: 1, scale: 1, duration: 0.4 * DUR }, '-=0.1');
-    }
-
-    // ─── HISTORIA (scroll-pinned beats) ───────────────────────────
-    var currentBeat = 0;
-
-    function initHistoria() {
-      var beats = document.querySelectorAll('.beat');
-      var totalBeats = beats.length;
-
-      ScrollTrigger.create({
-        trigger: '#historia',
-        start: 'top top',
-        end: '+=' + (totalBeats * 100) + '%',
-        pin: true,
-        pinSpacing: true,
-        onUpdate: function(self) {
-          var beatIndex = Math.floor(self.progress * totalBeats);
-          var clamped = Math.min(beatIndex, totalBeats - 1);
-          showBeat(clamped);
+    // ─── SECTION NUMBER BG FADE-IN ──────────────────────────────────
+    const sectionNums = document.querySelectorAll('.section-number-bg');
+    const numObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          numObserver.unobserve(entry.target);
         }
       });
-    }
+    }, { root: isMobile ? null : mainEl, rootMargin: '0px 0px -100px 0px' });
+    sectionNums.forEach(el => numObserver.observe(el));
 
-    function showBeat(index) {
-      if (index === currentBeat) return;
-      var beats = document.querySelectorAll('.beat');
-      var dots = document.querySelectorAll('.beat-progress .dot');
-
-      // Out
-      gsap.to(beats[currentBeat], {
-        opacity: 0, y: -20, duration: 0.35 * DUR,
-        onComplete: function() { beats[currentBeat].hidden = true; }
-      });
-
-      // In
-      beats[index].hidden = false;
-      gsap.fromTo(beats[index],
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.45 * DUR }
-      );
-
-      // Progress dots
-      dots.forEach(function(d, i) { d.classList.toggle('active', i === index); });
-
-      // Special: spiral on beat 2
-      if (index === 2) animateSpiral();
-      // Special: invoice on beat 3
-      if (index === 3) animateFactura();
-
-      currentBeat = index;
-    }
-
-    function animateSpiral() {
-      var path = document.querySelector('.spiral-path');
-      if (!path) return;
-      var length = path.getTotalLength();
-      gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-      gsap.to(path, {
-        strokeDashoffset: 0,
-        duration: 1.2 * DUR,
-        ease: 'power2.inOut',
-        onComplete: function() {
-          gsap.fromTo('.spiral-endpoint',
-            { scale: 0, opacity: 0, transformOrigin: 'center' },
-            { scale: 1, opacity: 1, duration: 0.3 * DUR, ease: 'power2.out' }
-          );
+    // ─── SECTION LABEL LINE REVEAL ──────────────────────────────────
+    const sectionLabels = document.querySelectorAll('.section-label');
+    const labelObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('label-visible');
+          labelObserver.unobserve(entry.target);
         }
       });
-    }
+    }, { root: isMobile ? null : mainEl, rootMargin: '0px 0px -48px 0px' });
+    sectionLabels.forEach(el => labelObserver.observe(el));
 
-    function animateFactura() {
-      var block = document.querySelector('[data-beat="3"] .invoice-block');
-      if (!block) return;
-      var rows = block.querySelectorAll('.invoice-row');
-      var divider = block.querySelector('.invoice-divider');
+    // ─── BRAND TYPEWRITER ─────────────────────────────────────────────
+    (function() {
+      const el   = document.getElementById('hero-brand');
+      const text = 'STEINMETZ.';
 
-      gsap.from(rows[0], { opacity: 0, x: -10, duration: 0.4 * DUR });
-      gsap.from(rows[1], { opacity: 0, x: -10, duration: 0.4 * DUR, delay: 0.3 * DUR });
-      if (divider) gsap.from(divider, { scaleX: 0, duration: 0.6 * DUR, delay: 0.7 * DUR });
-      gsap.from(rows[2], { opacity: 0, duration: 0.4 * DUR, delay: 1.2 * DUR });
-    }
+      const combos = [
+        { font: 'Inter, sans-serif',      color: '#2563EB' },
+        { font: 'Fira Code, monospace',   color: '#171717' },
+        { font: 'Georgia, serif',         color: '#4F46E5' },
+        { font: 'Courier New, monospace', color: '#525252' },
+        { font: 'Inter, sans-serif',      color: '#171717' },
+        { font: 'Fira Code, monospace',   color: '#2563EB' },
+      ];
+      let ci = 0;
 
-    // ─── COSTO (counter-up) ───────────────────────────────────────
-    function initCosto() {
-      document.querySelectorAll('.metric-number[data-target]').forEach(function(el) {
-        var target = parseFloat(el.dataset.target);
-        var prefix = el.dataset.prefix || '';
-        var suffix = el.dataset.suffix || '';
+      function applyCombo(combo) {
+        el.style.fontFamily = combo.font;
+        el.style.color      = combo.color;
+      }
 
-        ScrollTrigger.create({
-          trigger: el,
-          start: 'top 80%',
-          once: true,
-          onEnter: function() {
-            var obj = { val: 0 };
-            gsap.to(obj, {
-              val: target,
-              duration: 1.4 * DUR,
-              ease: 'power2.out',
-              onUpdate: function() {
-                el.textContent = prefix + Math.round(obj.val) + suffix;
-              }
+      function typeIn(i, combo, done) {
+        applyCombo(combo);
+        el.textContent = text.slice(0, i) + (i < text.length ? '|' : '');
+        if (i > text.length) { done(); return; }
+        setTimeout(() => typeIn(i + 1, combo, done), 65);
+      }
+
+      function eraseOut(i, combo, done) {
+        applyCombo(combo);
+        el.textContent = text.slice(0, i) + (i > 0 ? '|' : '');
+        if (i < 0) { done(); return; }
+        setTimeout(() => eraseOut(i - 1, combo, done), 38);
+      }
+
+      function loop() {
+        const combo = combos[ci % combos.length];
+        typeIn(0, combo, () => {
+          el.textContent = text; // clean — no cursor at rest
+          setTimeout(() => {
+            eraseOut(text.length, combo, () => {
+              el.textContent = '';
+              ci++;
+              setTimeout(loop, 280);
             });
+          }, 1600);
+        });
+      }
+
+      window.addEventListener('load', () => setTimeout(loop, 200));
+    })();
+
+    // ─── LOCKSCREEN ───────────────────────────────────────────────────
+    (function() {
+      const PASSWORD = '12345';
+      const ls      = document.getElementById('lockscreen');
+      const input   = document.getElementById('ls-input');
+      const btn     = document.getElementById('ls-btn');
+      const status  = document.getElementById('ls-status');
+      const box     = document.getElementById('ls-box');
+      const clock   = document.getElementById('ls-clock');
+
+      // If already unlocked (returning from propuesta), skip lockscreen + gateway
+      if (sessionStorage.getItem('steinmetz-unlocked')) {
+        ls.style.display = 'none';
+        var gw = document.getElementById('gateway');
+        if (gw) gw.classList.add('done');
+        document.body.style.overflow = '';
+        document.getElementById('navbar').classList.remove('nav-hidden');
+        // Jump to hero after DOM is ready
+        requestAnimationFrame(function() {
+          var hero = document.getElementById('hero');
+          if (hero) hero.scrollIntoView();
+        });
+        return; // skip rest of lockscreen init
+      }
+
+      // live clock
+      function tickClock() {
+        const n = new Date();
+        clock.textContent = n.toLocaleTimeString('es-CL', { hour12: false });
+      }
+      tickClock();
+      setInterval(tickClock, 1000);
+
+      function setStatus(msg, cls) {
+        status.textContent = msg;
+        status.className = 'ls-status' + (cls ? ' ' + cls : '');
+      }
+
+      function unlock() {
+        sessionStorage.setItem('steinmetz-unlocked', '1');
+        setStatus('Acceso autorizado', 'success');
+        btn.disabled = true;
+        input.disabled = true;
+
+        setTimeout(() => {
+          ls.classList.add('unlocking');
+          ls.addEventListener('animationend', () => {
+            ls.style.display = 'none';
+            // Keep body overflow hidden — gateway is its own scroll container
+            var gw = document.getElementById('gateway');
+            if (gw) {
+              gw.classList.add('active');
+            }
+          }, { once: true });
+        }, 600);
+      }
+
+      function deny() {
+        setStatus('Credenciales inválidas', 'error');
+        box.classList.remove('shake');
+        void box.offsetWidth; // reflow to restart animation
+        box.classList.add('shake');
+        input.value = '';
+        setTimeout(() => setStatus('Aguardando credenciales'), 1400);
+      }
+
+      function attempt() {
+        if (input.value === PASSWORD) unlock();
+        else deny();
+      }
+
+      btn.addEventListener('click', attempt);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+      input.addEventListener('input', () => {
+        if (status.classList.contains('error')) setStatus('Aguardando credenciales');
+      });
+
+      // prevent scroll while locked
+      document.body.style.overflow = 'hidden';
+
+      // focus input after a beat
+      window.addEventListener('load', () => setTimeout(() => input.focus(), 400));
+    })();
+
+    // ─── CONTACT SCREEN ───────────────────────────────────────────────
+    (function() {
+      const cs   = document.getElementById('contact-screen');
+      const open = document.getElementById('open-contact');
+      const back = document.getElementById('cs-back');
+
+      function openContact() {
+        cs.classList.remove('cs-close');
+        cs.classList.add('cs-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeContact() {
+        cs.classList.remove('cs-open');
+        cs.classList.add('cs-close');
+        cs.addEventListener('animationend', () => {
+          document.body.style.overflow = '';
+        }, { once: true });
+      }
+
+      open.addEventListener('click', openContact);
+      back.addEventListener('click', closeContact);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && cs.classList.contains('cs-open')) closeContact();
+      });
+    })();
+
+    // ─── GATEWAY: NAVBAR VISIBILITY ────────────────────────────────
+    function checkNavbar() {
+      var gw = document.getElementById('gateway');
+      if (!gw) return;
+      var rect = gw.getBoundingClientRect();
+      if (rect.bottom <= 0) {
+        document.getElementById('navbar').classList.remove('nav-hidden');
+      } else {
+        document.getElementById('navbar').classList.add('nav-hidden');
+      }
+    }
+
+    // ─── GATEWAY: VERSUS TERMINAL ANIMATION ─────────────────────────
+    (function() {
+      var leftLines = [
+        '<span class="gw-cmd">$</span> deploy ai-agent --production',
+        '<span class="gw-err">&#9888;</span> Configurar MCP server...',
+        '<span class="gw-err">&#9888;</span> Enrutar 12 APIs...',
+        '<span class="gw-err">&#9888;</span> Permisos y sandboxes...',
+        '<span class="gw-err">&#9888;</span> Seguridad de red...',
+        '<span class="gw-err">&#9888;</span> Monitoreo y logs...',
+        '<span class="gw-err">&#9888;</span> 6 meses despues...',
+        '<span class="gw-fail">&#10007; STATUS: AUN EN STAGING</span>',
+      ];
+      var rightLines = [
+        '<span class="gw-cmd">$</span> <span class="gw-white">steinmetz deploy</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">Infraestructura lista</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">Agentes desplegados</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">Seguridad configurada</span>',
+        '<span class="gw-ok">&#10003;</span> <span class="gw-white">En produccion.</span>',
+      ];
+
+      var versusPlayed = false;
+      var versusObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !versusPlayed) {
+            versusPlayed = true;
+            versusObs.unobserve(entry.target);
+            playVersus();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      var versusEl = document.getElementById('gw-versus');
+      if (versusEl) versusObs.observe(versusEl);
+
+      function playVersus() {
+        var termL = document.getElementById('gw-term-left');
+        var termR = document.getElementById('gw-term-right');
+        var resL  = document.getElementById('gw-result-left');
+        var resR  = document.getElementById('gw-result-right');
+
+        leftLines.forEach(function(html, i) {
+          setTimeout(function() {
+            var el = document.createElement('div');
+            el.className = 'gw-term-line';
+            el.innerHTML = html;
+            termL.appendChild(el);
+            requestAnimationFrame(function() { el.classList.add('visible'); });
+
+            if (i === leftLines.length - 1) {
+              setTimeout(function() {
+                resL.classList.add('visible');
+                setTimeout(function() {
+                  rightLines.forEach(function(rhtml, j) {
+                    setTimeout(function() {
+                      var rel = document.createElement('div');
+                      rel.className = 'gw-term-line';
+                      rel.innerHTML = rhtml;
+                      termR.appendChild(rel);
+                      requestAnimationFrame(function() { rel.classList.add('visible'); });
+                      if (j === rightLines.length - 1) {
+                        setTimeout(function() { resR.classList.add('visible'); }, 200);
+                      }
+                    }, j * 140);
+                  });
+                }, 350);
+              }, 250);
+            }
+          }, i * 180);
+        });
+      }
+    })();
+
+    // ─── GATEWAY: PIPELINE ANIMATION (LOOPING) ────────────────────────
+    (function() {
+      var phrases = [
+        '"Necesito un sistema que consolide mis reportes de ventas semanales"',
+        '"Quiero un agente que responda consultas de clientes 24/7"',
+        '"Automatizar el analisis de contratos legales de mi empresa"',
+        '"Un dashboard que genere insights de mis datos en tiempo real"',
+      ];
+      var phraseIdx = 0;
+      var pipelineStarted = false;
+      var isInView = false;
+
+      var pipelineObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          isInView = entry.isIntersecting;
+          if (entry.isIntersecting && !pipelineStarted) {
+            pipelineStarted = true;
+            runCycle();
+          }
+        });
+      }, { threshold: 0.25 });
+
+      var pipelineEl = document.getElementById('gw-pipeline');
+      if (pipelineEl) pipelineObs.observe(pipelineEl);
+
+      function runCycle() {
+        var text = phrases[phraseIdx % phrases.length];
+        phraseIdx++;
+        var textEl = document.getElementById('gw-pipeline-text');
+        var nodes = document.querySelectorAll('#gw-pipeline-flow .gw-node');
+        var connectors = document.querySelectorAll('#gw-pipeline-flow .gw-connector');
+
+        // Reset
+        textEl.textContent = '';
+        nodes.forEach(function(n) { n.classList.remove('active'); });
+        connectors.forEach(function(c) { c.classList.remove('active'); });
+
+        var ti = 0;
+        function typePipeline() {
+          if (ti < text.length) {
+            textEl.textContent += text[ti++];
+            setTimeout(typePipeline, 25);
+          } else {
+            setTimeout(animateNodes, 500);
+          }
+        }
+        typePipeline();
+
+        function animateNodes() {
+          var delay = 0;
+          var totalDelay = 0;
+          nodes.forEach(function(node, i) {
+            if (i === 0) {
+              setTimeout(function() { node.classList.add('active'); }, delay);
+              delay += 400;
+            } else {
+              (function(idx, d) {
+                setTimeout(function() { connectors[idx - 1].classList.add('active'); }, d);
+                setTimeout(function() { node.classList.add('active'); }, d + 300);
+              })(i, delay);
+              delay += 500;
+            }
+            totalDelay = delay;
+          });
+          // Wait for animation to finish, hold, then restart
+          setTimeout(function() {
+            if (isInView) runCycle();
+            else { pipelineStarted = false; }
+          }, totalDelay + 2500);
+        }
+      }
+    })();
+
+    // ─── GATEWAY: CTA TRANSITION ────────────────────────────────────────
+    (function() {
+      var ctaBtn = document.getElementById('gw-gate-cta');
+      if (!ctaBtn) return;
+      ctaBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var overlay = document.getElementById('gw-transition');
+        overlay.classList.add('active');
+
+        setTimeout(function() {
+          // Collapse gateway, release body scroll, jump to brief
+          var gw = document.getElementById('gateway');
+          if (gw) gw.classList.add('done');
+          document.body.style.overflow = '';
+          document.documentElement.style.scrollBehavior = 'auto';
+          var hero = document.getElementById('hero');
+          if (hero) hero.scrollIntoView();
+          document.documentElement.style.scrollBehavior = '';
+          document.getElementById('navbar').classList.remove('nav-hidden');
+
+          setTimeout(function() {
+            overlay.classList.remove('active');
+          }, 400);
+        }, 450);
+      });
+    })();
+
+    // ─── ANCHOR SCROLL (into main container) ──────────────────────────
+    if (!isMobile) {
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var target = document.querySelector(a.getAttribute('href'));
+          if (target && mainEl.contains(target)) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         });
       });
-
-      // Border activation
-      ScrollTrigger.create({
-        trigger: '#costo',
-        start: 'top 70%',
-        once: true,
-        onEnter: function() {
-          gsap.to('.metric-card', {
-            borderColor: '#171717',
-            duration: 0.3,
-            stagger: 0.1
-          });
-        }
-      });
     }
 
-    // ─── PIPELINE ─────────────────────────────────────────────────
-    function initPipeline() {
-      gsap.set('.eslabon', { y: 16 });
-
-      ScrollTrigger.create({
-        trigger: '#pipeline',
-        start: 'top 65%',
-        once: true,
-        onEnter: function() {
-          gsap.to('.eslabon', {
-            opacity: 1,
-            y: 0,
-            duration: 0.4 * DUR,
-            stagger: 0.12,
-            ease: 'power2.out'
-          });
-          gsap.from('.pipeline-footer', {
-            opacity: 0, y: 12, duration: 0.5 * DUR, delay: 0.8 * DUR
-          });
-        }
-      });
+    // ─── SCROLL EVENT ─────────────────────────────────────────────────
+    mainEl.addEventListener('scroll', function() { updateProgress(); checkNavbar(); }, { passive: true });
+    if (isMobile) {
+      window.addEventListener('scroll', function() { updateProgress(); checkNavbar(); }, { passive: true });
     }
-
-    // ─── CASO REAL ────────────────────────────────────────────────
-    function initCasoReal() {
-      ScrollTrigger.create({
-        trigger: '#caso',
-        start: 'top 75%',
-        once: true,
-        onEnter: function() {
-          gsap.from('.caso-eyebrow', { opacity: 0, y: 8, duration: 0.4 * DUR });
-          gsap.from('.caso-headline', { opacity: 0, y: 16, duration: 0.6 * DUR, delay: 0.1 * DUR });
-          gsap.from('.caso-body', { opacity: 0, y: 8, duration: 0.5 * DUR, delay: 0.3 * DUR, stagger: 0.1 });
-          gsap.from('.caso-stack span', { opacity: 0, scale: 0.9, duration: 0.3 * DUR, stagger: 0.06, delay: 0.5 * DUR });
-        }
-      });
-    }
-
-    // ─── CTA FINAL ────────────────────────────────────────────────
-    function initCTAFinal() {
-      // Set initial states BEFORE trigger
-      gsap.set('.cta-headline .line', { y: 20 });
-      gsap.set('.btn-cta-final', { scale: 0.95 });
-
-      ScrollTrigger.create({
-        trigger: '#cta-final',
-        start: 'top 70%',
-        once: true,
-        onEnter: function() {
-          var tl = gsap.timeline();
-          tl.to('.cta-headline .line', { opacity: 1, y: 0, duration: 0.7 * DUR, stagger: 0.12, ease: 'power3.out' })
-            .to('.cta-sub',            { opacity: 1, duration: 0.5 * DUR }, '-=0.3')
-            .to('.btn-cta-final',      { opacity: 1, scale: 1, duration: 0.4 * DUR }, '-=0.1')
-            .to('.cta-factura',        { opacity: 0.35, duration: 0.4 * DUR }, '-=0.1');
-        }
-      });
-    }
-
-    // ─── NAVBAR ───────────────────────────────────────────────────
-    function initNavbar() {
-      ScrollTrigger.create({
-        start: 60,
-        onUpdate: function(self) {
-          document.getElementById('navbar').classList.toggle('scrolled', self.scroll() > 60);
-        }
-      });
-    }
-
-    // ─── CURSOR ───────────────────────────────────────────────────
-    function initCursor() {
-      if (window.innerWidth < 768) return;
-
-      var cursor = document.createElement('div');
-      cursor.className = 'custom-cursor';
-      document.body.appendChild(cursor);
-
-      document.addEventListener('mousemove', function(e) {
-        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-      });
-
-      document.querySelectorAll('a, button, .btn-cta-hero, .btn-cta-final').forEach(function(el) {
-        el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
-        el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
-      });
-    }
-
-    // ─── SMOOTH SCROLL for anchor links ───────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-      a.addEventListener('click', function(e) {
-        var target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
+    updateProgress();
+    checkNavbar();
   </script>
 
 </body>
