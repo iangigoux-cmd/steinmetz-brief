@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Steinmetz — Brief de Posicionamiento</title>
+  <title>Steinmetz — Infraestructura de Agentes de IA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -1345,14 +1345,14 @@
       .cierre-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
       .cierre-divider { flex-direction: column; align-items: flex-start; gap: 8px; }
 
-      /* LOCKSCREEN */
-      .ls-brand    { font-size: 40px; letter-spacing: -0.02em; }
-      .ls-auth-box { width: calc(100% - 48px); }
-      .ls-footer   { padding: 0 24px; font-size: 9px; }
-      .ls-corner-tl { top: 20px; left: 20px; }
-      .ls-corner-tr { top: 20px; right: 20px; }
-      .ls-corner-bl { bottom: 20px; left: 20px; }
-      .ls-corner-br { bottom: 20px; right: 20px; }
+      /* LANDING */
+      .landing-topbar { padding: 20px 24px; }
+      .landing-center { padding: 0 24px; }
+      .landing-content { grid-template-columns: 1fr; gap: 32px; }
+      .landing-headline { font-size: 28px; }
+      .landing-subtitle { font-size: 13px; margin-bottom: 24px; }
+      .landing-terminal { max-width: 100%; }
+      .landing-footer { padding: 20px 24px; font-size: 9px; }
 
       /* CONTACT SCREEN */
       .cs-name { font-size: 36px; }
@@ -1382,20 +1382,18 @@
       .gw-gate-title { font-size: 28px; }
       .gw-gate-invoice { max-width: 100%; }
     }
-    /* ─── LOCKSCREEN ──────────────────────────────────────────────── */
-    #lockscreen {
+    /* ─── LANDING ────────────────────────────────────────────────── */
+    #landing {
       position: fixed;
       inset: 0;
       z-index: 999;
       background: #111111;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
       transform-origin: 50% 50%;
     }
-    .ls-grid {
+    .landing-grid {
       position: absolute;
       inset: 0;
       background-image:
@@ -1404,7 +1402,7 @@
       background-size: 56px 56px;
       pointer-events: none;
     }
-    .ls-scanline {
+    .landing-scanline {
       position: absolute;
       left: 0; right: 0;
       height: 100px;
@@ -1414,189 +1412,202 @@
         rgba(37,99,235,0.06) 50%,
         rgba(37,99,235,0.03) 60%,
         transparent 100%);
-      animation: lsScan 7s linear infinite;
+      animation: landingScan 7s linear infinite;
       pointer-events: none;
     }
-    @keyframes lsScan {
+    @keyframes landingScan {
       0%   { top: -100px; }
       100% { top: 100vh; }
     }
-    .ls-corner {
-      position: absolute;
-      width: 18px; height: 18px;
-      border-color: rgba(255,255,255,0.1);
-      border-style: solid;
-    }
-    .ls-corner-tl { top: 32px; left: 32px; border-width: 1px 0 0 1px; }
-    .ls-corner-tr { top: 32px; right: 32px; border-width: 1px 1px 0 0; }
-    .ls-corner-bl { bottom: 32px; left: 32px; border-width: 0 0 1px 1px; }
-    .ls-corner-br { bottom: 32px; right: 32px; border-width: 0 1px 1px 0; }
 
-    .ls-center {
+    /* Top bar */
+    .landing-topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+    }
+    .landing-brand {
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 600;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+    .landing-contact {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      background: none;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: color 150ms ease-out;
+    }
+    .landing-contact:hover { color: rgba(255,255,255,0.8); }
+
+    /* Center content */
+    .landing-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 0 48px;
     }
-    .ls-brand {
-      font-family: 'Inter', sans-serif;
-      font-size: 72px;
+    .landing-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* Text column */
+    .landing-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: landingFadeIn 0.5s ease-out 0.2s forwards;
+    }
+    .landing-headline {
+      font-family: var(--font-ui);
+      font-size: 44px;
       font-weight: 600;
       color: #FFFFFF;
       letter-spacing: -0.03em;
-      line-height: 1;
-      text-align: center;
-      margin-bottom: 10px;
+      line-height: 1.12;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: landingFadeIn 0.5s ease-out 0.4s forwards;
     }
-    .ls-doc-label {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: rgba(255,255,255,0.18);
-      text-align: center;
-      margin-bottom: 52px;
-    }
-    .ls-auth-box {
-      width: 360px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: #161616;
-    }
-    .ls-auth-header {
-      padding: 12px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .ls-auth-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #2563EB;
-      animation: lsPulse 2.5s ease-in-out infinite;
-    }
-    @keyframes lsPulse {
-      0%,100% { opacity: 0.3; }
-      50%      { opacity: 1; }
-    }
-    .ls-auth-title {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.25);
-    }
-    .ls-auth-body { padding: 20px 18px; }
-    .ls-input-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 14px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: #0D0D0D;
-      margin-bottom: 14px;
-    }
-    .ls-input-row:focus-within {
-      border-color: rgba(37,99,235,0.5);
-    }
-    .ls-prompt {
-      font-family: 'Fira Code', monospace;
-      font-size: 13px;
-      color: #2563EB;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-    .ls-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      font-family: 'Fira Code', monospace;
-      font-size: 17px;
-      color: #FFFFFF;
-      letter-spacing: 0.18em;
-      caret-color: #2563EB;
-    }
-    .ls-input::placeholder {
-      color: rgba(255,255,255,0.1);
-      letter-spacing: 0.05em;
-      font-size: 11px;
-    }
-    .ls-status {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.18);
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: color 200ms ease-out;
-    }
-    .ls-status::before {
-      content: '//';
-      color: rgba(255,255,255,0.08);
-    }
-    .ls-status.error   { color: #DC2626; }
-    .ls-status.success { color: #059669; }
-    .ls-btn {
-      width: 100%;
-      padding: 11px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.12);
+    .landing-accent { color: var(--brand-primary); }
+    .landing-subtitle {
+      font-family: var(--font-ui);
+      font-size: 15px;
+      font-weight: 400;
       color: rgba(255,255,255,0.4);
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 420px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: landingFadeIn 0.5s ease-out 0.6s forwards;
+    }
+    .landing-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7);
+      font-family: var(--font-mono);
+      font-size: 12px;
       font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.04em;
       cursor: pointer;
+      border-radius: var(--radius-sm);
       transition: border-color 150ms ease-out, color 150ms ease-out, background 150ms ease-out;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: landingFadeIn 0.5s ease-out 0.8s forwards;
     }
-    .ls-btn:hover {
-      border-color: rgba(37,99,235,0.5);
-      color: rgba(255,255,255,0.85);
-      background: rgba(37,99,235,0.07);
+    .landing-cta:hover {
+      border-color: var(--brand-primary);
+      color: #FFFFFF;
+      background: rgba(37,99,235,0.1);
     }
-    .ls-footer {
-      position: absolute;
-      bottom: 28px;
-      left: 0; right: 0;
+    .landing-cta span { transition: transform 150ms ease-out; }
+    .landing-cta:hover span { transform: translateX(3px); }
+
+    /* Terminal column */
+    .landing-terminal {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+      overflow: hidden;
+      max-width: 380px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: landingFadeIn 0.6s ease-out 1s forwards;
+    }
+    .landing-term-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .landing-term-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+    .landing-term-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .landing-term-line {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .landing-cmd {
+      color: var(--brand-primary);
+      font-weight: 600;
+    }
+    .landing-ok {
+      color: var(--status-success);
+    }
+    .landing-white { color: #FFFFFF; }
+
+    /* Footer */
+    .landing-footer {
+      position: relative;
+      z-index: 2;
       display: flex;
       justify-content: space-between;
-      padding: 0 40px;
-      font-family: 'Fira Code', monospace;
+      padding: 24px 48px;
+      font-family: var(--font-mono);
       font-size: 10px;
-      color: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.12);
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      z-index: 1;
     }
 
-    /* shake on error */
-    @keyframes lsShake {
-      0%,100% { transform: translateX(0); }
-      20%     { transform: translateX(-6px); }
-      40%     { transform: translateX(6px); }
-      60%     { transform: translateX(-4px); }
-      80%     { transform: translateX(4px); }
+    /* Stagger animation */
+    @keyframes landingFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .ls-auth-box.shake { animation: lsShake 0.4s ease-out; }
 
-    /* unlock animation — CRT off + shoot up */
-    @keyframes lsCrtOff {
-      0%   { transform: scaleY(1);     opacity: 1; }
-      55%  { transform: scaleY(0.006); opacity: 1; }
-      72%  { transform: scaleY(0.006); opacity: 1; }
-      100% { transform: scaleY(0.006) translateY(-140vh); opacity: 0; }
+    /* Exit animation */
+    @keyframes landingExit {
+      0%   { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.98); }
     }
-    #lockscreen.unlocking {
-      animation: lsCrtOff 0.75s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+    #landing.landing-exit {
+      animation: landingExit 0.4s ease-in forwards;
       pointer-events: none;
     }
 
@@ -1725,47 +1736,44 @@
 
 <body>
 
-  <!-- ─── LOCKSCREEN ───────────────────────────────────────────────── -->
-  <div id="lockscreen">
-    <div class="ls-grid"></div>
-    <div class="ls-scanline"></div>
-    <div class="ls-corner ls-corner-tl"></div>
-    <div class="ls-corner ls-corner-tr"></div>
-    <div class="ls-corner ls-corner-bl"></div>
-    <div class="ls-corner ls-corner-br"></div>
+  <!-- ─── LANDING ──────────────────────────────────────────────────── -->
+  <div id="landing">
+    <div class="landing-grid"></div>
+    <div class="landing-scanline"></div>
 
-    <div class="ls-center">
-      <div class="ls-brand">STEINMETZ.</div>
-      <div class="ls-doc-label">Documento Restringido &nbsp;·&nbsp; Acceso Requerido</div>
+    <div class="landing-topbar">
+      <span class="landing-brand">STEINMETZ</span>
+      <button class="landing-contact" id="open-contact-landing">Contacto</button>
+    </div>
 
-      <div class="ls-auth-box" id="ls-box">
-        <div class="ls-auth-header">
-          <span class="ls-auth-dot"></span>
-          <span class="ls-auth-title">Autenticación Requerida</span>
+    <div class="landing-center">
+      <div class="landing-content">
+        <div class="landing-text">
+          <p class="landing-eyebrow">Infraestructura de IA</p>
+          <h1 class="landing-headline">Agentes de IA <span class="landing-accent">autónomos</span> para tu empresa.</h1>
+          <p class="landing-subtitle">Tú defines qué automatizar. Nosotros desplegamos los agentes, los servidores y la seguridad.</p>
+          <button class="landing-cta" id="landing-cta">Conocer más <span>&rarr;</span></button>
         </div>
-        <div class="ls-auth-body">
-          <div class="ls-input-row">
-            <span class="ls-prompt">&gt;</span>
-            <input
-              id="ls-input"
-              class="ls-input"
-              type="password"
-              maxlength="10"
-              autocomplete="off"
-              spellcheck="false"
-              placeholder="credencial de acceso"
-            >
+        <div class="landing-terminal">
+          <div class="landing-term-header">
+            <span class="landing-term-dot" style="background:#DC2626"></span>
+            <span class="landing-term-dot" style="background:#D97706"></span>
+            <span class="landing-term-dot" style="background:#059669"></span>
           </div>
-          <div class="ls-status" id="ls-status">Aguardando credenciales</div>
-          <button class="ls-btn" id="ls-btn">Verificar Acceso</button>
+          <div class="landing-term-body">
+            <div class="landing-term-line"><span class="landing-cmd">$</span> <span class="landing-white">steinmetz deploy</span></div>
+            <div class="landing-term-line"><span class="landing-ok">&#10003;</span> Infraestructura lista</div>
+            <div class="landing-term-line"><span class="landing-ok">&#10003;</span> Agentes desplegados</div>
+            <div class="landing-term-line"><span class="landing-ok">&#10003;</span> Seguridad activa</div>
+            <div class="landing-term-line"><span class="landing-ok">&#10003;</span> <span class="landing-white">En producción.</span></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="ls-footer">
-      <span>STZ-BRIEF-v1.0</span>
-      <span>Confidencial</span>
-      <span id="ls-clock"></span>
+    <div class="landing-footer">
+      <span>B2B Enterprise &middot; Pre-Seed</span>
+      <span>v1.0</span>
     </div>
   </div>
 
@@ -2304,88 +2312,50 @@
       window.addEventListener('load', () => setTimeout(loop, 200));
     })();
 
-    // ─── LOCKSCREEN ───────────────────────────────────────────────────
+    // ─── LANDING ─────────────────────────────────────────────────────
     (function() {
-      const PASSWORD = '12345';
-      const ls      = document.getElementById('lockscreen');
-      const input   = document.getElementById('ls-input');
-      const btn     = document.getElementById('ls-btn');
-      const status  = document.getElementById('ls-status');
-      const box     = document.getElementById('ls-box');
-      const clock   = document.getElementById('ls-clock');
+      var landing = document.getElementById('landing');
+      var cta = document.getElementById('landing-cta');
+      var contactBtn = document.getElementById('open-contact-landing');
 
-      // If already unlocked (returning from propuesta), skip lockscreen + gateway
+      // If returning from propuesta/brief, skip landing + gateway
       if (sessionStorage.getItem('steinmetz-unlocked')) {
-        ls.style.display = 'none';
+        landing.style.display = 'none';
         var gw = document.getElementById('gateway');
         if (gw) gw.classList.add('done');
         document.body.style.overflow = '';
         document.getElementById('navbar').classList.remove('nav-hidden');
-        // Jump to hero after DOM is ready
         requestAnimationFrame(function() {
           var hero = document.getElementById('hero');
           if (hero) hero.scrollIntoView();
         });
-        return; // skip rest of lockscreen init
+        return;
       }
 
-      // live clock
-      function tickClock() {
-        const n = new Date();
-        clock.textContent = n.toLocaleTimeString('es-CL', { hour12: false });
-      }
-      tickClock();
-      setInterval(tickClock, 1000);
-
-      function setStatus(msg, cls) {
-        status.textContent = msg;
-        status.className = 'ls-status' + (cls ? ' ' + cls : '');
-      }
-
-      function unlock() {
-        sessionStorage.setItem('steinmetz-unlocked', '1');
-        setStatus('Acceso autorizado', 'success');
-        btn.disabled = true;
-        input.disabled = true;
-
-        setTimeout(() => {
-          ls.classList.add('unlocking');
-          ls.addEventListener('animationend', () => {
-            ls.style.display = 'none';
-            // Keep body overflow hidden — gateway is its own scroll container
-            var gw = document.getElementById('gateway');
-            if (gw) {
-              gw.classList.add('active');
-            }
-          }, { once: true });
-        }, 600);
-      }
-
-      function deny() {
-        setStatus('Credenciales inválidas', 'error');
-        box.classList.remove('shake');
-        void box.offsetWidth; // reflow to restart animation
-        box.classList.add('shake');
-        input.value = '';
-        setTimeout(() => setStatus('Aguardando credenciales'), 1400);
-      }
-
-      function attempt() {
-        if (input.value === PASSWORD) unlock();
-        else deny();
-      }
-
-      btn.addEventListener('click', attempt);
-      input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
-      input.addEventListener('input', () => {
-        if (status.classList.contains('error')) setStatus('Aguardando credenciales');
-      });
-
-      // prevent scroll while locked
+      // Prevent scroll while landing is visible
       document.body.style.overflow = 'hidden';
 
-      // focus input after a beat
-      window.addEventListener('load', () => setTimeout(() => input.focus(), 400));
+      // CTA → enter gateway
+      cta.addEventListener('click', function() {
+        sessionStorage.setItem('steinmetz-unlocked', '1');
+        landing.classList.add('landing-exit');
+        landing.addEventListener('animationend', function() {
+          landing.style.display = 'none';
+          var gw = document.getElementById('gateway');
+          if (gw) gw.classList.add('active');
+        }, { once: true });
+      });
+
+      // Contact button on landing → open contact screen
+      if (contactBtn) {
+        contactBtn.addEventListener('click', function() {
+          var cs = document.getElementById('contact-screen');
+          if (cs) {
+            cs.classList.remove('cs-close');
+            cs.classList.add('cs-open');
+          }
+        });
+      }
     })();
 
     // ─── CONTACT SCREEN ───────────────────────────────────────────────
