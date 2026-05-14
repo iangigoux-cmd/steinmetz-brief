@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steinmetz — Instagram Post 03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E0E0E0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .canvas {
+    width: 1080px;
+    height: 1080px;
+    background: #171717;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .logo { font-family: 'Fira Code', monospace; font-size: 26px; font-weight: 600; letter-spacing: 0.25em; color: #FFF; }
+  .logo-dot { display: inline-block; width: 6px; height: 6px; background: #2563EB; margin-left: 8px; vertical-align: middle; }
+  .status { display: flex; align-items: center; gap: 8px; font-family: 'Fira Code', monospace; font-size: 22px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 64px;
+    gap: 48px;
+  }
+
+  /* Terminal block */
+  .terminal {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .term-line {
+    font-family: 'Fira Code', monospace;
+    font-size: 26px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.8;
+  }
+
+  .term-line .cmd { color: #2563EB; }
+  .term-line .err { color: #EF4444; }
+  .term-line .ok { color: #22C55E; }
+  .term-line .white { color: #FFFFFF; }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background: #2563EB;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .hook {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1.12;
+    color: #FFFFFF;
+    letter-spacing: -0.03em;
+    max-width: 800px;
+  }
+  .hook .highlight { color: #2563EB; }
+
+  .bottombar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 64px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .cta { font-family: 'Fira Code', monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.15em; color: #2563EB; }
+  .ref { font-family: 'Fira Code', monospace; font-size: 22px; color: rgba(255,255,255,0.15); letter-spacing: 0.05em; }
+
+  .canvas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #2563EB;
+  }
+
+  @media (max-width: 1080px) {
+    body { display: block; min-height: auto; overflow: hidden; }
+    .canvas { transform-origin: top left; }
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="topbar">
+    <span class="logo">STEINMETZ<span class="logo-dot"></span></span>
+    <span class="status"><span class="status-dot"></span> BUILDING</span>
+  </div>
+  <div class="main">
+    <div class="terminal">
+      <span class="term-line"><span class="cmd">$</span> deploy ai-agent --production</span>
+      <span class="term-line"><span class="err">ERR</span> missing: mcp_server, api_router, sandbox</span>
+      <span class="term-line"><span class="err">ERR</span> missing: auth_layer, monitoring, logs</span>
+      <span class="term-line"><span class="err">ERR</span> missing: 6 months of your life</span>
+      <span class="term-line">&nbsp;</span>
+      <span class="term-line"><span class="cmd">$</span> <span class="white">steinmetz deploy</span></span>
+      <span class="term-line"><span class="ok">&#10003;</span> <span class="white">Done. 4 minutes.</span> <span class="cursor"></span></span>
+    </div>
+    <h1 class="hook">You shouldn't need to become a CTO to <span class="highlight">use AI.</span></h1>
+  </div>
+  <div class="bottombar">
+    <span class="cta">STEINMETZ.AI &rarr;</span>
+    <span class="ref">AI INFRASTRUCTURE AS A SERVICE</span>
+  </div>
+</div>
+<script>
+(function() {
+  var c = document.querySelector('.canvas');
+  function fit() {
+    var s = Math.min(1, window.innerWidth / 1080);
+    c.style.transform = 'scale(' + s + ')';
+    document.body.style.height = (1080 * s) + 'px';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+</body>
+</html>

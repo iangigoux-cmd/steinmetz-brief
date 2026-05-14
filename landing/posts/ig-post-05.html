@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steinmetz — Instagram Post 05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E0E0E0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .canvas {
+    width: 1080px;
+    height: 1080px;
+    background: #171717;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .logo { font-family: 'Fira Code', monospace; font-size: 26px; font-weight: 600; letter-spacing: 0.25em; color: #FFF; }
+  .logo-dot { display: inline-block; width: 6px; height: 6px; background: #2563EB; margin-left: 8px; vertical-align: middle; }
+  .status { display: flex; align-items: center; gap: 8px; font-family: 'Fira Code', monospace; font-size: 22px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 64px;
+    gap: 52px;
+  }
+
+  /* Two column comparison */
+  .versus {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    width: 100%;
+  }
+
+  .col {
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .col-left {
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .col-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .col-left .col-label { color: rgba(255,255,255,0.25); }
+  .col-right .col-label { color: #2563EB; }
+
+  .col-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .col-item {
+    font-family: 'Fira Code', monospace;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+
+  .col-left .col-item {
+    color: rgba(255,255,255,0.3);
+  }
+
+  .col-left .col-item::before {
+    content: '✕ ';
+    color: #EF4444;
+    opacity: 0.6;
+  }
+
+  .col-right .col-item {
+    color: rgba(255,255,255,0.85);
+  }
+
+  .col-right .col-item::before {
+    content: '→ ';
+    color: #2563EB;
+  }
+
+  .hook {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 44px;
+    line-height: 1.12;
+    color: #FFFFFF;
+    letter-spacing: -0.03em;
+    padding: 0 4px;
+  }
+
+  .hook .highlight { color: #2563EB; }
+
+  .bottombar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 64px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .cta { font-family: 'Fira Code', monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.15em; color: #2563EB; }
+  .ref { font-family: 'Fira Code', monospace; font-size: 22px; color: rgba(255,255,255,0.15); letter-spacing: 0.05em; }
+
+  .canvas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #2563EB;
+  }
+
+  @media (max-width: 1080px) {
+    body { display: block; min-height: auto; overflow: hidden; }
+    .canvas { transform-origin: top left; }
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="topbar">
+    <span class="logo">STEINMETZ<span class="logo-dot"></span></span>
+    <span class="status"><span class="status-dot"></span> BUILDING</span>
+  </div>
+  <div class="main">
+    <div class="versus">
+      <div class="col col-left">
+        <span class="col-label">WITHOUT US</span>
+        <div class="col-items">
+          <span class="col-item">3 engineers</span>
+          <span class="col-item">6 months</span>
+          <span class="col-item">$240K burned</span>
+          <span class="col-item">Still in staging</span>
+        </div>
+      </div>
+      <div class="col col-right">
+        <span class="col-label">WITH STEINMETZ</span>
+        <div class="col-items">
+          <span class="col-item">You + your idea</span>
+          <span class="col-item">4 minutes</span>
+          <span class="col-item">Already live</span>
+          <span class="col-item">Already scaling</span>
+        </div>
+      </div>
+    </div>
+    <h1 class="hook">The gap isn't talent.<br>It's <span class="highlight">infrastructure.</span></h1>
+  </div>
+  <div class="bottombar">
+    <span class="cta">STEINMETZ.AI &rarr;</span>
+    <span class="ref">AI INFRASTRUCTURE AS A SERVICE</span>
+  </div>
+</div>
+<script>
+(function() {
+  var c = document.querySelector('.canvas');
+  function fit() {
+    var s = Math.min(1, window.innerWidth / 1080);
+    c.style.transform = 'scale(' + s + ')';
+    document.body.style.height = (1080 * s) + 'px';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+</body>
+</html>

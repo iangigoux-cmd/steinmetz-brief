@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steinmetz — Instagram Post 04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E0E0E0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .canvas {
+    width: 1080px;
+    height: 1080px;
+    background: #F4F4F2;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 64px;
+    border-bottom: 1px solid #D4D4D4;
+  }
+  .logo { font-family: 'Fira Code', monospace; font-size: 26px; font-weight: 600; letter-spacing: 0.25em; color: #171717; }
+  .logo-dot { display: inline-block; width: 6px; height: 6px; background: #2563EB; margin-left: 8px; vertical-align: middle; }
+  .status { display: flex; align-items: center; gap: 8px; font-family: 'Fira Code', monospace; font-size: 22px; letter-spacing: 0.08em; color: rgba(23,23,23,0.3); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 64px;
+    text-align: center;
+    gap: 64px;
+  }
+
+  /* Crossed out text */
+  .crossed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .crossed {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    letter-spacing: -0.02em;
+    color: rgba(23,23,23,0.15);
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    text-decoration-color: rgba(23,23,23,0.2);
+    line-height: 1.3;
+  }
+
+  .not-crossed {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    letter-spacing: -0.03em;
+    color: #171717;
+    line-height: 1.15;
+    text-align: left;
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .not-crossed .highlight {
+    color: #2563EB;
+  }
+
+  .sub {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .divider {
+    width: 64px;
+    height: 2px;
+    background: #2563EB;
+  }
+
+  .tagline {
+    font-family: 'Fira Code', monospace;
+    font-size: 26px;
+    color: rgba(23,23,23,0.4);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .bottombar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 64px;
+    border-top: 1px solid #D4D4D4;
+  }
+  .cta { font-family: 'Fira Code', monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.15em; color: #2563EB; }
+  .ref { font-family: 'Fira Code', monospace; font-size: 22px; color: rgba(23,23,23,0.15); letter-spacing: 0.05em; }
+
+  .canvas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #2563EB;
+  }
+
+  @media (max-width: 1080px) {
+    body { display: block; min-height: auto; overflow: hidden; }
+    .canvas { transform-origin: top left; }
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="topbar">
+    <span class="logo">STEINMETZ<span class="logo-dot"></span></span>
+    <span class="status"><span class="status-dot"></span> BUILDING</span>
+  </div>
+  <div class="main">
+    <div class="crossed-list">
+      <span class="crossed">Hire a DevOps team.</span>
+      <span class="crossed">Build from scratch.</span>
+      <span class="crossed">Wait 6 months.</span>
+      <span class="crossed">Burn $200K.</span>
+    </div>
+    <h1 class="not-crossed">Or just tell us <span class="highlight">what you want to build.</span></h1>
+    <div class="sub">
+      <div class="divider"></div>
+      <p class="tagline">From idea to deployed AI agents.<br>No engineering team required.</p>
+    </div>
+  </div>
+  <div class="bottombar">
+    <span class="cta">STEINMETZ.AI &rarr;</span>
+    <span class="ref">AI INFRASTRUCTURE AS A SERVICE</span>
+  </div>
+</div>
+<script>
+(function() {
+  var c = document.querySelector('.canvas');
+  function fit() {
+    var s = Math.min(1, window.innerWidth / 1080);
+    c.style.transform = 'scale(' + s + ')';
+    document.body.style.height = (1080 * s) + 'px';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+</body>
+</html>

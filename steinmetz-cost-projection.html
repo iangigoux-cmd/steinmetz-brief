@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steinmetz | Proyección de Costos Operativos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-canvas: #F4F4F2;
+            --bg-surface: #FFFFFF;
+            --bg-surface-hover: #EAEAEA;
+            --bg-highlight: #F8F8F6;
+            --border-subtle: #D4D4D4;
+            --border-strong: #171717;
+            --text-primary: #171717;
+            --text-secondary: #525252;
+            --text-tertiary: #A3A3A3;
+            --brand-primary: #2563EB;
+            --brand-hover: #1D4ED8;
+            --brand-surface: #EFF6FF;
+            --status-success-base: #059669;
+            --status-success-bg: #ECFDF5;
+            --status-warning-base: #D97706;
+            --status-warning-bg: #FFFBEB;
+            --status-danger-base: #DC2626;
+            --status-danger-bg: #FEF2F2;
+            --font-ui: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --shadow-structural: 0 4px 12px rgba(0,0,0,0.08), 0 0 0 1px var(--border-strong);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: var(--font-ui);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 48px;
+        }
+
+        .spec-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-canvas);
+            border: 1px solid var(--border-strong);
+        }
+
+        header {
+            padding: 32px;
+            border-bottom: 1px solid var(--border-strong);
+            background: var(--bg-surface);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-left { max-width: 600px; }
+        .header-right {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+            padding-top: 8px;
+        }
+        .header-stat {
+            text-align: right;
+        }
+        .header-stat-value {
+            font-family: var(--font-mono);
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+        .header-stat-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .eyebrow-dot {
+            width: 8px; height: 8px; background: var(--brand-primary); border-radius: 50%;
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+        .desc { color: var(--text-secondary); font-size: 14px; }
+
+        .section-row {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            border-bottom: 1px solid var(--border-strong);
+        }
+        .section-row:last-child { border-bottom: none; }
+        .section-row.full-width {
+            grid-template-columns: 1fr;
+        }
+
+        .section-header {
+            padding: 24px 32px;
+            border-right: 1px solid var(--border-strong);
+            background: var(--bg-surface);
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+        }
+        .section-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+        .section-content {
+            padding: 32px;
+            background: var(--bg-canvas);
+        }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 2px 8px; font-family: var(--font-mono); font-size: 11px;
+            font-weight: 500; border-radius: 2px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+        }
+        .led { width: 6px; height: 6px; border-radius: 50%; }
+        .led.success { background: var(--status-success-base); box-shadow: 0 0 4px var(--status-success-base); }
+        .led.warning { background: var(--status-warning-base); box-shadow: 0 0 4px var(--status-warning-base); }
+        .led.danger { background: var(--status-danger-base); box-shadow: 0 0 4px var(--status-danger-base); }
+        .led.info { background: var(--brand-primary); box-shadow: 0 0 4px var(--brand-primary); }
+
+        .ui-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .panel-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-strong);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-surface);
+        }
+        .panel-title {
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th {
+            text-align: left; padding: 8px 16px;
+            border-bottom: 1px solid var(--border-strong);
+            font-family: var(--font-mono); font-size: 10px;
+            color: var(--text-secondary); text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--bg-highlight);
+        }
+        th.right { text-align: right; }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        tr:hover td { background-color: var(--bg-surface-hover); }
+        tr:last-child td { border-bottom: none; }
+        .td-mono { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+        .td-right { text-align: right; font-family: var(--font-mono); font-size: 12px; }
+        .td-dim { color: var(--text-secondary); font-size: 12px; }
+
+        .total-row td {
+            border-top: 2px solid var(--border-strong);
+            border-bottom: none;
+            font-weight: 600;
+            padding: 14px 16px;
+            background: var(--bg-highlight);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+        .metric-cell {
+            padding: 24px;
+            border-right: 1px solid var(--border-strong);
+            border-bottom: 1px solid var(--border-strong);
+            background: var(--bg-surface);
+        }
+        .metric-cell:nth-child(4n) { border-right: none; }
+        .metric-cell:nth-last-child(-n+4) { border-bottom: none; }
+        .metric-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .metric-unit {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .metric-value.brand { color: var(--brand-primary); }
+        .metric-value.success { color: var(--status-success-base); }
+
+        .bar-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .bar-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            width: 120px;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+        }
+        .bar-track {
+            flex: 1;
+            height: 20px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .bar-value {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            width: 64px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        .comparison-col {
+            border-right: 1px solid var(--border-strong);
+        }
+        .comparison-col:last-child { border-right: none; }
+        .comparison-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-strong);
+            background: var(--bg-highlight);
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 13px;
+        }
+        .comparison-row:last-child { border-bottom: none; }
+        .comparison-label { color: var(--text-secondary); }
+        .comparison-value { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+
+        .note-bar {
+            background: var(--status-success-bg);
+            border: 1px solid var(--status-success-base);
+            padding: 16px 20px;
+            font-size: 13px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.6;
+        }
+        .note-bar .led { flex-shrink: 0; margin-top: 6px; }
+
+        .footer-bar {
+            padding: 16px 32px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-strong);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        @media (max-width: 900px) {
+            body { padding: 16px; }
+            .section-row { grid-template-columns: 1fr; }
+            .section-header { border-right: none; border-bottom: 1px solid var(--border-strong); }
+            .metric-grid { grid-template-columns: repeat(2, 1fr); }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .comparison-col { border-right: none; border-bottom: 1px solid var(--border-strong); }
+            header { flex-direction: column; gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="spec-container">
+
+    <header>
+        <div class="header-left">
+            <div class="eyebrow"><div class="eyebrow-dot"></div> STEINMETZ_COST_PROJECTION_V1</div>
+            <h1>Proyección de Costos Operativos</h1>
+            <p class="desc">Modelo económico por proyecto generado. Basado en datos reales de consumo (2.6M tokens / 60 sessions / 3 proyectos).</p>
+        </div>
+        <div class="header-right">
+            <div class="header-stat">
+                <div class="header-stat-value" style="color: var(--status-success-base);">97%</div>
+                <div class="header-stat-label">Margen bruto (Starter)</div>
+            </div>
+            <div class="header-stat">
+                <div class="header-stat-value">$15</div>
+                <div class="header-stat-label">Costo API / Proyecto</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- KPIs -->
+    <div class="section-row full-width">
+        <div class="metric-grid">
+            <div class="metric-cell">
+                <div class="metric-label">Tokens por proyecto</div>
+                <div class="metric-value">330K</div>
+                <div class="metric-unit">input + output combinado</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-label">Costo API promedio</div>
+                <div class="metric-value brand">$15</div>
+                <div class="metric-unit">USD por proyecto generado</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-label">Tiempo de generación</div>
+                <div class="metric-value">~30</div>
+                <div class="metric-unit">minutos (prompt → deploy)</div>
+            </div>
+            <div class="metric-cell">
+                <div class="metric-label">Checkpoints humanos</div>
+                <div class="metric-value">3</div>
+                <div class="metric-unit">discovery · architecture · connect</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COSTO POR ETAPA -->
+    <div class="section-row">
+        <div class="section-header">
+            <h2 class="section-title">01. Costo por Etapa</h2>
+            <p class="section-desc">Desglose del pipeline prompt-to-production. El build consume 75% del costo total por uso de Opus.</p>
+        </div>
+        <div class="section-content">
+            <div class="ui-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                        Pipeline Cost Breakdown
+                    </div>
+                    <div class="badge"><div class="led info"></div> 10 STAGES</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th>Modelo</th>
+                            <th>Descripción</th>
+                            <th class="right">Tokens</th>
+                            <th class="right">Costo USD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-mono">S1_DISCOVERY</td>
+                            <td><div class="badge">SONNET</div></td>
+                            <td class="td-dim">Requerimientos conversacionales (5 turnos)</td>
+                            <td class="td-right">20K</td>
+                            <td class="td-right">$0.12</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S2_EVALUATION</td>
+                            <td><div class="badge">SONNET</div></td>
+                            <td class="td-dim">Factibilidad + complejidad</td>
+                            <td class="td-right">7K</td>
+                            <td class="td-right">$0.03</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S3_PLANNING</td>
+                            <td><div class="badge">SONNET</div></td>
+                            <td class="td-dim">Schema, endpoints, pages, flows</td>
+                            <td class="td-right">13K</td>
+                            <td class="td-right">$0.08</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S4_AUDIT</td>
+                            <td><div class="badge">SONNET</div></td>
+                            <td class="td-dim">Gaps, seguridad, edge cases (2 loops)</td>
+                            <td class="td-right">18K</td>
+                            <td class="td-right">$0.11</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S5_REFINEMENT</td>
+                            <td><div class="badge">SONNET</div></td>
+                            <td class="td-dim">Corrección de issues críticos</td>
+                            <td class="td-right">12K</td>
+                            <td class="td-right">$0.07</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S6_ARCHITECTURE</td>
+                            <td><div class="badge" style="border-color: var(--brand-primary); color: var(--brand-primary);"><div class="led info"></div> OPUS</div></td>
+                            <td class="td-dim">SQL, API spec, component tree, Docker config</td>
+                            <td class="td-right">20K</td>
+                            <td class="td-right">$1.50</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S7_BUILD</td>
+                            <td><div class="badge" style="border-color: var(--brand-primary); color: var(--brand-primary);"><div class="led info"></div> OPUS</div></td>
+                            <td class="td-dim">7 pasos de generación + retries</td>
+                            <td class="td-right">150K</td>
+                            <td class="td-right">$11.25</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S8_TEST</td>
+                            <td><div class="badge">SONNET</div></td>
+                            <td class="td-dim">Syntax, deps, Docker, health, smoke (3 retries)</td>
+                            <td class="td-right">40K</td>
+                            <td class="td-right">$0.24</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S9_CONNECT</td>
+                            <td class="td-dim">—</td>
+                            <td class="td-dim">Validación de credenciales (sin AI)</td>
+                            <td class="td-right">0</td>
+                            <td class="td-right">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">S10_DEPLOY</td>
+                            <td class="td-dim">—</td>
+                            <td class="td-dim">Docker build, push, DNS, health (sin AI)</td>
+                            <td class="td-right">0</td>
+                            <td class="td-right">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono" style="color: var(--text-secondary);">OVERHEAD</td>
+                            <td><div class="badge">MIXED</div></td>
+                            <td class="td-dim">Agent SDK loop, compaction, tool calls</td>
+                            <td class="td-right">50K</td>
+                            <td class="td-right">$1.50</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="3" style="font-family: var(--font-mono); font-size: 12px;">TOTAL_PER_PROJECT</td>
+                            <td class="td-right" style="font-size: 14px;">330K</td>
+                            <td class="td-right" style="font-size: 16px;">$14.90</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISTRIBUCIÓN DE COSTO -->
+    <div class="section-row">
+        <div class="section-header">
+            <h2 class="section-title">02. Distribución de Costo</h2>
+            <p class="section-desc">El build (Opus) domina. Optimizable con Sonnet en pasos de scaffolding y templates cacheados.</p>
+        </div>
+        <div class="section-content">
+            <div class="bar-container">
+                <div class="bar-label">S7_BUILD</div>
+                <div class="bar-track"><div class="bar-fill" style="width: 75.5%; background: var(--brand-primary);"></div></div>
+                <div class="bar-value">$11.25</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-label">S6_ARCHI</div>
+                <div class="bar-track"><div class="bar-fill" style="width: 10.1%; background: var(--brand-primary); opacity: 0.7;"></div></div>
+                <div class="bar-value">$1.50</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-label">OVERHEAD</div>
+                <div class="bar-track"><div class="bar-fill" style="width: 10.1%; background: var(--text-tertiary);"></div></div>
+                <div class="bar-value">$1.50</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-label">COGNITIVE</div>
+                <div class="bar-track"><div class="bar-fill" style="width: 4.3%; background: var(--text-tertiary); opacity: 0.5;"></div></div>
+                <div class="bar-value">$0.65</div>
+            </div>
+
+            <div class="note-bar" style="margin-top: 24px;">
+                <div class="led success"></div>
+                <div><strong>Vector de optimización:</strong> Migrar pasos 1 y 7 del build (scaffolding + shared components) de Opus → Sonnet. Templates cacheados para stacks frecuentes. Reducción estimada: -30% en costo de build.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UNIT ECONOMICS POR PLAN -->
+    <div class="section-row">
+        <div class="section-header">
+            <h2 class="section-title">03. Unit Economics</h2>
+            <p class="section-desc">Márgenes brutos por tier de suscripción. Incluye API + infra (VPS, DNS, registry).</p>
+        </div>
+        <div class="section-content">
+            <div class="ui-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i data-lucide="bar-chart-3" style="width: 14px; height: 14px;"></i>
+                        Subscription Tiers
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Métrica</th>
+                            <th class="right">Starter</th>
+                            <th class="right">Business</th>
+                            <th class="right">Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Precio mensual</td>
+                            <td class="td-right" style="font-weight: 600;">$2,500</td>
+                            <td class="td-right" style="font-weight: 600;">$4,500</td>
+                            <td class="td-right" style="font-weight: 600;">$6,500</td>
+                        </tr>
+                        <tr>
+                            <td>Proyectos incluidos/mes</td>
+                            <td class="td-right">3</td>
+                            <td class="td-right">8</td>
+                            <td class="td-right">20</td>
+                        </tr>
+                        <tr>
+                            <td>Costo API (proyectos × $15)</td>
+                            <td class="td-right">$45</td>
+                            <td class="td-right">$120</td>
+                            <td class="td-right">$300</td>
+                        </tr>
+                        <tr>
+                            <td>Infra (VPS + DNS + registry)</td>
+                            <td class="td-right">$30</td>
+                            <td class="td-right">$60</td>
+                            <td class="td-right">$120</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Costo total</td>
+                            <td class="td-right" style="font-weight: 600;">$75</td>
+                            <td class="td-right" style="font-weight: 600;">$180</td>
+                            <td class="td-right" style="font-weight: 600;">$420</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Margen bruto</td>
+                            <td class="td-right" style="font-weight: 600; color: var(--status-success-base); font-size: 16px;">97.0%</td>
+                            <td class="td-right" style="font-weight: 600; color: var(--status-success-base); font-size: 16px;">96.0%</td>
+                            <td class="td-right" style="font-weight: 600; color: var(--status-success-base); font-size: 16px;">93.5%</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td style="font-family: var(--font-mono); font-size: 12px;">GANANCIA_BRUTA</td>
+                            <td class="td-right" style="font-size: 14px; color: var(--status-success-base);">$2,425</td>
+                            <td class="td-right" style="font-size: 14px; color: var(--status-success-base);">$4,320</td>
+                            <td class="td-right" style="font-size: 14px; color: var(--status-success-base);">$6,080</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARACIÓN -->
+    <div class="section-row">
+        <div class="section-header">
+            <h2 class="section-title">04. Manual vs Automatizado</h2>
+            <p class="section-desc">Basado en datos reales: 2.6M tokens, 60 sessions, 20 días activos para 3 proyectos via Claude Code manual.</p>
+        </div>
+        <div class="section-content">
+            <div class="ui-panel">
+                <div class="comparison-grid">
+                    <div class="comparison-col">
+                        <div class="comparison-header">
+                            <i data-lucide="user" style="width: 14px; height: 14px;"></i>
+                            Dev + Claude Code (manual)
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Tiempo por proyecto</span>
+                            <span class="comparison-value">~7 días activos</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Sessions requeridas</span>
+                            <span class="comparison-value">~20</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Intervención humana</span>
+                            <span class="comparison-value">CONSTANTE</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Tokens consumidos</span>
+                            <span class="comparison-value">~867K</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Costo API equivalente</span>
+                            <span class="comparison-value">~$5.20</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Tasa de éxito (1er intento)</span>
+                            <span class="comparison-value" style="color: var(--status-warning-base);">71%</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Quality gates</span>
+                            <span class="comparison-value">MANUAL_REVIEW</span>
+                        </div>
+                    </div>
+                    <div class="comparison-col">
+                        <div class="comparison-header" style="background: var(--brand-surface);">
+                            <i data-lucide="zap" style="width: 14px; height: 14px; color: var(--brand-primary);"></i>
+                            <span style="color: var(--brand-primary);">Steinmetz (automatizado)</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Tiempo por proyecto</span>
+                            <span class="comparison-value" style="color: var(--status-success-base);">~30 min</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Sessions requeridas</span>
+                            <span class="comparison-value" style="color: var(--status-success-base);">1 (auto)</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Intervención humana</span>
+                            <span class="comparison-value" style="color: var(--status-success-base);">3 CHECKPOINTS</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Tokens consumidos</span>
+                            <span class="comparison-value">~330K</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Costo API</span>
+                            <span class="comparison-value">~$15.00</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Tasa de éxito (con retries)</span>
+                            <span class="comparison-value" style="color: var(--status-success-base);">~95%</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span class="comparison-label">Quality gates</span>
+                            <span class="comparison-value" style="color: var(--status-success-base);">4 AGENTS ∥</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INFRAESTRUCTURA -->
+    <div class="section-row">
+        <div class="section-header">
+            <h2 class="section-title">05. Infra MVP</h2>
+            <p class="section-desc">Stack mínimo viable. Escala a ~50 proyectos deployados concurrentes.</p>
+        </div>
+        <div class="section-content">
+            <div class="ui-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i data-lucide="server" style="width: 14px; height: 14px;"></i>
+                        Infrastructure Stack
+                    </div>
+                    <div class="badge"><div class="led success"></div> ~$15/MES</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Proveedor</th>
+                            <th>Spec</th>
+                            <th class="right">Costo/mes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-mono">FRONTEND</td>
+                            <td>Vercel</td>
+                            <td class="td-dim">Next.js SSR, edge functions</td>
+                            <td class="td-right" style="color: var(--status-success-base);">$0</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">COMPUTE</td>
+                            <td>Hetzner CPX31</td>
+                            <td class="td-dim">4 vCPU, 8GB RAM, 160GB NVMe</td>
+                            <td class="td-right">$15</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">DATABASE</td>
+                            <td>PostgreSQL (VPS)</td>
+                            <td class="td-dim">Mismo VPS, backups diarios</td>
+                            <td class="td-right" style="color: var(--status-success-base);">$0</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">PROXY</td>
+                            <td>Caddy (VPS)</td>
+                            <td class="td-dim">Auto-SSL, reverse proxy</td>
+                            <td class="td-right" style="color: var(--status-success-base);">$0</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">DNS</td>
+                            <td>Cloudflare</td>
+                            <td class="td-dim">Free plan, wildcard *.apps</td>
+                            <td class="td-right" style="color: var(--status-success-base);">$0</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">REGISTRY</td>
+                            <td>Docker Hub</td>
+                            <td class="td-dim">1 private repo</td>
+                            <td class="td-right" style="color: var(--status-success-base);">$0</td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">AI_API</td>
+                            <td>Anthropic</td>
+                            <td class="td-dim">Claude Sonnet + Opus (pay-per-use)</td>
+                            <td class="td-right">~$15/proy</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="3" style="font-family: var(--font-mono); font-size: 12px;">TOTAL_FIXED_MONTHLY</td>
+                            <td class="td-right" style="font-size: 14px;">$15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ESCENARIOS DE SCALE -->
+    <div class="section-row">
+        <div class="section-header">
+            <h2 class="section-title">06. Escenarios de Escala</h2>
+            <p class="section-desc">Proyección a 12 meses. Break-even con 1 cliente Starter.</p>
+        </div>
+        <div class="section-content">
+            <div class="ui-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i data-lucide="trending-up" style="width: 14px; height: 14px;"></i>
+                        Revenue Scenarios (MRR)
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Escenario</th>
+                            <th>Clientes</th>
+                            <th class="right">MRR</th>
+                            <th class="right">Costo op.</th>
+                            <th class="right">Margen</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-mono">BREAK_EVEN</td>
+                            <td class="td-dim">1 × Starter</td>
+                            <td class="td-right">$2,500</td>
+                            <td class="td-right">$90</td>
+                            <td class="td-right" style="color: var(--status-success-base);">96%</td>
+                            <td><div class="badge"><div class="led success"></div> VIABLE</div></td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">EARLY_TRACTION</td>
+                            <td class="td-dim">3 × Starter + 1 × Business</td>
+                            <td class="td-right">$12,000</td>
+                            <td class="td-right">$420</td>
+                            <td class="td-right" style="color: var(--status-success-base);">97%</td>
+                            <td><div class="badge"><div class="led success"></div> STRONG</div></td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">GROWTH</td>
+                            <td class="td-dim">5 × Business + 2 × Enterprise</td>
+                            <td class="td-right">$35,500</td>
+                            <td class="td-right">$1,740</td>
+                            <td class="td-right" style="color: var(--status-success-base);">95%</td>
+                            <td><div class="badge"><div class="led success"></div> STRONG</div></td>
+                        </tr>
+                        <tr>
+                            <td class="td-mono">SCALE</td>
+                            <td class="td-dim">10 × Bus. + 5 × Ent.</td>
+                            <td class="td-right">$77,500</td>
+                            <td class="td-right">$4,800</td>
+                            <td class="td-right" style="color: var(--status-success-base);">94%</td>
+                            <td><div class="badge"><div class="led success"></div> STRONG</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="note-bar" style="margin-top: 24px;">
+                <div class="led success"></div>
+                <div><strong>Nota:</strong> Los costos operativos NO incluyen salarios, marketing ni overhead corporativo. Solo infraestructura técnica + API. El margen bruto se mantiene >93% incluso en escenarios de alta escala porque el costo variable (API) es proporcional y bajo vs. precio.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESUMEN EJECUTIVO -->
+    <div class="section-row">
+        <div class="section-header">
+            <h2 class="section-title">07. Resumen Ejecutivo</h2>
+            <p class="section-desc">Para quienes toman decisiones de negocio, no de código.</p>
+        </div>
+        <div class="section-content">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-strong); padding: 32px; border-radius: 2px;">
+
+                <div style="font-size: 15px; line-height: 1.8; color: var(--text-primary); margin-bottom: 28px;">
+                    Steinmetz es una plataforma donde una empresa describe el software que necesita en lenguaje natural y recibe una aplicación funcional, testeada y desplegada en una URL propia — sin necesidad de un equipo de desarrollo.
+                </div>
+
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">¿Cuánto cuesta operar esto?</div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border-strong); margin-bottom: 28px;">
+                    <div style="padding: 20px; text-align: center; border-right: 1px solid var(--border-strong);">
+                        <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 600; color: var(--brand-primary);">$15</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">nos cuesta generar<br>una aplicación completa</div>
+                    </div>
+                    <div style="padding: 20px; text-align: center; border-right: 1px solid var(--border-strong);">
+                        <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 600;">$2,500</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">cobra el plan más<br>básico al mes</div>
+                    </div>
+                    <div style="padding: 20px; text-align: center;">
+                        <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 600; color: var(--status-success-base);">97%</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">de cada dólar<br>es ganancia bruta</div>
+                    </div>
+                </div>
+
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">¿Por qué tan barato de operar?</div>
+
+                <div style="font-size: 14px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 28px;">
+                    La inteligencia artificial que genera el software (Claude, de Anthropic) cobra por uso — como la electricidad. Generar una app completa consume aproximadamente lo mismo que enviar 300 emails largos. La infraestructura de servidores cuesta $15 al mes fijos. No hay licencias de software, no hay servidores caros, no hay equipo de desarrolladores por proyecto.
+                </div>
+
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">¿Qué pasa cuando crece?</div>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid var(--border-strong); margin-bottom: 28px;">
+                    <div style="padding: 16px 20px; border-right: 1px solid var(--border-strong); border-bottom: 1px solid var(--border-subtle);">
+                        <div style="font-size: 13px; color: var(--text-secondary);">Con 1 solo cliente</div>
+                        <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">Ya es rentable. MRR: $2,500</div>
+                    </div>
+                    <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-subtle);">
+                        <div style="font-size: 13px; color: var(--text-secondary);">Con 4 clientes</div>
+                        <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">MRR: $12,000. Margen: 97%</div>
+                    </div>
+                    <div style="padding: 16px 20px; border-right: 1px solid var(--border-strong);">
+                        <div style="font-size: 13px; color: var(--text-secondary);">Con 7 clientes</div>
+                        <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">MRR: $35,500. Margen: 95%</div>
+                    </div>
+                    <div style="padding: 16px 20px;">
+                        <div style="font-size: 13px; color: var(--text-secondary);">Con 15 clientes</div>
+                        <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">MRR: $77,500. Margen: 94%</div>
+                    </div>
+                </div>
+
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">La analogía</div>
+
+                <div style="font-size: 14px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 28px;">
+                    Hoy, cuando una empresa LATAM necesita un software interno, contrata un equipo de 3-5 desarrolladores por 2-6 meses. Costo: entre $30,000 y $150,000 USD. Con Steinmetz, describen lo que necesitan, responden unas preguntas, y en 30 minutos reciben la aplicación funcionando. Por $2,500 al mes pueden generar 3 aplicaciones. El ahorro para el cliente es de 10x-50x — y nuestro costo de producción es $15 por app.
+                </div>
+
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">Lo que estos números no incluyen</div>
+
+                <div style="font-size: 13px; line-height: 1.7; color: var(--text-tertiary);">
+                    Esta proyección cubre exclusivamente costos operativos técnicos (servidores + IA). No incluye salarios del equipo, marketing, ventas, legales, ni oficina. El margen bruto del 97% es sobre costo técnico — el margen neto será menor una vez se incluya el equipo. Pero la estructura de costos permite escalar sin que los costos técnicos crezcan proporcionalmente a los ingresos.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-bar">
+        <span>STEINMETZ_COST_MODEL — DRAFT — 2026.03.17</span>
+        <span>FUENTE: CLAUDE_CODE_INSIGHTS_REPORT · 2.6M_TOKENS · 60_SESSIONS · 20_ACTIVE_DAYS</span>
+    </div>
+
+</div>
+
+<script>
+    lucide.createIcons();
+</script>
+
+</body>
+</html>
