@@ -1,0 +1,410 @@
+/* ═══════════════════════════════════════════════════════════════
+   STEINMETZ — landing
+   Sistema: blanco sobre casi-negro. Sin color de acento: el único
+   color del sitio vive en las fotografías (óxido, ocre, cobre).
+   Inter para todo; IBM Plex Mono solo para cifras, datos y
+   etiquetas. Un solo momento animado (el hero); el resto, fades
+   de opacidad. Sin parallax, sin translate, sin spring.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --negro:  #0a0a0a;
+  --blanco: #ffffff;
+  --gris:   #8a8a8a;
+  --linea:  rgba(255, 255, 255, 0.14);
+  --fuente: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --mono:   "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+  --margen: clamp(1.25rem, 5vw, 5rem);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--negro);
+  color: var(--blanco);
+  font-family: var(--fuente);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--blanco); color: var(--negro); }
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+/* grano de película sobre todo el sitio — cohesión con el grade
+   de las fotografías */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* ── marca fija ─────────────────────────────────────────────── */
+
+.marca {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 80;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.35rem var(--margen);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  mix-blend-mode: difference;
+}
+
+.marca-lugar { color: var(--gris); font-weight: 400; }
+
+/* ── tipos base ─────────────────────────────────────────────── */
+
+.etiqueta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--gris);
+  border-top: 1px solid var(--linea);
+  padding-top: 1rem;
+  margin-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+.cifra { font-family: var(--mono); font-weight: 500; }
+
+.parrafo {
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  max-width: 34em;
+  color: var(--blanco);
+}
+
+.parrafo + .parrafo { margin-top: 1.4em; }
+
+.parrafo-grande {
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  line-height: 1.5;
+  max-width: 30em;
+}
+
+.sentencia {
+  font-size: clamp(1.9rem, 4.6vw, 3.9rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  max-width: 16em;
+}
+
+.sentencia em { font-style: normal; color: var(--gris); }
+
+.sentencia-media { font-size: clamp(1.5rem, 3.2vw, 2.6rem); margin-bottom: clamp(3rem, 8vh, 5rem); }
+
+.remate { color: var(--gris); }
+
+/* ── CTA ────────────────────────────────────────────────────── */
+
+.cta {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--negro);
+  background: var(--blanco);
+  padding: 1em 2.2em;
+  transition: opacity 200ms ease-in-out;
+}
+
+.cta:hover { opacity: 0.82; }
+
+.cta-grande { font-size: 0.95rem; }
+
+/* ── 00 · hero ──────────────────────────────────────────────── */
+
+.hero { height: 320svh; position: relative; }
+
+.hero-viewport {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.hero-poster,
+.hero-poster img,
+.hero-lienzo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-poster img { object-fit: cover; }
+
+/* scrim diagonal: garantiza la lectura del texto cuando la tiza
+   cae sobre el acero claro, sin apagar la fotografía */
+.hero-viewport::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(70deg, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.25) 38%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-texto {
+  position: absolute;
+  left: var(--margen);
+  right: var(--margen);
+  bottom: clamp(3rem, 12vh, 7rem);
+  z-index: 2;
+}
+
+.hline {
+  font-size: clamp(1.7rem, 4.4vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  max-width: 14em;
+  text-shadow: 0 1px 30px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+
+.hline.on { opacity: 1; }
+
+.hline-remate { color: var(--gris); }
+.hline-remate .cifra { color: var(--blanco); }
+
+.hero-cta-linea { margin-top: 2.2rem; }
+
+/* ── secciones de texto ─────────────────────────────────────── */
+
+.seccion {
+  padding: clamp(5rem, 16vh, 10rem) var(--margen);
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.seccion-angosta { padding-top: clamp(4rem, 12vh, 8rem); padding-bottom: clamp(4rem, 12vh, 8rem); }
+
+.cols {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.col-imagen { position: sticky; top: 10vh; }
+.col-imagen img { width: 100%; height: auto; }
+
+@media (max-width: 899px) {
+  .cols { grid-template-columns: 1fr; }
+  .col-imagen { position: static; order: -1; }
+}
+
+/* ── factura ────────────────────────────────────────────────── */
+
+.factura {
+  font-family: var(--mono);
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  max-width: 30em;
+  margin: 3rem 0;
+  border-top: 1px solid var(--linea);
+}
+
+.factura-cab {
+  padding: 1rem 0 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--gris);
+}
+
+.factura-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.factura-total { font-weight: 500; }
+
+/* ── bandas fotográficas con texto ──────────────────────────── */
+
+.banda {
+  position: relative;
+  min-height: 82svh;
+  display: flex;
+  align-items: flex-end;
+}
+
+.banda-fondo, .banda-fondo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banda-fondo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.45) 50%, rgba(10,10,10,0.2) 100%);
+}
+
+.banda-texto {
+  position: relative;
+  z-index: 1;
+  padding: clamp(3rem, 10vh, 6rem) var(--margen);
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.banda-texto .etiqueta {
+  border-top-color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: clamp(1.4rem, 4vh, 2.5rem);
+}
+
+/* ── divisores a sangre ─────────────────────────────────────── */
+
+.divisor { height: 64svh; overflow: hidden; }
+.divisor img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── método ─────────────────────────────────────────────────── */
+
+.metodo { list-style: none; max-width: 56rem; }
+
+.metodo li {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.5rem;
+  padding: clamp(1.8rem, 4vh, 2.8rem) 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.metodo li:first-child { border-top: 1px solid var(--linea); }
+
+.metodo-num {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gris);
+  padding-top: 0.45em;
+}
+
+.metodo p {
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.5;
+  max-width: 30em;
+}
+
+@media (max-width: 599px) {
+  .metodo li { grid-template-columns: 1fr; gap: 0.6rem; }
+}
+
+/* ── trabajo ────────────────────────────────────────────────── */
+
+.trabajo-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(2rem, 5vh, 3.2rem) 0;
+  border-top: 1px solid var(--linea);
+  max-width: 72rem;
+}
+
+.trabajo-fila:last-child { border-bottom: 1px solid var(--linea); }
+
+.trabajo-cliente {
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+
+.trabajo-desc {
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  color: var(--gris);
+  max-width: 30em;
+}
+
+@media (max-width: 599px) {
+  .trabajo-fila { grid-template-columns: 1fr; gap: 0.8rem; }
+}
+
+/* ── cierre ─────────────────────────────────────────────────── */
+
+.cierre {
+  position: relative;
+  min-height: 92svh;
+  display: flex;
+  align-items: center;
+}
+
+.cierre .banda-fondo::after {
+  background: rgba(10, 10, 10, 0.55);
+}
+
+.cierre-contenido {
+  position: relative;
+  z-index: 1;
+  padding: clamp(3rem, 10vh, 6rem) var(--margen);
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.cierre-contenido .sentencia { margin-bottom: 2.6rem; }
+
+/* ── pie ────────────────────────────────────────────────────── */
+
+.pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2.5rem;
+  padding: 2.2rem var(--margen) 2.6rem;
+  border-top: 1px solid var(--linea);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--gris);
+}
+
+.pie a { color: var(--gris); text-decoration: none; transition: color 200ms ease-in-out; }
+.pie a:hover { color: var(--blanco); }
+
+/* ── animación de entrada: solo opacidad ────────────────────── */
+
+.fade {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+
+.fade.visible { opacity: 1; }
+
+/* ── movimiento reducido: hero estático, todo visible ───────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero { height: 100svh; }
+  .hero-lienzo { display: none; }
+  .hline, .fade { opacity: 1 !important; transition: none; }
+}

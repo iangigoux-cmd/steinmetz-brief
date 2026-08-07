@@ -1,2 +1,10 @@
 node_modules/
 .DS_Store
+
+# archivo local del sitio anterior (los originales viven en el historial de git)
+old/
+
+# assets crudos: PNG de Gemini y MP4 de Veo sin comprimir.
+# lo que se sirve es assets/web/, que si se comitea.
+assets/img/
+assets/video/
