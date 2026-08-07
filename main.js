@@ -35,9 +35,11 @@
   var ctx = canvas.getContext("2d");
 
   var N = 80;
+  // ?v=b sirve la toma alternativa del video (V1b) para comparar en vivo
+  var toma = new URLSearchParams(location.search).get("v") === "b" ? "frames-v1b" : "frames";
   var carpeta = window.innerWidth < 720 ? "720" : "2560";
   var ruta = function (i) {
-    return "assets/web/frames/" + carpeta + "/f" + String(i).padStart(3, "0") + ".webp";
+    return "assets/web/" + toma + "/" + carpeta + "/f" + String(i).padStart(3, "0") + ".webp";
   };
 
   var cuadros = new Array(N);
