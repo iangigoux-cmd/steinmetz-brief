@@ -63,7 +63,12 @@ body::after {
   font-weight: 500;
   letter-spacing: 0.22em;
   mix-blend-mode: difference;
+  transition: opacity 300ms ease-in-out;
 }
+
+/* pasado el hero se retira: fija + blend-difference pisaba el texto
+   del cuerpo (factura en móvil, títulos en desktop) */
+.marca.oculta { opacity: 0; pointer-events: none; }
 
 .marca-lugar { color: var(--gris); font-weight: 400; }
 
@@ -184,7 +189,7 @@ body::after {
 
 .hline.on { opacity: 1; }
 
-.hline-remate { color: var(--gris); }
+.hline-remate { color: #b8b8b8; }   /* mas claro que --gris: es el remate y va sobre la tiza */
 .hline-remate .cifra { color: var(--blanco); }
 
 .hero-cta-linea { margin-top: 2.2rem; }

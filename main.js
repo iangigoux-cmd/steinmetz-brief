@@ -25,6 +25,18 @@
     fades.forEach(function (el) { io.observe(el); });
   }
 
+  /* ── marca fija: se retira al salir del hero ───────────────── */
+  /* (fija + mix-blend-difference pisaba el texto del cuerpo)     */
+
+  var marca = document.querySelector(".marca");
+  var heroEl = document.getElementById("hero");
+  function marcarVisibilidad() {
+    var fin = heroEl.offsetHeight - window.innerHeight;
+    marca.classList.toggle("oculta", window.scrollY > fin + 10);
+  }
+  window.addEventListener("scroll", marcarVisibilidad, { passive: true });
+  marcarVisibilidad();
+
   /* ── hero ──────────────────────────────────────────────────── */
 
   if (reducido) return;                       // el CSS ya dejó el hero estático
@@ -35,7 +47,7 @@
   var ctx = canvas.getContext("2d");
 
   var N = 80;
-  var carpeta = window.innerWidth < 720 ? "640" : "1280";
+  var carpeta = window.innerWidth < 720 ? "720" : "1920";
   var ruta = function (i) {
     return "assets/web/frames/" + carpeta + "/f" + String(i).padStart(3, "0") + ".webp";
   };
@@ -47,9 +59,11 @@
   var estatico = false;
 
   function medir() {
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(canvas.clientWidth * dpr);
     canvas.height = Math.round(canvas.clientHeight * dpr);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";       // se resetea al redimensionar
     cuadroActual = -1;                        // fuerza redibujo
   }
 

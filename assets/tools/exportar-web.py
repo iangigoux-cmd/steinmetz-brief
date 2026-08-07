@@ -39,7 +39,11 @@ CAL_AVIF = "50"
 CAL_WEBP = "74"
 
 N_FRAMES = 80          # de los 240 del video, 1 de cada 3
-FRAME_ANCHOS = {"1280": 58, "640": 55}   # ancho -> calidad webp
+# El master de Veo es 720p: para pantallas grandes se sube a 1920 con lanczos
+# + unsharp (no inventa detalle, pero gana nitidez percibida frente a dejar
+# que el canvas estire un WebP comprimido). Calidades altas: la compresion
+# q58 del primer intento se notaba en retina.
+FRAME_ANCHOS = {"1920": 74, "720": 62}   # ancho -> calidad webp
 
 
 def run(cmd):
@@ -96,8 +100,10 @@ def exportar_frames():
         destino = WEB / "frames" / ancho
         destino.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory() as tmp:
+            nitidez = ",unsharp=5:5:0.55:5:5:0.0" if int(ancho) > 1280 else ""
             run(["ffmpeg", "-v", "error", "-y", "-i", str(VID),
-                 "-vf", f"select='not(mod(n\\,{paso}))',scale={ancho}:-2",
+                 "-vf", f"select='not(mod(n\\,{paso}))',"
+                        f"scale={ancho}:-2:flags=lanczos{nitidez}",
                  "-vsync", "vfr", "-frames:v", str(N_FRAMES),
                  "-start_number", "0",           # el JS pide f000..f079
                  str(Path(tmp) / "f%03d.png")])
