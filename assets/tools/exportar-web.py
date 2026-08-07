@@ -26,24 +26,32 @@ WEB = RAIZ / "web"
 
 # imagenes que usa el landing (las demas quedan en biblioteca)
 USADAS = [
-    "01-marca-tiza-acero",     # poster / og
-    "02-nave-estanques",       # 03 que hacemos
-    "03-tiza-bodegon",         # 01 historia
-    "05-cenital-placa-x",      # 05 cierre
+    "01-marca-tiza-acero",     # og
+    "02-nave-estanques",       # divisor método
+    "05-cenital-placa-x",      # cierre
     "06-testigos-sondaje",     # 02 problema
-    "08-marcas-en-roca",       # 04 trabajo
+    "07-neumatico-minero",     # divisor trabajo→quién
+    "08-marcas-en-roca",       # 01 historia (columna)
 ]
+
+# correcciones de grade medidas en la revisión de diseño:
+# 06 estaba al doble de luminosidad del resto (L* 36 vs 19-26) y
+# 02 era la única foto que se leía azul (sat 23% vs 4-12%)
+AJUSTES = {
+    "06-testigos-sondaje": ["-modulate", "75,100"],
+    "02-nave-estanques": ["-modulate", "100,45"],
+}
 
 ANCHOS = [1920, 960]
 CAL_AVIF = "50"
 CAL_WEBP = "74"
 
 N_FRAMES = 80          # de los 240 del video, 1 de cada 3
-# El master de Veo es 720p: para pantallas grandes se sube a 1920 con lanczos
-# + unsharp (no inventa detalle, pero gana nitidez percibida frente a dejar
-# que el canvas estire un WebP comprimido). Calidades altas: la compresion
-# q58 del primer intento se notaba en retina.
-FRAME_ANCHOS = {"1920": 74, "720": 62}   # ancho -> calidad webp
+# Los cuadros del hero salen de masters upscaled con Real-ESRGAN x4plus
+# (720p -> 2560p, assets/video/master-frames-2560/). Si los masters no
+# existen, cae al video 720p con lanczos+unsharp.
+MASTERS = RAIZ / "video" / "master-frames-2560"
+FRAME_ANCHOS = {"2560": 70, "720": 62}   # ancho -> calidad webp
 
 
 def run(cmd):
@@ -63,10 +71,11 @@ def exportar_imagenes():
         if not src.exists():
             print(f"  falta {src.name}, se salta")
             continue
+        ajuste = AJUSTES.get(nombre, [])
         for ancho in ANCHOS:
             for ext, cal in (("avif", CAL_AVIF), ("webp", CAL_WEBP)):
                 out = destino / f"{nombre}-{ancho}.{ext}"
-                run(["magick", str(src), "-resize", f"{ancho}x",
+                run(["magick", str(src), *ajuste, "-resize", f"{ancho}x",
                      "-strip", "-quality", cal, str(out)])
             print(f"  {nombre}-{ancho}  avif {tam(destino / f'{nombre}-{ancho}.avif')}"
                   f" / webp {tam(destino / f'{nombre}-{ancho}.webp')}")
@@ -93,23 +102,31 @@ def exportar_video():
 
 
 def exportar_frames():
-    # este ffmpeg no trae libwebp: se extrae PNG temporal y convierte magick
     import tempfile
+    desde_masters = MASTERS.exists() and len(list(MASTERS.glob("f*.png"))) == N_FRAMES
+    print(f"  fuente: {'masters 2560 (Real-ESRGAN)' if desde_masters else 'video 720p (lanczos)'}")
     paso = 240 // N_FRAMES  # 3
     for ancho, cal in FRAME_ANCHOS.items():
         destino = WEB / "frames" / ancho
         destino.mkdir(parents=True, exist_ok=True)
-        with tempfile.TemporaryDirectory() as tmp:
-            nitidez = ",unsharp=5:5:0.55:5:5:0.0" if int(ancho) > 1280 else ""
-            run(["ffmpeg", "-v", "error", "-y", "-i", str(VID),
-                 "-vf", f"select='not(mod(n\\,{paso}))',"
-                        f"scale={ancho}:-2:flags=lanczos{nitidez}",
-                 "-vsync", "vfr", "-frames:v", str(N_FRAMES),
-                 "-start_number", "0",           # el JS pide f000..f079
-                 str(Path(tmp) / "f%03d.png")])
-            for png in sorted(Path(tmp).glob("f*.png")):
-                run(["magick", str(png), "-strip", "-quality", str(cal),
+        if desde_masters:
+            for png in sorted(MASTERS.glob("f*.png")):
+                run(["magick", str(png), "-resize", f"{ancho}x",
+                     "-strip", "-quality", str(cal),
                      str(destino / f"{png.stem}.webp")])
+        else:
+            # este ffmpeg no trae libwebp: PNG temporal y convierte magick
+            with tempfile.TemporaryDirectory() as tmp:
+                nitidez = ",unsharp=5:5:0.55:5:5:0.0" if int(ancho) > 1280 else ""
+                run(["ffmpeg", "-v", "error", "-y", "-i", str(VID),
+                     "-vf", f"select='not(mod(n\\,{paso}))',"
+                            f"scale={ancho}:-2:flags=lanczos{nitidez}",
+                     "-vsync", "vfr", "-frames:v", str(N_FRAMES),
+                     "-start_number", "0",       # el JS pide f000..f079
+                     str(Path(tmp) / "f%03d.png")])
+                for png in sorted(Path(tmp).glob("f*.png")):
+                    run(["magick", str(png), "-strip", "-quality", str(cal),
+                         str(destino / f"{png.stem}.webp")])
         archivos = sorted(destino.glob("f*.webp"))
         total = sum(f.stat().st_size for f in archivos)
         print(f"  frames {ancho}w: {len(archivos)} cuadros, {total/1024/1024:.2f}MB total")

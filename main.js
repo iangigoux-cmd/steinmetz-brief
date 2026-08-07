@@ -25,18 +25,6 @@
     fades.forEach(function (el) { io.observe(el); });
   }
 
-  /* ── marca fija: se retira al salir del hero ───────────────── */
-  /* (fija + mix-blend-difference pisaba el texto del cuerpo)     */
-
-  var marca = document.querySelector(".marca");
-  var heroEl = document.getElementById("hero");
-  function marcarVisibilidad() {
-    var fin = heroEl.offsetHeight - window.innerHeight;
-    marca.classList.toggle("oculta", window.scrollY > fin + 10);
-  }
-  window.addEventListener("scroll", marcarVisibilidad, { passive: true });
-  marcarVisibilidad();
-
   /* ── hero ──────────────────────────────────────────────────── */
 
   if (reducido) return;                       // el CSS ya dejó el hero estático
@@ -47,7 +35,7 @@
   var ctx = canvas.getContext("2d");
 
   var N = 80;
-  var carpeta = window.innerWidth < 720 ? "720" : "1920";
+  var carpeta = window.innerWidth < 720 ? "720" : "2560";
   var ruta = function (i) {
     return "assets/web/frames/" + carpeta + "/f" + String(i).padStart(3, "0") + ".webp";
   };
@@ -106,23 +94,36 @@
     lineas.forEach(function (el) { el.classList.add("on"); });
   }
 
+  function cargarUno(i, prioridad, alTerminar) {
+    var img = new Image();
+    img.decoding = "async";
+    if ("fetchPriority" in img) img.fetchPriority = prioridad;
+    img.onload = function () {
+      cargados++;
+      if (i === 0) { medir(); pintar(); }
+      if (alTerminar) alTerminar();
+    };
+    img.onerror = function () {
+      fallos++;
+      if (fallos > 6) modoEstatico();
+      if (alTerminar) alTerminar();
+    };
+    img.src = ruta(i);
+    cuadros[i] = img;
+  }
+
   function cargar() {
-    for (var i = 0; i < N; i++) {
-      (function (i) {
-        var img = new Image();
-        img.decoding = "async";
-        img.onload = function () {
-          cargados++;
-          if (i === 0) { medir(); pintar(); }
-        };
-        img.onerror = function () {
-          fallos++;
-          if (fallos > 6) modoEstatico();
-        };
-        img.src = ruta(i);
-        cuadros[i] = img;
-      })(i);
-    }
+    // primero cuadros clave repartidos por el arco: el scrub tiene esqueleto
+    // aunque la conexión sea lenta; el resto rellena en cascada
+    var claves = [0, 16, 32, 48, 64, 79];
+    var faltan = claves.length;
+    claves.forEach(function (i) {
+      cargarUno(i, "high", function () {
+        if (--faltan === 0) {
+          for (var i = 0; i < N; i++) if (!cuadros[i]) cargarUno(i, "low");
+        }
+      });
+    });
   }
 
   var pendiente = false;

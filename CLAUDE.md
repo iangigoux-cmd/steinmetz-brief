@@ -1,7 +1,9 @@
 # Steinmetz — sitio público
 
 Landing de **Steinmetz SpA** (consultoría en IA, Santiago de Chile), servido en
-GitHub Pages sobre `steinmetz.it.com`. Push a `main` = deploy.
+GitHub Pages sobre **`steinmetz.cl`** (desde 2026-08-07; antes `steinmetz.it.com`,
+que ya no sirve el sitio). Push a `main` = deploy. El DNS del dominio vive en
+Azure (`steinmetz-rg`); su documentación en `~/Desktop/admin/steinmetz/dns.md`.
 
 El sitio anterior (brief con lockscreen + propuesta) vive en el historial de
 git y en `old/` (local, gitignoreado). **Este landing lo reemplazó por completo
@@ -51,22 +53,27 @@ old/                               sitio anterior (local, no comiteado)
    bloque "ADN de estilo").
 2. `python3 assets/tools/limpiar-watermark.py` (imágenes, mapa adentro) o
    `limpiar-watermark-video.py in.mp4 out.mp4` (video).
-3. `python3 assets/tools/exportar-web.py` → regenera `assets/web/`.
-4. Los frames del hero son `f000..f079`; el JS los pide 0-indexados
-   (`-start_number 0` en ffmpeg, no olvidar).
+3. Los frames del hero salen de **masters upscaled con Real-ESRGAN x4plus**
+   (el video de Veo es 720p): 80 PNG de 2560px en
+   `assets/video/master-frames-2560/` (gitignoreados). Si cambia el video,
+   regenerarlos: extraer 80 frames nativos → `realesrgan-ncnn-vulkan -n
+   realesrgan-x4plus -s 4` → downscale a 2560.
+4. `python3 assets/tools/exportar-web.py` → regenera `assets/web/` (usa los
+   masters si existen; el script tiene ajustes de grade por imagen en AJUSTES).
+5. Los frames son `f000..f079`, 0-indexados (`-start_number 0` en ffmpeg).
 
 ## Presupuestos
 
-- Carga inicial (hero completo con frames): **< 2 MB** (hoy: 1,88 MB).
+- LCP: solo poster + primer frame (< 300 KB). Los 80 frames cargan en streaming
+  con prioridad (keyframes primero) — desktop ~4-5 MB en total, móvil ~1 MB.
 - No comitear PNG/MP4 crudos. No servir nada fuera de `assets/web/`.
 
-## Contacto y pendientes de dominio
+## Contacto y dominio
 
-- CTA: WhatsApp `wa.me/56993215043`. El correo `ian@steinmetz.cl` NO existe
-  todavía — depende de redelegar nameservers de `steinmetz.cl` a Azure DNS en
-  NIC Chile (runbook en `~/Desktop/Steinmetz SpA/06_Dominio_y_Servicios/`).
-  Cuando exista, agregarlo al pie y al portal.
-- `CNAME` (steinmetz.it.com) debe estar SIEMPRE en la raíz o el dominio cae.
+- Correo corporativo: **`ian@steinmetz.cl`** (operativo, Google Workspace).
+  Es el CTA principal (mailto); WhatsApp con mensaje pre-cargado es la
+  alternativa.
+- `CNAME` (**steinmetz.cl**) debe estar SIEMPRE en la raíz o el dominio cae.
 
 ## Contexto de empresa
 

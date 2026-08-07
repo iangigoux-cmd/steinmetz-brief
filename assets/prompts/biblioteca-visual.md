@@ -41,16 +41,16 @@ Ajustes según la toma:
 | 1 | Marca de tiza sobre acero | Hero | ✅ `01-marca-tiza-acero.png` |
 | 2 | Polvo a contraluz | Transición / cierre | ⚠️ regenerar — partículas tipo escombro + marco con esquinas redondeadas |
 | 3 | Tablero eléctrico | Sección de IA | ⬜ pendiente |
-| 4 | Bodegón de la tiza | Momento del precio | ✅ `03-tiza-bodegon.png` |
+| 4 | Bodegón de la tiza | (sin uso actual: duplicaba la tiza del hero) | ✅ `03-tiza-bodegon.png` |
 | 5 | Cenital de la placa | Divisor a sangre | ✅ `05-cenital-placa-x.png` |
 | 6 | Nave de estanques | Escala / respiradero | ✅ `02-nave-estanques.png` |
-| 7 | Marcas en la roca | La anécdota, literal | ⬜ pendiente |
+| 7 | Marcas en la roca | Sección historia (columna) | ✅ `08-marcas-en-roca.png` |
 | 8 | Escala imposible | Candidata a hero | ⬜ pendiente |
 | 9 | Testigos de sondaje | Método / diagnóstico | ✅ `06-testigos-sondaje.png` |
-| 10 | Neumático minero | Peso y capital | ⬜ pendiente |
+| 10 | Neumático minero | Divisor trabajo→quién | ✅ `07-neumatico-minero.png` |
 | 11 | Rajo desde arriba | Divisor cartográfico | ⬜ pendiente |
 | 12 | Mineral de cobre | Única licencia de color | ⬜ pendiente |
-| V1 | El polvo se vuelve tiza y cae | Hero animado | ✅ `V1-polvo-a-tiza.mp4` |
+| V1 | El polvo se vuelve tiza y cae | Hero animado | ✅ `V1-polvo-a-tiza.mp4` — masters 2560 vía Real-ESRGAN x4plus en `assets/video/master-frames-2560/` |
 | V2 | La marca se dibuja | Hero atado al scroll | ⬜ pendiente |
 | V3 | Pull-back de escala | Reveal de la tesis | ⬜ pendiente |
 | V4 | Barrido de tiza | Transición entre secciones | ⬜ pendiente |

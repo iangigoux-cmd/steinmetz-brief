@@ -23,6 +23,16 @@
     display: flex;
     flex-direction: column;
   }
+  /* mismo grano que el landing: las dos páginas comparten textura */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
   ::selection { background: #fff; color: #0a0a0a; }
   header {
     display: flex;
@@ -84,8 +94,9 @@
     <h1>El acceso llega por invitación.</h1>
     <p>Cada proyecto tiene su propio acceso, donde se ve el estado
     del trabajo, los hitos y los entregables.</p>
-    <p>Si trabajas con nosotros y aún no tienes el tuyo,
-    <a href="https://wa.me/56993215043" rel="noopener">escríbenos</a>.</p>
+    <p>Si trabajas con nosotros y aún no tienes el tuyo, escribe a
+    <a href="mailto:ian@steinmetz.cl">ian@steinmetz.cl</a> o por
+    <a href="https://wa.me/56993215043" rel="noopener">WhatsApp</a>.</p>
   </div>
 </main>
 <footer>
