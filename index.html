@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="preload" as="image" href="assets/web/frames/2560/f000.webp" media="(min-width: 720px)">
-<link rel="preload" as="image" href="assets/web/frames/720/f000.webp" media="(max-width: 719px)">
+<link rel="preload" as="image" href="assets/web/img/hero-still-2560.webp" media="(min-width: 720px)">
+<link rel="preload" as="image" href="assets/web/img/hero-still-720.webp" media="(max-width: 719px)">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,10 +30,11 @@
 <!-- ══ 00 · HERO ══════════════════════════════════════════════ -->
 <section class="hero" id="hero">
   <div class="hero-viewport">
-    <!-- el poster es el mismo primer cuadro del scrub: sin salto visual -->
+    <!-- apertura quieta: polvo congelado. El video (canvas) recién se funde
+         encima cuando el usuario empieza a scrollear -->
     <picture class="hero-poster">
-      <source media="(max-width: 719px)" srcset="assets/web/frames/720/f000.webp">
-      <img src="assets/web/frames/2560/f000.webp" alt="" fetchpriority="high">
+      <source media="(max-width: 719px)" srcset="assets/web/img/hero-still-720.webp">
+      <img src="assets/web/img/hero-still-2560.webp" alt="" fetchpriority="high">
     </picture>
     <canvas class="hero-lienzo" aria-hidden="true"></canvas>
 

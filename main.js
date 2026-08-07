@@ -76,6 +76,10 @@
     if (estatico) return;
     var p = progreso();
 
+    // la apertura es la foto quieta: el video se funde encima durante el
+    // primer 6% del scroll, y al volver arriba la página vuelve a dormirse
+    canvas.style.opacity = Math.min(1, p / 0.06);
+
     var i = Math.min(N - 1, Math.round(p * (N - 1)));
     // si el cuadro exacto no llegó todavía, usa el último cargado anterior
     while (i > 0 && (!cuadros[i] || !cuadros[i].complete)) i--;

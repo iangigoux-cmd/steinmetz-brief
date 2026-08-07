@@ -185,6 +185,10 @@ body::after {
 
 .hero-poster img { object-fit: cover; }
 
+/* el canvas arranca invisible sobre la foto quieta; el JS lo funde
+   durante el primer tramo de scroll (la página despierta al moverla) */
+.hero-lienzo { opacity: 0; }
+
 /* scrim diagonal: garantiza la lectura del texto cuando la tiza
    cae sobre el acero claro, sin apagar la fotografía */
 .hero-viewport::after {

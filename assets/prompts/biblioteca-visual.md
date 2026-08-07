@@ -328,6 +328,19 @@ No people, no faces, no hands, no text, no letters, no numbers, no logos.
 Aspect ratio 16:9.
 ```
 
+**REGENERACIÓN PENDIENTE (prioridad alta).** El video actual arranca en plena
+turbulencia — el primer frame se lee borroso como apertura. Al regenerar:
+
+1. **Sembrar con `assets/web/img/hero-still-2560.webp`** (el polvo congelado
+   recortado) como primer frame en Veo/Flow.
+2. Agregar al prompt: `The first second is completely frozen — every particle
+   hangs motionless in the beam, absolute stillness. Then the powder begins
+   to drift and converge...`
+3. Generar a **1080p** (el master actual es 720p y limita la nitidez).
+
+Mientras tanto el sitio lo resuelve en montaje: apertura = foto quieta,
+crossfade al video en el primer 6% del scroll.
+
 **Dos trucos de producción:**
 
 1. Los modelos de video **ensamblan mal y destruyen bien**. Si el polvo no
