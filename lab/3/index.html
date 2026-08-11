@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 3 · El manifiesto</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f5f2ec'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia' font-size='20' font-style='italic' fill='%23191713'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340..640;1,9..144,340..640&family=Instrument+Sans:wght@400;500&display=swap">
+<style>
+  :root {
+    --papel: #f5f2ec;
+    --tinta: #191713;
+    --pluma: #8b8578;
+    --cobre: #b4551e;
+    --linea: rgba(25, 23, 19, 0.16);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--papel); color: var(--tinta);
+    font-family: "Instrument Sans", sans-serif;
+    height: 100svh; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--tinta); color: var(--papel); }
+
+  /* textura de papel */
+  body::after { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.48 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23p)'/%3E%3C/svg%3E"); }
+
+  .marco { height: 100svh; display: grid; grid-template-rows: auto 1fr auto;
+    padding: clamp(1.4rem, 3vw, 2.6rem); max-width: 100rem; margin: 0 auto; }
+
+  header { display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.2em; color: var(--tinta);
+    border-bottom: 1px solid var(--linea); padding-bottom: 1.1rem; }
+  header .der { color: var(--pluma); font-weight: 400; letter-spacing: 0.14em; }
+
+  main { display: flex; flex-direction: column; justify-content: center; }
+
+  h1 {
+    font-family: "Fraunces", serif;
+    font-optical-sizing: auto;
+    font-size: clamp(2.9rem, 8.4vw, 8rem);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+    max-width: 11.5em;
+  }
+  h1 .l { display: block; overflow: hidden; }
+  h1 .l span { display: block; transform: translateY(108%);
+    animation: rev 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+  @keyframes rev { to { transform: none; } }
+  h1 em { font-style: italic; color: var(--cobre); font-weight: 480; }
+
+  .pie-frase { display: flex; align-items: baseline; gap: 2.5rem; margin-top: 2.8rem;
+    opacity: 0; animation: fundir 1.2s ease-out 1.15s forwards; }
+  @keyframes fundir { to { opacity: 1; } }
+  .pie-frase .raya { flex: 0 0 4rem; height: 1px; background: var(--tinta);
+    transform-origin: left; animation: trazar 1s cubic-bezier(0.19,1,0.22,1) 1.25s both; }
+  @keyframes trazar { from { transform: scaleX(0); } }
+  .pie-frase p { max-width: 34em; font-size: clamp(0.95rem, 1.25vw, 1.12rem);
+    line-height: 1.65; color: var(--pluma); }
+  .pie-frase b { color: var(--tinta); font-weight: 500; }
+
+  .cta { display: inline-block; margin-top: 1.4rem; font-size: 0.95rem; font-weight: 500;
+    color: var(--tinta); text-decoration: none; position: relative; padding-bottom: 3px; }
+  .cta::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1.5px;
+    width: 100%; background: var(--cobre);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 420ms cubic-bezier(0.19, 1, 0.22, 1); }
+  .cta:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  footer { display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 0.72rem; letter-spacing: 0.14em; color: var(--pluma);
+    border-top: 1px solid var(--linea); padding-top: 1.1rem; }
+
+  /* marquesina lenta, autónoma */
+  .cinta { overflow: hidden; white-space: nowrap; flex: 1; margin: 0 3rem;
+    mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent); }
+  .cinta div { display: inline-block; animation: correr 36s linear infinite; }
+  .cinta span { margin-right: 3.2em; }
+  .cinta i { font-style: normal; color: var(--cobre); }
+  @keyframes correr { to { transform: translateX(-50%); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    h1 .l span, .pie-frase, .pie-frase .raya { animation: none; opacity: 1; transform: none; }
+    .cinta div { animation: none; }
+  }
+  @media (max-width: 700px) { .cinta { display: none; } }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header>
+    <span>STEINMETZ</span>
+    <span class="der">CONSULTORÍA EN INTELIGENCIA ARTIFICIAL, EST. 2026</span>
+  </header>
+
+  <main>
+    <h1 aria-label="La inteligencia artificial no es magia. Es ingeniería.">
+      <span class="l"><span style="animation-delay:.25s">La inteligencia</span></span>
+      <span class="l"><span style="animation-delay:.4s">artificial no es magia.</span></span>
+      <span class="l"><span style="animation-delay:.55s">Es <em>ingeniería</em>.</span></span>
+    </h1>
+    <div class="pie-frase">
+      <div class="raya"></div>
+      <div>
+        <p>Y la ingeniería se juzga de una sola forma: <b>por lo que queda
+        funcionando.</b> Steinmetz construye sistemas de IA para operaciones
+        reales — y los deja corriendo, en manos de tu equipo.</p>
+        <a class="cta" href="mailto:ian@steinmetz.cl">Conversemos — ian@steinmetz.cl</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <div class="cinta" aria-hidden="true"><div>
+      <span>DIAGNÓSTICO SOBRE LA OPERACIÓN REAL <i>·</i></span>
+      <span>SISTEMAS DENTRO DE TU RED <i>·</i></span>
+      <span>ENCENDIDO, O NO EXISTE <i>·</i></span>
+      <span>DIAGNÓSTICO SOBRE LA OPERACIÓN REAL <i>·</i></span>
+      <span>SISTEMAS DENTRO DE TU RED <i>·</i></span>
+      <span>ENCENDIDO, O NO EXISTE <i>·</i></span>
+    </div></div>
+    <span>LAB 3 — EL MANIFIESTO</span>
+  </footer>
+</div>
+</body>
+</html>
