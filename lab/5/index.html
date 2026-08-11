@@ -142,5 +142,33 @@
     <span class="lab">LAB 5 — LA GRILLA</span>
   </footer>
 </div>
+
+<!-- conmutador del lab: solo para comparar versiones, no es parte del diseño -->
+<style>
+  .lab-nav { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+    z-index: 99; display: flex; gap: 4px; padding: 6px;
+    background: rgba(12,12,12,0.82); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 100px;
+    font-family: ui-monospace, monospace; font-size: 12px; }
+  .lab-nav a { display: grid; place-content: center; width: 30px; height: 30px;
+    border-radius: 50%; color: rgba(255,255,255,0.65); text-decoration: none;
+    transition: background 150ms, color 150ms; }
+  .lab-nav a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .lab-nav a.aqui { background: #fff; color: #0c0c0c; }
+</style>
+<nav class="lab-nav">
+  <a href="/lab/" title="índice">≡</a>
+  <a href="/lab/1/">1</a><a href="/lab/2/">2</a><a href="/lab/3/">3</a><a href="/lab/4/">4</a><a href="/lab/5/">5</a>
+</nav>
+<script>
+(function () {
+  var n = parseInt(location.pathname.match(/lab\/(\d)/)[1], 10);
+  document.querySelectorAll(".lab-nav a")[n].classList.add("aqui");
+  addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" && n < 5) location.href = "/lab/" + (n + 1) + "/";
+    if (e.key === "ArrowLeft" && n > 1) location.href = "/lab/" + (n - 1) + "/";
+  });
+})();
+</script>
 </body>
 </html>
