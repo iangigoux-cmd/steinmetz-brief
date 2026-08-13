@@ -132,6 +132,11 @@
     const { iniciar } = await import('./profundidad.js');
     console.info('fotos con volumen:', iniciar());
   } catch (e) { console.warn('profundidad no disponible:', e); }
+
+  try {
+    const { iniciar } = await import('./multiplano.js');
+    iniciar();
+  } catch (e) { console.warn('multiplano no disponible:', e); }
 </script>
 </body>
 </html>
