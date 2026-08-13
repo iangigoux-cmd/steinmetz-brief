@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steinmetz — LAB 6 · La profundidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="marca">
+  <span class="marca__nombre">STEINMETZ</span>
+  <span class="marca__lugar">SANTIAGO DE CHILE</span>
+</header>
+
+<section class="hero" id="hero">
+  <canvas id="escena" aria-hidden="true"></canvas>
+  <div class="hero__texto">
+    <h1 class="hero__titulo">
+      <span class="revelar">Hacer la marca cuesta <b>$1</b>.</span>
+      <span class="revelar">Saber dónde hacerla: <b>$9.999</b>.</span>
+      <span class="revelar">Steinmetz es saber dónde.</span>
+    </h1>
+    <p class="hero__acciones revelar">
+      <a href="mailto:ian@steinmetz.cl">Hablemos</a>
+      <span class="sep">o</span>
+      <a href="https://wa.me/56993215043">por WhatsApp</a>
+    </p>
+  </div>
+</section>
+
+<section class="seccion" id="historia">
+  <p class="eyebrow">01 — LA HISTORIA</p>
+  <figure data-foto-profundidad
+          data-src="/assets/web/img/01-marca-tiza-acero-1920.webp"
+          data-depth="/assets/web/depth/01-marca-tiza-acero.png">
+    <img src="/assets/web/img/01-marca-tiza-acero-1920.webp"
+         alt="Marca de tiza sobre acero" loading="lazy">
+  </figure>
+  <div class="texto">
+    <p class="revelar">Ford llamó a Steinmetz porque nadie más podía arreglar el generador.
+      Escuchó, midió, y marcó una X con tiza.</p>
+    <p class="revelar">La factura decía $10.000. Ford pidió el detalle.
+      <b>$1 por hacer la marca. $9.999 por saber dónde hacerla.</b></p>
+  </div>
+</section>
+
+<section class="seccion" id="problema">
+  <p class="eyebrow">02 — EL PROBLEMA</p>
+  <div data-multiplano class="problema__capas">
+    <p class="revelar capa" data-z="0">La consultora grande te vende volumen.</p>
+    <p class="revelar capa" data-z="1">Meses de diagnóstico. Un PDF. Nada encendido.</p>
+    <p class="revelar capa" data-z="2">Pagaste por el $1, no por el $9.999.</p>
+  </div>
+  <svg data-trazo viewBox="0 0 200 200" class="equis" aria-hidden="true">
+    <path d="M40 40 L160 160" pathLength="1"/>
+    <path d="M160 40 L40 160" pathLength="1"/>
+  </svg>
+</section>
+
+<section class="seccion" id="metodo">
+  <p class="eyebrow">03 — EL MÉTODO</p>
+  <ol class="metodo">
+    <li class="revelar"><span class="num">01</span> Escuchamos el problema real, no el que está en el brief.</li>
+    <li class="revelar"><span class="num">02</span> Construimos el sistema que lo corrige. IA donde aporta. Ninguna donde estorba.</li>
+    <li class="revelar"><span class="num">03</span> Lo dejamos corriendo en producción, en manos de tu equipo. Encendido, o no existe.</li>
+  </ol>
+</section>
+
+<section class="seccion" id="trabajo">
+  <p class="eyebrow">04 — EL TRABAJO</p>
+  <p class="destacado revelar">No mostramos logos. Mostramos sistemas encendidos.</p>
+  <figure data-foto-profundidad
+          data-src="/assets/web/img/02-nave-estanques-1920.webp"
+          data-depth="/assets/web/depth/02-nave-estanques.png">
+    <img src="/assets/web/img/02-nave-estanques-1920.webp"
+         alt="Nave industrial de estanques" loading="lazy">
+  </figure>
+  <div class="casos">
+    <div class="caso revelar">
+      <p class="caso__quien">Una de las grandes cerveceras de Chile</p>
+      <p class="caso__que">Plataforma de auditoría y análisis de laboratorio — API,
+        base de datos y frontend — corriendo en producción sobre Azure.</p>
+    </div>
+    <div class="caso revelar">
+      <p class="caso__quien">Una empresa de genética aplicada</p>
+      <p class="caso__que">Sistema de trazabilidad de muestras, en producción.</p>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="quien">
+  <p class="eyebrow">05 — QUIÉN ESTÁ DETRÁS</p>
+  <div id="escena-cierre" aria-hidden="true"></div>
+  <p class="pregunta revelar">¿Dónde hacemos la marca?</p>
+  <p class="contacto revelar">
+    <a href="mailto:ian@steinmetz.cl">Hablemos</a>
+    <span class="sep">o</span>
+    <a href="https://wa.me/56993215043">por WhatsApp</a>
+  </p>
+  <p class="datos">
+    <span data-contador data-hasta="9999" data-prefijo="$">$9.999</span>
+    <span class="datos__pie">es lo que cuesta saber dónde</span>
+  </p>
+</section>
+
+<footer class="pie">
+  <p>STEINMETZ SpA · RUT 78.484.226-6<br>Consultoría en inteligencia artificial</p>
+  <p>ian@steinmetz.cl · +56 9 9321 5043 · Santiago de Chile</p>
+  <p><a href="/portal/">Acceso clientes</a></p>
+</footer>
+
+</body>
+</html>

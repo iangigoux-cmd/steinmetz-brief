@@ -1,0 +1,99 @@
+:root{
+  --negro:#0a0a0a; --blanco:#ffffff; --gris:#8a8a8a; --gris-claro:#b8b8b8;
+  --linea:rgba(255,255,255,0.14);
+  --fuente:"Inter",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",monospace;
+  --margen:clamp(1.25rem,5vw,5rem);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--negro); color:var(--blanco);
+  font-family:var(--fuente); font-weight:400; line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{background:var(--blanco); color:var(--negro)}
+a{color:inherit}
+img{display:block; max-width:100%}
+
+/* capa 4 — grano de película global, igual que el sitio actual */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9;
+  opacity:.045; mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.marca{
+  position:fixed; top:0; left:0; right:0; z-index:10;
+  display:flex; justify-content:space-between;
+  padding:var(--margen); font-family:var(--mono);
+  font-size:.75rem; letter-spacing:.08em; color:var(--gris-claro);
+}
+
+/* --- hero --- */
+.hero{position:relative; min-height:100svh; display:flex; align-items:flex-end;
+  padding:var(--margen); overflow:hidden}
+#escena{position:absolute; inset:0; width:100%; height:100%; display:block; z-index:0}
+.hero__texto{position:relative; z-index:1; max-width:34ch}
+.hero__titulo{font-size:clamp(1.75rem,4.5vw,3.25rem); font-weight:500;
+  line-height:1.15; letter-spacing:-.02em}
+.hero__titulo span{display:block}
+.hero__titulo b{font-family:var(--mono); font-weight:500}
+.hero__acciones{margin-top:2rem; font-family:var(--mono); font-size:.875rem}
+.hero__acciones a{border-bottom:1px solid var(--linea); padding-bottom:2px}
+.sep{color:var(--gris); margin:0 .5rem}
+
+/* --- secciones --- */
+.seccion{padding:clamp(5rem,12vh,10rem) var(--margen); max-width:90rem; margin:0 auto;
+  border-top:1px solid var(--linea)}
+.eyebrow{font-family:var(--mono); font-size:.75rem; letter-spacing:.1em;
+  color:var(--gris); margin-bottom:2.5rem}
+.texto p{max-width:52ch; margin-bottom:1.25rem; color:var(--gris-claro)}
+.texto b{color:var(--blanco); font-weight:500}
+figure{margin:2.5rem 0; position:relative}
+
+.problema__capas .capa{font-size:clamp(1.25rem,3vw,2rem); font-weight:500;
+  line-height:1.3; max-width:24ch; margin-bottom:1.5rem}
+.equis{width:clamp(80px,10vw,140px); margin-top:3rem; opacity:.5}
+.equis path{fill:none; stroke:var(--blanco); stroke-width:3;
+  stroke-dasharray:1; stroke-dashoffset:1}
+
+.metodo{list-style:none; display:grid; gap:2rem;
+  grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
+.metodo li{color:var(--gris-claro); border-top:1px solid var(--linea); padding-top:1rem}
+.num{display:block; font-family:var(--mono); font-size:.75rem;
+  color:var(--gris); margin-bottom:.75rem}
+
+.destacado{font-size:clamp(1.25rem,2.5vw,1.75rem); font-weight:500; max-width:26ch}
+.casos{display:grid; gap:2.5rem; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr))}
+.caso__quien{font-family:var(--mono); font-size:.75rem; color:var(--gris);
+  letter-spacing:.06em; margin-bottom:.75rem}
+.caso__que{color:var(--gris-claro)}
+
+.pregunta{font-size:clamp(1.5rem,4vw,2.75rem); font-weight:500; letter-spacing:-.02em}
+.contacto{margin-top:2rem; font-family:var(--mono)}
+.contacto a{border-bottom:1px solid var(--linea); padding-bottom:2px}
+.datos{margin-top:4rem; font-family:var(--mono); color:var(--gris)}
+[data-contador]{display:block; font-size:clamp(2rem,6vw,4rem); color:var(--blanco)}
+.datos__pie{font-size:.75rem; letter-spacing:.06em}
+
+.pie{padding:var(--margen); border-top:1px solid var(--linea);
+  font-family:var(--mono); font-size:.75rem; color:var(--gris);
+  display:grid; gap:1rem}
+
+/* --- capa 2, fallback CSS puro: entrada por viewport, sin JS --- */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .revelar{
+      opacity:0; animation:entrar linear both;
+      animation-timeline:view(); animation-range:entry 10% cover 28%;
+    }
+    @keyframes entrar{to{opacity:1}}
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .revelar{opacity:1 !important; transform:none !important}
+  .equis path{stroke-dashoffset:0}
+  *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important}
+}
