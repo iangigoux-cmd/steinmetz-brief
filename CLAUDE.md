@@ -86,3 +86,31 @@ construir — el placeholder solo deja la puerta.
 
 Contenido del sitio: español. Comunicación con Ian: español. "vamos" = aprobar
 e implementar directo.
+
+## Revisión de la regla de movimiento — 2026-08-13
+
+La sección "Sistema visual" de más arriba dice *"un solo momento animado · sin
+parallax, sin translate, sin spring · GSAP ScrollTrigger fue rechazado — no
+reintentar"*. Ese texto refleja el estado del sitio en la raíz y **sigue siendo
+válido para `index.html`**. Para `lab/6` en adelante, la regla vigente es la de
+`docs/2026-08-13-spec-landing-profundidad.md`:
+
+- **Lo prohibido es atar narrativa a la posición del scroll**, no animar. Esa
+  prohibición se mantiene con toda su fuerza: fue el error del landing muerto.
+- **GSAP como orquestador de la timeline de carga: permitido.** GSAP
+  ScrollTrigger controlando el scroll: no.
+- **Lenis: permitido.** Suaviza la rueda, no controla la posición.
+- Los disparadores válidos son tres: la carga, el puntero y el loop ambiental.
+  La entrada en viewport se admite sólo para opacidad.
+- La regla "un solo momento animado" queda superada, para `lab/6`, por el
+  presupuesto de capas de §3 y §4 de la spec.
+- Sigue vigente sin cambios: **sin color de acento**, blanco sobre `#0a0a0a`,
+  Inter + IBM Plex Mono, sin caras, grano global.
+
+**WebGL: OGL, no three.js.** three.js pesa 385 KB gzip y de él sólo se usaba la
+plomería de buffers y uniforms. OGL hace lo mismo en 38 KB. Total de `lab/6`:
+119 KB gzip contra un tope de 250. Ver `lab/6/VERIFICACION.md`.
+
+**Corrección de dato:** el copy del hero que cita este archivo más arriba es de
+una versión anterior. El del sitio en vivo es: *"Hacer la marca cuesta $1. Saber
+dónde hacerla: $9.999. Steinmetz es saber dónde."*
