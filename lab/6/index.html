@@ -9,7 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
 <script type="importmap">
-{ "imports": { "three": "https://unpkg.com/three@0.180.0/build/three.module.js" } }
+{ "imports": {
+  "three": "https://unpkg.com/three@0.180.0/build/three.module.js",
+  "lenis": "https://unpkg.com/lenis@1.1.18/dist/lenis.mjs",
+  "gsap": "https://unpkg.com/gsap@3.13.0/index.js"
+} }
 </script>
 </head>
 <body>
@@ -137,6 +141,11 @@
     const { iniciar } = await import('./multiplano.js');
     iniciar();
   } catch (e) { console.warn('multiplano no disponible:', e); }
+
+  try {
+    const { iniciar } = await import('./orquesta.js');
+    iniciar();
+  } catch (e) { console.warn('orquesta no disponible:', e); }
 </script>
 </body>
 </html>

@@ -81,10 +81,14 @@ figure{margin:2.5rem 0; position:relative}
   font-family:var(--mono); font-size:.75rem; color:var(--gris);
   display:grid; gap:1rem}
 
-/* --- capa 2, fallback CSS puro: entrada por viewport, sin JS --- */
+/* --- capa 2, fallback CSS puro: entrada por viewport, sin JS ---
+   Acotado a .seccion a propósito: el hero está en pantalla desde el arranque,
+   así que su rango de view() nunca se completa y quedaría a media opacidad.
+   El hero lo presenta la timeline de carga de orquesta.js; sin JS queda
+   visible por defecto, que es lo correcto. */
 @supports (animation-timeline: view()){
   @media (prefers-reduced-motion: no-preference){
-    .revelar{
+    .seccion .revelar{
       opacity:0; animation:entrar linear both;
       animation-timeline:view(); animation-range:entry 10% cover 28%;
     }
