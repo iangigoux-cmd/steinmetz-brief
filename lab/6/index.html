@@ -37,7 +37,9 @@
 
 <section class="seccion" id="historia">
   <p class="eyebrow">01 — LA HISTORIA</p>
-  <figure data-foto-profundidad
+  <!-- fuerza reducida: el mapa de esta foto es un plano en fuga, no separa la
+       tiza del acero. Ver el veredicto en lab/6/VERIFICACION.md -->
+  <figure data-foto-profundidad data-fuerza="0.018"
           data-src="/assets/web/img/01-marca-tiza-acero-1920.webp"
           data-depth="/assets/web/depth/01-marca-tiza-acero.png">
     <img src="/assets/web/img/01-marca-tiza-acero-1920.webp"
@@ -125,6 +127,11 @@
     console.warn('escena no disponible:', e);
     document.getElementById('escena')?.remove();
   }
+
+  try {
+    const { iniciar } = await import('./profundidad.js');
+    console.info('fotos con volumen:', iniciar());
+  } catch (e) { console.warn('profundidad no disponible:', e); }
 </script>
 </body>
 </html>
