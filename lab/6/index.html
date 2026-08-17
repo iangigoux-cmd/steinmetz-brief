@@ -3,166 +3,149 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Steinmetz — LAB 6 · El monolito</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080809'/%3E%3Crect x='11' y='6' width='10' height='20' fill='%23c8c8cc'/%3E%3C/svg%3E">
+<title>Steinmetz — LAB 6 · La profundidad</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-  :root { --fondo:#080809; --claro:#d9d9dd; --medio:#5f5f66; --linea:rgba(217,217,221,0.14); }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--fondo); color:var(--claro);
-    font-family:"Bricolage Grotesque",sans-serif; height:100svh; overflow:hidden;
-    -webkit-font-smoothing:antialiased; }
-  ::selection { background:var(--claro); color:var(--fondo); }
-
-  canvas#escena { position:fixed; inset:0; width:100%; height:100%;
-    opacity:0; animation:aparecer 2.5s ease-out .3s forwards; }
-  @keyframes aparecer { to { opacity:1; } }
-
-  .grano { position:fixed; inset:0; pointer-events:none; opacity:.055; z-index:5;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
-
-  .marco { position:relative; z-index:2; height:100svh; display:flex;
-    flex-direction:column; justify-content:space-between;
-    padding:clamp(1.4rem,3vw,2.4rem); pointer-events:none; }
-  .marco a { pointer-events:auto; }
-
-  header, footer { display:flex; justify-content:space-between;
-    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
-    letter-spacing:.22em; color:var(--medio); }
-  header b { color:var(--claro); font-weight:500; }
-
-  .sube { opacity:0; transform:translateY(14px);
-    animation:subir 1s cubic-bezier(.16,1,.3,1) forwards; }
-  @keyframes subir { to { opacity:1; transform:none; } }
-
-  main { max-width:44rem; }
-  .kicker { font-family:"IBM Plex Mono",monospace; font-size:.68rem;
-    letter-spacing:.3em; color:var(--medio); margin-bottom:1.3rem; }
-  h1 { font-size:clamp(2.4rem,5.6vw,4.8rem); font-weight:500;
-    line-height:1.05; letter-spacing:-.03em; }
-  .bajada { margin-top:1.6rem; max-width:26em; color:var(--medio);
-    font-size:clamp(.95rem,1.2vw,1.05rem); line-height:1.7; }
-  .cta { display:inline-block; margin-top:2.2rem;
-    font-family:"IBM Plex Mono",monospace; font-size:.75rem; font-weight:500;
-    letter-spacing:.24em; text-decoration:none; color:var(--claro);
-    border:1px solid var(--linea); padding:1.05em 2.1em;
-    transition:background 250ms ease,color 250ms ease; }
-  .cta:hover { background:var(--claro); color:var(--fondo); }
-
-  @media (prefers-reduced-motion:reduce) {
-    canvas#escena { animation:none; opacity:1; }
-    .sube { animation:none; opacity:1; transform:none; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
 <script type="importmap">
-{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js" } }
+{ "imports": {
+  "ogl": "https://esm.sh/ogl@1.0.11/es2022/ogl.mjs",
+  "lenis": "https://unpkg.com/lenis@1.1.18/dist/lenis.mjs",
+  "gsap": "https://unpkg.com/gsap@3.13.0/index.js"
+} }
 </script>
 </head>
 <body>
-<canvas id="escena"></canvas>
-<div class="grano"></div>
 
-<div class="marco">
-  <header>
-    <b class="sube" style="animation-delay:.15s">STEINMETZ</b>
-    <span class="sube" style="animation-delay:.3s">SUBTÍTULO GENÉRICO</span>
-  </header>
+<header class="marca">
+  <span class="marca__nombre">STEINMETZ</span>
+  <span class="marca__lugar">SANTIAGO DE CHILE</span>
+</header>
 
-  <main>
-    <p class="kicker sube" style="animation-delay:.45s">CATEGORÍA O ETIQUETA</p>
-    <h1 class="sube" style="animation-delay:.55s">Un titular grande,<br>en dos líneas.</h1>
-    <p class="bajada sube" style="animation-delay:.75s">Dos frases de apoyo que bajan
-    la idea principal. Texto de relleno, solo para evaluar el diseño.</p>
-    <a class="cta sube" style="animation-delay:.95s" href="mailto:ian@steinmetz.cl">CONTACTO</a>
-  </main>
+<section class="hero" id="hero">
+  <canvas id="escena" aria-hidden="true"></canvas>
+  <div class="hero__texto">
+    <h1 class="hero__titulo">
+      <span class="revelar">Hacer la marca cuesta <b>$1</b>.</span>
+      <span class="revelar">Saber dónde hacerla: <b>$9.999</b>.</span>
+      <span class="revelar">Steinmetz es saber dónde.</span>
+    </h1>
+    <p class="hero__acciones revelar">
+      <a href="mailto:ian@steinmetz.cl">Hablemos</a>
+      <span class="sep">o</span>
+      <a href="https://wa.me/56993215043">por WhatsApp</a>
+    </p>
+  </div>
+</section>
 
-  <footer>
-    <span class="sube" style="animation-delay:1.1s">SANTIAGO DE CHILE</span>
-    <span class="sube" style="animation-delay:1.2s">LAB 6 — EL MONOLITO</span>
-  </footer>
-</div>
+<section class="seccion" id="historia">
+  <p class="eyebrow">01 — LA HISTORIA</p>
+  <!-- fuerza reducida: el mapa de esta foto es un plano en fuga, no separa la
+       tiza del acero. Ver el veredicto en lab/6/VERIFICACION.md -->
+  <figure data-foto-profundidad data-fuerza="0.018"
+          data-src="/assets/web/img/01-marca-tiza-acero-1920.webp"
+          data-depth="/assets/web/depth/01-marca-tiza-acero.png">
+    <img src="/assets/web/img/01-marca-tiza-acero-1920.webp"
+         alt="Marca de tiza sobre acero" loading="lazy">
+  </figure>
+  <div class="texto">
+    <p class="revelar">Ford llamó a Steinmetz porque nadie más podía arreglar el generador.
+      Escuchó, midió, y marcó una X con tiza.</p>
+    <p class="revelar">La factura decía $10.000. Ford pidió el detalle.
+      <b>$1 por hacer la marca. $9.999 por saber dónde hacerla.</b></p>
+  </div>
+</section>
+
+<section class="seccion" id="problema">
+  <p class="eyebrow">02 — EL PROBLEMA</p>
+  <div data-multiplano class="problema__capas">
+    <p class="revelar capa" data-z="0">La consultora grande te vende volumen.</p>
+    <p class="revelar capa" data-z="1">Meses de diagnóstico. Un PDF. Nada encendido.</p>
+    <p class="revelar capa" data-z="2">Pagaste por el $1, no por el $9.999.</p>
+  </div>
+  <svg data-trazo viewBox="0 0 200 200" class="equis" aria-hidden="true">
+    <path d="M40 40 L160 160" pathLength="1"/>
+    <path d="M160 40 L40 160" pathLength="1"/>
+  </svg>
+</section>
+
+<section class="seccion" id="metodo">
+  <p class="eyebrow">03 — EL MÉTODO</p>
+  <ol class="metodo">
+    <li class="revelar"><span class="num">01</span> Escuchamos el problema real, no el que está en el brief.</li>
+    <li class="revelar"><span class="num">02</span> Construimos el sistema que lo corrige. IA donde aporta. Ninguna donde estorba.</li>
+    <li class="revelar"><span class="num">03</span> Lo dejamos corriendo en producción, en manos de tu equipo. Encendido, o no existe.</li>
+  </ol>
+</section>
+
+<section class="seccion" id="trabajo">
+  <p class="eyebrow">04 — EL TRABAJO</p>
+  <p class="destacado revelar">No mostramos logos. Mostramos sistemas encendidos.</p>
+  <figure data-foto-profundidad
+          data-src="/assets/web/img/02-nave-estanques-1920.webp"
+          data-depth="/assets/web/depth/02-nave-estanques.png">
+    <img src="/assets/web/img/02-nave-estanques-1920.webp"
+         alt="Nave industrial de estanques" loading="lazy">
+  </figure>
+  <div class="casos">
+    <div class="caso revelar">
+      <p class="caso__quien">Una de las grandes cerveceras de Chile</p>
+      <p class="caso__que">Plataforma de auditoría y análisis de laboratorio — API,
+        base de datos y frontend — corriendo en producción sobre Azure.</p>
+    </div>
+    <div class="caso revelar">
+      <p class="caso__quien">Una empresa de genética aplicada</p>
+      <p class="caso__que">Sistema de trazabilidad de muestras, en producción.</p>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="quien">
+  <p class="eyebrow">05 — QUIÉN ESTÁ DETRÁS</p>
+  <div id="escena-cierre" aria-hidden="true"></div>
+  <p class="pregunta revelar">¿Dónde hacemos la marca?</p>
+  <p class="contacto revelar">
+    <a href="mailto:ian@steinmetz.cl">Hablemos</a>
+    <span class="sep">o</span>
+    <a href="https://wa.me/56993215043">por WhatsApp</a>
+  </p>
+  <p class="datos">
+    <span data-contador data-hasta="9999" data-prefijo="$">$9.999</span>
+    <span class="datos__pie">es lo que cuesta saber dónde</span>
+  </p>
+</section>
+
+<footer class="pie">
+  <p>STEINMETZ SpA · RUT 78.484.226-6<br>Consultoría en inteligencia artificial</p>
+  <p>ian@steinmetz.cl · +56 9 9321 5043 · Santiago de Chile</p>
+  <p><a href="/portal/">Acceso clientes</a></p>
+</footer>
 
 <script type="module">
-/* Objeto 3D real: un monolito tallado flotando, luz dura lateral,
-   cámara con parallax de puntero. three.js, sin assets externos. */
-import * as THREE from "three";
-
-const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const canvas = document.getElementById("escena");
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-
-const escena = new THREE.Scene();
-escena.fog = new THREE.Fog(0x080809, 6, 14);
-
-const camara = new THREE.PerspectiveCamera(38, 1, 0.1, 40);
-camara.position.set(0, 0, 7.5);
-
-// el monolito: caja alta con vértices desplazados por ruido — piedra tallada
-const geo = new THREE.BoxGeometry(1.6, 3.4, 1.1, 24, 48, 18);
-const pos = geo.attributes.position;
-const v = new THREE.Vector3();
-for (let i = 0; i < pos.count; i++) {
-  v.fromBufferAttribute(pos, i);
-  const n = Math.sin(v.x * 5.1 + v.y * 2.3) * Math.cos(v.y * 4.7 + v.z * 3.1) * 0.045
-          + Math.sin(v.y * 11.0 + v.z * 7.0) * 0.018;
-  pos.setXYZ(i, v.x + n, v.y + n * 0.6, v.z + n);
-}
-geo.computeVertexNormals();
-
-const mat = new THREE.MeshStandardMaterial({
-  color: 0x9a9aa2, roughness: 0.62, metalness: 0.55,
-  flatShading: false,
-});
-const monolito = new THREE.Mesh(geo, mat);
-monolito.rotation.z = 0.06;
-escena.add(monolito);
-
-// luz: key dura lateral + rim frío + relleno mínimo
-const key = new THREE.DirectionalLight(0xffffff, 3.2);
-key.position.set(-5, 2.5, 3);
-escena.add(key);
-const rim = new THREE.DirectionalLight(0x8899bb, 1.4);
-rim.position.set(4, -1, -4);
-escena.add(rim);
-escena.add(new THREE.AmbientLight(0x14141a, 2.2));
-
-let mx = 0, my = 0, sx = 0, sy = 0;
-addEventListener("pointermove", (e) => {
-  mx = (e.clientX / innerWidth - 0.5) * 2;
-  my = (e.clientY / innerHeight - 0.5) * 2;
-}, { passive: true });
-
-function medir() {
-  renderer.setSize(innerWidth, innerHeight, false);
-  camara.aspect = innerWidth / innerHeight;
-  camara.updateProjectionMatrix();
-  // en pantallas anchas el monolito vive a la derecha, el texto a la izquierda
-  monolito.position.x = innerWidth > 900 ? 2.1 : 0;
-  monolito.position.y = innerWidth > 900 ? 0 : 0.9;
-}
-addEventListener("resize", medir); medir();
-
-const t0 = performance.now();
-function frame(now) {
-  if (!document.hidden) {
-    const t = (now - t0) / 1000;
-    sx += (mx - sx) * 0.04; sy += (my - sy) * 0.04;
-    monolito.rotation.y = t * 0.18 + sx * 0.35;
-    monolito.rotation.x = Math.sin(t * 0.35) * 0.05 + sy * 0.2;
-    monolito.position.y += Math.sin(t * 0.8) * 0.0009;   // respiración
-    camara.position.x = sx * 0.35;
-    camara.position.y = -sy * 0.25;
-    camara.lookAt(monolito.position.x * 0.6, 0, 0);
-    renderer.render(escena, camara);
+  // Cada capa arranca aislada: si una falla, las demás siguen.
+  try {
+    const { iniciar } = await import('./escena.js');
+    if (!iniciar()) document.getElementById('escena')?.remove();
+  } catch (e) {
+    console.warn('escena no disponible:', e);
+    document.getElementById('escena')?.remove();
   }
-  if (!reducido) requestAnimationFrame(frame);
-}
-requestAnimationFrame(frame);
-if (reducido) { medir(); renderer.render(escena, camara); }
+
+  try {
+    const { iniciar } = await import('./profundidad.js');
+    console.info('fotos con volumen:', iniciar());
+  } catch (e) { console.warn('profundidad no disponible:', e); }
+
+  try {
+    const { iniciar } = await import('./multiplano.js');
+    iniciar();
+  } catch (e) { console.warn('multiplano no disponible:', e); }
+
+  try {
+    const { iniciar } = await import('./orquesta.js');
+    iniciar();
+  } catch (e) { console.warn('orquesta no disponible:', e); }
 </script>
 
 <!-- conmutador del lab: solo para comparar versiones, no es parte del diseño -->
@@ -172,7 +155,7 @@ if (reducido) { medir(); renderer.render(escena, camara); }
     background: rgba(12,12,12,0.82); backdrop-filter: blur(8px);
     border: 1px solid rgba(255,255,255,0.18); border-radius: 100px;
     font-family: ui-monospace, monospace; font-size: 11.5px; }
-  .lab-nav a { display: grid; place-content: center; min-width: 27px; height: 27px;
+  .lab-nav a { display: grid; place-content: center; min-width: 26px; height: 26px;
     border-radius: 50%; color: rgba(255,255,255,0.65); text-decoration: none;
     transition: background 150ms, color 150ms; padding: 0 2px; }
   .lab-nav a:hover { background: rgba(255,255,255,0.15); color: #fff; }
@@ -180,14 +163,14 @@ if (reducido) { medir(); renderer.render(escena, camara); }
 </style>
 <nav class="lab-nav">
   <a href="/lab/" title="índice">≡</a>
-  <a href="/lab/1/">1</a><a href="/lab/2/">2</a><a href="/lab/3/">3</a><a href="/lab/4/">4</a><a href="/lab/5/">5</a><a href="/lab/6/">6</a><a href="/lab/7/">7</a><a href="/lab/8/">8</a><a href="/lab/9/">9</a><a href="/lab/10/">10</a>
+  <a href="/lab/1/">1</a><a href="/lab/2/">2</a><a href="/lab/3/">3</a><a href="/lab/4/">4</a><a href="/lab/5/">5</a><a href="/lab/6/">6</a><a href="/lab/7/">7</a><a href="/lab/8/">8</a><a href="/lab/9/">9</a><a href="/lab/10/">10</a><a href="/lab/11/">11</a>
 </nav>
 <script>
 (function () {
   var n = parseInt(location.pathname.match(/lab\/(\d+)/)[1], 10);
   document.querySelectorAll(".lab-nav a")[n].classList.add("aqui");
   addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight" && n < 10) location.href = "/lab/" + (n + 1) + "/";
+    if (e.key === "ArrowRight" && n < 11) location.href = "/lab/" + (n + 1) + "/";
     if (e.key === "ArrowLeft" && n > 1) location.href = "/lab/" + (n - 1) + "/";
   });
 })();
