@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 10 · La bruma</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfaf7'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23a8bfa0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;650;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --fondo:#fbfaf7; --tinta:#1e1f1c; --medio:#8b8d85;
+    --salvia:#a8bfa0; --arena:#e4cfa4; --cielo:#b9cfd8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--fondo); color:var(--tinta);
+    font-family:"Onest",sans-serif; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--tinta); color:var(--fondo); }
+
+  /* lavados de color que derivan solos detrás de todo */
+  .lavado { position:fixed; border-radius:50%; filter:blur(90px);
+    pointer-events:none; opacity:.55; }
+  .lavado.a { width:55vmax; height:55vmax; background:var(--salvia);
+    top:-22vmax; right:-15vmax; animation:d1 24s ease-in-out infinite alternate; }
+  .lavado.b { width:44vmax; height:44vmax; background:var(--arena);
+    bottom:-20vmax; left:-12vmax; animation:d2 30s ease-in-out infinite alternate; }
+  .lavado.c { width:36vmax; height:36vmax; background:var(--cielo);
+    bottom:-8vmax; right:18vmax; animation:d3 27s ease-in-out infinite alternate; opacity:.4; }
+  @keyframes d1 { to { transform:translate(-8vmax,6vmax); } }
+  @keyframes d2 { to { transform:translate(7vmax,-5vmax); } }
+  @keyframes d3 { to { transform:translate(-10vmax,-4vmax); } }
+
+  .marco { position:relative; z-index:2; height:100svh; display:grid;
+    grid-template-rows:auto 1fr auto; padding:clamp(1.4rem,3vw,2.4rem);
+    max-width:90rem; margin:0 auto; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--tinta); font-weight:500; }
+
+  main { display:grid; place-content:center; text-align:center; }
+
+  .sube { opacity:0; transform:translateY(16px);
+    animation:subir 1s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  .panel { background:rgba(255,255,255,.55); backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,.8); border-radius:24px;
+    box-shadow:0 24px 80px rgba(30,31,28,.08);
+    padding:clamp(2.2rem,5vw,4rem) clamp(2rem,6vw,5rem);
+    max-width:52rem; }
+
+  .kicker { font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.3em; color:var(--medio); margin-bottom:1.4rem; }
+  h1 { font-size:clamp(2.2rem,5vw,4.4rem); font-weight:800;
+    line-height:1.06; letter-spacing:-.03em; }
+  .bajada { margin-top:1.4rem; margin-inline:auto; max-width:30em;
+    color:var(--medio); font-size:clamp(.95rem,1.2vw,1.08rem); line-height:1.7; }
+
+  .acciones { margin-top:2.2rem; display:flex; justify-content:center; gap:1rem; }
+  .cta { font-size:.95rem; font-weight:650; text-decoration:none;
+    color:var(--fondo); background:var(--tinta);
+    padding:.9em 1.9em; border-radius:14px;
+    transition:transform 220ms cubic-bezier(.16,1,.3,1), box-shadow 220ms ease; }
+  .cta:hover { transform:translateY(-2px); box-shadow:0 14px 34px rgba(30,31,28,.22); }
+  .alt { font-size:.95rem; font-weight:500; text-decoration:none;
+    color:var(--tinta); background:rgba(255,255,255,.7);
+    border:1px solid rgba(30,31,28,.12);
+    padding:.9em 1.9em; border-radius:14px;
+    transition:background 200ms ease; }
+  .alt:hover { background:#fff; }
+
+  @media (prefers-reduced-motion:reduce) {
+    .lavado { animation:none; }
+    .sube { animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+<div class="lavado a"></div>
+<div class="lavado b"></div>
+<div class="lavado c"></div>
+
+<div class="marco">
+  <header>
+    <b class="sube" style="animation-delay:.1s">STEINMETZ</b>
+    <span class="sube" style="animation-delay:.25s">SUBTÍTULO GENÉRICO</span>
+  </header>
+
+  <main>
+    <div class="panel sube" style="animation-delay:.4s">
+      <p class="kicker">CATEGORÍA O ETIQUETA</p>
+      <h1>Un titular grande,<br>en dos líneas.</h1>
+      <p class="bajada">Dos frases de apoyo que bajan la idea principal.
+      Texto de relleno, solo para evaluar el diseño.</p>
+      <div class="acciones">
+        <a class="cta" href="mailto:ian@steinmetz.cl">Contacto</a>
+        <a class="alt" href="#" onclick="return false">Acción secundaria</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="sube" style="animation-delay:.9s">SANTIAGO DE CHILE</span>
+    <span class="sube" style="animation-delay:1s">LAB 10 — LA BRUMA</span>
+  </footer>
+</div>
+
+<!-- conmutador del lab: solo para comparar versiones, no es parte del diseño -->
+<style>
+  .lab-nav { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+    z-index: 99; display: flex; gap: 3px; padding: 5px;
+    background: rgba(12,12,12,0.82); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 100px;
+    font-family: ui-monospace, monospace; font-size: 11.5px; }
+  .lab-nav a { display: grid; place-content: center; min-width: 27px; height: 27px;
+    border-radius: 50%; color: rgba(255,255,255,0.65); text-decoration: none;
+    transition: background 150ms, color 150ms; padding: 0 2px; }
+  .lab-nav a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .lab-nav a.aqui { background: #fff; color: #0c0c0c; }
+</style>
+<nav class="lab-nav">
+  <a href="/lab/" title="índice">≡</a>
+  <a href="/lab/1/">1</a><a href="/lab/2/">2</a><a href="/lab/3/">3</a><a href="/lab/4/">4</a><a href="/lab/5/">5</a><a href="/lab/6/">6</a><a href="/lab/7/">7</a><a href="/lab/8/">8</a><a href="/lab/9/">9</a><a href="/lab/10/">10</a>
+</nav>
+<script>
+(function () {
+  var n = parseInt(location.pathname.match(/lab\/(\d+)/)[1], 10);
+  document.querySelectorAll(".lab-nav a")[n].classList.add("aqui");
+  addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" && n < 10) location.href = "/lab/" + (n + 1) + "/";
+    if (e.key === "ArrowLeft" && n > 1) location.href = "/lab/" + (n - 1) + "/";
+  });
+})();
+</script>
+</body>
+</html>

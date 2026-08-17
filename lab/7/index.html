@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 7 · Las letras</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Arial Black' font-size='22' font-weight='900' fill='%23111'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --papel:#ffffff; --tinta:#111112; --medio:#9a9a9e; --linea:rgba(17,17,18,0.14); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--papel); color:var(--tinta);
+    font-family:"Fraunces",serif; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--tinta); color:var(--papel); }
+
+  .marco { height:100svh; display:grid; grid-template-rows:auto 1fr auto;
+    padding:clamp(1.4rem,3vw,2.4rem); }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--tinta); font-weight:500; }
+
+  main { display:flex; flex-direction:column; justify-content:center;
+    align-items:center; text-align:center; }
+
+  /* la palabra: cada letra es un span con su propio eje de peso */
+  .palabra { display:flex; user-select:none; cursor:default;
+    font-optical-sizing:auto; line-height:1;
+    font-size:clamp(3rem, 13.5vw, 15rem); letter-spacing:-0.03em; }
+  .palabra span {
+    font-variation-settings: "wght" 340, "opsz" 144;
+    transition:none; display:inline-block;
+    opacity:0; transform:translateY(30px);
+    animation:entrar .9s cubic-bezier(.19,1,.22,1) forwards;
+  }
+  @keyframes entrar { to { opacity:1; transform:none; } }
+
+  .bajo { margin-top:2.4rem; font-family:"IBM Plex Mono",monospace;
+    font-size:clamp(.7rem,1vw,.8rem); letter-spacing:.28em; color:var(--medio);
+    opacity:0; animation:fundir 1s ease-out 1.3s forwards; }
+  @keyframes fundir { to { opacity:1; } }
+
+  .cta { display:inline-block; margin-top:2rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.75rem; font-weight:500;
+    letter-spacing:.24em; text-decoration:none; color:var(--papel);
+    background:var(--tinta); padding:1.05em 2.2em; border-radius:100px;
+    opacity:0; animation:fundir 1s ease-out 1.55s forwards;
+    transition:transform 250ms cubic-bezier(.19,1,.22,1); }
+  .cta:hover { transform:scale(1.05); }
+
+  footer { align-items:baseline; }
+
+  @media (prefers-reduced-motion:reduce) {
+    .palabra span, .bajo, .cta { animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header>
+    <b>STEINMETZ</b>
+    <span>SUBTÍTULO GENÉRICO</span>
+  </header>
+
+  <main>
+    <div class="palabra" id="palabra" aria-label="Steinmetz">
+      <span style="animation-delay:.15s">S</span><span style="animation-delay:.21s">t</span><span style="animation-delay:.27s">e</span><span style="animation-delay:.33s">i</span><span style="animation-delay:.39s">n</span><span style="animation-delay:.45s">m</span><span style="animation-delay:.51s">e</span><span style="animation-delay:.57s">t</span><span style="animation-delay:.63s">z</span>
+    </div>
+    <p class="bajo">UNA LÍNEA DE APOYO GENÉRICA — TEXTO DE RELLENO</p>
+    <a class="cta" href="mailto:ian@steinmetz.cl">CONTACTO</a>
+  </main>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <span>LAB 7 — LAS LETRAS</span>
+  </footer>
+</div>
+
+<script>
+/* Tipografía magnética: el peso y el tamaño óptico de cada letra responden
+   a la distancia del puntero — la palabra se siente viva al pasar por encima. */
+(function () {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var letras = Array.prototype.slice.call(document.querySelectorAll("#palabra span"));
+  var mx = -9999, objetivo = letras.map(function () { return 340; });
+
+  addEventListener("pointermove", function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+  var my = -9999;
+
+  function frame() {
+    letras.forEach(function (el, i) {
+      var r = el.getBoundingClientRect();
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var d = Math.hypot(mx - cx, my - cy);
+      var cerca = Math.max(0, 1 - d / 320);            // 0..1
+      var destino = 340 + cerca * cerca * 560;          // wght 340 → 900
+      objetivo[i] += (destino - objetivo[i]) * 0.12;    // inercia
+      el.style.fontVariationSettings = '"wght" ' + objetivo[i].toFixed(1) + ', "opsz" 144';
+    });
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<!-- conmutador del lab: solo para comparar versiones, no es parte del diseño -->
+<style>
+  .lab-nav { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+    z-index: 99; display: flex; gap: 3px; padding: 5px;
+    background: rgba(12,12,12,0.82); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 100px;
+    font-family: ui-monospace, monospace; font-size: 11.5px; }
+  .lab-nav a { display: grid; place-content: center; min-width: 27px; height: 27px;
+    border-radius: 50%; color: rgba(255,255,255,0.65); text-decoration: none;
+    transition: background 150ms, color 150ms; padding: 0 2px; }
+  .lab-nav a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .lab-nav a.aqui { background: #fff; color: #0c0c0c; }
+</style>
+<nav class="lab-nav">
+  <a href="/lab/" title="índice">≡</a>
+  <a href="/lab/1/">1</a><a href="/lab/2/">2</a><a href="/lab/3/">3</a><a href="/lab/4/">4</a><a href="/lab/5/">5</a><a href="/lab/6/">6</a><a href="/lab/7/">7</a><a href="/lab/8/">8</a><a href="/lab/9/">9</a><a href="/lab/10/">10</a>
+</nav>
+<script>
+(function () {
+  var n = parseInt(location.pathname.match(/lab\/(\d+)/)[1], 10);
+  document.querySelectorAll(".lab-nav a")[n].classList.add("aqui");
+  addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" && n < 10) location.href = "/lab/" + (n + 1) + "/";
+    if (e.key === "ArrowLeft" && n > 1) location.href = "/lab/" + (n - 1) + "/";
+  });
+})();
+</script>
+</body>
+</html>

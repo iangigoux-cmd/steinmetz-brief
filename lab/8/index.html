@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 8 · La matriz</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23061018'/%3E%3Ccircle cx='11' cy='11' r='2' fill='%237dd3fc'/%3E%3Ccircle cx='21' cy='11' r='2' fill='%237dd3fc'/%3E%3Ccircle cx='11' cy='21' r='2' fill='%237dd3fc'/%3E%3Ccircle cx='21' cy='21' r='2' fill='%237dd3fc'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --fondo:#061018; --claro:#e6f0f6; --medio:#5b7284; --celeste:#7dd3fc; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--fondo); color:var(--claro);
+    font-family:"Schibsted Grotesk",sans-serif; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--celeste); color:var(--fondo); }
+
+  canvas#matriz { position:fixed; inset:0; width:100%; height:100%;
+    opacity:0; animation:aparecer 2.2s ease-out .2s forwards; }
+  @keyframes aparecer { to { opacity:1; } }
+
+  .marco { position:relative; z-index:2; height:100svh; display:flex;
+    flex-direction:column; justify-content:space-between;
+    padding:clamp(1.4rem,3vw,2.4rem); pointer-events:none; }
+  .marco a { pointer-events:auto; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--claro); font-weight:500; }
+
+  .sube { opacity:0; transform:translateY(14px);
+    animation:subir 1s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  main { max-width:46rem; }
+  .kicker { font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.3em; color:var(--celeste); margin-bottom:1.3rem; }
+  h1 { font-size:clamp(2.6rem,6.2vw,5.4rem); font-weight:900;
+    line-height:1.02; letter-spacing:-.028em; }
+  .bajada { margin-top:1.6rem; max-width:27em; color:var(--medio);
+    font-size:clamp(.95rem,1.2vw,1.05rem); line-height:1.7; }
+  .cta { display:inline-block; margin-top:2.2rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.75rem; font-weight:500;
+    letter-spacing:.24em; text-decoration:none; color:var(--fondo);
+    background:var(--celeste); padding:1.05em 2.1em;
+    transition:filter 250ms ease, transform 250ms cubic-bezier(.16,1,.3,1); }
+  .cta:hover { filter:brightness(1.12); transform:translateY(-2px); }
+
+  @media (prefers-reduced-motion:reduce) {
+    canvas#matriz { animation:none; opacity:.7; }
+    .sube { animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+<canvas id="matriz"></canvas>
+
+<div class="marco">
+  <header>
+    <b class="sube" style="animation-delay:.15s">STEINMETZ</b>
+    <span class="sube" style="animation-delay:.3s">SUBTÍTULO GENÉRICO</span>
+  </header>
+
+  <main>
+    <p class="kicker sube" style="animation-delay:.45s">CATEGORÍA O ETIQUETA</p>
+    <h1 class="sube" style="animation-delay:.55s">Un titular grande,<br>en dos líneas.</h1>
+    <p class="bajada sube" style="animation-delay:.75s">Dos frases de apoyo que bajan
+    la idea principal. Texto de relleno, solo para evaluar el diseño.</p>
+    <a class="cta sube" style="animation-delay:.95s" href="mailto:ian@steinmetz.cl">CONTACTO</a>
+  </main>
+
+  <footer>
+    <span class="sube" style="animation-delay:1.1s">SANTIAGO DE CHILE</span>
+    <span class="sube" style="animation-delay:1.2s">LAB 8 — LA MATRIZ</span>
+  </footer>
+</div>
+
+<script>
+/* Retícula de puntos que ondula sola; el puntero abre un claro a su paso.
+   Canvas 2D — barato, universal, nítido a cualquier DPR. */
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canvas = document.getElementById("matriz");
+  var ctx = canvas.getContext("2d");
+
+  var PASO = 34, dpr = 1, cols = 0, filas = 0;
+  var mx = -9999, my = -9999, sx = -9999, sy = -9999;
+
+  function medir() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    cols = Math.ceil(innerWidth / PASO) + 1;
+    filas = Math.ceil(innerHeight / PASO) + 1;
+  }
+  addEventListener("resize", medir); medir();
+
+  addEventListener("pointermove", function (e) {
+    mx = e.clientX; my = e.clientY;
+  }, { passive: true });
+
+  var t0 = performance.now();
+  function frame(now) {
+    if (!document.hidden) {
+      var t = (now - t0) / 1000;
+      sx += (mx - sx) * 0.08; sy += (my - sy) * 0.08;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+      for (var i = 0; i < cols; i++) {
+        for (var j = 0; j < filas; j++) {
+          var x = i * PASO, y = j * PASO;
+          // ondulación autónoma
+          var onda = Math.sin(i * 0.55 + t * 0.9) * Math.cos(j * 0.48 - t * 0.7);
+          // el puntero abre un claro y empuja los puntos
+          var dx = x - sx, dy = y - sy;
+          var d = Math.hypot(dx, dy);
+          var empuje = Math.max(0, 1 - d / 260);
+          var ex = d > 0 ? (dx / d) * empuje * 26 : 0;
+          var ey = d > 0 ? (dy / d) * empuje * 26 : 0;
+
+          var r = 1.1 + (onda * 0.5 + 0.5) * 1.4 + empuje * 1.8;
+          var alfa = 0.16 + (onda * 0.5 + 0.5) * 0.22 + empuje * 0.5;
+
+          ctx.beginPath();
+          ctx.arc(x + ex, y + ey, r, 0, 6.2832);
+          ctx.fillStyle = empuje > 0.28
+            ? "rgba(125, 211, 252, " + alfa.toFixed(3) + ")"
+            : "rgba(230, 240, 246, " + (alfa * 0.55).toFixed(3) + ")";
+          ctx.fill();
+        }
+      }
+    }
+    if (!reducido) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<!-- conmutador del lab: solo para comparar versiones, no es parte del diseño -->
+<style>
+  .lab-nav { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+    z-index: 99; display: flex; gap: 3px; padding: 5px;
+    background: rgba(12,12,12,0.82); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 100px;
+    font-family: ui-monospace, monospace; font-size: 11.5px; }
+  .lab-nav a { display: grid; place-content: center; min-width: 27px; height: 27px;
+    border-radius: 50%; color: rgba(255,255,255,0.65); text-decoration: none;
+    transition: background 150ms, color 150ms; padding: 0 2px; }
+  .lab-nav a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .lab-nav a.aqui { background: #fff; color: #0c0c0c; }
+</style>
+<nav class="lab-nav">
+  <a href="/lab/" title="índice">≡</a>
+  <a href="/lab/1/">1</a><a href="/lab/2/">2</a><a href="/lab/3/">3</a><a href="/lab/4/">4</a><a href="/lab/5/">5</a><a href="/lab/6/">6</a><a href="/lab/7/">7</a><a href="/lab/8/">8</a><a href="/lab/9/">9</a><a href="/lab/10/">10</a>
+</nav>
+<script>
+(function () {
+  var n = parseInt(location.pathname.match(/lab\/(\d+)/)[1], 10);
+  document.querySelectorAll(".lab-nav a")[n].classList.add("aqui");
+  addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" && n < 10) location.href = "/lab/" + (n + 1) + "/";
+    if (e.key === "ArrowLeft" && n > 1) location.href = "/lab/" + (n - 1) + "/";
+  });
+})();
+</script>
+</body>
+</html>
