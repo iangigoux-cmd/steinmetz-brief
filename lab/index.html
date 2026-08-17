@@ -5,52 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Steinmetz — Lab de entradas</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='monospace' font-size='16' fill='%23fff'%3E5%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='monospace' font-size='14' fill='%23fff'%3E10%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #0a0a0a; color: #eee; font-family: "IBM Plex Mono", monospace;
-    min-height: 100svh; display: grid; place-content: center; padding: 2rem;
+    min-height: 100svh; display: grid; place-content: center; padding: 3rem 2rem;
     -webkit-font-smoothing: antialiased; }
   h1 { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.3em; color: #777;
-    margin-bottom: 2.5rem; }
+    margin-bottom: 2.2rem; }
+  h2 { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.3em; color: #555;
+    margin: 3rem 0 1.2rem; }
   a { display: flex; justify-content: space-between; gap: 3rem;
-    width: min(38rem, 90vw); padding: 1.2rem 0; text-decoration: none;
+    width: min(40rem, 90vw); padding: 1.1rem 0; text-decoration: none;
     color: #eee; font-size: 0.85rem; letter-spacing: 0.06em;
     border-bottom: 1px solid rgba(255,255,255,0.14);
     transition: padding-left 250ms cubic-bezier(0.19,1,0.22,1), color 200ms; }
-  a:first-of-type { border-top: 1px solid rgba(255,255,255,0.14); }
+  .lista a:first-of-type { border-top: 1px solid rgba(255,255,255,0.14); }
   a:hover { padding-left: 1rem; color: #fff; }
-  a span { color: #777; font-size: 0.72rem; }
+  a span { color: #777; font-size: 0.72rem; text-align: right; }
+  .archivo a { color: #666; font-size: 0.78rem; padding: 0.75rem 0; }
+  .archivo a span { color: #4a4a4a; }
   p { margin-top: 2.5rem; font-size: 0.68rem; color: #555; letter-spacing: 0.1em;
-    max-width: 38rem; line-height: 1.9; }
+    max-width: 40rem; line-height: 1.9; }
 </style>
 </head>
 <body>
 <div>
-  <h1>STEINMETZ — DIECISÉIS ENTRADAS</h1>
-  <a href="/lab/1/">01 · EL CAMPO <span>hilos de flujo WebGL · ámbar · grotesk dura</span></a>
-  <a href="/lab/2/">02 · LA TERMINAL <span>el sistema se enciende solo · precisión software</span></a>
-  <a href="/lab/3/">03 · EL MANIFIESTO <span>papel y serifa gigante · calma editorial</span></a>
-  <a href="/lab/4/">04 · LA AURORA <span>campo volumétrico petróleo/oro · AI-nativo</span></a>
-  <a href="/lab/5/">05 · LA GRILLA <span>suizo brutal · blanco/negro · datos</span></a>
-  <a href="/lab/6/">06 · LA PROFUNDIDAD <span>landing completo por capas · foto 2.5D · scroll libre</span></a>
-  <a href="/lab/7/">07 · LAS LETRAS <span>tipografía magnética · serifa variable</span></a>
-  <a href="/lab/8/">08 · LA MATRIZ <span>retícula de puntos viva · azul profundo</span></a>
-  <a href="/lab/9/">09 · EL AZUL <span>color pleno Klein · formas que derivan</span></a>
-  <a href="/lab/10/">10 · LA BRUMA <span>claro producto · lavados salvia/arena · vidrio</span></a>
-  <a href="/lab/11/">11 · EL MONOLITO <span>objeto 3D real (three.js) · piedra tallada</span></a>
-  <a href="/lab/12/">12 · LA LENTE <span>el cursor revela el esquema oculto — "el problema vive debajo"</span></a>
-  <a href="/lab/13/">13 · EL ENCENDIDO <span>la página llega apagada y se enciende sola — "encendido, o no existe"</span></a>
-  <a href="/lab/14/">14 · LA SEÑAL <span>el caos de partículas se ordena en "saber dónde"</span></a>
-  <a href="/lab/15/">15 · EL DESPEJE <span>los entregables-cliché caen y queda el mensaje</span></a>
-  <a href="/lab/16/">16 · EL PLANO <span>la página se dibuja como lámina técnica — "±0,01"</span></a>
-  <a href="/lab/6/">06 · LA PROFUNDIDAD <span>landing entero · polvo que sedimenta en la X · fotos con volumen</span></a>
-  <p>Las 6-10 llevan copy genérico de maqueta para evaluar solo el diseño. Todas se mueven solas — reveals al cargar, loops ambientales, respuesta
-  al puntero. Ninguna toca el scroll. Las escenas vivas son shaders propios:
-  resolución infinita en cualquier pantalla.</p>
+  <h1>STEINMETZ — DIEZ FINALISTAS</h1>
+  <div class="lista">
+    <a href="/lab/1/">01 · EL CAMPO <span>hilos de flujo WebGL · ámbar · grotesk dura</span></a>
+    <a href="/lab/3/">03 · EL MANIFIESTO <span>papel y serifa gigante · calma editorial</span></a>
+    <a href="/lab/4/">04 · LA AURORA <span>campo volumétrico petróleo/oro · AI-nativo</span></a>
+    <a href="/lab/5/">05 · LA GRILLA <span>suizo brutal · blanco/negro · datos</span></a>
+    <a href="/lab/7/">07 · LAS LETRAS <span>Steinmetz en serifa variable · peso magnético</span></a>
+    <a href="/lab/9/">09 · EL AZUL <span>color pleno Klein · formas que derivan</span></a>
+    <a href="/lab/11/">11 · EL MONOLITO <span>objeto 3D real (three.js) · piedra tallada</span></a>
+    <a href="/lab/13/">13 · EL ENCENDIDO <span>la página se enciende sola · "los sistemas quedan"</span></a>
+    <a href="/lab/14/">14 · LA SEÑAL <span>el caos se ordena en "saber dónde"</span></a>
+    <a href="/lab/15/">15 · EL DESPEJE <span>los entregables caen y queda el mensaje</span></a>
+  </div>
+
+  <h2>ARCHIVO</h2>
+  <div class="archivo">
+    <a href="/lab/archivo/2/">02 · LA TERMINAL</a>
+    <a href="/lab/archivo/6/">06 · LA PROFUNDIDAD</a>
+    <a href="/lab/archivo/8/">08 · LA MATRIZ</a>
+    <a href="/lab/archivo/10/">10 · LA BRUMA</a>
+    <a href="/lab/archivo/12/">12 · LA LENTE</a>
+    <a href="/lab/archivo/16/">16 · EL PLANO</a>
+  </div>
+
+  <p>Selección de Ian, 2026-08-17. Las archivadas siguen accesibles pero fuera
+  del conmutador. Flechas ← → para recorrer las finalistas.</p>
 </div>
 </body>
 </html>
