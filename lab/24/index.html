@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 24 · El cantero</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e6e1d6'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='22' font-weight='900' fill='%23262119'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --piedra:#e6e1d6; --talla:#cfc8b8; --tinta:#262119; --medio:#8f8878; --oxido:#a4501f; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--piedra); color:var(--tinta);
+    font-family:"Fraunces",serif; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--tinta); color:var(--piedra); }
+
+  /* la piedra: veta y grano cálidos */
+  body::before { content:""; position:fixed; inset:0;
+    background:
+      radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.5), transparent 50%),
+      radial-gradient(130% 110% at 85% 95%, rgba(120,105,80,.16), transparent 55%);
+    pointer-events:none; }
+  body::after { content:""; position:fixed; inset:0; pointer-events:none; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.46 0 0 0 0 0.38 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23p)'/%3E%3C/svg%3E"); }
+
+  .marco { position:relative; z-index:2; height:100svh; display:grid;
+    grid-template-rows:auto 1fr auto; padding:clamp(1.4rem,3vw,2.4rem); }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--tinta); font-weight:500; }
+
+  main { display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center; }
+
+  /* ── la palabra tallada ── */
+  .palabra { display:flex; user-select:none;
+    font-size:clamp(2.6rem,10.4vw,11rem); font-weight:900;
+    font-optical-sizing:auto; line-height:1; letter-spacing:-.015em; }
+  .palabra span { display:inline-block; opacity:0; position:relative;
+    /* bajorrelieve: sombra clara abajo, oscuridad arriba adentro */
+    color:var(--talla);
+    text-shadow:
+      0 1.5px 1px rgba(255,255,255,.85),
+      0 -1.5px 2px rgba(38,33,25,.45); }
+  .palabra span.golpeada { animation:tallar .22s cubic-bezier(.5,1.6,.5,1) forwards; }
+  @keyframes tallar {
+    0% { opacity:0; transform:scale(1.6); filter:blur(3px); }
+    55% { opacity:1; transform:scale(.96); filter:blur(0); }
+    100% { opacity:1; transform:scale(1); }
+  }
+
+  /* esquirlas del golpe */
+  .esquirla { position:fixed; width:4px; height:4px; background:var(--medio);
+    border-radius:1px; opacity:0; pointer-events:none; z-index:3; }
+  @keyframes volar {
+    0% { opacity:.9; transform:translate(0,0) rotate(0); }
+    100% { opacity:0; transform:translate(var(--dx), var(--dy)) rotate(200deg); }
+  }
+
+  /* la revelación */
+  .revela { margin-top:2.6rem; font-family:"IBM Plex Mono",monospace;
+    font-size:clamp(.66rem,1vw,.8rem); letter-spacing:.3em; color:var(--medio);
+    min-height:1.6em; }
+  .revela b { color:var(--oxido); font-weight:500; }
+
+  .sentencia { margin-top:1.2rem;
+    font-size:clamp(1.5rem,3.4vw,2.9rem); font-weight:600;
+    font-style:italic; letter-spacing:-.01em;
+    opacity:0; transform:translateY(12px); }
+  .sentencia.on { animation:subir .9s cubic-bezier(.16,1,.3,1) forwards; }
+  .sentencia em { font-style:italic; color:var(--oxido); }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  .cta { display:inline-block; margin-top:2.4rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.75rem; font-weight:500;
+    letter-spacing:.24em; text-decoration:none; color:var(--piedra);
+    background:var(--tinta); padding:1.1em 2.4em;
+    opacity:0; transition:background 250ms ease; }
+  .cta.on { animation:subir .9s cubic-bezier(.16,1,.3,1) .2s forwards; }
+  .cta:hover { background:var(--oxido); }
+
+  @media (prefers-reduced-motion:reduce) {
+    .palabra span { opacity:1; animation:none; }
+    .sentencia, .cta { opacity:1; animation:none; transform:none; }
+  }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header>
+    <b>STEINMETZ</b>
+    <span>DEL ALEMÁN — SUST. MASC.</span>
+  </header>
+
+  <main>
+    <div class="palabra" id="palabra" aria-label="Steinmetz">
+      <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
+    </div>
+    <p class="revela" id="revela" aria-live="polite"></p>
+    <p class="sentencia" id="sentencia">Nosotros tallamos <em>sistemas</em>.</p>
+    <a class="cta" id="cta" href="mailto:ian@steinmetz.cl">ENCARGAR UNA OBRA</a>
+  </main>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <span>LAB 24 — EL CANTERO</span>
+  </footer>
+</div>
+
+<script>
+/* El nombre, tallado: cada letra entra con un golpe de cincel y esquirlas.
+   Después la definición se escribe, y la sentencia remata. Pasar el cursor
+   por una letra la vuelve a golpear. */
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var letras = Array.prototype.slice.call(document.querySelectorAll("#palabra span"));
+  var revela = document.getElementById("revela");
+  var DEF = 'STEINMETZ: <b>CANTERO</b> — EL QUE TALLA LA PIEDRA, GOLPE A GOLPE, DONDE CORRESPONDE.';
+
+  if (reducido) {
+    revela.innerHTML = DEF;
+    document.getElementById("sentencia").classList.add("on");
+    document.getElementById("cta").classList.add("on");
+    return;
+  }
+
+  function esquirlas(el) {
+    var r = el.getBoundingClientRect();
+    var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    for (var k = 0; k < 10; k++) {
+      var e = document.createElement("div");
+      e.className = "esquirla";
+      e.style.left = (cx + (Math.random() - .5) * r.width * .6) + "px";
+      e.style.top = (cy + (Math.random() - .5) * r.height * .5) + "px";
+      e.style.setProperty("--dx", ((Math.random() - .5) * 120) + "px");
+      e.style.setProperty("--dy", (40 + Math.random() * 90) + "px");
+      e.style.animation = "volar " + (0.45 + Math.random() * 0.4) + "s cubic-bezier(.2,.6,.6,1) forwards";
+      document.body.appendChild(e);
+      setTimeout(function (n) { return function () { n.remove(); }; }(e), 1000);
+    }
+  }
+
+  // ── el tallado, letra a letra ──
+  var i = 0;
+  function golpe() {
+    if (i >= letras.length) { definir(); return; }
+    var el = letras[i++];
+    el.classList.add("golpeada");
+    esquirlas(el);
+    setTimeout(golpe, 150 + Math.random() * 90);
+  }
+  setTimeout(golpe, 600);
+
+  // ── la definición se escribe ──
+  function definir() {
+    var texto = "STEINMETZ: CANTERO — EL QUE TALLA LA PIEDRA, GOLPE A GOLPE, DONDE CORRESPONDE.";
+    var c = 0;
+    (function tipear() {
+      c++;
+      var visible = texto.slice(0, c);
+      revela.innerHTML = visible
+        .replace("CANTERO", "<b>CANTERO</b>");
+      if (c < texto.length) setTimeout(tipear, 22);
+      else {
+        document.getElementById("sentencia").classList.add("on");
+        document.getElementById("cta").classList.add("on");
+      }
+    })();
+  }
+
+  // ── re-tallar al pasar el cursor ──
+  letras.forEach(function (el) {
+    el.addEventListener("pointerenter", function () {
+      if (!el.classList.contains("golpeada")) return;
+      el.classList.remove("golpeada");
+      void el.offsetWidth;                 // reinicia la animación
+      el.classList.add("golpeada");
+      esquirlas(el);
+    });
+  });
+})();
+</script>
+
+<!-- conmutador del lab: solo para comparar versiones, no es parte del diseño -->
+<style>
+  .lab-nav { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+    z-index: 99; display: flex; flex-wrap: wrap; justify-content: center;
+    max-width: 94vw; gap: 3px; padding: 5px;
+    background: rgba(12,12,12,0.82); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 100px;
+    font-family: ui-monospace, monospace; font-size: 11px; }
+  .lab-nav a { display: grid; place-content: center; min-width: 25px; height: 25px;
+    border-radius: 50%; color: rgba(255,255,255,0.65); text-decoration: none;
+    transition: background 150ms, color 150ms; padding: 0 2px; cursor: pointer; }
+  .lab-nav a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .lab-nav a.aqui { background: #fff; color: #0c0c0c; }
+</style>
+<nav class="lab-nav">
+  <a href="/lab/" title="índice">≡</a>
+  <a href="/lab/1/">1</a><a href="/lab/3/">3</a><a href="/lab/4/">4</a><a href="/lab/5/">5</a><a href="/lab/7/">7</a><a href="/lab/9/">9</a><a href="/lab/11/">11</a><a href="/lab/13/">13</a><a href="/lab/14/">14</a><a href="/lab/15/">15</a><a href="/lab/17/">17</a><a href="/lab/18/">18</a><a href="/lab/19/">19</a><a href="/lab/20/">20</a><a href="/lab/21/">21</a><a href="/lab/22/">22</a><a href="/lab/23/">23</a><a href="/lab/24/">24</a>
+</nav>
+<script>
+(function () {
+  var seq = [1, 3, 4, 5, 7, 9, 11, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24];
+  var n = parseInt(location.pathname.match(/lab\/(\d+)/)[1], 10);
+  var i = seq.indexOf(n);
+  document.querySelectorAll(".lab-nav a")[i + 1].classList.add("aqui");
+  addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" && i < seq.length - 1) location.href = "/lab/" + seq[i + 1] + "/";
+    if (e.key === "ArrowLeft" && i > 0) location.href = "/lab/" + seq[i - 1] + "/";
+  });
+})();
+</script>
+</body>
+</html>
