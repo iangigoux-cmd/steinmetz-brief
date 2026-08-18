@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 22 · La marca</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230d0f10'/%3E%3Cpath d='M10 10 L22 22 M22 10 L10 22' stroke='%23f2f1ec' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@110,500..850&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --acero:#0d0f10; --tiza:#f2f1ec; --medio:#5c6164; --senal:#8ab4c2; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--acero); color:var(--tiza);
+    font-family:"Archivo",sans-serif; font-stretch:110%;
+    height:100svh; overflow:hidden; cursor:none;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--tiza); color:var(--acero); }
+
+  /* superficie: acero procedural — vetas, luz lateral, grano */
+  .superficie { position:fixed; inset:0;
+    background:
+      linear-gradient(101deg, transparent 0%, rgba(255,255,255,.045) 12%, transparent 24%),
+      linear-gradient(99deg, transparent 40%, rgba(255,255,255,.025) 52%, transparent 63%),
+      radial-gradient(140% 100% at 0% 0%, rgba(184,205,214,.08), transparent 55%),
+      radial-gradient(120% 120% at 100% 100%, rgba(0,0,0,.5), transparent 60%),
+      var(--acero); }
+  .grano { position:fixed; inset:0; pointer-events:none; opacity:.08; z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ── la X de tiza: se dibuja sola en el punto exacto ── */
+  .marca-x { position:fixed; z-index:2;
+    right:14%; top:24%; width:clamp(7rem,13vw,11rem); aspect-ratio:1; }
+  .marca-x svg { width:100%; height:100%; overflow:visible; }
+  .marca-x path { fill:none; stroke:var(--tiza); stroke-width:11;
+    stroke-linecap:round; filter:url(#tiza);
+    stroke-dasharray:1; stroke-dashoffset:1; }
+  .marca-x.dibuja path:nth-child(1) { animation:trazo .34s cubic-bezier(.6,0,.4,1) forwards; }
+  .marca-x.dibuja path:nth-child(2) { animation:trazo .34s cubic-bezier(.6,0,.4,1) .42s forwards; }
+  @keyframes trazo { to { stroke-dashoffset:0; } }
+
+  /* polvo del trazo */
+  .polvo { position:absolute; width:5px; height:5px; border-radius:50%;
+    background:var(--tiza); opacity:0; pointer-events:none; }
+  @keyframes soltar {
+    0% { opacity:.95; transform:translate(0,0) scale(1); }
+    100% { opacity:0; transform:translate(var(--dx), var(--dy)) scale(.3); }
+  }
+
+  /* ── retícula del sistema (fase de análisis) y del cursor ── */
+  .reticula { position:fixed; z-index:3; width:64px; height:64px;
+    margin:-32px 0 0 -32px; pointer-events:none; opacity:0;
+    transition:opacity .3s ease; }
+  .reticula.on { opacity:1; }
+  .reticula::before, .reticula::after { content:""; position:absolute; background:var(--senal); }
+  .reticula::before { left:50%; top:-6px; bottom:-6px; width:1px; }
+  .reticula::after { top:50%; left:-6px; right:-6px; height:1px; }
+  .reticula .aro { position:absolute; inset:12px; border:1px solid var(--senal);
+    border-radius:50%; }
+  .reticula .dato { position:absolute; left:calc(100% + 12px); top:50%;
+    transform:translateY(-50%); white-space:nowrap;
+    font-family:"IBM Plex Mono",monospace; font-size:.6rem;
+    letter-spacing:.22em; color:var(--senal); }
+  .reticula.aqui::before, .reticula.aqui::after,
+  .reticula.aqui .aro { background:var(--tiza); border-color:var(--tiza); }
+  .reticula.aqui .dato { color:var(--tiza); font-weight:500; }
+
+  .marco { position:relative; z-index:4; height:100svh; display:grid;
+    grid-template-rows:auto 1fr auto; padding:clamp(1.4rem,3vw,2.4rem);
+    pointer-events:none; }
+  .marco a { pointer-events:auto; cursor:none; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--tiza); font-weight:500; }
+
+  main { display:flex; flex-direction:column; justify-content:end; max-width:44rem; }
+
+  .aparece { opacity:0; transform:translateY(14px); }
+  .listo .aparece { animation:subir .9s cubic-bezier(.16,1,.3,1) forwards; }
+  .listo .aparece.a2 { animation-delay:.15s; }
+  .listo .aparece.a3 { animation-delay:.3s; }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  h1 { font-size:clamp(2.5rem,5.8vw,5rem); font-weight:830;
+    line-height:1.02; letter-spacing:-.025em; text-transform:uppercase; }
+  h1 .cifra { font-variant-numeric:tabular-nums; }
+  h1 em { font-style:normal; color:var(--medio);
+    -webkit-text-stroke:1.2px var(--tiza); color:transparent; }
+  .bajada { margin-top:1.4rem; max-width:32em;
+    font-family:"IBM Plex Mono",monospace; font-size:clamp(.76rem,1vw,.88rem);
+    line-height:1.9; letter-spacing:.03em; color:var(--medio); }
+  .bajada b { color:var(--tiza); font-weight:500; }
+  .cta { display:inline-block; align-self:start; margin-top:1.8rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.75rem; font-weight:500;
+    letter-spacing:.24em; text-decoration:none; color:var(--acero);
+    background:var(--tiza); padding:1.1em 2.3em;
+    transition:background 250ms ease; }
+  .cta:hover { background:var(--senal); }
+
+  @media (max-width:720px) { .marca-x { right:8%; top:14%; } }
+  @media (prefers-reduced-motion:reduce) {
+    body { cursor:auto; }
+    .marca-x path { stroke-dashoffset:0 !important; animation:none; }
+    .aparece { opacity:1 !important; transform:none !important; animation:none !important; }
+    .reticula { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="superficie"></div>
+<div class="grano"></div>
+
+<!-- filtro de tiza: el trazo vibra como yeso sobre metal -->
+<svg width="0" height="0" style="position:absolute">
+  <filter id="tiza" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" result="r"/>
+    <feDisplacementMap in="SourceGraphic" in2="r" scale="7"/>
+  </filter>
+</svg>
+
+<div class="marca-x" id="marcaX" aria-hidden="true">
+  <svg viewBox="0 0 100 100">
+    <path d="M 14 16 L 86 84" pathLength="1"/>
+    <path d="M 86 16 L 14 84" pathLength="1"/>
+  </svg>
+</div>
+
+<div class="reticula" id="reticula" aria-hidden="true">
+  <div class="aro"></div>
+  <div class="dato" id="dato">INICIANDO…</div>
+</div>
+
+<div class="marco" id="ui">
+  <header>
+    <b>STEINMETZ</b>
+    <span id="estado">ANALIZANDO SUPERFICIE…</span>
+  </header>
+
+  <main>
+    <h1 class="aparece">Hacer la marca<br>cuesta <span class="cifra">$1</span>.<br>
+    <em>Saber dónde, es Steinmetz.</em></h1>
+    <p class="bajada aparece a2">La página que estás viendo acaba de hacer lo que
+    hacemos: <b>examinar, descartar, y marcar el punto exacto.</b> Eso mismo, en
+    tu operación, con sistemas de IA que quedan corriendo.</p>
+    <a class="cta aparece a3" href="mailto:ian@steinmetz.cl">MARCAR MI OPERACIÓN</a>
+  </main>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <span>LAB 22 — LA MARCA</span>
+  </footer>
+</div>
+
+<script>
+/* La anécdota, ejecutada: el sistema examina la superficie, descarta
+   sectores, encuentra el punto y traza la X. Después el cursor hereda la
+   retícula: dice DESCARTADO en todas partes — menos en la marca. */
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ret = document.getElementById("reticula");
+  var dato = document.getElementById("dato");
+  var estado = document.getElementById("estado");
+  var marcaX = document.getElementById("marcaX");
+  var ui = document.getElementById("ui");
+
+  if (reducido) { ui.classList.add("listo"); estado.textContent = "PUNTO MARCADO"; return; }
+
+  // posición del centro de la X (se recalcula por si cambia el viewport)
+  function centroX() {
+    var r = marcaX.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  function poner(x, y) { ret.style.left = x + "px"; ret.style.top = y + "px"; }
+
+  // ── fase 1: el escaneo — salta a sectores, los descarta ──
+  var pasos = [
+    { fx: 0.24, fy: 0.30, txt: "SECTOR A2 — DESCARTADO" },
+    { fx: 0.55, fy: 0.62, txt: "SECTOR C4 — DESCARTADO" },
+    { fx: 0.38, fy: 0.20, txt: "SECTOR B1 — DESCARTADO" },
+    { fx: 0.70, fy: 0.44, txt: "SECTOR D2 — DESCARTADO" },
+  ];
+  var i = 0;
+  ret.classList.add("on");
+  function paso() {
+    if (i < pasos.length) {
+      var p = pasos[i++];
+      poner(innerWidth * p.fx, innerHeight * p.fy);
+      dato.textContent = p.txt;
+      setTimeout(paso, 430);
+    } else {
+      // ── fase 2: el punto ──
+      var c = centroX();
+      poner(c.x, c.y);
+      ret.classList.add("aqui");
+      dato.textContent = "AQUÍ.";
+      estado.textContent = "PUNTO ENCONTRADO";
+      setTimeout(function () {
+        // ── fase 3: la marca ──
+        marcaX.classList.add("dibuja");
+        soltarPolvo(c.x, c.y);
+        setTimeout(function () { soltarPolvo(c.x, c.y); }, 420);
+        estado.textContent = "MARCA HECHA — $1";
+        // ── fase 4: el mensaje, y el cursor hereda la retícula ──
+        setTimeout(function () {
+          ui.classList.add("listo");
+          aCursor();
+        }, 900);
+      }, 620);
+    }
+  }
+  setTimeout(paso, 700);
+
+  function soltarPolvo(x, y) {
+    for (var k = 0; k < 14; k++) {
+      var d = document.createElement("div");
+      d.className = "polvo";
+      d.style.left = (x + (Math.random() - .5) * 40) + "px";
+      d.style.top = (y + (Math.random() - .5) * 40) + "px";
+      d.style.setProperty("--dx", ((Math.random() - .5) * 70) + "px");
+      d.style.setProperty("--dy", (30 + Math.random() * 60) + "px");
+      d.style.position = "fixed"; d.style.zIndex = 3;
+      d.style.animation = "soltar " + (0.5 + Math.random() * 0.5) + "s ease-out forwards";
+      document.body.appendChild(d);
+      setTimeout(function (el) { return function () { el.remove(); }; }(d), 1200);
+    }
+  }
+
+  // ── el cursor como retícula viva ──
+  function aCursor() {
+    var mx = innerWidth / 2, my = innerHeight / 2, x = mx, y = my;
+    addEventListener("pointermove", function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function seguir() {
+      x += (mx - x) * 0.22; y += (my - y) * 0.22;
+      poner(x, y);
+      var c = centroX();
+      var cerca = Math.hypot(x - c.x, y - c.y) < 110;
+      ret.classList.toggle("aqui", cerca);
+      dato.textContent = cerca ? "AQUÍ. — $9.999" : "DESCARTADO";
+      requestAnimationFrame(seguir);
+    })();
+  }
+})();
+</script>
+
+
+</body>
+</html>

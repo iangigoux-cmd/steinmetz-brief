@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 29 · La versal</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3efe6'/%3E%3Ctext x='16' y='25' text-anchor='middle' font-family='Georgia' font-size='24' font-style='italic' font-weight='700' fill='%23511f1f'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --crema:#f3efe6; --tinta:#211d18; --medio:#948d7d; --burdeo:#511f1f; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--crema); color:var(--tinta);
+    font-family:"Fraunces",serif; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--burdeo); color:var(--crema); }
+
+  body::after { content:""; position:fixed; inset:0; pointer-events:none; opacity:.4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.46 0 0 0 0 0.4 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23p)'/%3E%3C/svg%3E"); }
+
+  .marco { position:relative; z-index:2; height:100svh; display:grid;
+    grid-template-rows:auto 1fr auto; padding:clamp(1.4rem,3vw,2.4rem);
+    max-width:100rem; margin:0 auto; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--tinta); font-weight:500; }
+
+  main { position:relative; display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center;
+    gap:clamp(1rem,4vw,4rem); }
+  @media (max-width:899px) { main { grid-template-columns:1fr; text-align:center; } }
+
+  /* ── la versal: el sello de la casa ── */
+  .versal { display:grid; place-content:center; user-select:none; }
+  .versal span { font-size:clamp(16rem,52vh,34rem); line-height:.82;
+    font-style:italic; font-weight:700; font-optical-sizing:auto;
+    color:var(--burdeo); cursor:default;
+    /* JS vive en font-variation-settings */
+    opacity:0; transform:scale(1.12);
+    animation:posarse 1.4s cubic-bezier(.16,1,.3,1) .3s forwards; }
+  @keyframes posarse { to { opacity:1; transform:scale(1); } }
+
+  .texto { max-width:30rem; }
+  @media (max-width:899px) { .texto { margin:0 auto; } }
+
+  .sube { opacity:0; transform:translateY(14px);
+    animation:subir 1s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  .casa { font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.34em; color:var(--medio); margin-bottom:1.4rem; }
+  h1 { font-size:clamp(2.2rem,4.6vw,4rem); font-weight:600;
+    line-height:1.1; letter-spacing:-.02em; }
+  h1 em { font-style:italic; color:var(--burdeo); }
+  .bajada { margin-top:1.4rem; font-family:"IBM Plex Mono",monospace;
+    font-size:clamp(.74rem,1vw,.86rem); line-height:1.9; letter-spacing:.03em;
+    color:var(--medio); max-width:32em; }
+  .bajada b { color:var(--tinta); font-weight:500; }
+  .cta { display:inline-block; margin-top:2.2rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.74rem; font-weight:500;
+    letter-spacing:.26em; text-decoration:none; color:var(--crema);
+    background:var(--burdeo); padding:1.1em 2.4em;
+    transition:background 250ms ease; }
+  .cta:hover { background:var(--tinta); }
+
+  @media (prefers-reduced-motion:reduce) {
+    .versal span, .sube { animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header>
+    <b>STEINMETZ</b>
+    <span>LA CASA — EST. 2026</span>
+  </header>
+
+  <main>
+    <div class="versal" aria-hidden="true"><span id="ese">S</span></div>
+
+    <div class="texto">
+      <p class="casa sube" style="animation-delay:.5s">CASA DE INGENIERÍA EN
+      INTELIGENCIA ARTIFICIAL</p>
+      <h1 class="sube" style="animation-delay:.65s">Una letra basta<br>
+      cuando el trabajo <em>firma</em>.</h1>
+      <p class="bajada sube" style="animation-delay:.8s">Steinmetz construye pocos
+      sistemas al año, para pocas operaciones, con un solo estándar:
+      <b>quedar corriendo en producción.</b> La marca es la garantía.</p>
+      <a class="cta sube" style="animation-delay:.95s" href="mailto:ian@steinmetz.cl">ESCRIBIR A LA CASA</a>
+    </div>
+  </main>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <span>LAB 29 — LA VERSAL</span>
+  </footer>
+</div>
+
+<script>
+/* El sello respira: la versal ajusta peso y eje óptico con la cercanía
+   del puntero — de lejos es lápida; de cerca, pluma. */
+(function () {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var ese = document.getElementById("ese");
+  var mx = -1e4, my = -1e4, actual = 700;
+  addEventListener("pointermove", function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+  (function frame(now) {
+    var t = (now || 0) / 1000;
+    var r = ese.getBoundingClientRect();
+    var d = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
+    var cerca = Math.max(0, 1 - d / 520);
+    var respiro = Math.sin(t * 0.7) * 40;                  // vive aunque nadie la toque
+    var objetivo = 700 + respiro + cerca * 190;            // wght 700 → ~930
+    actual += (objetivo - actual) * 0.06;
+    ese.style.fontVariationSettings = '"wght" ' + actual.toFixed(1) + ', "opsz" 144';
+    requestAnimationFrame(frame);
+  })();
+})();
+</script>
+
+</body>
+</html>

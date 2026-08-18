@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 30 · La firma</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f5f2ea'/%3E%3Cpath d='M6 22 Q12 10 16 18 T26 14' stroke='%231d2f5e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500..700&family=Pinyon+Script&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --papel:#f5f2ea; --tinta-doc:#26231d; --medio:#928b7b; --pluma:#1d2f5e; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--papel); color:var(--tinta-doc);
+    font-family:"Fraunces",serif; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--pluma); color:var(--papel); }
+
+  body::after { content:""; position:fixed; inset:0; pointer-events:none; opacity:.45;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.52 0 0 0 0 0.48 0 0 0 0 0.4 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23p)'/%3E%3C/svg%3E"); }
+
+  .marco { position:relative; z-index:2; height:100svh; display:grid;
+    grid-template-rows:auto 1fr auto; padding:clamp(1.4rem,3vw,2.4rem);
+    max-width:88rem; margin:0 auto; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--tinta-doc); font-weight:600; }
+
+  main { display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center; }
+
+  .sube { opacity:0; transform:translateY(12px);
+    animation:subir 1s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  .clausula { max-width:44em; font-size:clamp(1.05rem,1.8vw,1.5rem);
+    line-height:1.75; font-weight:500; }
+  .clausula em { font-style:italic; color:var(--pluma); }
+
+  /* ── el bloque de firma ── */
+  .bloque { margin-top:clamp(2.5rem,7vh,4.5rem); width:min(46rem,88vw); }
+
+  .firma { position:relative; display:inline-block;
+    font-family:"Pinyon Script",cursive;
+    font-size:clamp(4rem,11vw,9.5rem); line-height:1; color:var(--pluma);
+    padding:0 .3em .06em;
+    /* la pluma revela de izquierda a derecha */
+    clip-path:inset(-20% 100% -8% 0);
+    filter:drop-shadow(0 1px 0 rgba(29,47,94,.18)); }
+  .firma.escribe { animation:escribir 2.6s cubic-bezier(.4,.1,.3,.9) .9s forwards; }
+  @keyframes escribir { to { clip-path:inset(-20% -4% -8% 0); } }
+
+  /* el punto de la pluma que corre delante del trazo */
+  .pluma-punta { position:absolute; top:58%; left:0; width:5px; height:5px;
+    border-radius:50%; background:var(--pluma); opacity:0; }
+  .escribe ~ .pluma-punta { animation:correrPluma 2.6s cubic-bezier(.4,.1,.3,.9) .9s forwards; }
+  @keyframes correrPluma {
+    0% { opacity:1; left:2%; }
+    92% { opacity:1; }
+    100% { opacity:0; left:98%; }
+  }
+
+  .raya-firma { height:1.5px; background:var(--tinta-doc); opacity:.65;
+    transform:scaleX(0); transform-origin:left;
+    animation:tender .8s cubic-bezier(.16,1,.3,1) .35s forwards; }
+  @keyframes tender { to { transform:scaleX(1); } }
+
+  .rotulo { display:flex; justify-content:space-between; margin-top:.8rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.62rem;
+    letter-spacing:.26em; color:var(--medio); }
+
+  .fecha-sello { position:absolute; right:-1rem; top:-1.4rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.6rem; font-weight:500;
+    letter-spacing:.2em; color:var(--pluma);
+    border:1.5px solid var(--pluma); border-radius:4px; padding:.45em .9em;
+    transform:rotate(6deg) scale(2); opacity:0; }
+  .fecha-sello.on { animation:sellar .35s cubic-bezier(.34,1.3,.64,1) forwards; }
+  @keyframes sellar { to { opacity:.9; transform:rotate(6deg) scale(1); } }
+
+  .cta { display:inline-block; margin-top:clamp(2.2rem,6vh,3.6rem);
+    font-family:"IBM Plex Mono",monospace; font-size:.74rem; font-weight:500;
+    letter-spacing:.26em; text-decoration:none; color:var(--papel);
+    background:var(--tinta-doc); padding:1.1em 2.4em;
+    opacity:0; transition:background 250ms ease; }
+  .cta.on { animation:subir .9s cubic-bezier(.16,1,.3,1) forwards; }
+  .cta:hover { background:var(--pluma); }
+
+  @media (prefers-reduced-motion:reduce) {
+    .sube, .cta { animation:none !important; opacity:1 !important; transform:none !important; }
+    .firma { clip-path:none !important; animation:none; }
+    .raya-firma { transform:none; animation:none; }
+    .fecha-sello { animation:none; opacity:.9; transform:rotate(6deg); }
+    .pluma-punta { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header>
+    <b>STEINMETZ</b>
+    <span>DOCUMENTO DE COMPROMISO</span>
+  </header>
+
+  <main>
+    <p class="clausula sube" style="animation-delay:.2s">La consultoría tradicional
+    entrega informes sin responsable. Nosotros entregamos sistemas corriendo
+    en producción — <em>y les ponemos la firma.</em></p>
+
+    <div class="bloque">
+      <div style="position:relative">
+        <span class="firma" id="firma">Steinmetz</span>
+        <span class="pluma-punta" aria-hidden="true"></span>
+        <span class="fecha-sello" id="sello">EN PRODUCCIÓN</span>
+      </div>
+      <div class="raya-firma"></div>
+      <div class="rotulo">
+        <span>FIRMA DEL RESPONSABLE</span>
+        <span>SANTIAGO, 2026</span>
+      </div>
+    </div>
+
+    <a class="cta" id="cta" href="mailto:ian@steinmetz.cl">FIRMAR EL MÍO</a>
+  </main>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <span>LAB 30 — LA FIRMA</span>
+  </footer>
+</div>
+
+<script>
+/* La firma se escribe sola sobre la línea; al terminar cae el timbre.
+   Click en la firma: se vuelve a firmar. */
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var firma = document.getElementById("firma");
+  var sello = document.getElementById("sello");
+  var cta = document.getElementById("cta");
+
+  if (reducido) { sello.classList.add("on"); cta.classList.add("on"); return; }
+
+  function firmar() {
+    firma.classList.remove("escribe");
+    sello.classList.remove("on");
+    void firma.offsetWidth;
+    firma.classList.add("escribe");
+    setTimeout(function () { sello.classList.add("on"); cta.classList.add("on"); }, 3600);
+  }
+  firma.addEventListener("click", firmar);
+  firma.style.cursor = "pointer";
+  firmar();
+})();
+</script>
+
+</body>
+</html>

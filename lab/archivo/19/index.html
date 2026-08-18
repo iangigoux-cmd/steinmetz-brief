@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 19 · El muro</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23101012'/%3E%3Crect x='4' y='14' width='24' height='4' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --fondo:#101012; --claro:#efeeec; --medio:#5f5f63; --rojo:#e5482e; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--fondo); color:var(--claro);
+    font-family:"Bricolage Grotesque",sans-serif; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--rojo); color:var(--claro); }
+
+  .muro { position:fixed; inset:0; display:flex; flex-direction:column;
+    justify-content:center; gap:clamp(.4rem,1.2vh,1rem); }
+
+  /* cada fila: una cinta infinita de problemas */
+  .fila { white-space:nowrap; overflow:hidden; cursor:default;
+    font-size:clamp(2rem,6.4vh,4.6rem); font-weight:800; line-height:1.06;
+    letter-spacing:-.02em; text-transform:uppercase; color:#26262a;
+    -webkit-text-stroke:1px #3a3a3f;
+    transition:color 200ms ease, background 200ms ease; }
+  .fila .cinta { display:inline-block;
+    animation:correr var(--v,30s) linear infinite; }
+  .fila[data-dir="der"] .cinta { animation-direction:reverse; }
+  .fila span { margin-right:1.2em; }
+  @keyframes correr { to { transform:translateX(-50%); } }
+
+  /* EL MENSAJE: al pasar el cursor, la fila se detiene y se enciende */
+  .fila:hover { color:var(--fondo); background:var(--claro);
+    -webkit-text-stroke:0; }
+  .fila:hover .cinta { animation-play-state:paused; }
+
+  /* la fila central: el mensaje fijo, siempre encendido */
+  .centro { position:relative; z-index:2; padding:clamp(1rem,2.4vh,1.8rem) 0;
+    background:var(--rojo); color:var(--claro);
+    font-size:clamp(2rem,6.4vh,4.6rem); font-weight:800; line-height:1.06;
+    letter-spacing:-.02em; text-transform:uppercase;
+    white-space:nowrap; overflow:hidden;
+    opacity:0; animation:fundir .7s ease-out 1s forwards; }
+  .centro .cinta { display:inline-block; animation:correr 46s linear infinite; }
+  .centro span { margin-right:1.2em; }
+  @keyframes fundir { to { opacity:1; } }
+
+  .marco { position:relative; z-index:3; height:100svh; display:grid;
+    grid-template-rows:auto 1fr auto; padding:clamp(1.4rem,3vw,2.4rem);
+    pointer-events:none; }
+  .marco a { pointer-events:auto; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--claro); font-weight:500; }
+
+  .esquina { display:flex; flex-direction:column; justify-content:end;
+    align-items:start; }
+  .nota { font-family:"IBM Plex Mono",monospace; font-size:.72rem;
+    letter-spacing:.1em; line-height:1.9; color:var(--medio);
+    background:rgba(16,16,18,.85); padding:.8em 1em .8em 0; max-width:26em;
+    opacity:0; animation:fundir .8s ease-out 1.6s forwards; }
+  .nota b { color:var(--claro); }
+  .cta { display:inline-block; margin-top:.9rem; pointer-events:auto;
+    font-family:"IBM Plex Mono",monospace; font-size:.75rem; font-weight:500;
+    letter-spacing:.24em; text-decoration:none; color:var(--fondo);
+    background:var(--claro); padding:1.05em 2.1em;
+    opacity:0; animation:fundir .8s ease-out 1.9s forwards;
+    transition:background 250ms ease; }
+  .cta:hover { background:var(--rojo); color:var(--claro); }
+
+  @media (prefers-reduced-motion:reduce) {
+    .fila .cinta, .centro .cinta { animation:none; }
+    .centro, .nota, .cta { animation:none; opacity:1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="muro" aria-hidden="true" id="muro"></div>
+
+<div class="marco">
+  <header>
+    <b>STEINMETZ</b>
+    <span>CONSULTORÍA EN IA</span>
+  </header>
+
+  <div class="esquina">
+    <p class="nota">El ruido de tu operación no se detiene solo.
+    <b>Pasa el cursor por una fila: así se siente detenerlo.</b>
+    Steinmetz lo hace con sistemas.</p>
+    <a class="cta" href="mailto:ian@steinmetz.cl">DETENER EL MÍO</a>
+  </div>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <span>LAB 19 — EL MURO</span>
+  </footer>
+</div>
+
+<script>
+/* El muro: filas de problemas corriendo sin parar en direcciones opuestas.
+   El cursor detiene una fila y la enciende. La central es la respuesta. */
+(function () {
+  var FILAS = [
+    ["PLANILLAS A MANO", "COPIAR Y PEGAR", "VERSIONES V14_FINAL", "PLANILLAS A MANO", "COPIAR Y PEGAR", "VERSIONES V14_FINAL"],
+    ["DATOS QUE NO CUADRAN", "REPORTES ETERNOS", "DATOS QUE NO CUADRAN", "REPORTES ETERNOS"],
+    ["PROCESOS QUE NADIE ENTIENDE", "CORREOS SIN FIN", "PROCESOS QUE NADIE ENTIENDE", "CORREOS SIN FIN"],
+    null, // acá va la fila central fija
+    ["EL EXCEL DEL EXCEL", "APROBACIONES PERDIDAS", "EL EXCEL DEL EXCEL", "APROBACIONES PERDIDAS"],
+    ["HORAS QUE NADIE MIDE", "TAREAS REPETIDAS", "HORAS QUE NADIE MIDE", "TAREAS REPETIDAS"],
+    ["INFORMES QUE NADIE LEE", "REUNIONES DE SEGUIMIENTO", "INFORMES QUE NADIE LEE", "REUNIONES DE SEGUIMIENTO"],
+  ];
+  var muro = document.getElementById("muro");
+  FILAS.forEach(function (fila, i) {
+    if (fila === null) {
+      var c = document.createElement("div");
+      c.className = "centro";
+      c.innerHTML = '<div class="cinta">' +
+        '<span>STEINMETZ DETIENE EL RUIDO ·</span><span>STEINMETZ DETIENE EL RUIDO ·</span>' +
+        '<span>STEINMETZ DETIENE EL RUIDO ·</span><span>STEINMETZ DETIENE EL RUIDO ·</span></div>';
+      muro.appendChild(c);
+      return;
+    }
+    var el = document.createElement("div");
+    el.className = "fila";
+    if (i % 2 === 1) el.dataset.dir = "der";
+    el.style.setProperty("--v", (22 + (i * 7) % 18) + "s");
+    el.innerHTML = '<div class="cinta">' +
+      fila.map(function (t) { return "<span>" + t + " ·</span>"; }).join("") +
+      fila.map(function (t) { return "<span>" + t + " ·</span>"; }).join("") + "</div>";
+    muro.appendChild(el);
+  });
+})();
+</script>
+
+
+
+</body>
+</html>

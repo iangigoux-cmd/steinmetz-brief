@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 26 · La carrera</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f1eee7'/%3E%3Crect x='4' y='9' width='8' height='5' fill='%23c2401b'/%3E%3Crect x='4' y='19' width='24' height='5' fill='%23191713'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@110,600..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root { --papel:#f1eee7; --tinta:#191713; --medio:#8b8577; --rojo:#c2401b; --verde:#1d7a3f; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--papel); color:var(--tinta);
+    font-family:"Archivo",sans-serif; font-stretch:110%;
+    height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--tinta); color:var(--papel); }
+
+  .marco { height:100svh; display:grid; grid-template-rows:auto 1fr auto;
+    padding:clamp(1.4rem,3vw,2.4rem); max-width:96rem; margin:0 auto; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem;
+    letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--tinta); font-weight:600; }
+
+  main { display:flex; flex-direction:column; justify-content:center; }
+
+  .sube { opacity:0; transform:translateY(12px);
+    animation:subir 1s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  h1 { font-size:clamp(2.2rem,5.4vw,4.6rem); font-weight:870;
+    line-height:1.0; letter-spacing:-.025em; text-transform:uppercase;
+    margin-bottom:clamp(2.2rem,6vh,4rem); }
+  h1 em { font-style:normal; color:var(--rojo); }
+
+  /* ── los carriles ── */
+  .carril { margin-bottom:clamp(1.8rem,5vh,3rem); }
+  .carril-cab { display:flex; justify-content:space-between; align-items:baseline;
+    font-family:"IBM Plex Mono",monospace; font-size:.7rem; font-weight:500;
+    letter-spacing:.24em; color:var(--medio); margin-bottom:.7rem; }
+  .carril-cab .quien { color:var(--tinta); }
+  .carril-cab .estado { transition:color .3s ease; }
+
+  .pista { position:relative; height:clamp(2.4rem,6vh,3.6rem);
+    border:2px solid var(--tinta); }
+  .barra { position:absolute; inset:0; width:0%; }
+  .lenta .barra { background:repeating-linear-gradient(-45deg,
+    var(--rojo) 0 10px, #d4643f 10px 20px); }
+  .rapida .barra { background:var(--tinta); }
+  .rapida .barra.llego { background:var(--verde); }
+
+  /* la excusa flotante del carril lento */
+  .excusa { position:absolute; top:50%; transform:translate(12px,-50%);
+    white-space:nowrap; font-family:"IBM Plex Mono",monospace;
+    font-size:.62rem; font-weight:500; letter-spacing:.14em; color:var(--rojo);
+    background:var(--papel); border:1.5px solid var(--rojo);
+    padding:.45em .8em; opacity:0; transition:opacity .25s ease, left .5s ease; }
+  .excusa.on { opacity:1; }
+
+  .meta { position:absolute; right:0; top:50%; transform:translate(0,-50%);
+    padding-right:.9em;
+    font-family:"IBM Plex Mono",monospace; font-size:.66rem; font-weight:600;
+    letter-spacing:.2em; color:var(--papel); opacity:0; }
+  .meta.on { opacity:1; }
+
+  .remate { max-width:36em; font-family:"IBM Plex Mono",monospace;
+    font-size:clamp(.74rem,1vw,.86rem); line-height:1.9; letter-spacing:.03em;
+    color:var(--medio); opacity:0; transform:translateY(10px); }
+  .remate.on { animation:subir .8s cubic-bezier(.16,1,.3,1) forwards; }
+  .remate b { color:var(--tinta); font-weight:600; }
+  .cta { display:inline-block; align-self:start; margin-top:1.6rem;
+    font-family:"IBM Plex Mono",monospace; font-size:.76rem; font-weight:600;
+    letter-spacing:.24em; text-decoration:none; color:var(--papel);
+    background:var(--tinta); padding:1.1em 2.3em;
+    opacity:0; transition:background 250ms ease; }
+  .cta.on { animation:subir .8s cubic-bezier(.16,1,.3,1) .15s forwards; }
+  .cta:hover { background:var(--verde); }
+
+  @media (prefers-reduced-motion:reduce) {
+    .sube, .remate, .cta { animation:none !important; opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header>
+    <b>STEINMETZ</b>
+    <span id="crono">T+0.0S</span>
+  </header>
+
+  <main>
+    <h1 class="sube" style="animation-delay:.2s">Mismo problema.<br><em>Dos velocidades.</em></h1>
+
+    <div class="carril lenta sube" style="animation-delay:.4s">
+      <div class="carril-cab">
+        <span class="quien">CONSULTORA TRADICIONAL</span>
+        <span class="estado" id="estadoLenta">EN KICK-OFF…</span>
+      </div>
+      <div class="pista">
+        <div class="barra" id="barraLenta"></div>
+        <span class="excusa" id="excusa"></span>
+      </div>
+    </div>
+
+    <div class="carril rapida sube" style="animation-delay:.55s">
+      <div class="carril-cab">
+        <span class="quien">STEINMETZ</span>
+        <span class="estado" id="estadoRapida">CONSTRUYENDO…</span>
+      </div>
+      <div class="pista">
+        <div class="barra" id="barraRapida"><span class="meta" id="meta">● SISTEMA ENCENDIDO</span></div>
+      </div>
+    </div>
+
+    <p class="remate" id="remate">La de arriba sigue corriendo cuando cierres esta
+    página. <b>La de abajo ya está en producción — proyectos de semanas, con
+    precio cerrado, medidos por una sola cosa: encendido.</b></p>
+    <a class="cta" id="cta" href="mailto:ian@steinmetz.cl">LLEGAR PRIMERO</a>
+  </main>
+
+  <footer>
+    <span>SANTIAGO DE CHILE</span>
+    <span>LAB 26 — LA CARRERA</span>
+  </footer>
+</div>
+
+<script>
+/* La carrera corre sola: Steinmetz llega en segundos; la consultora
+   tradicional avanza a paso de comité, excusa por excusa, para siempre. */
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var bL = document.getElementById("barraLenta");
+  var bR = document.getElementById("barraRapida");
+  var excusa = document.getElementById("excusa");
+  var meta = document.getElementById("meta");
+  var crono = document.getElementById("crono");
+  var eL = document.getElementById("estadoLenta");
+  var eR = document.getElementById("estadoRapida");
+
+  var EXCUSAS = [
+    "KICK-OFF DEL KICK-OFF", "WORKSHOP DE ALINEAMIENTO", "SE CAYÓ EL SPONSOR",
+    "CAMBIO DE ALCANCE", "COMITÉ REAGENDADO", "V14_FINAL_FINAL.PPTX",
+    "SE FUE EL GERENTE DEL PROYECTO", "RE-LEVANTAMIENTO DE REQUISITOS",
+    "PAUSA POR VACACIONES", "NUEVO FRAMEWORK, PARTIMOS DE NUEVO",
+  ];
+
+  if (reducido) {
+    bL.style.width = "12%"; bR.style.width = "100%";
+    bR.classList.add("llego"); meta.classList.add("on");
+    eR.textContent = "ENCENDIDO"; eL.textContent = "EN COMITÉ…";
+    document.getElementById("remate").classList.add("on");
+    document.getElementById("cta").classList.add("on");
+    crono.textContent = "T+∞";
+    return;
+  }
+
+  var t0 = performance.now();
+  var iExc = -1, llego = false;
+
+  function frame(now) {
+    var s = (now - t0) / 1000;
+    crono.textContent = "T+" + s.toFixed(1) + "S";
+
+    // steinmetz: parte a 1s, llega a 100% a los ~7s con avance firme
+    var r = Math.min(1, Math.max(0, (s - 1) / 6));
+    bR.style.width = (r * 100) + "%";
+    if (r >= 1 && !llego) {
+      llego = true;
+      bR.classList.add("llego");
+      meta.classList.add("on");
+      eR.textContent = "ENCENDIDO — T+7.0S";
+      document.getElementById("remate").classList.add("on");
+      document.getElementById("cta").classList.add("on");
+    }
+
+    // la tradicional: logarítmica — nunca llega
+    var l = Math.min(0.32, Math.log(1 + s * 0.12) * 0.11);
+    bL.style.width = (l * 100) + "%";
+
+    // excusas: una nueva cada ~2.6s, pegada a la punta de la barra
+    var idx = Math.floor(s / 2.6);
+    if (idx !== iExc && s > 1.2) {
+      iExc = idx;
+      excusa.textContent = EXCUSAS[idx % EXCUSAS.length];
+      excusa.style.left = (l * 100) + "%";
+      excusa.classList.remove("on");
+      void excusa.offsetWidth;
+      excusa.classList.add("on");
+      eL.textContent = "SEMANA " + (2 + idx * 3) + "…";
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>

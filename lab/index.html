@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Steinmetz — Lab de entradas</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='monospace' font-size='14' fill='%23fff'%3E10%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='monospace' font-size='14' fill='%23fff'%3E2%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -26,55 +26,56 @@
   .lista a:first-of-type { border-top: 1px solid rgba(255,255,255,0.14); }
   a:hover { padding-left: 1rem; color: #fff; }
   a span { color: #777; font-size: 0.72rem; text-align: right; }
-  .archivo a { color: #666; font-size: 0.78rem; padding: 0.75rem 0; }
-  .archivo a span { color: #4a4a4a; }
+  .archivo { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0 1.5rem; width: min(40rem, 90vw); }
+  .archivo a { width: auto; color: #666; font-size: 0.74rem; padding: 0.6rem 0; gap: 0; }
   p { margin-top: 2.5rem; font-size: 0.68rem; color: #555; letter-spacing: 0.1em;
     max-width: 40rem; line-height: 1.9; }
 </style>
 </head>
 <body>
 <div>
-  <h1>STEINMETZ — FINALISTAS + RONDA 3</h1>
+  <h1>STEINMETZ — DOS FINALISTAS</h1>
   <div class="lista">
-    <a href="/lab/1/">01 · EL CAMPO <span>hilos de flujo WebGL · ámbar · grotesk dura</span></a>
-    <a href="/lab/3/">03 · EL MANIFIESTO <span>papel y serifa gigante · calma editorial</span></a>
-    <a href="/lab/4/">04 · LA AURORA <span>campo volumétrico petróleo/oro · AI-nativo</span></a>
-    <a href="/lab/5/">05 · LA GRILLA <span>suizo brutal · blanco/negro · datos</span></a>
-    <a href="/lab/7/">07 · LAS LETRAS <span>Steinmetz en serifa variable · peso magnético</span></a>
-    <a href="/lab/9/">09 · EL AZUL <span>color pleno Klein · formas que derivan</span></a>
-    <a href="/lab/11/">11 · EL MONOLITO <span>objeto 3D real (three.js) · piedra tallada</span></a>
-    <a href="/lab/13/">13 · EL ENCENDIDO <span>la página se enciende sola · "los sistemas quedan"</span></a>
-    <a href="/lab/14/">14 · LA SEÑAL <span>el caos se ordena en "saber dónde"</span></a>
-    <a href="/lab/15/">15 · EL DESPEJE <span>los entregables caen y queda el mensaje</span></a>
-    <a href="/lab/17/">17 · LA COLADA <span>letras rellenas de metal fundido vivo — "hecho, no dicho"</span></a>
-    <a href="/lab/18/">18 · LA FACTURA <span>la boleta de Ford como odómetros que ruedan</span></a>
-    <a href="/lab/19/">19 · EL MURO <span>marquesinas de problemas — tu cursor las detiene</span></a>
-    <a href="/lab/20/">20 · EL TRAMADO <span>dither que se resuelve donde pasa el cursor</span></a>
-    <a href="/lab/21/">21 · LA PRENSA <span>la barra comprime la fuente variable — "forjado, no prometido"</span></a>
-    <a href="/lab/22/">22 · LA MARCA <span>la anécdota ejecutada: examina, descarta, marca la X — y tu cursor hereda la retícula</span></a>
-    <a href="/lab/23/">23 · EL PULSO <span>entra caos, sale sistema — agita la línea y mira cómo cruza la compuerta</span></a>
-    <a href="/lab/24/">24 · EL CANTERO <span>el nombre tallado a golpes — steinmetz significa cantero</span></a>
-    <a href="/lab/25/">25 · EL CONTADOR <span>la plata perdida contando en vivo — el CTA detiene la cuenta</span></a>
-    <a href="/lab/26/">26 · LA CARRERA <span>dos carriles: la consultora nunca llega, steinmetz enciende en 7s</span></a>
-    <a href="/lab/27/">27 · LA PELÍCULA <span>opener de cine tipográfico a corte duro — "nadie escucha. nosotros sí."</span></a>
-    <a href="/lab/28/">28 · EL DORADO <span>el nombre en lámina de oro — el brillo sigue tu cursor</span></a>
-    <a href="/lab/29/">29 · LA VERSAL <span>la S como sello de la casa — respira y engorda de cerca</span></a>
-    <a href="/lab/30/">30 · LA FIRMA <span>el nombre se firma solo sobre la línea — y cae el timbre</span></a>
-    <a href="/lab/31/">31 · EL ECO <span>el nombre en profundidad — capas con paralaje de puntero</span></a>
+    <a href="/lab/7/">07 · LAS LETRAS <span>Steinmetz en serifa variable · peso magnético al cursor</span></a>
+    <a href="/lab/24/">24 · EL CANTERO <span>el nombre tallado en piedra a golpes · "steinmetz significa cantero"</span></a>
   </div>
 
-  <h2>ARCHIVO</h2>
+  <h2>ARCHIVO — 29 EXPLORACIONES</h2>
   <div class="archivo">
-    <a href="/lab/archivo/2/">02 · LA TERMINAL</a>
-    <a href="/lab/archivo/6/">06 · LA PROFUNDIDAD</a>
-    <a href="/lab/archivo/8/">08 · LA MATRIZ</a>
-    <a href="/lab/archivo/10/">10 · LA BRUMA</a>
-    <a href="/lab/archivo/12/">12 · LA LENTE</a>
-    <a href="/lab/archivo/16/">16 · EL PLANO</a>
+    <a href="/lab/archivo/1/">01 el campo</a>
+    <a href="/lab/archivo/2/">02 la terminal</a>
+    <a href="/lab/archivo/3/">03 el manifiesto</a>
+    <a href="/lab/archivo/4/">04 la aurora</a>
+    <a href="/lab/archivo/5/">05 la grilla</a>
+    <a href="/lab/archivo/6/">06 la profundidad</a>
+    <a href="/lab/archivo/8/">08 la matriz</a>
+    <a href="/lab/archivo/9/">09 el azul</a>
+    <a href="/lab/archivo/10/">10 la bruma</a>
+    <a href="/lab/archivo/11/">11 el monolito</a>
+    <a href="/lab/archivo/12/">12 la lente</a>
+    <a href="/lab/archivo/13/">13 el encendido</a>
+    <a href="/lab/archivo/14/">14 la señal</a>
+    <a href="/lab/archivo/15/">15 el despeje</a>
+    <a href="/lab/archivo/16/">16 el plano</a>
+    <a href="/lab/archivo/17/">17 la colada</a>
+    <a href="/lab/archivo/18/">18 la factura</a>
+    <a href="/lab/archivo/19/">19 el muro</a>
+    <a href="/lab/archivo/20/">20 el tramado</a>
+    <a href="/lab/archivo/21/">21 la prensa</a>
+    <a href="/lab/archivo/22/">22 la marca</a>
+    <a href="/lab/archivo/23/">23 el pulso</a>
+    <a href="/lab/archivo/25/">25 el contador</a>
+    <a href="/lab/archivo/26/">26 la carrera</a>
+    <a href="/lab/archivo/27/">27 la película</a>
+    <a href="/lab/archivo/28/">28 el dorado</a>
+    <a href="/lab/archivo/29/">29 la versal</a>
+    <a href="/lab/archivo/30/">30 la firma</a>
+    <a href="/lab/archivo/31/">31 el eco</a>
   </div>
 
-  <p>Selección de Ian, 2026-08-17. Las archivadas siguen accesibles pero fuera
-  del conmutador. Flechas ← → para recorrer las finalistas.</p>
+  <p>Selección final de Ian, 2026-08-18. Las archivadas siguen accesibles.
+  Flechas ← → alternan entre las dos finalistas.</p>
 </div>
 </body>
 </html>

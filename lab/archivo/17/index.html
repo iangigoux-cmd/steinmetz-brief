@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — LAB 17 · La colada</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0908'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Arial Black' font-size='20' font-weight='900' fill='%23ff8c2e'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { --fondo:#0a0908; --claro:#ece8e2; --medio:#6b655c; --brasa:#ff8c2e; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--fondo); color:var(--claro);
+    font-family:"IBM Plex Mono",monospace; height:100svh; overflow:hidden;
+    -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--brasa); color:var(--fondo); }
+
+  canvas#colada { position:fixed; inset:0; width:100%; height:100%;
+    opacity:0; animation:aparecer 1.8s ease-out .3s forwards; }
+  @keyframes aparecer { to { opacity:1; } }
+
+  .grano { position:fixed; inset:0; pointer-events:none; opacity:.06; z-index:5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .marco { position:relative; z-index:2; height:100svh; display:grid;
+    grid-template-rows:auto 1fr auto; padding:clamp(1.4rem,3vw,2.4rem);
+    pointer-events:none; }
+  .marco a { pointer-events:auto; }
+
+  header, footer { display:flex; justify-content:space-between;
+    font-size:.68rem; letter-spacing:.22em; color:var(--medio); }
+  header b { color:var(--claro); font-weight:500; }
+
+  main { display:flex; flex-direction:column; justify-content:end; align-items:center;
+    text-align:center; padding-bottom:2svh; }
+
+  .sube { opacity:0; transform:translateY(12px);
+    animation:subir 1s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes subir { to { opacity:1; transform:none; } }
+
+  .bajada { max-width:36em; color:var(--medio);
+    font-size:clamp(.78rem,1vw,.88rem); line-height:1.9; letter-spacing:.04em; }
+  .bajada b { color:var(--claro); font-weight:500; }
+  .cta { display:inline-block; margin-top:1.5rem;
+    font-size:.75rem; font-weight:500; letter-spacing:.24em; text-decoration:none;
+    color:var(--fondo); background:var(--brasa); padding:1.05em 2.2em;
+    transition:filter 250ms ease; }
+  .cta:hover { filter:brightness(1.15); }
+
+  @media (prefers-reduced-motion:reduce) {
+    canvas#colada { animation:none; opacity:1; }
+    .sube { animation:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+<canvas id="colada"></canvas>
+<div class="grano"></div>
+
+<div class="marco">
+  <header>
+    <b class="sube" style="animation-delay:.2s">STEINMETZ</b>
+    <span class="sube" style="animation-delay:.35s">CONSULTORÍA EN IA</span>
+  </header>
+
+  <main>
+    <p class="bajada sube" style="animation-delay:1.4s">La mayoría de las marcas de IA
+    son una etiqueta. <b>Steinmetz está hecho del material: sistemas fundidos
+    dentro de operaciones reales,</b> corriendo hasta hoy.</p>
+    <a class="cta sube" style="animation-delay:1.7s" href="mailto:ian@steinmetz.cl">VER EL MATERIAL</a>
+  </main>
+
+  <footer>
+    <span class="sube" style="animation-delay:1.9s">SANTIAGO DE CHILE</span>
+    <span class="sube" style="animation-delay:2s">LAB 17 — LA COLADA</span>
+  </footer>
+</div>
+
+<script>
+/* Las letras son el molde: un shader de metal fundido vive DENTRO de la
+   tipografía. El texto se rasteriza a textura y enmascara el flujo. */
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canvas = document.getElementById("colada");
+  var gl = canvas.getContext("webgl2", { antialias: false });
+  if (!gl) { canvas.style.display = "none"; return; }
+
+  var VS = "#version 300 es\nin vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }";
+  var FS = `#version 300 es
+  precision highp float;
+  uniform vec2 uRes; uniform float uT; uniform vec2 uMouse; uniform sampler2D uTxt;
+  out vec4 frag;
+
+  float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7)))*43758.5453); }
+  float noise(vec2 p){
+    vec2 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);
+    return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),
+               mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);
+  }
+  float fbm(vec2 p){ float v=0., a=.5;
+    for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03+vec2(1.7,9.2); a*=.5; } return v; }
+
+  void main(){
+    vec2 uv = gl_FragCoord.xy / uRes;
+    float mask = texture(uTxt, vec2(uv.x, 1.0 - uv.y)).a;
+
+    vec2 p = uv; p.x *= uRes.x/uRes.y;
+    float t = uT*0.12;
+    // el fundido: capas de fbm subiendo lento, más brillante donde se pliega
+    vec2 q = vec2(fbm(p*2.1 + vec2(0., -t)), fbm(p*2.1 + vec2(5.2, -t*1.3)));
+    float m = fbm(p*2.6 + q*1.8 + vec2(0., -t*0.6));
+
+    // el puntero sopla la colada: aviva el brillo cerca
+    vec2 mm = uMouse; mm.x *= uRes.x/uRes.y;
+    float aviva = exp(-length(p-mm)*3.0) * 0.35;
+
+    vec3 hierroOsc = vec3(0.10, 0.05, 0.03);
+    vec3 rojo      = vec3(0.55, 0.10, 0.02);
+    vec3 naranja   = vec3(1.00, 0.45, 0.10);
+    vec3 blanco    = vec3(1.00, 0.85, 0.55);
+
+    float g = clamp(m + aviva, 0., 1.);
+    vec3 metal = mix(hierroOsc, rojo, smoothstep(0.25, 0.55, g));
+    metal = mix(metal, naranja, smoothstep(0.55, 0.78, g));
+    metal = mix(metal, blanco, smoothstep(0.82, 0.97, g));
+
+    // fondo: casi negro con un rescoldo tenue del propio campo
+    vec3 fondo = vec3(0.039, 0.035, 0.031) + naranja * m * 0.03;
+
+    vec3 col = mix(fondo, metal, mask);
+    // halo suave alrededor de las letras
+    col += naranja * mask * 0.0 + naranja * (texture(uTxt, vec2(uv.x, 1.0-uv.y)).a) * 0.0;
+    frag = vec4(col, 1.0);
+  }`;
+
+  function shader(tipo, src) {
+    var s = gl.createShader(tipo); gl.shaderSource(s, src); gl.compileShader(s);
+    return s;
+  }
+  var prog = gl.createProgram();
+  gl.attachShader(prog, shader(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, "p");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var uRes = gl.getUniformLocation(prog, "uRes"),
+      uT = gl.getUniformLocation(prog, "uT"),
+      uMouse = gl.getUniformLocation(prog, "uMouse");
+  gl.uniform1i(gl.getUniformLocation(prog, "uTxt"), 0);
+
+  var tex = gl.createTexture();
+  function subirTexto() {
+    // rasterizar el titular a un canvas 2D y subirlo como máscara
+    var off = document.createElement("canvas");
+    off.width = canvas.width; off.height = canvas.height;
+    var c = off.getContext("2d");
+    var W = off.width, H = off.height;
+    var fs = Math.min(W / 5.4, H / 3.1);
+    c.font = "400 " + fs + "px Anton, sans-serif";
+    c.textAlign = "center"; c.textBaseline = "middle";
+    c.fillStyle = "#fff";
+    c.fillText("HECHO,", W / 2, H * 0.30);
+    c.fillText("NO DICHO.", W / 2, H * 0.30 + fs * 0.94);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, off);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  }
+
+  function medir() {
+    var dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    subirTexto();
+  }
+  addEventListener("resize", medir);
+  medir();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(medir);
+
+  var mx = 0.5, my = 0.6, sx = mx, sy = my;
+  addEventListener("pointermove", function (e) {
+    mx = e.clientX / innerWidth; my = 1 - e.clientY / innerHeight;
+  }, { passive: true });
+
+  var t0 = performance.now();
+  function frame(now) {
+    if (!document.hidden) {
+      sx += (mx - sx) * 0.06; sy += (my - sy) * 0.06;
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uT, (now - t0) / 1000);
+      gl.uniform2f(uMouse, sx, sy);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    if (!reducido) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+
+
+</body>
+</html>
