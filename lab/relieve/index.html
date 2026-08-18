@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz.</title>
+<meta name="description" content="Construimos sistemas de inteligencia artificial que quedan funcionando.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e6e1d6'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='22' font-weight='900' fill='%23cfc8b8'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --piedra:#e6e1d6;
+    --talla:#cfc8b8;
+    --hondo:#b9b1a0;
+    --tinta:#5b554a;
+    /* la lámpara: offset de la sombra en px, la mueve el puntero */
+    --lx:-1.5px; --ly:-1.5px;
+    --claro:rgba(255,255,255,.85);
+    --oscuro:rgba(38,33,25,.45);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:auto; }
+  body { background:var(--piedra); color:var(--tinta);
+    font-family:"IBM Plex Mono",monospace; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden; }
+  ::selection { background:var(--tinta); color:var(--piedra); }
+
+  /* ── la piedra: una sola, de arriba a abajo ── */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.5), transparent 50%),
+      radial-gradient(130% 110% at 85% 95%, rgba(120,105,80,.16), transparent 55%); }
+  body::after { content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.46 0 0 0 0 0.38 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23p)'/%3E%3C/svg%3E"); }
+  .losa { position:relative; z-index:1; }
+
+  /* ── EL TALLADO: la única operación de la página ── */
+  .tallado {
+    font-family:"Fraunces",serif; font-weight:900; font-optical-sizing:auto;
+    color:var(--talla); line-height:1; letter-spacing:-.015em;
+    text-shadow:
+      calc(var(--lx) * -1) calc(var(--ly) * -1) 1px var(--claro),
+      var(--lx) var(--ly) 2px var(--oscuro);
+    user-select:none;
+  }
+  .hondo { color:var(--hondo);
+    text-shadow:
+      calc(var(--lx) * -1.4) calc(var(--ly) * -1.4) 1px var(--claro),
+      calc(var(--lx) * 1.8) calc(var(--ly) * 1.8) 3px var(--oscuro); }
+
+  /* golpe: cada tallado aparece con un golpe de cincel */
+  .golpea { opacity:0; }
+  .golpea.dado { animation:tallar .22s cubic-bezier(.5,1.6,.5,1) forwards; }
+  @keyframes tallar {
+    0% { opacity:0; transform:scale(1.6); filter:blur(3px); }
+    55% { opacity:1; transform:scale(.96); filter:blur(0); }
+    100% { opacity:1; transform:scale(1); } }
+  .esquirla { position:fixed; width:4px; height:4px; background:var(--tinta); border-radius:1px;
+    opacity:0; pointer-events:none; z-index:60; }
+  @keyframes volar { 0% { opacity:.85; transform:translate(0,0) rotate(0); }
+    100% { opacity:0; transform:translate(var(--dx),var(--dy)) rotate(200deg); } }
+
+  /* ── LA TINTA: contexto, sin sombra ── */
+  .tinta { font-family:"IBM Plex Mono",monospace; color:var(--tinta);
+    font-size:clamp(.72rem,1vw,.86rem); letter-spacing:.14em; line-height:1.9;
+    opacity:0; transition:opacity .9s ease-out .35s; }
+  .visible .tinta, .tinta.visible { opacity:1; }
+
+  /* ── los golpes: una pantalla cada uno, misma composición ── */
+  .golpe { min-height:100svh; display:grid; place-content:center; text-align:center;
+    padding:clamp(2rem,6vw,6rem); }
+  .golpe > * + * { margin-top:clamp(1.6rem,3.5vh,2.6rem); }
+
+  /* golpe 1 — el nombre */
+  .nombre { display:inline-flex; font-size:clamp(3.2rem,13.5vw,15rem); }
+  .nombre span { display:inline-block; }
+
+  /* golpe 2 — la afirmación */
+  .frase { font-size:clamp(2.2rem,6.4vw,6.4rem); max-width:11em; margin-inline:auto; }
+
+  /* golpe 3 — los números */
+  .cifras { display:grid; grid-template-columns:repeat(3,auto); gap:clamp(2rem,7vw,8rem);
+    justify-content:center; align-items:end; }
+  .cifra { font-size:clamp(5rem,15vw,15rem); font-variant-numeric:tabular-nums; }
+  .cifra-tinta { max-width:11em; margin:1.2rem auto 0; }
+  @media (max-width:640px) { .cifras { grid-template-columns:1fr; gap:3.5rem; } }
+
+  /* golpe 4 — el pedido: un hueco en la piedra */
+  .boton { display:inline-block; font-family:"Fraunces",serif; font-weight:900;
+    font-optical-sizing:auto; font-size:clamp(1.6rem,3.6vw,3.2rem); line-height:1;
+    letter-spacing:-.01em; text-decoration:none; color:var(--hondo);
+    padding:.55em 1.1em; border-radius:2px;
+    /* relieve negativo: sombra oscura arriba-izq ADENTRO, clara abajo-der */
+    box-shadow:
+      inset calc(var(--lx) * 2.2) calc(var(--ly) * 2.2) 6px var(--oscuro),
+      inset calc(var(--lx) * -1.6) calc(var(--ly) * -1.6) 3px var(--claro);
+    text-shadow:
+      calc(var(--lx) * -1) calc(var(--ly) * -1) 1px var(--claro),
+      var(--lx) var(--ly) 2px var(--oscuro);
+    transition:box-shadow .25s ease, transform .12s ease, color .25s ease; }
+  .boton:hover { color:#a99f8b;
+    box-shadow:
+      inset calc(var(--lx) * 3.2) calc(var(--ly) * 3.2) 9px var(--oscuro),
+      inset calc(var(--lx) * -1.6) calc(var(--ly) * -1.6) 3px var(--claro); }
+  .boton:active { transform:scale(.985);
+    box-shadow:
+      inset calc(var(--lx) * 4.5) calc(var(--ly) * 4.5) 12px var(--oscuro),
+      inset calc(var(--lx) * -1.2) calc(var(--ly) * -1.2) 2px var(--claro); }
+  .contacto a { color:var(--tinta); text-decoration:none; border-bottom:1px solid rgba(91,85,74,.35); }
+  .contacto a:hover { border-bottom-color:var(--tinta); }
+
+  .pie { padding:0 clamp(2rem,6vw,6rem) 2.4rem; text-align:center; }
+
+  @media (prefers-reduced-motion:reduce) {
+    .golpea { opacity:1 !important; animation:none !important; }
+    .tinta { opacity:1 !important; transition:none; }
+    .boton { transition:none; }
+  }
+</style>
+</head>
+<body>
+<div class="losa">
+
+<!-- ═══ GOLPE 1 · EL NOMBRE ═══ -->
+<section class="golpe" id="g1">
+  <h1 class="tallado nombre" aria-label="Steinmetz.">
+    <span class="golpea">S</span><span class="golpea">t</span><span class="golpea">e</span><span class="golpea">i</span><span class="golpea">n</span><span class="golpea">m</span><span class="golpea">e</span><span class="golpea">t</span><span class="golpea">z</span><span class="golpea">.</span>
+  </h1>
+  <p class="tinta">CONSTRUIMOS SISTEMAS DE INTELIGENCIA ARTIFICIAL<br>QUE QUEDAN FUNCIONANDO.</p>
+</section>
+
+<!-- ═══ GOLPE 2 · LA AFIRMACIÓN ═══ -->
+<section class="golpe" id="g2">
+  <h2 class="tallado frase golpea">Lo prometido se borra.<br>Lo tallado queda.</h2>
+  <p class="tinta">NINGÚN SISTEMA NUESTRO SE HA APAGADO.</p>
+</section>
+
+<!-- ═══ GOLPE 3 · LOS NÚMEROS ═══ -->
+<section class="golpe" id="g3">
+  <div class="cifras">
+    <div>
+      <div class="tallado hondo cifra golpea">6</div>
+      <p class="tinta cifra-tinta">SEMANAS.<br>UN SISTEMA<br>EN PRODUCCIÓN.</p>
+    </div>
+    <div>
+      <div class="tallado hondo cifra golpea">0</div>
+      <p class="tinta cifra-tinta">DATOS.<br>NINGUNO SALE<br>DE TU RED.</p>
+    </div>
+    <div>
+      <div class="tallado hondo cifra golpea">1</div>
+      <p class="tinta cifra-tinta">RESPONSABLE.<br>DE LA PRIMERA REUNIÓN<br>AL ÚLTIMO COMMIT.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GOLPE 4 · EL PEDIDO ═══ -->
+<section class="golpe" id="g4">
+  <a class="boton golpea" href="mailto:ian@steinmetz.cl" id="boton">Encargar una obra.</a>
+  <p class="tinta contacto"><a href="mailto:ian@steinmetz.cl">ian@steinmetz.cl</a> &nbsp;·&nbsp;
+  <a href="tel:+56993215043">+56 9 9321 5043</a> &nbsp;·&nbsp; SANTIAGO</p>
+</section>
+
+<p class="tinta pie visible">STEINMETZ SpA · RUT 78.484.226-6</p>
+
+</div>
+
+<script>
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var raiz = document.documentElement;
+
+  /* ── LA LÁMPARA: la luz rasante sigue al puntero (o al giroscopio) ── */
+  var lx = -1.5, ly = -1.5, tx = lx, ty = ly;
+  function apuntar(nx, ny) {              // nx, ny en -1..1: de dónde viene la luz
+    tx = -nx * 3.2; ty = -ny * 3.2;       // la sombra cae al lado opuesto de la luz
+  }
+  if (!reducido) {
+    addEventListener("pointermove", function (e) {
+      apuntar((e.clientX / innerWidth - .5) * 2, (e.clientY / innerHeight - .5) * 2);
+    }, { passive: true });
+    // móvil: la lámpara sigue la inclinación del teléfono
+    function giro(e) {
+      if (e.gamma == null) return;
+      apuntar(Math.max(-1, Math.min(1, e.gamma / 35)), Math.max(-1, Math.min(1, (e.beta - 45) / 35)));
+    }
+    if (typeof DeviceOrientationEvent !== "undefined") {
+      if (typeof DeviceOrientationEvent.requestPermission === "function") {
+        addEventListener("touchend", function pedir() {
+          DeviceOrientationEvent.requestPermission().then(function (r) {
+            if (r === "granted") addEventListener("deviceorientation", giro);
+          }).catch(function () {});
+          removeEventListener("touchend", pedir);
+        }, { once: true });
+      } else {
+        addEventListener("deviceorientation", giro);
+      }
+    }
+    (function luz() {
+      lx += (tx - lx) * .06; ly += (ty - ly) * .06;
+      raiz.style.setProperty("--lx", lx.toFixed(2) + "px");
+      raiz.style.setProperty("--ly", ly.toFixed(2) + "px");
+      requestAnimationFrame(luz);
+    })();
+  }
+
+  /* ── EL POLVO ── */
+  function esquirlas(el, n) {
+    if (reducido) return;
+    var r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    for (var k = 0; k < (n || 10); k++) {
+      var e = document.createElement("div"); e.className = "esquirla";
+      e.style.left = (cx + (Math.random() - .5) * r.width * .7) + "px";
+      e.style.top = (cy + (Math.random() - .5) * r.height * .5) + "px";
+      e.style.setProperty("--dx", ((Math.random() - .5) * 110) + "px");
+      e.style.setProperty("--dy", (40 + Math.random() * 90) + "px");
+      e.style.animation = "volar " + (0.45 + Math.random() * 0.4) + "s cubic-bezier(.2,.6,.6,1) forwards";
+      document.body.appendChild(e);
+      setTimeout(function (x) { return function () { x.remove(); }; }(e), 1000);
+    }
+  }
+  function golpear(el) {
+    el.classList.remove("dado"); void el.offsetWidth; el.classList.add("dado"); esquirlas(el);
+  }
+
+  /* ── GOLPE 1: el nombre se talla letra a letra al cargar ── */
+  var letras = Array.prototype.slice.call(document.querySelectorAll("#g1 .golpea"));
+  var i = 0;
+  function tallarNombre() {
+    if (i >= letras.length) { document.getElementById("g1").classList.add("visible"); return; }
+    golpear(letras[i++]);
+    setTimeout(tallarNombre, 150 + Math.random() * 90);
+  }
+  if (reducido) { document.getElementById("g1").classList.add("visible"); }
+  else setTimeout(tallarNombre, 600);
+
+  /* ── GOLPES 2-4: se tallan al entrar en pantalla, una vez ── */
+  var golpes = ["g2", "g3", "g4"].map(function (id) { return document.getElementById(id); });
+  function tallarGolpe(sec) {
+    var piezas = Array.prototype.slice.call(sec.querySelectorAll(".golpea"));
+    piezas.forEach(function (el, k) { setTimeout(function () { golpear(el); }, k * 260); });
+    setTimeout(function () { sec.classList.add("visible"); }, piezas.length * 260 + 100);
+  }
+  if (reducido || !("IntersectionObserver" in window)) {
+    golpes.forEach(function (s) { s.classList.add("visible"); });
+  } else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { tallarGolpe(e.target); io.unobserve(e.target); } });
+    }, { threshold: .35 });
+    golpes.forEach(function (s) { io.observe(s); });
+  }
+
+  /* ── el sitio responde al tacto: re-golpe al pasar por un tallado ── */
+  document.querySelectorAll(".tallado.golpea, .nombre span").forEach(function (el) {
+    el.addEventListener("pointerenter", function () {
+      if (el.classList.contains("dado")) golpear(el);
+    });
+  });
+  /* el botón suelta polvo al presionarse */
+  document.getElementById("boton").addEventListener("pointerdown", function () {
+    esquirlas(this, 14);
+  });
+})();
+</script>
+</body>
+</html>
