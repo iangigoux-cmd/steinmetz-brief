@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Steinmetz.</title>
+<title>Steinmetz. — A · la losa se aleja</title>
 <meta name="description" content="Construimos sistemas de inteligencia artificial que quedan funcionando.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e6e1d6'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='22' font-weight='900' fill='%23cfc8b8'%3ES%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,6 +119,23 @@
     .tinta { opacity:1 !important; transition:none; }
     .boton { transition:none; }
   }
+
+  /* ══ A · la losa se aleja: el nombre se hunde y encoge al bajar ══ */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      #g1 { position:sticky; top:0; z-index:0; }
+      #g1 > * { animation:alejarse linear both; animation-timeline:scroll(root);
+        animation-range:0 100vh; transform-origin:50% 50%; }
+      #g2, #g3, #g4, .pie { position:relative; z-index:1; background:transparent; }
+      /* la piedra tapa el nombre al pasar por encima */
+      #g2 { box-shadow:0 -80px 80px -40px var(--piedra); }
+    }
+  }
+  @keyframes alejarse {
+    from { transform:scale(1); opacity:1; filter:blur(0); }
+    to   { transform:scale(.72); opacity:.28; filter:blur(.6px); }
+  }
+
 </style>
 </head>
 <body>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Steinmetz.</title>
+<title>Steinmetz. — B · multiplano</title>
 <meta name="description" content="Construimos sistemas de inteligencia artificial que quedan funcionando.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e6e1d6'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='22' font-weight='900' fill='%23cfc8b8'%3ES%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,6 +119,33 @@
     .tinta { opacity:1 !important; transition:none; }
     .boton { transition:none; }
   }
+
+  /* ══ B · multiplano: cada golpe se acerca al entrar en foco ══ */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .losa { perspective:1100px; perspective-origin:50% 40%; }
+      .golpe { transform-style:preserve-3d;
+        animation:enfocar linear both; animation-timeline:view();
+        animation-range:entry 0% exit 100%; }
+      #g1 { animation:none; }              /* el nombre ya está en foco al cargar */
+    }
+  }
+  /* lejos → en foco → lejos (el eje Z corto: nunca marea) */
+  @keyframes enfocar {
+    0%   { transform:translateZ(-260px) translateY(6vh); opacity:.35; }
+    45%  { transform:translateZ(0) translateY(0); opacity:1; }
+    55%  { transform:translateZ(0) translateY(0); opacity:1; }
+    100% { transform:translateZ(-180px) translateY(-4vh); opacity:.4; }
+  }
+  @media (max-width:640px) {
+    @keyframes enfocar {
+      0%   { transform:translateZ(-140px); opacity:.4; }
+      45%  { transform:translateZ(0); opacity:1; }
+      55%  { transform:translateZ(0); opacity:1; }
+      100% { transform:translateZ(-100px); opacity:.45; }
+    }
+  }
+
 </style>
 </head>
 <body>
