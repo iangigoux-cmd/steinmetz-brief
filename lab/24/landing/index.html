@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — Cantero de sistemas</title>
+<meta name="description" content="Steinmetz significa cantero. Tallamos sistemas de IA que quedan corriendo dentro de tu operación. Santiago de Chile.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e6e1d6'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='22' font-weight='900' fill='%23262119'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Instrument+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --piedra:#e6e1d6; --talla:#cfc8b8; --tinta:#262119; --medio:#8f8878; --oxido:#a4501f;
+    --display:"Fraunces",serif; --texto:"Instrument Sans",sans-serif; --mono:"IBM Plex Mono",monospace;
+    --margen:clamp(1.4rem,4vw,4rem);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--piedra); color:var(--tinta); font-family:var(--texto);
+    line-height:1.6; -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--tinta); color:var(--piedra); }
+  a { color:inherit; }
+
+  /* la piedra: veta cálida + grano, en toda la página */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.5), transparent 50%),
+      radial-gradient(130% 110% at 85% 95%, rgba(120,105,80,.16), transparent 55%); }
+  body::after { content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5 0 0 0 0 0.46 0 0 0 0 0.38 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23p)'/%3E%3C/svg%3E"); }
+  .capa { position:relative; z-index:1; }
+
+  /* ── marca fija ── */
+  .marca { position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:1.3rem var(--margen);
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.22em; color:var(--medio);
+    background:linear-gradient(to bottom, rgba(230,225,214,.94), rgba(230,225,214,0));
+    pointer-events:none; }
+  .marca b { color:var(--tinta); font-weight:500; }
+  @media (max-width:599px) { .marca span { display:none; } }
+
+  /* ── el bajorrelieve como sistema ── */
+  .tallado { color:var(--talla);
+    text-shadow:0 1.5px 1px rgba(255,255,255,.85), 0 -1.5px 2px rgba(38,33,25,.45); }
+  .regla { height:1px; background:rgba(38,33,25,.28); box-shadow:0 1px 0 rgba(255,255,255,.7); }
+
+  /* ── tipos comunes ── */
+  .etiqueta { font-family:var(--mono); font-size:.68rem; letter-spacing:.24em;
+    color:var(--medio); padding-top:1rem; margin-bottom:clamp(2rem,5vh,3.5rem);
+    border-top:1px solid rgba(38,33,25,.28); box-shadow:inset 0 1px 0 rgba(255,255,255,.7); }
+  .seccion { padding:clamp(5rem,14vh,9rem) var(--margen); max-width:88rem; margin:0 auto; }
+  h2 { font-family:var(--display); font-optical-sizing:auto;
+    font-size:clamp(2rem,4.6vw,4rem); font-weight:700; line-height:1.05;
+    letter-spacing:-.02em; max-width:14em; }
+  h2 em { font-style:italic; color:var(--oxido); font-weight:600; }
+  .parrafo { font-size:clamp(1.02rem,1.4vw,1.2rem); max-width:34em; }
+  .parrafo + .parrafo { margin-top:1.3em; }
+  .gris { color:var(--medio); }
+  .cta { display:inline-block; font-family:var(--mono); font-size:.74rem; font-weight:500;
+    letter-spacing:.24em; text-decoration:none; color:var(--piedra); background:var(--tinta);
+    padding:1.1em 2.4em; transition:background 250ms ease; }
+  .cta:hover { background:var(--oxido); }
+  .cta-alt { font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; color:var(--medio);
+    text-decoration:underline; text-underline-offset:.35em; margin-left:1.4em; }
+  .cta-alt:hover { color:var(--tinta); }
+
+  .fade { opacity:0; transition:opacity .7s ease-out; }
+  .fade.visible { opacity:1; }
+  @supports (animation-timeline: view()) {
+    .fade { transition:none; animation:aparecer linear both; animation-timeline:view();
+      animation-range:entry 0% entry 35%; }
+    @keyframes aparecer { from { opacity:0; } to { opacity:1; } }
+  }
+
+  /* ══ 0 · HERO — el tallado ══ */
+  .hero { height:100svh; display:grid; grid-template-rows:1fr auto;
+    padding:clamp(1.4rem,3vw,2.4rem) var(--margen); }
+  .hero-centro { display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center; }
+  .palabra { display:flex; user-select:none; font-family:var(--display);
+    font-size:clamp(2.6rem,10.4vw,11rem); font-weight:900; font-optical-sizing:auto;
+    line-height:1; letter-spacing:-.015em; }
+  .palabra span { display:inline-block; opacity:0; position:relative; }
+  .palabra span.golpeada { animation:tallar .22s cubic-bezier(.5,1.6,.5,1) forwards; }
+  @keyframes tallar {
+    0% { opacity:0; transform:scale(1.6); filter:blur(3px); }
+    55% { opacity:1; transform:scale(.96); filter:blur(0); }
+    100% { opacity:1; transform:scale(1); } }
+  .esquirla { position:fixed; width:4px; height:4px; background:var(--medio); border-radius:1px;
+    opacity:0; pointer-events:none; z-index:60; }
+  @keyframes volar { 0% { opacity:.9; transform:translate(0,0) rotate(0); }
+    100% { opacity:0; transform:translate(var(--dx),var(--dy)) rotate(200deg); } }
+  .revela { margin-top:2.6rem; font-family:var(--mono); font-size:clamp(.66rem,1vw,.8rem);
+    letter-spacing:.3em; color:var(--medio); min-height:1.6em; }
+  .revela b { color:var(--oxido); font-weight:500; }
+  .sentencia { margin-top:1.2rem; font-family:var(--display); font-size:clamp(1.5rem,3.4vw,2.9rem);
+    font-weight:600; font-style:italic; letter-spacing:-.01em;
+    opacity:0; transform:translateY(12px); }
+  .sentencia.on { animation:subir .9s cubic-bezier(.16,1,.3,1) forwards; }
+  .sentencia em { color:var(--oxido); }
+  @keyframes subir { to { opacity:1; transform:none; } }
+  .hero-cta { margin-top:2.4rem; opacity:0; }
+  .hero-cta.on { animation:subir .9s cubic-bezier(.16,1,.3,1) .2s forwards; }
+  .hero-pie { display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.22em; color:var(--medio); }
+
+  /* ══ 1 · historia ══ */
+  .cols { display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+    gap:clamp(2rem,6vw,6rem); align-items:start; }
+  @media (max-width:899px) { .cols { grid-template-columns:1fr; } }
+  .factura { font-family:var(--mono); font-size:clamp(.8rem,1.1vw,.92rem);
+    position:sticky; top:6rem; }
+  .factura-cab { padding:1rem 0 .4rem; font-size:.66rem; letter-spacing:.24em; color:var(--medio); }
+  .factura-fila { display:flex; justify-content:space-between; gap:2rem; padding:.7rem 0; color:var(--medio); }
+  .factura-fila span:last-child { color:var(--tinta); font-variant-numeric:tabular-nums; }
+  .factura-fila.clave { font-size:1.35em; }
+  .factura-fila.clave span:last-child { font-family:var(--display); font-weight:700; color:var(--oxido); }
+  .factura-total { color:var(--tinta); font-weight:500; }
+
+  /* ══ 2 · qué hacemos ══ */
+  .metodo { list-style:none; max-width:60rem; }
+  .metodo li { display:grid; grid-template-columns:4.5rem 1fr; gap:1.5rem;
+    padding:clamp(1.6rem,4vh,2.6rem) 0;
+    border-bottom:1px solid rgba(38,33,25,.28); box-shadow:0 1px 0 rgba(255,255,255,.7); }
+  .metodo li:first-child { border-top:1px solid rgba(38,33,25,.28); }
+  .metodo .n { font-family:var(--mono); font-size:.72rem; color:var(--oxido); padding-top:.5em; }
+  .metodo p { font-family:var(--display); font-size:clamp(1.3rem,2.3vw,1.9rem);
+    font-weight:500; line-height:1.35; max-width:26em; }
+  .metodo p b { font-weight:700; }
+  @media (max-width:599px) { .metodo li { grid-template-columns:1fr; gap:.5rem; } }
+
+  /* ══ 3 · trabajo ══ */
+  .caso { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+    gap:clamp(1.5rem,4vw,4rem); padding:clamp(1.8rem,4vh,2.8rem) 0; max-width:70rem;
+    border-top:1px solid rgba(38,33,25,.28); box-shadow:inset 0 1px 0 rgba(255,255,255,.7); }
+  .caso:last-of-type { border-bottom:1px solid rgba(38,33,25,.28); }
+  .caso-quien { font-family:var(--mono); font-size:.8rem; font-weight:500;
+    letter-spacing:.08em; text-transform:uppercase; line-height:1.8; }
+  .caso-que { color:var(--medio); font-size:clamp(1rem,1.35vw,1.15rem); max-width:30em; }
+  .caso-que b { color:var(--tinta); font-weight:500; }
+  .nota { margin-top:2rem; font-family:var(--mono); font-size:.76rem; letter-spacing:.04em;
+    color:var(--medio); max-width:44em; }
+  @media (max-width:599px) { .caso { grid-template-columns:1fr; gap:.8rem; } }
+
+  /* ══ 4 · quién ══ */
+  .quien-datos { margin-top:1.8rem; font-family:var(--mono); font-size:.84rem;
+    letter-spacing:.04em; color:var(--medio); }
+  .quien-datos a { color:var(--tinta); text-underline-offset:.3em; }
+
+  /* ══ 5 · contacto ══ */
+  .contacto { padding:clamp(6rem,18vh,12rem) var(--margen); text-align:center; }
+  .contacto h2 { margin:0 auto; }
+  .encuadre { margin:1.6rem auto 2.4rem; max-width:32em; color:var(--medio);
+    font-size:clamp(1rem,1.3vw,1.12rem); }
+  .pie { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem 2rem;
+    padding:2rem var(--margen) 2.4rem;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; line-height:2; color:var(--medio); }
+  .pie p:nth-child(2) { text-align:center; } .pie p:last-child { text-align:right; }
+  .pie a { text-decoration:none; } .pie a:hover { color:var(--tinta); }
+  @media (max-width:719px) { .pie { grid-template-columns:1fr; } .pie p { text-align:left !important; } }
+
+  @media (prefers-reduced-motion:reduce) {
+    .palabra span { opacity:1; animation:none; }
+    .sentencia, .hero-cta { opacity:1; animation:none; transform:none; }
+    .fade { opacity:1; animation:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="marca">
+  <b>STEINMETZ</b>
+  <span>DEL ALEMÁN — SUST. MASC.</span>
+</header>
+
+<div class="capa">
+
+<!-- ══ 0 · HERO ══ -->
+<section class="hero">
+  <div class="hero-centro">
+    <div class="palabra tallado" id="palabra" aria-label="Steinmetz">
+      <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
+    </div>
+    <p class="revela" id="revela" aria-live="polite"></p>
+    <p class="sentencia" id="sentencia">Nosotros tallamos <em>sistemas</em>.</p>
+    <p class="hero-cta" id="heroCta"><a class="cta" href="#contacto">ENCARGAR UNA OBRA</a></p>
+  </div>
+  <div class="hero-pie">
+    <span>SANTIAGO DE CHILE</span>
+    <span>EST. 2026</span>
+  </div>
+</section>
+
+<main>
+
+<!-- ══ 1 · LA HISTORIA ══ -->
+<section class="seccion" id="historia">
+  <p class="etiqueta fade">01 — LA HISTORIA</p>
+  <div class="cols">
+    <div>
+      <h2 class="fade">Una marca de tiza<br>y saber <em>dónde</em> hacerla.</h2>
+      <p class="parrafo fade" style="margin-top:2.2rem">1920. La planta de Henry Ford
+      llevaba semanas detenida. El generador principal había fallado y los mejores
+      ingenieros del país no pudieron repararlo.</p>
+      <p class="parrafo fade">Llamaron a Charles Steinmetz. Miró la máquina dos días.
+      Escuchó. Hizo una marca de tiza en un costado y dijo: abran aquí. Adentro
+      estaba la falla.</p>
+      <p class="parrafo fade">La factura fue de $10.000. Ford pidió el detalle.</p>
+      <p class="parrafo gris fade" style="margin-top:2.2rem">Un cantero también sabe dónde
+      dar el golpe. Nos llamamos así por las dos cosas.</p>
+    </div>
+    <div class="factura fade" role="figure" aria-label="Detalle de la factura de Steinmetz">
+      <div class="regla"></div>
+      <p class="factura-cab">DETALLE DE FACTURA — 1920</p>
+      <div class="factura-fila"><span>Hacer una marca de tiza</span><span>$1</span></div>
+      <div class="regla"></div>
+      <div class="factura-fila clave"><span>Saber dónde hacerla</span><span>$9.999</span></div>
+      <div class="regla"></div>
+      <div class="factura-fila factura-total"><span>TOTAL</span><span>$10.000</span></div>
+      <div class="regla"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2 · QUÉ HACEMOS ══ -->
+<section class="seccion" id="metodo">
+  <p class="etiqueta fade">02 — QUÉ TALLAMOS</p>
+  <h2 class="fade">Sistemas de IA que quedan<br><em>corriendo</em> en tu operación.</h2>
+  <ol class="metodo" style="margin-top:3rem">
+    <li class="fade"><span class="n">01</span><p>Leemos la operación real, no la declarada.
+      <b>La evidencia sale del sistema, no de la entrevista.</b></p></li>
+    <li class="fade"><span class="n">02</span><p>Construimos el sistema que la corrige,
+      dentro de tu red y bajo tus reglas. <b>IA donde aporta. Ninguna donde estorba.</b></p></li>
+    <li class="fade"><span class="n">03</span><p>Lo dejamos en producción, en manos de tu
+      equipo. <b>Encendido, o no existe.</b></p></li>
+  </ol>
+</section>
+
+<!-- ══ 3 · EL TRABAJO ══ -->
+<section class="seccion" id="trabajo">
+  <p class="etiqueta fade">03 — LA OBRA</p>
+  <h2 class="fade">No mostramos logos.<br><em>Mostramos sistemas encendidos.</em></h2>
+  <div style="margin-top:3rem">
+    <div class="caso fade">
+      <p class="caso-quien">Una de las grandes<br>cerveceras de Chile</p>
+      <p class="caso-que">Sistema de planificación y seguimiento de proyectos para su área de
+      innovación, y un asistente de IA de escritorio endurecido para entorno corporativo —
+      <b>desplegado dentro de su red, autenticado con sus cuentas, sobre su propia nube.</b>
+      Ningún dato sale de su perímetro.</p>
+    </div>
+    <div class="caso fade">
+      <p class="caso-quien">Una empresa de<br>genética aplicada</p>
+      <p class="caso-que">Plataforma de auditoría y análisis de laboratorio — API, base de
+      datos y frontend — <b>corriendo en producción sobre Azure.</b></p>
+    </div>
+  </div>
+  <p class="nota fade">Referencias disponibles a solicitud. Cada obra se sigue en un
+  portal privado con hitos, entregables y estado visibles para el cliente.</p>
+</section>
+
+<!-- ══ 4 · QUIÉN ══ -->
+<section class="seccion" id="quien">
+  <p class="etiqueta fade">04 — EL CANTERO</p>
+  <h2 class="fade">Un solo responsable,<br>del primer golpe al sistema <em>encendido</em>.</h2>
+  <p class="parrafo fade" style="margin-top:2.2rem">Steinmetz es la firma de <b>Ian Berndt</b>.
+  Las obras de arriba las talló él, dentro de las redes y bajo las reglas de seguridad de
+  cada cliente. Sin equipos de seis, sin catorce semanas, sin presentaciones.</p>
+  <p class="quien-datos fade"><a href="mailto:ian@steinmetz.cl">ian@steinmetz.cl</a> ·
+  <a href="tel:+56993215043">+56 9 9321 5043</a> · Santiago de Chile</p>
+</section>
+
+</main>
+
+<!-- ══ 5 · CONTACTO ══ -->
+<div class="regla" style="max-width:88rem;margin:0 auto"></div>
+<section class="contacto" id="contacto">
+  <h2 class="fade">¿Dónde damos <em>el golpe</em>?</h2>
+  <p class="encuadre fade">Obras acotadas, de semanas y no de trimestres, con precio
+  cerrado antes de partir. La primera conversación son 30 minutos, sin costo y sin compromiso.</p>
+  <p class="fade">
+    <a class="cta" href="mailto:ian@steinmetz.cl">ENCARGAR UNA OBRA</a>
+    <a class="cta-alt" href="https://wa.me/56993215043?text=Hola%2C%20vi%20steinmetz.cl%20y%20quiero%20conversar%20sobre%20un%20proyecto." rel="noopener">o por WhatsApp</a>
+  </p>
+</section>
+
+<div class="regla" style="max-width:88rem;margin:0 auto"></div>
+<footer class="pie">
+  <p>STEINMETZ SpA · RUT 78.484.226-6<br>Cantero de sistemas de IA</p>
+  <p><a href="mailto:ian@steinmetz.cl">ian@steinmetz.cl</a><br><a href="tel:+56993215043">+56 9 9321 5043</a> · Santiago de Chile</p>
+  <p><a href="/portal/">Acceso clientes</a></p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!CSS.supports("animation-timeline: view()")) {
+    var fades = document.querySelectorAll(".fade");
+    if (reducido || !("IntersectionObserver" in window)) {
+      fades.forEach(function (el) { el.classList.add("visible"); });
+    } else {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); } });
+      }, { threshold: .12 });
+      fades.forEach(function (el) { io.observe(el); });
+    }
+  }
+
+  /* hero: el tallado */
+  var letras = Array.prototype.slice.call(document.querySelectorAll("#palabra span"));
+  var revela = document.getElementById("revela");
+  var TEXTO = "STEINMETZ: CANTERO — EL QUE TALLA LA PIEDRA, GOLPE A GOLPE, DONDE CORRESPONDE.";
+  function terminar() {
+    document.getElementById("sentencia").classList.add("on");
+    document.getElementById("heroCta").classList.add("on");
+  }
+  if (reducido) { revela.innerHTML = TEXTO.replace("CANTERO", "<b>CANTERO</b>"); terminar(); return; }
+
+  function esquirlas(el) {
+    var r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    for (var k = 0; k < 10; k++) {
+      var e = document.createElement("div"); e.className = "esquirla";
+      e.style.left = (cx + (Math.random() - .5) * r.width * .6) + "px";
+      e.style.top = (cy + (Math.random() - .5) * r.height * .5) + "px";
+      e.style.setProperty("--dx", ((Math.random() - .5) * 120) + "px");
+      e.style.setProperty("--dy", (40 + Math.random() * 90) + "px");
+      e.style.animation = "volar " + (0.45 + Math.random() * 0.4) + "s cubic-bezier(.2,.6,.6,1) forwards";
+      document.body.appendChild(e);
+      setTimeout(function (n) { return function () { n.remove(); }; }(e), 1000);
+    }
+  }
+  var i = 0;
+  function golpe() {
+    if (i >= letras.length) { definir(); return; }
+    var el = letras[i++]; el.classList.add("golpeada"); esquirlas(el);
+    setTimeout(golpe, 150 + Math.random() * 90);
+  }
+  setTimeout(golpe, 600);
+  function definir() {
+    var c = 0;
+    (function tipear() {
+      c++;
+      revela.innerHTML = TEXTO.slice(0, c).replace("CANTERO", "<b>CANTERO</b>");
+      if (c < TEXTO.length) setTimeout(tipear, 22); else terminar();
+    })();
+  }
+  letras.forEach(function (el) {
+    el.addEventListener("pointerenter", function () {
+      if (!el.classList.contains("golpeada")) return;
+      el.classList.remove("golpeada"); void el.offsetWidth; el.classList.add("golpeada"); esquirlas(el);
+    });
+  });
+})();
+</script>
+</body>
+</html>
