@@ -8,3 +8,12 @@ old/
 # lo que se sirve es assets/web/, que si se comitea.
 assets/img/
 assets/video/
+
+# Material del proyecto que NO se publica.
+# 2026-09-03: las piezas sueltas del escritorio se juntaron dentro del repo.
+# empresa/ = documentación legal y tributaria de Steinmetz SpA
+# dominio/ = DNS, Workspace y comprobantes del dominio
+# landing-v1/ = el landing tallado, versión de trabajo
+empresa/
+dominio/
+landing-v1/

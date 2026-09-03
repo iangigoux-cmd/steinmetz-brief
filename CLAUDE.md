@@ -3,7 +3,8 @@
 Landing de **Steinmetz SpA** (consultoría en IA, Santiago de Chile), servido en
 GitHub Pages sobre **`steinmetz.cl`** (desde 2026-08-07; antes `steinmetz.it.com`,
 que ya no sirve el sitio). Push a `main` = deploy. El DNS del dominio vive en
-Azure (`steinmetz-rg`); su documentación en `~/Desktop/admin/steinmetz/dns.md`.
+Azure (`steinmetz-rg`); su documentación en `dominio/dns.md` (antes
+`~/Desktop/admin/steinmetz/`).
 
 El sitio anterior (brief con lockscreen + propuesta) vive en el historial de
 git y en `old/` (local, gitignoreado). **Este landing lo reemplazó por completo
@@ -44,8 +45,20 @@ assets/tools/                      pipeline: limpiar-watermark{,-video}.py,
                                    exportar-web.py
 assets/prompts/biblioteca-visual.md  los prompts de toda la identidad visual
 docs/                              planes y specs
+lab/                               heros de una pantalla; finalistas 7 y 24
 old/                               sitio anterior (local, no comiteado)
+
+empresa/                           LOCAL, gitignoreada: doc legal y tributaria
+                                   de Steinmetz SpA (era ~/Desktop/Steinmetz SpA)
+dominio/                           LOCAL, gitignoreada: DNS, Workspace, dominio
+                                   (era ~/Desktop/admin/steinmetz)
+landing-v1/                        LOCAL, gitignoreada: el landing tallado
+                                   (era ~/Desktop/LandingV1)
 ```
+
+**Las tres carpetas LOCAL nunca se comitean** (2026-09-03: el escritorio se
+juntó acá). `empresa/` y `dominio/` llevan además su propio `.gitignore` con
+`*`, para que sigan fuera aunque cambie el de la raíz. Nada de eso se publica.
 
 ## Flujo de assets
 
@@ -77,8 +90,8 @@ old/                               sitio anterior (local, no comiteado)
 
 ## Contexto de empresa
 
-La carpeta `~/Desktop/Steinmetz SpA/` tiene la documentación legal/tributaria
-de la sociedad (RUT 78.484.226-6). El relato del estado vive en sus dos
+La carpeta `empresa/` (antes `~/Desktop/Steinmetz SpA/`) tiene la
+documentación legal/tributaria de la sociedad (RUT 78.484.226-6). El relato del estado vive en sus dos
 handoffs y su README. El portal de clientes es un proyecto aparte, aún sin
 construir — el placeholder solo deja la puerta.
 
