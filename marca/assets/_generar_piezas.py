@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Arma las piezas listas para subir: perfiles, portadas y firma de correo.
+"""Arma las piezas listas para subir: perfiles, portadas y firmas de correo.
 
 Cada red pide un tamaño distinto y recorta distinto. Las de perfil van a
 sangre completa —sin esquina redondeada— porque LinkedIn e Instagram recortan
@@ -8,6 +8,25 @@ redondeo sucio.
 
 Se compone en el navegador con los SVG ya trazados y se captura al pixel
 exacto. Correr _generar_logo.py antes, para que existan los SVG.
+
+Las firmas de correo siguen tres reglas, y las tres nacen de lo mismo: un
+cliente de correo puede tener el fondo oscuro, puede bloquear las imágenes y
+nunca carga una webfont.
+
+  1. El fondo blanco va horneado en el PNG del wordmark, no transparente. Con
+     transparencia, la tinta negra desaparece sobre el fondo oscuro de Gmail,
+     Outlook o Apple Mail. Feo es mejor que invisible.
+  2. Cada <img> lleva alt y width/height como atributos HTML, no sólo en CSS:
+     si la imagen no carga, el bloque conserva su tamaño y sigue diciendo el
+     nombre.
+  3. Toda la información real viaja en texto, en Arial/Helvetica. La marca la
+     carga la imagen; el texto no intenta imitar Fraunces.
+
+Y una cuarta, que es la que las salva en modo oscuro: el bloque declara su
+propio fondo blanco (bgcolor + background-color en cada celda). Un cliente en
+modo oscuro invierte lo que no tiene fondo propio; lo que sí lo tiene, lo
+respeta. Así la plancha blanca del PNG deja de ser un parche flotante y pasa a
+ser el borde de la firma.
 
 Uso:  python3 _generar_piezas.py
 """
@@ -20,10 +39,19 @@ AQUI = Path(__file__).resolve().parent
 SALIDA = AQUI / "piezas"
 TINTA = "#111112"
 PAPEL = "#ffffff"
+MEDIO = "#6e6e73"
+SUAVE = "#75757a"
+LINEA = "#dedede"          # --linea, rgba(17,17,18,.14), resuelto sobre blanco
 DESCRIPTOR = "INGENIERÍA EN INTELIGENCIA ARTIFICIAL"
 
 FUENTES = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
            'family=IBM+Plex+Mono:wght@400;500&display=swap">')
+
+# piezas que se capturan sin fondo. El resto sale opaco a propósito.
+TRANSPARENTES = {
+    "organizacion-320x132-transparente.png",
+    "firma-sz-120.png",     # sólo las esquinas del radio; la plancha es opaca
+}
 
 
 def dato(nombre):
@@ -91,6 +119,28 @@ def organizacion(an, al, fondo, wm, ancho_rel=0.72, descriptor=False,
         fondo, an, al)
 
 
+def firma_wordmark(an, al, ancho_wm):
+    """El wordmark sobre plancha blanca opaca, centrado, para la firma.
+
+    Sale al doble del tamaño en que se muestra (600 px para mostrarlo a 300),
+    para que se vea nítido en pantalla retina.
+    """
+    return marco(f'<body style="align-items:center;justify-content:center">'
+                 f'<img src="{dato("steinmetz-wordmark.svg")}" style="width:{ancho_wm}px">',
+                 PAPEL, an, al)
+
+
+def firma_monograma(lado):
+    """El monograma SZ a sangre, para la firma compacta.
+
+    Trae su propia plancha #111112 con las letras en blanco, así que se lee
+    igual sobre fondo claro y sobre fondo oscuro. Lo único transparente son
+    las cuatro esquinas del radio.
+    """
+    return marco(f'<body><img src="{dato("steinmetz-monograma.svg")}" '
+                 f'style="width:{lado}px;height:{lado}px">', "rgba(0,0,0,0)", lado, lado)
+
+
 PIEZAS = [
     # logo de organización: Google Workspace, exacto a 320x132
     ("organizacion-320x132.png", 320, 132,
@@ -118,35 +168,176 @@ PIEZAS = [
      lambda: centrado(1080, 1080, PAPEL, "steinmetz-wordmark.svg", .62)),
     ("instagram-historia-1080x1920.png", 1080, 1920,
      lambda: centrado(1080, 1920, TINTA, "steinmetz-wordmark-blanco.svg", .68)),
-    # firma de correo: se muestra a la mitad, para que se vea nítida en pantalla retina
-    ("firma-correo-600.png", 600, 600,
-     lambda: marco(f'<body style="align-items:flex-start"><img src="{dato("steinmetz-wordmark.svg")}" '
-                   f'style="width:600px">', "rgba(0,0,0,0)", 600, 124)),
+    # firmas de correo: salen al doble y se muestran a la mitad
+    ("firma-logo-600.png", 600, 140, lambda: firma_wordmark(600, 140, 560)),
+    ("firma-sz-120.png",   120, 120, lambda: firma_monograma(120)),
 ]
 
 
-def firma_html():
-    return """<!-- Firma de Gmail. Copiar todo esto y pegarlo en Configuración → Firma.
-     Gmail conserva la tabla y el logo apuntando a steinmetz.cl. -->
-<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#111112">
+# ── las firmas de correo ────────────────────────────────────────────────────
+# Todo el estilo va en línea: Gmail descarta el <style>. La maqueta es de
+# tablas: Gmail y Outlook manejan mal flex y grid. Nada de background-image,
+# nada de position.
+
+BASE = "https://steinmetz.cl/marca/assets/piezas/"
+TIPO = "Arial,Helvetica,sans-serif"
+AVISO = ("Configuraci&oacute;n → Firma. Abrir este archivo en el navegador, "
+         "seleccionar todo (⌘A), copiar (⌘C) y pegar en la caja de la firma. "
+         "No pegar el código: pegar lo que el navegador muestra.")
+
+
+def cabecera(titulo, cuando):
+    return (f"<!-- Firma de correo de Steinmetz SpA — {titulo}.\n"
+            f"     Cuándo: {cuando}\n"
+            f"     Cómo: {AVISO}\n"
+            f"     Se regenera con assets/_generar_piezas.py. No editar a mano. -->\n"
+            f'<meta charset="utf-8">\n')
+
+
+def identidad(tamano=15, con_descriptor=True):
+    """Nombre, sociedad y descriptor. Todo texto: ninguna imagen lo sostiene.
+
+    El descriptor se apaga cuando el encabezado del bloque ya lo trae; decirlo
+    dos veces en la misma firma no agrega nada.
+    """
+    desc = (f'<br>\n      <span style="font-family:{TIPO};font-size:10px;'
+            f'letter-spacing:1.1px;color:{SUAVE}">'
+            f'INGENIER&Iacute;A EN INTELIGENCIA ARTIFICIAL</span>'
+            if con_descriptor else "")
+    return (f'<span style="font-family:{TIPO};font-size:{tamano}px;font-weight:bold;'
+            f'color:{TINTA}">Ian Berndt</span><br>\n'
+            f'      <span style="font-family:{TIPO};font-size:13px;color:{MEDIO}">'
+            f'Steinmetz SpA</span>{desc}')
+
+
+def contacto():
+    """Correo, teléfono y sitio.
+
+    El color va dos veces en cada enlace —en el <a> y en un <span> adentro—
+    porque Gmail pinta de azul lo que no trae color propio, y iOS vuelve a
+    pintar el teléfono cuando lo autodetecta.
+    """
+    return (f'<a href="mailto:ian@steinmetz.cl" style="color:{TINTA};text-decoration:none">'
+            f'<span style="color:{TINTA};text-decoration:none">ian@steinmetz.cl</span></a>'
+            f'&nbsp;&middot;&nbsp;'
+            f'<a href="tel:+56993215043" style="color:{TINTA};text-decoration:none">'
+            f'<span style="color:{TINTA};text-decoration:none">+56 9 9321 5043</span></a><br>\n'
+            f'      <a href="https://steinmetz.cl" style="color:{MEDIO};text-decoration:none">'
+            f'<span style="color:{MEDIO};text-decoration:none">steinmetz.cl</span></a>')
+
+
+def legal():
+    return (f'<span style="font-family:{TIPO};font-size:11px;color:{SUAVE}">'
+            f'RUT 78.484.226-6&nbsp;&middot;&nbsp;Santiago de Chile</span>')
+
+
+def firma_principal():
+    """Wordmark arriba, filete, datos abajo. La que se usa por defecto."""
+    return cabecera(
+        "versión principal",
+        "por defecto, en cualquier correo") + f"""<table cellpadding="0" cellspacing="0" border="0" role="presentation" bgcolor="{PAPEL}"
+       style="border-collapse:collapse;background-color:{PAPEL};font-family:{TIPO};color:{TINTA}">
   <tr>
-    <td style="padding:0 0 10px">
-      <img src="https://steinmetz.cl/marca/assets/piezas/firma-correo-600.png"
-           alt="Steinmetz" width="150" style="display:block;border:0">
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:16px 18px 12px 18px">
+      <img src="{BASE}firma-logo-600.png" alt="Steinmetz" width="300" height="70" border="0"
+           style="display:block;width:300px;height:70px;border:0;outline:none;
+                  font-family:{TIPO};font-size:19px;font-weight:bold;letter-spacing:1px;color:{TINTA}">
     </td>
   </tr>
   <tr>
-    <td style="font-size:13px;line-height:1.7;color:#111112">
-      <strong style="font-weight:700">Ian Berndt</strong><br>
-      <span style="color:#6e6e73">Steinmetz SpA</span><br>
-      <a href="mailto:ian@steinmetz.cl" style="color:#111112;text-decoration:none">ian@steinmetz.cl</a>
-      &nbsp;&middot;&nbsp;
-      <a href="tel:+56993215043" style="color:#111112;text-decoration:none">+56 9 9321 5043</a><br>
-      <a href="https://steinmetz.cl" style="color:#6e6e73;text-decoration:none">steinmetz.cl</a>
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:12px 18px 0 18px;
+        border-top:1px solid {LINEA};font-family:{TIPO};font-size:13px;line-height:20px;color:{TINTA}">
+      {identidad()}
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:10px 18px 0 18px;
+        font-family:{TIPO};font-size:13px;line-height:20px;color:{TINTA}">
+      {contacto()}
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:10px 18px 16px 18px;
+        font-family:{TIPO};font-size:11px;line-height:16px;color:{SUAVE}">
+      {legal()}
     </td>
   </tr>
 </table>
 """
+
+
+def firma_compacta():
+    """Monograma al lado del texto. Para hilos largos y respuestas."""
+    return cabecera(
+        "variante compacta",
+        "hilos largos, respuestas, cuando la firma completa pesa demasiado"
+    ) + f"""<table cellpadding="0" cellspacing="0" border="0" role="presentation" bgcolor="{PAPEL}"
+       style="border-collapse:collapse;background-color:{PAPEL};font-family:{TIPO};color:{TINTA}">
+  <tr>
+    <td bgcolor="{PAPEL}" valign="top" width="60"
+        style="background-color:{PAPEL};padding:14px 0 14px 16px;width:60px">
+      <img src="{BASE}firma-sz-120.png" alt="Steinmetz" width="60" height="60" border="0"
+           style="display:block;width:60px;height:60px;border:0;outline:none;
+                  font-family:{TIPO};font-size:11px;font-weight:bold;color:{TINTA}">
+    </td>
+    <td bgcolor="{PAPEL}" valign="top"
+        style="background-color:{PAPEL};padding:14px 18px 14px 14px;
+               font-family:{TIPO};font-size:13px;line-height:19px;color:{TINTA}">
+      {identidad(14)}
+      <div style="padding-top:6px;font-family:{TIPO};font-size:13px;line-height:19px;color:{TINTA}">{contacto()}</div>
+    </td>
+  </tr>
+</table>
+"""
+
+
+def firma_sin_imagen():
+    """Sólo texto. Para cuando la política del destinatario bloquea imágenes.
+
+    El nombre va en Arial versales con interletra: es un sustituto declarado,
+    no un intento de imitar Fraunces. La marca de verdad la carga la imagen.
+    """
+    return cabecera(
+        "variante sin imágenes",
+        "clientes o políticas que bloquean imágenes; listas de correo; texto plano"
+    ) + f"""<table cellpadding="0" cellspacing="0" border="0" role="presentation" bgcolor="{PAPEL}"
+       style="border-collapse:collapse;background-color:{PAPEL};font-family:{TIPO};color:{TINTA}">
+  <tr>
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:14px 18px 12px 18px;
+        font-family:{TIPO};color:{TINTA}">
+      <span style="font-family:{TIPO};font-size:20px;font-weight:bold;letter-spacing:2px;
+        color:{TINTA}">STEINMETZ</span><br>
+      <span style="font-family:{TIPO};font-size:10px;letter-spacing:1.1px;color:{SUAVE}">
+        INGENIER&Iacute;A EN INTELIGENCIA ARTIFICIAL</span>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:12px 18px 0 18px;
+        border-top:1px solid {LINEA};font-family:{TIPO};font-size:13px;line-height:20px;color:{TINTA}">
+      {identidad(con_descriptor=False)}
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:10px 18px 0 18px;
+        font-family:{TIPO};font-size:13px;line-height:20px;color:{TINTA}">
+      {contacto()}
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="{PAPEL}" style="background-color:{PAPEL};padding:10px 18px 16px 18px;
+        font-family:{TIPO};font-size:11px;line-height:16px;color:{SUAVE}">
+      {legal()}
+    </td>
+  </tr>
+</table>
+"""
+
+
+FIRMAS = [
+    ("firma-gmail.html", firma_principal),
+    ("firma-gmail-compacta.html", firma_compacta),
+    ("firma-gmail-sin-imagen.html", firma_sin_imagen),
+]
 
 
 if __name__ == "__main__":
@@ -157,13 +348,12 @@ if __name__ == "__main__":
             pg = nav.new_page(viewport={"width": an, "height": al}, device_scale_factor=1)
             pg.set_content(hacer())
             pg.wait_for_timeout(500)
-            firma = nombre.startswith("firma")          # sólo la firma se recorta
-            transparente = firma or "transparente" in nombre
-            pg.screenshot(path=str(SALIDA / nombre), omit_background=transparente,
-                          clip={"x": 0, "y": 0, "width": an,
-                                "height": 124 if firma else al})
+            pg.screenshot(path=str(SALIDA / nombre),
+                          omit_background=nombre in TRANSPARENTES,
+                          clip={"x": 0, "y": 0, "width": an, "height": al})
             pg.close()
             print("escrito: piezas/" + nombre)
         nav.close()
-    (SALIDA / "firma-gmail.html").write_text(firma_html())
-    print("escrito: piezas/firma-gmail.html")
+    for nombre, hacer in FIRMAS:
+        (SALIDA / nombre).write_text(hacer(), encoding="utf-8")
+        print("escrito: piezas/" + nombre)

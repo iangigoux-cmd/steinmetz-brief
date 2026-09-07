@@ -649,16 +649,41 @@ footer a:hover{text-decoration:underline}
         <a href="assets/piezas/x-header-1500x500.png" download>HEADER <span>X · 1500×500</span></a>
         <a href="assets/piezas/instagram-post-1080.png" download>POST <span>Instagram · 1080×1080</span></a>
         <a href="assets/piezas/instagram-historia-1080x1920.png" download>HISTORIA <span>Instagram · 1080×1920</span></a>
-        <a href="assets/piezas/firma-gmail.html" download>FIRMA <span>Gmail, HTML para pegar</span></a>
       </div>
       <p class="pie-fig">El logo de organización va exacto a 320×132: Google Workspace lo despliega
         al pixel, sin escalar, así que el archivo se sube en ese tamaño y el contenido se queda
         dentro del 75&nbsp;% del lienzo, porque varias plataformas recortan unos pixeles de borde.
         La versión con descriptor conviene cuando quien mira todavía no conoce el nombre.</p>
-      <p class="pie-fig">La firma de Gmail se pega en Configuración → Firma; el logo apunta a
-        <code style="font-family:var(--mono)">steinmetz.cl</code>, así que no viaja como adjunto y
-        se ve nítido en pantallas retina. Todas se regeneran con
+      <p class="pie-fig">Todas se regeneran con
         <code style="font-family:var(--mono)">_generar_piezas.py</code>.</p>
+
+      <h3>La firma de correo</h3>
+      <p class="p">Un cliente de correo puede tener el fondo oscuro, puede bloquear las imágenes y
+        nunca carga una webfont. Las tres firmas están hechas para eso, y las tres siguen las mismas
+        reglas: el <b>fondo blanco va horneado en el PNG</b> —con transparencia, la tinta negra
+        desaparece sobre el fondo oscuro de Gmail o de Apple Mail—; cada imagen lleva
+        <code style="font-family:var(--mono)">alt</code> y sus medidas como atributos HTML, para que
+        el bloque no se desarme si no carga; y <b>todos los datos viajan en texto</b>, en Arial. La
+        marca la carga la imagen: el texto no intenta imitar a Fraunces. El bloque además declara su
+        propio fondo blanco, que es lo que lo salva en modo oscuro —lo que trae fondo propio no se
+        invierte.</p>
+      <div class="descargas">
+        <a href="assets/piezas/firma-gmail.html" download>FIRMA <span>principal · la de todos los días</span></a>
+        <a href="assets/piezas/firma-gmail-compacta.html" download>FIRMA <span>compacta · hilos y respuestas</span></a>
+        <a href="assets/piezas/firma-gmail-sin-imagen.html" download>FIRMA <span>sin imágenes · sólo texto</span></a>
+        <a href="assets/piezas/firma-logo-600.png" download>PNG <span>wordmark de firma · 600×140</span></a>
+        <a href="assets/piezas/firma-sz-120.png" download>PNG <span>monograma de firma · 120×120</span></a>
+      </div>
+      <p class="pie-fig">La <b>principal</b> es la de todos los días: wordmark completo, filete y los
+        datos debajo. La <b>compacta</b> cambia el wordmark por el monograma al costado del texto,
+        para hilos largos donde la firma entera pesa. La <b>sin imágenes</b> no trae ninguna, y es
+        para destinatarios cuya política las bloquea o para listas de correo. Los dos PNG salen al
+        doble del tamaño en que se muestran —600 para mostrarse a 300, 120 para mostrarse a 60— así
+        se ven nítidos en pantalla retina.</p>
+      <p class="pie-fig">Para pegarla: abrir el archivo en el navegador, seleccionar todo, copiar, y
+        pegar en Gmail → Configuración → Firma. <b>Se pega lo que el navegador muestra, no el
+        código.</b> El logo apunta a <code style="font-family:var(--mono)">steinmetz.cl</code>, así
+        que no viaja como adjunto.</p>
 
       <h3>Qué falta para que esto sea definitivo</h3>
       <p class="p">Una sola cosa: una tipografía con licencia propia en lugar de Google Fonts. El
