@@ -265,7 +265,7 @@ footer a:hover{text-decoration:underline}
       <a href="#aplicaciones"><span class="i-num">08</span><span class="i-tit">Aplicaciones</span><span class="i-des">LAS PIEZAS DE HOY</span></a>
       <a href="#incorrectos"><span class="i-num">09</span><span class="i-tit">Lo que rompe la marca</span><span class="i-des">USOS PROHIBIDOS</span></a>
       <a href="#tokens"><span class="i-num">10</span><span class="i-tit">Para llevar al código</span><span class="i-des">VARIABLES CSS</span></a>
-      <a href="#letra-chica"><span class="i-num">11</span><span class="i-tit">Lockup y letra chica</span><span class="i-des">DESCRIPTOR, ARCHIVOS, LEGAL</span></a>
+      <a href="#letra-chica"><span class="i-num">11</span><span class="i-tit">Lockup y letra chica</span><span class="i-des">DESCRIPTOR, ARCHIVOS, REDES</span></a>
     </nav>
   </header>
 
@@ -618,10 +618,34 @@ footer a:hover{text-decoration:underline}
         <a href="assets/steinmetz-monograma-sello.svg" download>SVG <span>monograma, sello</span></a>
         <a href="assets/steinmetz-monograma-1024.png" download>PNG <span>monograma SZ, 1024 px</span></a>
         <a href="assets/_generar_logo.py" download>PY <span>el script que los genera</span></a>
+        <a href="assets/_generar_piezas.py" download>PY <span>el que arma las piezas de redes</span></a>
       </div>
       <p class="pie-fig">Los PNG salen con fondo transparente. Para regenerarlos con otro tamaño o
         peso, correr <code style="font-family:var(--mono)">_generar_logo.py</code>: baja la variable
         de Fraunces, congela la rampa en contornos y rasteriza con el navegador.</p>
+
+      <h3>Piezas listas para subir</h3>
+      <p class="p">Cada red pide un tamaño distinto y recorta distinto. Estas ya salen medidas, y
+        siguen dos reglas: <b>las de perfil van a sangre completa, sin esquina redondeada</b>
+        —LinkedIn e Instagram recortan en círculo por su cuenta, y un archivo con radio propio
+        queda con doble redondeo—; y <b>en los banners la marca va a la derecha</b>, porque LinkedIn
+        y X montan la foto de perfil sobre la esquina inferior izquierda.</p>
+      <div class="descargas">
+        <a href="assets/piezas/perfil-linkedin-400.png" download>PERFIL <span>LinkedIn, X · 400 px</span></a>
+        <a href="assets/piezas/perfil-instagram-1000.png" download>PERFIL <span>Instagram · 1000 px</span></a>
+        <a href="assets/piezas/perfil-whatsapp-500.png" download>PERFIL <span>WhatsApp · 500 px</span></a>
+        <a href="assets/piezas/perfil-claro-1000.png" download>PERFIL <span>fondo claro · 1000 px</span></a>
+        <a href="assets/piezas/linkedin-portada-empresa-1128x191.png" download>PORTADA <span>LinkedIn empresa · 1128×191</span></a>
+        <a href="assets/piezas/linkedin-banner-personal-1584x396.png" download>BANNER <span>LinkedIn perfil · 1584×396</span></a>
+        <a href="assets/piezas/x-header-1500x500.png" download>HEADER <span>X · 1500×500</span></a>
+        <a href="assets/piezas/instagram-post-1080.png" download>POST <span>Instagram · 1080×1080</span></a>
+        <a href="assets/piezas/instagram-historia-1080x1920.png" download>HISTORIA <span>Instagram · 1080×1920</span></a>
+        <a href="assets/piezas/firma-gmail.html" download>FIRMA <span>Gmail, HTML para pegar</span></a>
+      </div>
+      <p class="pie-fig">La firma de Gmail se pega en Configuración → Firma; el logo apunta a
+        <code style="font-family:var(--mono)">steinmetz.cl</code>, así que no viaja como adjunto y
+        se ve nítido en pantallas retina. Todas se regeneran con
+        <code style="font-family:var(--mono)">_generar_piezas.py</code>.</p>
 
       <h3>Qué falta para que esto sea definitivo</h3>
       <p class="p">Una sola cosa: una tipografía con licencia propia en lugar de Google Fonts. El
