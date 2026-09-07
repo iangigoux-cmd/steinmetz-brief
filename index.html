@@ -22,13 +22,6 @@
 <link rel="canonical" href="https://steinmetz.cl/">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Steinmetz SpA",
- "url":"https://steinmetz.cl/","email":"ian@steinmetz.cl","telephone":"+56993215043",
- "founder":{"@type":"Person","name":"Ian Berndt"},"areaServed":"CL",
- "address":{"@type":"PostalAddress","addressLocality":"Santiago","addressCountry":"CL"},
- "description":"Sistemas de inteligencia artificial hechos a medida, en producción en tres semanas, dentro de tu red."}
-</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111112'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='15' font-weight='700' fill='%23fff'%3ESZ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +33,7 @@
    del sitio. Si no hay JS la clase nunca se pone y todo entra igual. */
 (function(){
   var r = document.documentElement, listo = function(){ r.classList.remove("sin-letras"); };
-  r.classList.add("sin-letras", "con-js");
+  r.classList.add("sin-letras");
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(listo);
   setTimeout(listo, 1400);
 })();
@@ -59,7 +52,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 :root{
-  --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#68686d;
+  --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#75757a;
   --linea:rgba(17,17,18,.14); --linea-fuerte:rgba(17,17,18,.34);
   --serif:"Fraunces",Georgia,serif;
   --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
@@ -68,20 +61,12 @@
 
   /* ── el vidrio ── cuerpo translúcido, filo que atrapa la luz, filo que
      la pierde, y la sombra que la placa deja caer. */
-  --vidrio:rgba(255,255,255,.26);
-  --vidrio-alto:rgba(255,255,255,.74);
+  --vidrio:rgba(255,255,255,.44);
+  --vidrio-alto:rgba(255,255,255,.88);
   --filo-luz:rgba(255,255,255,.98);
   --filo-sombra:rgba(17,17,18,.18);
-  /* el canto que mira hacia abajo no puede ser blanco: ahí está todo el
-     peso que separa una placa de vidrio de una hoja de papel */
-  --filo-canto:rgba(17,17,18,.62);
-  --brillo-int:rgba(255,255,255,.58);
-  --proyectada:rgba(17,17,18,.34);
-  /* la pastilla oscura es el ancla tonal de la sección de capas */
-  --pastilla:rgba(17,17,18,.62);
-  --pastilla-viva:rgba(17,17,18,.72);
-  --pastilla-letra:#ffffff;
-  --pastilla-mas:rgba(255,255,255,.24);
+  --brillo-int:rgba(255,255,255,.70);
+  --proyectada:rgba(17,17,18,.20);
   /* el grabado al ácido: la letra queda esmerilada, con un filo claro por
      donde entra la luz y uno oscuro por donde no. */
   --acido-cara:rgba(255,255,255,.66);
@@ -89,16 +74,11 @@
   --acido-luz:rgba(255,255,255,1);
   --letra-placa:rgba(17,17,18,.52);
   /* el campo: lo que se ve a través del vidrio */
-  --campo-luz:#fbfbfa; --campo-medio:#dcdcd9; --campo-fondo:#a8a8a4;
-  --reticula:rgba(17,17,18,.04);
+  --campo-luz:#ffffff; --campo-medio:#ededeb; --campo-fondo:#c6c6c3;
+  --reticula:rgba(17,17,18,.07);
 
   /* posición de la luz, −1..1 en cada eje. La escribe el bucle de JS. */
   --px:0; --py:0;
-  /* dirección de la luz, ya normalizada: el surco conserva siempre la
-     misma profundidad y sólo gira. Antes el desplazamiento era
-     `base + puntero*k`, y en cierta posición los dos se cancelaban: el
-     nombre se quedaba sin tallar. */
-  --ux:-.6; --uy:-.8;
 
   /* El movimiento tiene dos curvas y cuatro tiempos, y nada más.
      `--peso` arranca lento: es masa, y es lo único que se le pide al
@@ -119,13 +99,8 @@
     --vidrio-alto:rgba(255,255,255,.15);
     --filo-luz:rgba(255,255,255,.48);
     --filo-sombra:rgba(0,0,0,.7);
-    --filo-canto:rgba(0,0,0,.82);
     --brillo-int:rgba(255,255,255,.10);
-    --proyectada:rgba(0,0,0,.72);
-    --pastilla:rgba(255,255,255,.10);
-    --pastilla-viva:rgba(255,255,255,.18);
-    --pastilla-letra:#f0f0f2;
-    --pastilla-mas:rgba(255,255,255,.22);
+    --proyectada:rgba(0,0,0,.66);
     --acido-cara:rgba(255,255,255,.10);
     --acido-sombra:rgba(0,0,0,.86);
     --acido-luz:rgba(255,255,255,.44);
@@ -153,21 +128,14 @@ section+section{border-top:1px solid var(--linea)}
 /* la cabecera de cada sección va centrada, con aire alrededor */
 .cabecera{text-align:center;max-width:42rem;margin:0 auto}
 h1,h2{font-family:var(--serif);font-optical-sizing:auto;
-  line-height:1.05;text-wrap:balance}
-/* el eje óptico sigue al tamaño, que es para lo que está: clavarlo en 144
-   deja los finos de hairline a 48 px y el titular sale anémico */
-h1{font-variation-settings:"opsz" 72,"wght" 480;font-weight:480;
-  font-size:clamp(2.4rem,5.6vw,4rem);letter-spacing:-.036em;max-width:16ch}
-h2{font-variation-settings:"opsz" 48,"wght" 500;font-weight:500;
-  font-size:clamp(1.9rem,4.2vw,2.75rem);letter-spacing:-.030em}
-@media(min-width:60rem){h1{max-width:22ch}}
-.cabecera h1,.cabecera h2,.dicho h1{margin-inline:auto}
+  font-variation-settings:"opsz" 144,"wght" 460;font-weight:460;
+  letter-spacing:-.024em;line-height:1.05;text-wrap:balance}
+h1{font-size:clamp(2.5rem,7.4vw,5.5rem)}
+h2{font-size:clamp(1.9rem,4.6vw,3rem)}
 h3{font-family:var(--serif);font-optical-sizing:auto;
   font-variation-settings:"opsz" 30,"wght" 600;font-weight:600;
   font-size:1.08rem;letter-spacing:-.005em;line-height:1.3}
 .p{color:var(--medio);max-width:var(--medida);font-size:1rem;line-height:1.65}
-.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;
-  clip-path:inset(50%);white-space:nowrap}
 .p b,.bajada b{color:var(--tinta);font-weight:600}
 .bajada{color:var(--medio);margin:1.1rem auto 0;font-size:1.08rem;line-height:1.55;
   max-width:34em;text-wrap:pretty}
@@ -184,54 +152,44 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   background:var(--papel);color:var(--tinta);display:grid;place-items:center;
   transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
 .bt .flecha svg{width:11px;height:11px}
+.bt:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px var(--proyectada)}
+.bt:hover .flecha{transform:translateX(4px);background:#fff}
 .bt:active{transform:translateY(0)}
 .bt.linea{background:var(--vidrio);color:var(--tinta);border-color:var(--linea-fuerte);
   padding-right:1.35em;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-/* los hovers, sólo donde hay puntero: en táctil quedaban pegados y el
-   botón se veía levantado hasta que tocabas otra cosa */
-@media(hover:hover){
-  .bt:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px var(--proyectada)}
-  .bt:hover .flecha{transform:translateX(4px);
-    background:color-mix(in srgb,var(--papel) 82%,var(--tinta))}
-  .bt.linea:hover{border-color:var(--tinta)}
-  #marco .nav a:hover{opacity:1}
-  #marco .nav a:hover::after{right:0}
-  footer a:hover{color:var(--tinta)}
-}
+.bt.linea:hover{border-color:var(--tinta)}
 .bt:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
 
 /* ═══ EL MARCO ═══ enlaces · nombre al centro · llamada a la derecha ══ */
 #marco{position:fixed;top:0;left:0;right:0;z-index:60;
   display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;
-  background:transparent;border-bottom:1px solid transparent;
-  transition:border-color var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
-    backdrop-filter var(--t-medio) var(--ui)}
+  padding:.7rem clamp(1rem,4vw,2.2rem);
+  background:color-mix(in srgb,var(--papel) 66%,transparent);
+  border-bottom:1px solid transparent;
+  -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
+  transition:border-color var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
 #marco.posado{border-bottom-color:var(--linea);
-  background:color-mix(in srgb,var(--papel) 88%,transparent);
-  -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
-#marco .nav{display:none;gap:2rem;font-size:.8125rem;color:var(--tinta);
-  white-space:nowrap}
-#marco .nav a{opacity:.78}
+  background:color-mix(in srgb,var(--papel) 84%,transparent)}
+#marco .nav{display:none;gap:1.7rem;font-size:.92rem;color:var(--medio)}
 #marco .nav a{text-decoration:none;position:relative;padding-bottom:2px;transition:color var(--t-corto) var(--ui)}
 #marco .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;
   height:1px;background:var(--tinta);transition:right var(--t-medio) var(--ui)}
-
+#marco .nav a:hover{color:var(--tinta)}
+#marco .nav a:hover::after{right:0}
 #marco .centro-marco{grid-column:2;display:flex;justify-content:center}
-#marco .centro-marco a{display:flex;align-items:center;min-height:44px;padding:0 .4rem}
-#marco .wm-chico{color:var(--tinta)}
+#marco .wm-chico{width:clamp(7rem,17vw,8.6rem);color:var(--tinta)}
 #marco .derecha{grid-column:3;display:flex;justify-content:flex-end;align-items:center;gap:1rem}
-@media(min-width:78rem){#marco .nav{display:flex}}
-@media(max-width:77.99rem){
+#marco .bt{min-height:38px;font-size:.86rem;padding:.4em .45em .4em 1.05em}
+#marco .bt .flecha{width:22px;height:22px}
+@media(min-width:64rem){#marco .nav{display:flex}}
+@media(max-width:63.99rem){
   #marco{grid-template-columns:auto 1fr}
   #marco .centro-marco{grid-column:1;justify-content:flex-start}
   #marco .derecha{grid-column:2}
+  #marco .wm-chico{width:6.6rem}
+  #marco .bt{font-size:.8rem;padding:.35em .4em .35em .95em;min-height:34px}
+  #marco .bt .flecha{width:20px;height:20px}
 }
-/* el marco entero, más liviano: un botón negro de 38 px arriba a la
-   derecha era la mancha más oscura de toda la página */
-#marco{padding:.9rem clamp(1rem,4vw,2.2rem)}
-#marco .wm-chico{width:clamp(5.5rem,12vw,6.9rem)}
-#marco .bt{min-height:32px;font-size:.8125rem;padding:.32em .32em .32em 1em}
-#marco .bt .flecha{width:20px;height:20px}
 
 /* ═══ PORTADA ═══ una pieza de vidrio enorme, cortada por el marco ═══ */
 .portada{min-height:100svh;display:grid;grid-template-rows:1fr auto;
@@ -242,27 +200,15 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    transparente es invisible: la retícula fina es la que delata que hay
    vidrio, porque se ablanda al pasar por debajo. */
 .campo{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;
-  background:
-    /* el fondo de la sala, arriba y a la derecha, se va a la sombra: es la
-       parte del plano que se aleja, y sin eso el vidrio no tiene contra qué
-       leerse */
-    radial-gradient(140% 105% at 82% 4%,
-      color-mix(in srgb,var(--tinta) 22%,transparent) 0%, transparent 58%),
-    linear-gradient(152deg,
-      var(--campo-fondo) 0%, var(--campo-medio) 30%, var(--campo-luz) 62%,
-      var(--campo-medio) 86%, var(--campo-fondo) 100%)}
+  background:linear-gradient(168deg,
+    var(--campo-fondo) 0%, var(--campo-medio) 44%, var(--campo-fondo) 100%)}
 /* la luz grande se mueve con una traslación, no repintando el degradado:
    así el bucle del puntero no cuesta nada */
-/* la sección de capas lleva un eje de luz único, en diagonal: sin él
-   ninguna placa puede parecer iluminada */
-.campo.sin-reticula{background:linear-gradient(146deg,
-  var(--campo-fondo) 0%, var(--campo-medio) 34%, var(--campo-luz) 74%, var(--papel) 100%)}
-.campo.sin-reticula::after{display:none}
-.campo.sin-reticula .luz{opacity:.5}
-.campo .luz{position:absolute;left:50%;top:38%;width:88%;height:104%;opacity:.7;
+.campo .luz{position:absolute;left:50%;top:40%;width:104%;height:124%;
   background:radial-gradient(closest-side,var(--campo-luz) 0%,transparent 74%);
-  transform:translate3d(-50%,-50%,0) translate(calc(var(--px)*7%),calc(var(--py)*7%))}
-.campo.viva .luz{will-change:transform}
+  transform:translate3d(-50%,-50%,0) translate(calc(var(--px)*7%),calc(var(--py)*7%));
+  will-change:transform}
+.portada .campo::after{display:none}
 .campo::after{content:"";position:absolute;inset:0;
   background:
     repeating-linear-gradient(0deg,transparent 0 55px,var(--reticula) 55px 56px),
@@ -270,71 +216,52 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   mask-image:radial-gradient(130% 95% at 50% 45%,#000 15%,transparent 76%);
   -webkit-mask-image:radial-gradient(130% 95% at 50% 45%,#000 15%,transparent 76%)}
 
-/* la pieza: tres planos de vidrio a distintas profundidades. Los de
-   adelante y atrás van fuera de foco; sólo el del medio está nítido, y
-   es el que lleva el nombre grabado. Es la profundidad de campo de una
-   macro, hecha con desenfoques distintos por plano. */
-.pieza{position:absolute;inset:0;z-index:1;pointer-events:none;
-  perspective:1500px;perspective-origin:50% 46%}
-.pieza-int{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
-  transform:
-    translate3d(calc(var(--px)*-14px),calc(var(--py)*-10px),0)
-    rotateX(calc(64deg + var(--py)*2.5deg)) rotateZ(calc(-19deg + var(--px)*2.5deg))}
-.lamina{position:absolute;left:50%;top:50%;width:150vw;height:92vw;
-  will-change:transform;
-  margin:-46vw 0 0 -75vw;
-  background:linear-gradient(148deg,
-    var(--filo-luz) 0%, var(--vidrio-alto) 6%, var(--vidrio) 22%,
-    var(--vidrio) 74%, var(--vidrio-alto) 93%, var(--filo-luz) 100%);
-  box-shadow:0 0 0 2px var(--filo-luz), inset 0 0 0 1px var(--filo-sombra),
-    0 8vw 16vw -6vw var(--proyectada);
-  transform:translateZ(calc(var(--z) * 1px))}
-/* los planos fuera de foco no llevan `filter: blur()`: un desenfoque
-   sobre 190vw se recalcula cada vez que la pieza se mueve y tira los
-   cuadros a diez por segundo. Un degradado que ya nace suave da la misma
-   imagen y no cuesta nada. */
-.lamina.f1{--z:-320;opacity:.62;box-shadow:none;
-  background:radial-gradient(58% 66% at 38% 34%,
-    var(--filo-luz) 0%, var(--vidrio-alto) 32%, var(--vidrio) 54%, transparent 76%)}
-.lamina.f2{--z:0}
-.lamina.f3{--z:340;width:96vw;height:38vw;margin:14vw 0 0 -48vw;opacity:.9;box-shadow:none;
-  background:radial-gradient(62% 72% at 46% 40%,
-    var(--filo-luz) 0%, var(--vidrio-alto) 34%, var(--vidrio) 58%, transparent 80%)}
-/* el nombre grabado sobre la lámina nítida */
-.lamina .marca-vidrio{position:absolute;left:50%;top:24%;width:56vw;
-  transform:translate(-50%,-50%)}
-@media(max-width:56rem){.lamina .marca-vidrio{top:17%;width:78vw}}
+/* ═══ EL CAMPO DE TRAZOS ═══ el protagonista de la portada ═══════════
+   72 curvas que fluyen. `pathLength="1"` normaliza cada una a longitud 1,
+   así el guion de trazo se expresa en fracciones y una sola animación
+   sirve para las 72, cada una con su duración y su desfase. Es todo
+   dashoffset: no hay JavaScript detrás ni una sola librería. */
+.senderos{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.senderos svg{width:100%;height:100%;display:block;color:var(--tinta)}
+.senderos path{
+  stroke:currentColor;
+  stroke-dasharray:.32 .68;
+  stroke-dashoffset:var(--r);
+  animation:fluir var(--d) linear infinite, latir calc(var(--d) * .6) ease-in-out infinite;
+  animation-delay:calc(var(--r) * 9s)}
+@keyframes fluir{to{stroke-dashoffset:calc(var(--r) - 1)}}
+@keyframes latir{0%,100%{stroke-opacity:calc(var(--o) * .38)}50%{stroke-opacity:var(--o)}}
 
-/* el grabado al ácido: tres copias del mismo trazado. La oscura se asoma
-   por el lado de la luz —es la pared del surco a contraluz—, la clara por
-   el opuesto, y la cara esmerilada las tapa por el centro. Mover copias es
-   transformación pura: 60 fps sin recomponer filtros. */
-.esmerilado{position:relative;width:100%;aspect-ratio:7133/1446;line-height:0}
-.capa{position:absolute;inset:0;width:100%;height:100%}
-.capa.s,.capa.l{pointer-events:none;will-change:transform}
-.capa.s{color:var(--acido-sombra);
-  transform:translate(calc(var(--ux)*4px),calc(var(--uy)*4px))}
-.capa.l{color:var(--acido-luz);
-  transform:translate(calc(var(--ux)*-4px),calc(var(--uy)*-4px))}
-.capa.p{color:var(--acido-cara)}
 
 /* el titular, delante de todo y nítido */
 .dicho{position:relative;z-index:3;text-align:center}
 /* el velo: aclara el vidrio justo detrás del texto, para que el nombre
    grabado se vea alrededor y no debajo de lo que hay que leer */
 .dicho::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;
-  width:min(86vw,54rem);height:104%;transform:translate(-50%,-50%);
-  background:radial-gradient(52% 56% at 50% 54%,
-    var(--papel) 0%, color-mix(in srgb,var(--papel) 62%,transparent) 46%, transparent 76%)}
+  width:min(92vw,58rem);height:118%;transform:translate(-50%,-50%);
+  background:radial-gradient(52% 60% at 50% 50%,
+    var(--papel) 0%, color-mix(in srgb,var(--papel) 72%,transparent) 46%, transparent 74%)}
 .dicho .bajada{margin-top:1.2rem;font-size:clamp(1rem,2vw,1.18rem)}
 .dicho .acciones{margin-top:clamp(1.6rem,4vh,2.2rem);
   display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
 .franja{position:relative;z-index:3;margin-top:clamp(2.2rem,6vh,3.4rem);
   display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2.2rem;
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
-  color:var(--tinta);opacity:.72;text-transform:uppercase}
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;
+  color:var(--tinta);opacity:.66;text-transform:uppercase;
+  /* los trazos pasan por acá: la franja necesita su propio suelo */
+  background:radial-gradient(60% 200% at 50% 50%,
+    var(--papel) 0%, color-mix(in srgb,var(--papel) 60%,transparent) 55%, transparent 85%)}
 
 .sin-letras .entra{animation-play-state:paused}
+/* el titular sube letra por letra. Sin JavaScript se ve entero y quieto:
+   la clase `partido` sólo aparece cuando el guion lo repartió. */
+.letras .pal{display:inline-block;white-space:nowrap}
+.letras.partido .let{display:inline-block;transform:translateY(.58em);opacity:0;
+  animation:asomar-letra .82s var(--peso) forwards;
+  animation-delay:calc(var(--i) * 26ms)}
+@keyframes asomar-letra{to{transform:none;opacity:1}}
+.sin-letras .letras.partido .let{animation-play-state:paused}
+
 .entra{opacity:0;transform:translateY(14px);
   animation:entrar .62s var(--peso) forwards}
 @keyframes entrar{to{opacity:1;transform:none}}
@@ -344,63 +271,44 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    activa sube y se corre; las demás se juntan abajo. */
 .taller{margin-top:clamp(2.4rem,6vh,4rem);display:grid;gap:clamp(1.6rem,4vw,2.5rem);
   align-items:center}
-@media(max-width:59.99rem){
-  .escena-caja{height:clamp(18rem,56vw,22rem);margin:.8rem 0 .2rem;
-    width:100vw;margin-left:calc(50% - 50vw)}
-  .escena{--w:clamp(12.5rem,50vw,17rem);--h:clamp(12.5rem,50vw,17rem);
-    --hueco:34px;--t:14px}
-}
-@media(min-width:60rem){
-  /* la escena sale de la caja y ocupa el ancho entero; la lista flota
-     encima, como en la referencia. Los selectores van encadenados porque
-     este bloque vive antes de las reglas base y si no, pierde por orden. */
-  .taller{grid-template-columns:minmax(0,1fr);position:relative;
-    width:100vw;margin-left:calc(50% - 50vw)}
-  .taller .escena-caja{order:1;height:min(72vh,40rem)}
-  .taller .escena{left:69%;
-    --w:clamp(15rem,32vw,26rem);--h:clamp(15rem,32vw,26rem);--hueco:58px}
-  .taller .columna{order:2;position:absolute;z-index:3;top:11%;
-    left:max(1.5rem,calc(50vw - 35.5rem));width:min(25rem,32vw)}
-  .taller .detalle{max-width:100%}
-}
+@media(min-width:60rem){.taller{grid-template-columns:minmax(0,21rem) minmax(0,1fr)}}
 
-.columna{order:2;display:flex;flex-direction:column;
-  align-items:flex-start;gap:5px}
-.mandos{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
-
+.columna{order:2}
+.mandos{display:flex;flex-direction:column;gap:.55rem}
+@media(min-width:60rem){.columna{order:1}}
 /* las pastillas de la referencia, en blanco y negro */
 .mando{appearance:none;font:inherit;color:var(--tinta);cursor:pointer;text-align:left;
-  border:0;border-radius:24px;
-  background:var(--pastilla);
-  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
-  padding:10px 10px 10px 15px;display:flex;align-items:center;
-  gap:10px;min-height:44px;width:auto;max-width:100%;
+  border:1px solid var(--linea);border-radius:100px;
+  background:var(--vidrio);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  padding:.72rem 1.2rem;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;min-height:46px;width:100%;
   transition:background var(--t-medio) var(--ui),border-color var(--t-medio) var(--ui),
     transform var(--t-medio) var(--ui),box-shadow var(--t-medio) var(--ui),
     color var(--t-medio) var(--ui)}
-.mando .nombre{font-size:.8125rem;line-height:1.4;font-weight:400}
-.mando .mas{width:20px;height:20px;border-radius:50%;flex:none;display:grid;
-  place-items:center;background:var(--pastilla-mas);color:var(--pastilla-letra);
+.mando .nombre{font-size:.98rem;font-weight:500}
+.mando .mas{width:22px;height:22px;border-radius:50%;flex:none;display:grid;
+  place-items:center;background:var(--linea);color:var(--tinta);
   transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
     color var(--t-medio) var(--ui)}
-.mando .mas svg{width:8px;height:8px}
-@media(hover:hover){.mando:hover{background:var(--pastilla-viva)}}
+.mando .mas svg{width:9px;height:9px}
+@media(hover:hover){.mando:hover{transform:translateX(4px);border-color:var(--linea-fuerte)}}
 .mando[aria-selected="true"]{background:var(--tinta);color:var(--papel);
-  box-shadow:0 14px 30px -16px var(--proyectada);transition-duration:var(--t-toque)}
+  border-color:var(--tinta);box-shadow:0 12px 26px -14px var(--proyectada);
+  transition-duration:var(--t-toque)}
 .mando[aria-selected="true"] .mas{background:var(--papel);color:var(--tinta)}
 .mando:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
 /* el texto del pilar activo, en su tarjeta, como en la referencia */
-.detalle{border:0;border-radius:24px;background:var(--pastilla);
-  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
-  padding:12px 20px 18px;color:var(--pastilla-letra);font-size:1.0625rem;
-  line-height:1.45;margin-top:0;max-width:30rem}
+.detalle{border:1px solid var(--linea);border-radius:18px;background:var(--vidrio);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  padding:1.1rem 1.25rem;color:var(--medio);font-size:.95rem;line-height:1.6;
+  margin-top:.2rem}
 .detalle{transition:height var(--t-medio) var(--peso)}
 .detalle.gira{animation:asomar .42s var(--peso) .12s backwards}
 @keyframes asomar{from{opacity:0;transform:translateY(10px)}}
 
 .escena-caja{order:1;position:relative;height:clamp(19rem,58vw,33rem);
   perspective:1300px;perspective-origin:50% 50%;touch-action:pan-y}
-
+@media(min-width:60rem){.escena-caja{order:2}}
 .escena{position:absolute;left:50%;top:50%;
   --w:clamp(10.5rem,34vw,22rem); --h:clamp(10.5rem,34vw,22rem); --t:19px;
   --hueco:50px;   /* la separación entre placas: pareja siempre */
@@ -412,22 +320,21 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   animation-delay:calc(var(--i) * -2.4s)}
 @keyframes flotar{0%,100%{transform:translateZ(-2px)}50%{transform:translateZ(20px)}}
 
-.placa{position:absolute;inset:0;transform-style:preserve-3d;cursor:default;
+.placa{position:absolute;inset:0;transform-style:preserve-3d;
   transform:translate3d(var(--dx,0px),var(--dy,0px),calc(var(--z,0) * 1px));
   transition:transform var(--t-capa) var(--peso),
-    opacity calc(var(--t-capa) * .7) var(--peso)}
-@media(hover:hover){.placa{cursor:pointer}}
+    opacity calc(var(--t-capa) * .7) var(--peso);cursor:pointer}
 .placa .lado{position:absolute;left:50%;top:50%}
 .placa .cara{width:var(--w);height:var(--h);
   margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
   transform:translateZ(calc(var(--t)/2));
   background:
-    radial-gradient(62% 62% at 36% 20%, var(--vidrio-alto) 0%, transparent 54%),
+    radial-gradient(72% 72% at 40% 22%, var(--filo-luz) 0%, transparent 58%),
     linear-gradient(140deg,
-      var(--filo-luz) 0%, var(--vidrio) 22%, var(--vidrio) 72%, var(--vidrio-alto) 100%);
-  box-shadow:inset 0 0 0 1.5px var(--filo-luz), inset 0 0 0 4px var(--brillo-int),
-    inset 0 0 40px var(--brillo-int), inset 0 -20px 28px -18px var(--filo-canto),
-    0 26px 34px -22px var(--proyectada);
+      var(--filo-luz) 0%, var(--vidrio) 26%, var(--vidrio) 68%, var(--vidrio-alto) 100%);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:inset 0 0 0 2px var(--filo-luz), inset 0 0 0 5px var(--brillo-int),
+    inset 0 0 40px var(--brillo-int), inset 0 -16px 30px -16px var(--filo-sombra);
   display:grid;place-items:center;overflow:hidden}
 .placa .grabado{font-family:var(--serif);font-optical-sizing:auto;
   font-variation-settings:"opsz" 144,"wght" 440;
@@ -444,13 +351,11 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    hacia afuera, y `backface-visibility` esconde los cantos del fondo en
    vez de dejarlos cruzar la placa por detrás de la cara. */
 .placa .s{transform:translateY(calc(var(--h)/2)) rotateX(-90deg);
-  background:linear-gradient(180deg,
-    var(--filo-canto) 0%,var(--vidrio-alto) 28%,var(--filo-luz) 62%,var(--filo-canto) 100%)}
+  background:linear-gradient(180deg,var(--filo-sombra) 0%,var(--vidrio-alto) 65%,var(--filo-luz) 100%)}
 .placa .o{transform:translateX(calc(var(--w)/-2)) rotateY(-90deg);
   background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 40%,var(--filo-sombra) 100%)}
 .placa .e{transform:translateX(calc(var(--w)/2)) rotateY(90deg);
-  background:linear-gradient(90deg,
-    var(--filo-canto) 0%,var(--filo-luz) 32%,var(--vidrio-alto) 64%,var(--filo-canto) 100%)}
+  background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 45%,var(--filo-luz) 100%)}
 .placa .n,.placa .s,.placa .o,.placa .e{backface-visibility:hidden}
 .placa .sombra{width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
   transform:translateZ(calc(var(--t)/-2 - var(--hueco)));
@@ -460,7 +365,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .placa:focus-visible{outline:0}
 .placa:focus-visible .cara{box-shadow:inset 0 0 0 2px var(--tinta)}
 
-.con-js .taller:not(.montada) .placa{opacity:0}   /* sin JS la pila se ve igual */
+.placa{opacity:0}
 .taller.montada .placa{opacity:var(--op,1);
   animation:asentar .68s var(--peso) backwards, encender .34s linear backwards;
   animation-delay:calc((2 - var(--i)) * .1s)}
@@ -486,7 +391,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   transition:opacity var(--t-corto) var(--ui)}
 .op[aria-selected="true"] .marca{opacity:1}
 .op .txt{font-size:.98rem;line-height:1.45}
-.op:focus-visible{outline:2px solid currentColor;outline-offset:-4px}
+.op:focus-visible{outline:2px solid var(--tinta);outline-offset:-3px}
 .respuesta{background:var(--panel);padding:clamp(1.4rem,3.5vw,2rem);display:flex;
   flex-direction:column;gap:1.1rem}
 .respuesta.gira>*{animation:levantar .34s var(--peso) backwards}
@@ -499,7 +404,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .datos div{background:var(--panel);padding:.8rem .85rem;
   display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
 @media(min-width:30rem){.datos div{display:block}}
-.datos .k{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
+.datos .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--suave);display:block}
 .datos .v{font-size:.94rem;color:var(--tinta);display:block}
 @media(min-width:30rem){.datos .v{margin-top:.25rem}}
@@ -517,8 +422,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   .semana:hover{transform:translateY(-2px);z-index:1;background:var(--panel);
     box-shadow:inset 0 1px 0 var(--filo-luz),0 10px 24px -18px var(--proyectada)}
 }
-.semana .n{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
-  color:var(--medio);display:block}
+.semana .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
+  color:var(--suave);display:block}
 .semana h3{margin:.7rem 0 .5rem}
 .semana p{color:var(--medio);font-size:.96rem;line-height:1.6}
 
@@ -533,8 +438,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 @media(min-width:44rem){.lista li{grid-template-columns:11rem minmax(0,1fr)}}
 .lista .k,.lista .v{transition:transform var(--t-medio) var(--ui)}
 @media(hover:hover){.lista li:hover .k,.lista li:hover .v{transform:translateX(.7rem)}}
-.lista .k{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--medio);padding-top:.2em}
+.lista .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--suave);padding-top:.25em}
 .lista .v{color:var(--medio);font-size:.96rem;line-height:1.6}
 
 .perimetro{position:relative;height:16rem;perspective:900px;
@@ -549,7 +454,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   transform:translateZ(calc(var(--z) * 1px))}
 .plano.solido{border:0;background:var(--tinta);display:grid;place-items:center;
   box-shadow:0 0 38px -6px var(--proyectada)}
-.plano .et{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;
+.plano .et{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;
   color:var(--suave);position:absolute;left:0;top:-1.35em;white-space:nowrap}
 .plano.solido .et{position:static;color:var(--papel);opacity:.9}
 
@@ -565,16 +470,15 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .obra .que{color:var(--medio);font-size:.96rem;line-height:1.6;margin-top:.9rem}
 
 /* ═══ HABLEMOS ═══ */
-/* el cierre vive sobre el campo gris: su gris de texto tiene que ser más
-   firme que el del papel blanco */
-.cierre{position:relative;overflow:hidden;text-align:center;--medio:#5a5a5f}
+.cierre{position:relative;overflow:hidden;text-align:center}
 .cierre .acciones{margin-top:clamp(1.8rem,4vh,2.4rem);display:flex;gap:.6rem;
   flex-wrap:wrap;justify-content:center}
 .cierre .firma{margin:2.2rem auto 0;max-width:32em;color:var(--medio);font-size:.94rem}
 footer{padding:1.5rem 0;border-top:1px solid var(--linea);
   font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--suave)}
 footer .env{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;justify-content:space-between}
-footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
+footer a{text-decoration:none}
+footer a:hover{color:var(--tinta)}
 
 /* ═══ movimiento reducido ═══ nada se mueve solo; todo sigue usable ═══ */
 @media (prefers-reduced-motion:reduce){
@@ -642,27 +546,92 @@ footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
 <!-- ══ PORTADA ══ -->
 <header class="portada">
   <div class="campo" aria-hidden="true"><i class="luz"></i></div>
-  <div class="pieza" aria-hidden="true">
-    <div class="pieza-int" id="piezaInt">
-      <div class="lamina f1"></div>
-      <div class="lamina f2">
-        <div class="marca-vidrio">
-          <div class="esmerilado">
-            <svg class="capa s" viewBox="0 0 7133 1446"><use href="#letras"/></svg>
-            <svg class="capa l" viewBox="0 0 7133 1446"><use href="#letras"/></svg>
-            <svg class="capa p" viewBox="0 0 7133 1446"><use href="#letras"/></svg>
-          </div>
-        </div>
-      </div>
-      <div class="lamina f3"></div>
-    </div>
+  <!-- el campo de trazos: 72 curvas que fluyen, calculadas igual que el
+       componente de referencia y portadas a SVG y CSS puros. `pathLength="1"`
+       normaliza cada curva a longitud 1, así el guion de trazo se expresa en
+       fracciones y una sola animación sirve para todas. -->
+  <div class="senderos" aria-hidden="true">
+    <svg viewBox="0 0 696 316" fill="none" preserveAspectRatio="none">
+      <path pathLength="1" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke-width="0.5" style="--o:0.1;--d:23.2s;--r:-0.151"/>
+      <path pathLength="1" d="M-375 -195C-375 -195 -307 210 147 337C611 464 679 869 679 869" stroke-width="0.53" style="--o:0.13;--d:26.5s;--r:-0.072"/>
+      <path pathLength="1" d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke-width="0.56" style="--o:0.16;--d:25.4s;--r:-0.366"/>
+      <path pathLength="1" d="M-365 -207C-365 -207 -297 198 137 325C601 452 669 857 669 857" stroke-width="0.59" style="--o:0.19;--d:20.6s;--r:-0.507"/>
+      <path pathLength="1" d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke-width="0.62" style="--o:0.22;--d:20.4s;--r:-0.434"/>
+      <path pathLength="1" d="M-355 -219C-355 -219 -287 186 127 313C591 440 659 845 659 845" stroke-width="0.65" style="--o:0.25;--d:20.7s;--r:-0.091"/>
+      <path pathLength="1" d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke-width="0.68" style="--o:0.28;--d:24.2s;--r:-0.827"/>
+      <path pathLength="1" d="M-345 -231C-345 -231 -277 174 117 301C581 428 649 833 649 833" stroke-width="0.71" style="--o:0.31;--d:21.2s;--r:-0.223"/>
+      <path pathLength="1" d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke-width="0.74" style="--o:0.34;--d:26.3s;--r:-0.948"/>
+      <path pathLength="1" d="M-335 -243C-335 -243 -267 162 107 289C571 416 639 821 639 821" stroke-width="0.77" style="--o:0.37;--d:25.8s;--r:-0.397"/>
+      <path pathLength="1" d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke-width="0.8" style="--o:0.4;--d:29.8s;--r:-0.047"/>
+      <path pathLength="1" d="M-325 -255C-325 -255 -257 150 97 277C561 404 629 809 629 809" stroke-width="0.83" style="--o:0.43;--d:28.6s;--r:-0.29"/>
+      <path pathLength="1" d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke-width="0.86" style="--o:0.46;--d:21.4s;--r:-0.118"/>
+      <path pathLength="1" d="M-315 -267C-315 -267 -247 138 87 265C551 392 619 797 619 797" stroke-width="0.89" style="--o:0.49;--d:23.1s;--r:-0.816"/>
+      <path pathLength="1" d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke-width="0.92" style="--o:0.52;--d:21.8s;--r:-0.582"/>
+      <path pathLength="1" d="M-305 -279C-305 -279 -237 126 77 253C541 380 609 785 609 785" stroke-width="0.95" style="--o:0.55;--d:26.4s;--r:-0.372"/>
+      <path pathLength="1" d="M-300 -285C-300 -285 -232 120 72 247C536 374 604 779 604 779" stroke-width="0.98" style="--o:0.58;--d:25.5s;--r:-0.063"/>
+      <path pathLength="1" d="M-295 -291C-295 -291 -227 114 67 241C531 368 599 773 599 773" stroke-width="1.01" style="--o:0.61;--d:20.6s;--r:-0.206"/>
+      <path pathLength="1" d="M-290 -297C-290 -297 -222 108 62 235C526 362 594 767 594 767" stroke-width="1.04" style="--o:0.64;--d:26.8s;--r:-0.428"/>
+      <path pathLength="1" d="M-285 -303C-285 -303 -217 102 57 229C521 356 589 761 589 761" stroke-width="1.07" style="--o:0.67;--d:23.1s;--r:-0.586"/>
+      <path pathLength="1" d="M-280 -309C-280 -309 -212 96 52 223C516 350 584 755 584 755" stroke-width="1.1" style="--o:0.7;--d:24.5s;--r:-0.3"/>
+      <path pathLength="1" d="M-275 -315C-275 -315 -207 90 47 217C511 344 579 749 579 749" stroke-width="1.13" style="--o:0.73;--d:27.9s;--r:-0.699"/>
+      <path pathLength="1" d="M-270 -321C-270 -321 -202 84 42 211C506 338 574 743 574 743" stroke-width="1.16" style="--o:0.76;--d:22.4s;--r:-0.574"/>
+      <path pathLength="1" d="M-265 -327C-265 -327 -197 78 37 205C501 332 569 737 569 737" stroke-width="1.19" style="--o:0.79;--d:25.3s;--r:-0.875"/>
+      <path pathLength="1" d="M-260 -333C-260 -333 -192 72 32 199C496 326 564 731 564 731" stroke-width="1.22" style="--o:0.82;--d:27.3s;--r:-0.288"/>
+      <path pathLength="1" d="M-255 -339C-255 -339 -187 66 27 193C491 320 559 725 559 725" stroke-width="1.25" style="--o:0.85;--d:29.8s;--r:-0.118"/>
+      <path pathLength="1" d="M-250 -345C-250 -345 -182 60 22 187C486 314 554 719 554 719" stroke-width="1.28" style="--o:0.88;--d:24.2s;--r:-0.757"/>
+      <path pathLength="1" d="M-245 -351C-245 -351 -177 54 17 181C481 308 549 713 549 713" stroke-width="1.31" style="--o:0.91;--d:21.5s;--r:-0.489"/>
+      <path pathLength="1" d="M-240 -357C-240 -357 -172 48 12 175C476 302 544 707 544 707" stroke-width="1.34" style="--o:0.94;--d:20.4s;--r:-0.668"/>
+      <path pathLength="1" d="M-235 -363C-235 -363 -167 42 7 169C471 296 539 701 539 701" stroke-width="1.37" style="--o:0.97;--d:27.6s;--r:-0.573"/>
+      <path pathLength="1" d="M-230 -369C-230 -369 -162 36 2 163C466 290 534 695 534 695" stroke-width="1.4" style="--o:1.0;--d:28.8s;--r:-0.314"/>
+      <path pathLength="1" d="M-225 -375C-225 -375 -157 30 -3 157C461 284 529 689 529 689" stroke-width="1.43" style="--o:1;--d:27.0s;--r:-0.594"/>
+      <path pathLength="1" d="M-220 -381C-220 -381 -152 24 -8 151C456 278 524 683 524 683" stroke-width="1.46" style="--o:1;--d:25.8s;--r:-0.456"/>
+      <path pathLength="1" d="M-215 -387C-215 -387 -147 18 -13 145C451 272 519 677 519 677" stroke-width="1.49" style="--o:1;--d:28.4s;--r:-0.945"/>
+      <path pathLength="1" d="M-210 -393C-210 -393 -142 12 -18 139C446 266 514 671 514 671" stroke-width="1.52" style="--o:1;--d:24.7s;--r:-0.664"/>
+      <path pathLength="1" d="M-205 -399C-205 -399 -137 6 -23 133C441 260 509 665 509 665" stroke-width="1.55" style="--o:1;--d:20.6s;--r:-0.701"/>
+      <path pathLength="1" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke-width="0.5" style="--o:0.1;--d:26.5s;--r:-0.993"/>
+      <path pathLength="1" d="M-385 -195C-385 -195 -317 210 157 337C621 464 689 869 689 869" stroke-width="0.53" style="--o:0.13;--d:28.2s;--r:-0.285"/>
+      <path pathLength="1" d="M-390 -201C-390 -201 -322 204 162 331C626 458 694 863 694 863" stroke-width="0.56" style="--o:0.16;--d:23.9s;--r:-0.669"/>
+      <path pathLength="1" d="M-395 -207C-395 -207 -327 198 167 325C631 452 699 857 699 857" stroke-width="0.59" style="--o:0.19;--d:20.2s;--r:-0.462"/>
+      <path pathLength="1" d="M-400 -213C-400 -213 -332 192 172 319C636 446 704 851 704 851" stroke-width="0.62" style="--o:0.22;--d:21.7s;--r:-0.117"/>
+      <path pathLength="1" d="M-405 -219C-405 -219 -337 186 177 313C641 440 709 845 709 845" stroke-width="0.65" style="--o:0.25;--d:20.6s;--r:-0.768"/>
+      <path pathLength="1" d="M-410 -225C-410 -225 -342 180 182 307C646 434 714 839 714 839" stroke-width="0.68" style="--o:0.28;--d:21.3s;--r:-0.248"/>
+      <path pathLength="1" d="M-415 -231C-415 -231 -347 174 187 301C651 428 719 833 719 833" stroke-width="0.71" style="--o:0.31;--d:23.9s;--r:-0.871"/>
+      <path pathLength="1" d="M-420 -237C-420 -237 -352 168 192 295C656 422 724 827 724 827" stroke-width="0.74" style="--o:0.34;--d:20.8s;--r:-0.449"/>
+      <path pathLength="1" d="M-425 -243C-425 -243 -357 162 197 289C661 416 729 821 729 821" stroke-width="0.77" style="--o:0.37;--d:25.5s;--r:-0.883"/>
+      <path pathLength="1" d="M-430 -249C-430 -249 -362 156 202 283C666 410 734 815 734 815" stroke-width="0.8" style="--o:0.4;--d:28.2s;--r:-0.864"/>
+      <path pathLength="1" d="M-435 -255C-435 -255 -367 150 207 277C671 404 739 809 739 809" stroke-width="0.83" style="--o:0.43;--d:22.8s;--r:-0.415"/>
+      <path pathLength="1" d="M-440 -261C-440 -261 -372 144 212 271C676 398 744 803 744 803" stroke-width="0.86" style="--o:0.46;--d:23.6s;--r:-0.884"/>
+      <path pathLength="1" d="M-445 -267C-445 -267 -377 138 217 265C681 392 749 797 749 797" stroke-width="0.89" style="--o:0.49;--d:29.6s;--r:-0.151"/>
+      <path pathLength="1" d="M-450 -273C-450 -273 -382 132 222 259C686 386 754 791 754 791" stroke-width="0.92" style="--o:0.52;--d:21.8s;--r:-0.232"/>
+      <path pathLength="1" d="M-455 -279C-455 -279 -387 126 227 253C691 380 759 785 759 785" stroke-width="0.95" style="--o:0.55;--d:22.3s;--r:-0.485"/>
+      <path pathLength="1" d="M-460 -285C-460 -285 -392 120 232 247C696 374 764 779 764 779" stroke-width="0.98" style="--o:0.58;--d:25.9s;--r:-0.263"/>
+      <path pathLength="1" d="M-465 -291C-465 -291 -397 114 237 241C701 368 769 773 769 773" stroke-width="1.01" style="--o:0.61;--d:20.0s;--r:-0.419"/>
+      <path pathLength="1" d="M-470 -297C-470 -297 -402 108 242 235C706 362 774 767 774 767" stroke-width="1.04" style="--o:0.64;--d:23.7s;--r:-0.566"/>
+      <path pathLength="1" d="M-475 -303C-475 -303 -407 102 247 229C711 356 779 761 779 761" stroke-width="1.07" style="--o:0.67;--d:29.5s;--r:-0.69"/>
+      <path pathLength="1" d="M-480 -309C-480 -309 -412 96 252 223C716 350 784 755 784 755" stroke-width="1.1" style="--o:0.7;--d:25.2s;--r:-0.618"/>
+      <path pathLength="1" d="M-485 -315C-485 -315 -417 90 257 217C721 344 789 749 789 749" stroke-width="1.13" style="--o:0.73;--d:26.8s;--r:-0.054"/>
+      <path pathLength="1" d="M-490 -321C-490 -321 -422 84 262 211C726 338 794 743 794 743" stroke-width="1.16" style="--o:0.76;--d:29.0s;--r:-0.78"/>
+      <path pathLength="1" d="M-495 -327C-495 -327 -427 78 267 205C731 332 799 737 799 737" stroke-width="1.19" style="--o:0.79;--d:28.7s;--r:-0.798"/>
+      <path pathLength="1" d="M-500 -333C-500 -333 -432 72 272 199C736 326 804 731 804 731" stroke-width="1.22" style="--o:0.82;--d:23.9s;--r:-0.399"/>
+      <path pathLength="1" d="M-505 -339C-505 -339 -437 66 277 193C741 320 809 725 809 725" stroke-width="1.25" style="--o:0.85;--d:21.0s;--r:-0.634"/>
+      <path pathLength="1" d="M-510 -345C-510 -345 -442 60 282 187C746 314 814 719 814 719" stroke-width="1.28" style="--o:0.88;--d:20.6s;--r:-0.067"/>
+      <path pathLength="1" d="M-515 -351C-515 -351 -447 54 287 181C751 308 819 713 819 713" stroke-width="1.31" style="--o:0.91;--d:22.1s;--r:-0.162"/>
+      <path pathLength="1" d="M-520 -357C-520 -357 -452 48 292 175C756 302 824 707 824 707" stroke-width="1.34" style="--o:0.94;--d:23.4s;--r:-0.053"/>
+      <path pathLength="1" d="M-525 -363C-525 -363 -457 42 297 169C761 296 829 701 829 701" stroke-width="1.37" style="--o:0.97;--d:20.0s;--r:-0.151"/>
+      <path pathLength="1" d="M-530 -369C-530 -369 -462 36 302 163C766 290 834 695 834 695" stroke-width="1.4" style="--o:1.0;--d:21.0s;--r:-0.364"/>
+      <path pathLength="1" d="M-535 -375C-535 -375 -467 30 307 157C771 284 839 689 839 689" stroke-width="1.43" style="--o:1;--d:20.3s;--r:-0.874"/>
+      <path pathLength="1" d="M-540 -381C-540 -381 -472 24 312 151C776 278 844 683 844 683" stroke-width="1.46" style="--o:1;--d:26.1s;--r:-0.149"/>
+      <path pathLength="1" d="M-545 -387C-545 -387 -477 18 317 145C781 272 849 677 849 677" stroke-width="1.49" style="--o:1;--d:22.5s;--r:-0.347"/>
+      <path pathLength="1" d="M-550 -393C-550 -393 -482 12 322 139C786 266 854 671 854 671" stroke-width="1.52" style="--o:1;--d:23.6s;--r:-0.123"/>
+      <path pathLength="1" d="M-555 -399C-555 -399 -487 6 327 133C791 260 859 665 859 665" stroke-width="1.55" style="--o:1;--d:28.5s;--r:-0.993"/>
+    </svg>
   </div>
 
   <div></div>
 
   <div class="env">
     <div class="dicho">
-      <h1 class="entra">Sistemas de IA hechos para tu operación.</h1>
+      <h1 class="letras">Sistemas de IA hechos para tu operación.</h1>
       <p class="bajada entra" style="animation-delay:.09s">
         No instalamos software: construimos el que le falta a tu empresa.
         En producción en tres semanas, dentro de tu red.
@@ -681,7 +650,7 @@ footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
 
 <!-- ══ LA PILA — los tres pilares ══ -->
 <section id="pilares">
-  <div class="campo sin-reticula" aria-hidden="true"><i class="luz"></i></div>
+  <div class="campo" aria-hidden="true"><i class="luz"></i></div>
   <div class="env">
     <div class="cabecera">
       <h2>Tres cosas, y las tres importan.</h2>
@@ -691,30 +660,21 @@ footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
 
     <div class="taller" id="taller">
       <div class="columna">
-        <div class="mandos" role="tablist" aria-label="Los tres pilares" aria-orientation="vertical">
-          <button class="mando" type="button" role="tab" id="pilar-0"
-                  aria-controls="detalle" aria-selected="true"
-                  tabindex="0" data-i="0">
+        <div class="mandos" role="tablist" aria-label="Los tres pilares">
+          <button class="mando" role="tab" aria-selected="true" data-i="0">
             <span class="nombre">A medida</span>
             <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
           </button>
-          <button class="mando" type="button" role="tab" id="pilar-1"
-                  aria-controls="detalle" aria-selected="false"
-                  tabindex="-1" data-i="1">
+          <button class="mando" role="tab" aria-selected="false" data-i="1">
             <span class="nombre">Rápido</span>
             <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
           </button>
-          <button class="mando" type="button" role="tab" id="pilar-2"
-                  aria-controls="detalle" aria-selected="false"
-                  tabindex="-1" data-i="2">
+          <button class="mando" role="tab" aria-selected="false" data-i="2">
             <span class="nombre">Seguro</span>
             <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
           </button>
         </div>
-        <div class="detalle" id="detalle" role="tabpanel" tabindex="0"
-             aria-labelledby="pilar-0">No instalamos software. Construimos el sistema que le
-          falta a tu operación, dentro de tu operación y con tus reglas. Nada de adaptar tu
-          empresa a una herramienta que se vendió igual a otras cien.</div>
+        <div class="detalle" id="detalle" role="tabpanel" aria-live="polite"></div>
       </div>
 
       <div class="escena-caja">
@@ -757,33 +717,9 @@ footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
       construiríamos, en cuánto y desde cuánto.</p>
   </div>
   <div class="caso">
-    <!-- los cinco casos van escritos en el documento. Antes vivían sólo en
-         un array de JS, y sin él desaparecían los titulares, los plazos y
-         los precios: 687 caracteres, el 17% del texto de la página. -->
-    <div class="opciones" role="tablist" aria-label="Casos" aria-orientation="vertical">
-      <button class="op" type="button" role="tab" id="caso-0" aria-controls="respuesta"
-              aria-selected="true" tabindex="0"><span class="marca">01</span><span class="txt">Tenemos documentos que nadie encuentra a tiempo</span></button>
-      <button class="op" type="button" role="tab" id="caso-1" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">02</span><span class="txt">Mi equipo copia datos de un sistema a otro</span></button>
-      <button class="op" type="button" role="tab" id="caso-2" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">03</span><span class="txt">Reviso contratos parecidos, uno por uno, a mano</span></button>
-      <button class="op" type="button" role="tab" id="caso-3" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">04</span><span class="txt">Sé que algo se está perdiendo, pero no sé dónde</span></button>
-      <button class="op" type="button" role="tab" id="caso-4" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">05</span><span class="txt">Ya usamos IA, pero no conoce nuestra empresa</span></button>
-    </div>
-    <div class="respuesta" id="respuesta" role="tabpanel" tabindex="0" aria-labelledby="caso-0">
-      <p class="que">Un índice que se mantiene solo. Cada documento entra, se clasifica y queda
-        buscable en lenguaje natural, con la fuente citada: quién lo dice, en qué documento y en
-        qué página.</p>
-      <div class="datos">
-        <div><span class="k">Plazo</span><span class="v">3 semanas</span></div>
-        <div><span class="k">Dónde vive</span><span class="v">Dentro de tu red</span></div>
-        <div><span class="k">Inversión</span><span class="v">Desde 28 UF</span></div>
-      </div>
-    </div>
+    <div class="opciones" role="tablist" aria-label="Casos"></div>
+    <div class="respuesta" id="respuesta" role="tabpanel" aria-live="polite"></div>
   </div>
-  <p class="solo-lector" id="aviso" aria-live="polite"></p>
 </div></section>
 
 <!-- ══ LAS TRES SEMANAS ══ -->
@@ -968,19 +904,6 @@ if(!quieto){
       escrito.x = actual.x; escrito.y = actual.y;
       raiz.style.setProperty("--px", actual.x.toFixed(3));
       raiz.style.setProperty("--py", actual.y.toFixed(3));
-      /* la dirección, normalizada y mezclada con la de reposo cuando la
-         luz pasa cerca del centro y el ángulo se vuelve indefinido */
-      var largo = Math.sqrt(actual.x * actual.x + actual.y * actual.y);
-      var manda = Math.min(1, largo / .35);
-      var ux = largo > 1e-4 ? actual.x / largo : -.6;
-      var uy = largo > 1e-4 ? actual.y / largo : -.8;
-      var bx = ux * manda + -.6 * (1 - manda);
-      var by = uy * manda + -.8 * (1 - manda);
-      var bl = Math.sqrt(bx * bx + by * by) || 1;   /* la mezcla de dos
-         vectores unitarios no es unitaria: hay que volver a normalizarla o
-         el surco se achica cuando la luz cruza el centro */
-      raiz.style.setProperty("--ux", (bx / bl).toFixed(3));
-      raiz.style.setProperty("--uy", (by / bl).toFixed(3));
     }
     for(var i = 0; i < escenas.length; i++){
       var e = escenas[i];
@@ -994,6 +917,30 @@ if(!quieto){
     }
     requestAnimationFrame(bucle);
   })(t0);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   EL TITULAR — se reparte en palabras y letras para que suba escalonado.
+   Si esto no corre, el titular se ve entero: el HTML ya trae el texto.
+   ════════════════════════════════════════════════════════════════════ */
+var titular = document.querySelector(".letras");
+if(titular && !quieto){
+  var k = 0, frag = document.createDocumentFragment();
+  titular.textContent.trim().split(" ").forEach(function(palabra, ip, todas){
+    var pal = document.createElement("span");
+    pal.className = "pal";
+    palabra.split("").forEach(function(letra){
+      var s = document.createElement("span");
+      s.className = "let"; s.style.setProperty("--i", k++);
+      s.textContent = letra;
+      pal.appendChild(s);
+    });
+    frag.appendChild(pal);
+    if(ip < todas.length - 1) frag.appendChild(document.createTextNode(" "));
+  });
+  titular.textContent = "";
+  titular.appendChild(frag);
+  titular.classList.add("partido");
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -1019,11 +966,7 @@ if(taller){
   function acomodar(n){
     if(n === actualPilar) return;
     actualPilar = n;
-    mandos.forEach(function(m, i){
-      m.setAttribute("aria-selected", i === n ? "true" : "false");
-      m.tabIndex = i === n ? 0 : -1;          /* una sola parada de tabulación */
-    });
-    detalle.setAttribute("aria-labelledby", mandos[n].id);
+    mandos.forEach(function(m, i){ m.setAttribute("aria-selected", i === n ? "true" : "false"); });
     /* Las que no están activas conservan su orden y ocupan las ranuras de
        abajo, todas separadas por el mismo hueco; la activa sube siempre a
        la misma altura. Antes los huecos salían 44 y 54 —desparejos— y con
@@ -1031,18 +974,12 @@ if(taller){
        pila se barajaba sola. Eso era lo que se veía mal armado. */
     var ranura = placas.length - 2;   /* de arriba hacia abajo: la primera
        pastilla queda en la placa más alta de las que no están activas */
-    var cima = placas.length - 1;
     placas.forEach(function(l, i){
       var activa = i === n;
-      var r = activa ? cima : (ranura--);
-      l.style.setProperty("--z", activa ? cima * HUECO + ALZA : r * HUECO);
-      /* respaldo dentro del plano: hay motores que aplanan el eje Z de un
-         contexto `preserve-3d`. Con este desplazamiento la pila se lee como
-         pila aunque la profundidad se pierda. */
-      var corr = (cima - r) * 14 - 20 + "px";
-      l.style.setProperty("--dx", corr);
-      l.style.setProperty("--dy", corr);
-      l.style.setProperty("--op", activa ? 1 : .8);
+      l.style.setProperty("--z", activa ? (placas.length - 1) * HUECO + ALZA : (ranura--) * HUECO);
+      l.style.setProperty("--dx", activa ? "-20px" : "0px");
+      l.style.setProperty("--dy", activa ? "-20px" : "0px");
+      l.style.setProperty("--op", activa ? 1 : .7);
       /* la pila se abre primero; la activa sube 90 ms después, al hueco ya
          hecho. Al revés —que era como estaba— las dos placas se cruzaban
          coplanares y eso es lo que se veía como un error de armado. */
@@ -1081,21 +1018,16 @@ if(taller){
     });
     m.addEventListener("pointerleave", function(){ clearTimeout(intencion); });
     m.addEventListener("keydown", function(e){
-      var n;
-      if(e.key === "Home") n = 0;
-      else if(e.key === "End") n = mandos.length - 1;
-      else{
-        var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
-              : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
-        if(!d) return;
-        n = (i + d + mandos.length) % mandos.length;
-      }
+      var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
+            : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
+      if(!d) return;
       e.preventDefault();
+      var n = (i + d + mandos.length) % mandos.length;
       mandos[n].focus(); acomodar(n);
     });
   });
   placas.forEach(function(l, i){
-    l.addEventListener("click", function(){ acomodar(i); });
+    l.addEventListener("click", function(){ acomodar(i); mandos[i].focus(); });
   });
 
   /* cuando termina de crecer, el alto vuelve a ser automático: si no,
@@ -1140,19 +1072,11 @@ var CASOS = [
 var listaOp = document.querySelector(".opciones");
 var panel = document.getElementById("respuesta");
 if(listaOp && panel){
-  var aviso = document.getElementById("aviso");
   var elegir = function(i, primera){
     var c = CASOS[i];
     [].forEach.call(listaOp.children, function(b, j){
       b.setAttribute("aria-selected", j === i ? "true" : "false");
-      b.tabIndex = j === i ? 0 : -1;
     });
-    panel.setAttribute("aria-labelledby", listaOp.children[i].id);
-    /* el aviso va en una región chica y aparte: cuando el panel entero era
-       `aria-live`, cada flecha hacía leer los tres datos pegados
-       —«Plazo3 semanasDónde viveDentro de tu red…»— y recorrer los cinco
-       casos encolaba cinco párrafos de eso */
-    if(aviso && !primera) aviso.textContent = "Caso " + (i + 1) + " de " + CASOS.length + ": " + c.t;
     panel.innerHTML =
       '<p class="que">' + c.q + '</p>' +
       '<div class="datos">' +
@@ -1170,32 +1094,24 @@ if(listaOp && panel){
     }
   };
 
-  /* los botones ya vienen escritos en el HTML: acá sólo se atan */
-  [].forEach.call(listaOp.children, function(b, i){
+  CASOS.forEach(function(c, i){
+    var b = document.createElement("button");
+    b.className = "op"; b.type = "button";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", i === 0 ? "true" : "false");
+    b.innerHTML = '<span class="marca">' + String(i + 1).padStart(2, "0") + '</span>' +
+                  '<span class="txt">' + c.t + '</span>';
     b.addEventListener("click", function(){ elegir(i, false); });
     b.addEventListener("keydown", function(e){
-      var n;
-      if(e.key === "Home") n = 0;
-      else if(e.key === "End") n = CASOS.length - 1;
-      else{
-        var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
-              : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
-        if(!d) return;
-        n = (i + d + CASOS.length) % CASOS.length;
-      }
+      var d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
+      if(!d) return;
       e.preventDefault();
+      var n = (i + d + CASOS.length) % CASOS.length;
       listaOp.children[n].focus(); elegir(n, false);
     });
+    listaOp.appendChild(b);
   });
-}
-
-/* sólo se promueve a capa la luz que está en pantalla: las tres juntas
-   sumaban 31,6 MB de textura en un teléfono */
-if("IntersectionObserver" in window){
-  var vigia = new IntersectionObserver(function(es){
-    es.forEach(function(e){ e.target.classList.toggle("viva", e.isIntersecting); });
-  }, {rootMargin:"20% 0px"});
-  [].forEach.call(document.querySelectorAll(".campo"), function(c){ vigia.observe(c); });
+  elegir(0, true);
 }
 
 /* ════════════════════════════════════════════════════════════════════
