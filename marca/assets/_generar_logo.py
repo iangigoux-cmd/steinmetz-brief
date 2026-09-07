@@ -26,7 +26,7 @@ TINTA = "#111112"
 PAPEL = "#ffffff"
 
 
-PESO = 340
+PESO = 440
 
 
 def bajar_fuente():
