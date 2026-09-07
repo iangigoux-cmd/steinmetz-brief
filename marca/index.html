@@ -9,12 +9,14 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111112'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='15' font-weight='700' fill='%23fff'%3ESZ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
   --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#75757a;
   --linea:rgba(17,17,18,.14); --linea-fuerte:rgba(17,17,18,.34);
-  --serif:"Fraunces",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
   color-scheme:light;
   --anchura:74rem; --medida:38em;
 }
@@ -25,9 +27,8 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--papel);color:var(--tinta);font-family:var(--serif);
-  font-optical-sizing:auto;font-variation-settings:"wght" 350,"opsz" 14;
-  line-height:1.65;-webkit-font-smoothing:antialiased;
+body{background:var(--papel);color:var(--tinta);font-family:var(--sans);
+  font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased;
   transition:background .35s ease,color .35s ease}
 ::selection{background:var(--tinta);color:var(--papel)}
 a{color:var(--tinta);text-decoration-thickness:1px;text-underline-offset:.22em}
@@ -57,9 +58,7 @@ a{color:var(--tinta);text-decoration-thickness:1px;text-underline-offset:.22em}
   line-height:1;letter-spacing:-.03em;font-size:clamp(3rem,14vw,11rem);cursor:default;
   justify-content:center}
 .marca-viva span{display:inline-block}
-.lema{margin:clamp(2rem,5vh,3.2rem) auto 0;max-width:33em;text-align:center;
-  font-size:clamp(1.05rem,1.7vw,1.28rem);line-height:1.7;color:var(--medio)}
-.meta{margin-top:2.4rem;text-align:center;font-family:var(--mono);font-size:.66rem;
+.meta{margin-top:clamp(2.2rem,5vh,3.2rem);text-align:center;font-family:var(--mono);font-size:.66rem;
   letter-spacing:.18em;color:var(--suave)}
 
 /* ── secciones ── */
@@ -68,22 +67,22 @@ section{padding:clamp(3.5rem,9vh,6.5rem) 0;border-top:1px solid var(--linea)}
   margin-bottom:clamp(2rem,5vh,3rem)}
 .num{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--suave);padding-top:.5rem}
 h1{font-weight:inherit}
-h2{font-variation-settings:"wght" 500,"opsz" 144;font-size:clamp(1.5rem,3.4vw,2.3rem);
+h2{font-family:var(--serif);font-optical-sizing:auto;font-variation-settings:"wght" 500,"opsz" 144;font-size:clamp(1.5rem,3.4vw,2.3rem);
   letter-spacing:-.015em;line-height:1.15}
-h3{font-variation-settings:"wght" 600,"opsz" 60;font-size:1.06rem;letter-spacing:-.005em;
+h3{font-family:var(--serif);font-optical-sizing:auto;font-variation-settings:"wght" 600,"opsz" 60;font-size:1.06rem;letter-spacing:-.005em;
   margin:1.9rem 0 .5rem;line-height:1.3}
-.bajada{margin-top:.8rem;max-width:31em;color:var(--tinta);font-size:1.22rem;
-  line-height:1.5;font-variation-settings:"wght" 380,"opsz" 24}
+.bajada{margin-top:.85rem;max-width:33em;color:var(--tinta);font-size:1.12rem;
+  line-height:1.55;font-weight:400}
 .cuerpo{display:grid;grid-template-columns:3.4rem 1fr;gap:1.4rem}
 .cuerpo > *{min-width:0}
 .rejilla > div{min-width:0}
 .cuerpo > :first-child{grid-column:2}
 p+p{margin-top:1rem}
-.p{max-width:var(--medida);color:var(--medio);font-size:1.02rem;line-height:1.72}
-.p b,.bajada b{color:inherit;font-variation-settings:"wght" 620,"opsz" 14}
+.p{max-width:var(--medida);color:var(--medio);font-size:.98rem;line-height:1.68}
+.p b,.bajada b{color:inherit;font-weight:600}
 .p code,.bajada code{font-family:var(--mono);font-size:.86em;color:var(--tinta)}
-.pie-fig{font-size:.9rem;color:var(--medio);line-height:1.55;margin-top:.85rem}
-.pie-fig b{color:var(--tinta);font-variation-settings:"wght" 600,"opsz" 14}
+.pie-fig{font-size:.86rem;color:var(--medio);line-height:1.6;margin-top:.85rem}
+.pie-fig b{color:var(--tinta);font-weight:600}
 
 /* ── piezas comunes ── */
 .rotulo{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--medio);
@@ -118,10 +117,9 @@ p+p{margin-top:1rem}
 /* color */
 .tono{display:flex;flex-direction:column;gap:.5rem}
 .tono i{display:block;height:5.5rem;background:var(--c);border:1px solid var(--linea-fuerte)}
-.tono .n{font-family:var(--serif);font-size:.98rem;font-variation-settings:"wght" 600,"opsz" 14;
-  color:var(--tinta);margin-top:.2rem}
+.tono .n{font-size:.92rem;font-weight:600;color:var(--tinta);margin-top:.2rem}
 .tono .h{font-family:var(--mono);font-size:.72rem;color:var(--tinta);letter-spacing:.02em}
-.tono .u{font-size:.88rem;color:var(--medio);line-height:1.55}
+.tono .u{font-size:.84rem;color:var(--medio);line-height:1.55}
 
 /* tipografía */
 .escala > div{display:grid;grid-template-columns:9rem 1fr;gap:1.4rem;align-items:baseline;
@@ -178,8 +176,8 @@ p+p{margin-top:1rem}
   background:var(--panel);margin-bottom:.9rem;overflow:hidden}
 .mal .ej > span{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
   font-size:1.9rem;letter-spacing:-.015em;color:var(--tinta)}
-.mal p{font-size:.95rem;color:var(--medio);line-height:1.6}
-.mal p b{color:var(--tinta);font-variation-settings:"wght" 600,"opsz" 14}
+.mal p{font-size:.9rem;color:var(--medio);line-height:1.6}
+.mal p b{color:var(--tinta);font-weight:600}
 
 /* tokens */
 pre{max-width:100%;font-family:var(--mono);font-size:.7rem;line-height:1.9;color:var(--medio);
@@ -198,7 +196,8 @@ pre b{color:var(--tinta);font-weight:500}
   transition:padding-left .25s cubic-bezier(.19,1,.22,1)}
 .indice a:hover,.indice a:focus-visible{padding-left:.6rem}
 .indice .i-num{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--suave)}
-.indice .i-tit{font-size:1.05rem;font-variation-settings:"wght" 450,"opsz" 24}
+.indice .i-tit{font-family:var(--serif);font-optical-sizing:auto;font-size:1.08rem;
+  font-variation-settings:"wght" 450,"opsz" 24}
 .indice .i-des{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--medio);
   text-align:right}
 @media(max-width:640px){.indice a{grid-template-columns:2.4rem 1fr;gap:.9rem}.indice .i-des{display:none}}
@@ -250,8 +249,6 @@ footer a:hover{text-decoration:underline}
   <main>
   <header class="portada">
     <h1 class="marca-viva" id="marca" data-marca role="img" aria-label="Steinmetz">Steinmetz</h1>
-    <p class="lema">Steinmetz significa cantero: el que sabe dónde dar el golpe.
-      La marca es el nombre, tallado con precisión y sin adorno.</p>
     <p class="meta">MANUAL DE MARCA, VERSIÓN 1.0. SEPTIEMBRE DE 2026.</p>
 
     <nav class="indice" aria-label="Contenido">
@@ -260,7 +257,7 @@ footer a:hover{text-decoration:underline}
       <a href="#monograma"><span class="i-num">03</span><span class="i-tit">El monograma</span><span class="i-des">SZ: AVATAR, FAVICON, SELLO</span></a>
       <a href="#aire"><span class="i-num">04</span><span class="i-tit">Espacio libre</span><span class="i-des">LA REGLA DE 1X</span></a>
       <a href="#color"><span class="i-num">05</span><span class="i-tit">Color</span><span class="i-des">BLANCO Y NEGRO, DOS TEMAS</span></a>
-      <a href="#tipografia"><span class="i-num">06</span><span class="i-tit">Tipografía</span><span class="i-des">ESCALA Y OFICIOS</span></a>
+      <a href="#tipografia"><span class="i-num">06</span><span class="i-tit">Tipografía</span><span class="i-des">TRES FAMILIAS, TRES OFICIOS</span></a>
       <a href="#voz"><span class="i-num">07</span><span class="i-tit">Cómo se escribe</span><span class="i-des">VOZ Y REGLAS DE COPY</span></a>
       <a href="#aplicaciones"><span class="i-num">08</span><span class="i-tit">Aplicaciones</span><span class="i-des">LAS PIEZAS DE HOY</span></a>
       <a href="#incorrectos"><span class="i-num">09</span><span class="i-tit">Lo que rompe la marca</span><span class="i-des">USOS PROHIBIDOS</span></a>
@@ -405,8 +402,8 @@ footer a:hover{text-decoration:underline}
   <section id="tipografia">
     <div class="cab"><div class="num">06</div>
       <div><h2>Tipografía</h2>
-        <p class="bajada">Dos familias con oficios distintos: la serifa piensa, la monoespaciada
-          informa.</p>
+        <p class="bajada">Tres familias con un oficio cada una: la serifa titula, la sans se
+          lee, la monoespaciada informa.</p>
       </div></div>
     <div class="cuerpo"><div>
       <div class="escala">
@@ -414,17 +411,24 @@ footer a:hover{text-decoration:underline}
           <dd style="font-variation-settings:'wght' 500,'opsz' 144;font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:-.015em;line-height:1.15">Títulos de sección</dd></div>
         <div><dt>Fraunces 600<br>óptico 60<br>17&nbsp;px</dt>
           <dd style="font-variation-settings:'wght' 600,'opsz' 60;font-size:1.06rem">Subtítulos dentro de una sección</dd></div>
-        <div><dt>Fraunces 350<br>óptico 14<br>16,3&nbsp;px<br>interlínea 1,7<br>medida 38&nbsp;em</dt>
-          <dd style="font-size:1.02rem;color:var(--medio);line-height:1.7">Texto corrido. La serifa lleva la voz de la marca y se usa para todo lo que se lee de principio a fin: propuestas, correos largos, el sitio.</dd></div>
+        <div><dt>Instrument Sans 400<br>15,7&nbsp;px<br>interlínea 1,68<br>medida 38&nbsp;em</dt>
+          <dd style="font-size:.98rem;color:var(--medio);line-height:1.68">Texto corrido. Todo lo que se lee de principio a fin va acá: propuestas, correos largos, el sitio. La sans no compite con el wordmark y aguanta párrafos enteros sin cansar.</dd></div>
         <div><dt>IBM Plex Mono 500<br>versales, 0,16&nbsp;em<br>11&nbsp;px</dt>
           <dd style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--medio)">ETIQUETAS Y RÓTULOS</dd></div>
         <div><dt>IBM Plex Mono 400<br>cifras tabulares<br>16&nbsp;px</dt>
           <dd><div class="cifras"><span>38 UF</span><br><span>13 UF</span><br><span>1.493.400</span></div></dd></div>
       </div>
-      <h3>Por qué monoespaciada para las cifras</h3>
-      <p class="p">Los números salen alineados en columna sin trucos, como arriba. Eso hace que un
-        precio se lea como un dato verificable y no como un argumento de venta. Ninguna otra familia
-        entra al sistema: si falta un peso, se busca dentro de Fraunces antes que fuera.</p>
+      <h3>Por qué cada una hace lo suyo</h3>
+      <p class="p"><b>Fraunces</b> es la voz de la marca, pero sólo donde hay pocas palabras: el
+        wordmark y los títulos. Su contraste extremo, que es lo que la hace memorable, cansa en un
+        párrafo largo.</p>
+      <p class="p"><b>Instrument Sans</b> lee. Es sobria a propósito: no tiene rasgos que compitan
+        con la serifa y mantiene la legibilidad en pantalla y en papel.</p>
+      <p class="p"><b>IBM Plex Mono</b> informa. Sus números salen alineados en columna sin trucos,
+        como arriba, y eso hace que un precio se lea como un dato verificable y no como un argumento
+        de venta.</p>
+      <p class="p">Ninguna otra familia entra al sistema. Si falta un peso, se busca dentro de estas
+        tres antes que fuera.</p>
     </div></div>
   </section>
 
@@ -561,8 +565,9 @@ footer a:hover{text-decoration:underline}
   --medida:38em;     /* medida de lectura, ~69 caracteres */
 
   <b>/* tipografía */</b>
-  --serif:"Fraunces",Georgia,serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --serif:"Fraunces",Georgia,serif;              /* wordmark y títulos */
+  --sans:"Instrument Sans",system-ui,sans-serif; /* texto corrido */
+  --mono:"IBM Plex Mono",ui-monospace,monospace; /* datos y etiquetas */
   --wordmark:"wght" 440,"opsz" 144;   /* letter-spacing:-.03em */
   --titulo:"wght" 500,"opsz" 144;     /* letter-spacing:-.015em */
   --subtitulo:"wght" 600,"opsz" 60;
@@ -654,7 +659,8 @@ footer a:hover{text-decoration:underline}
 
       <h3>Legal</h3>
       <p class="p">Steinmetz&nbsp;SpA, RUT 78.484.226-6, Santiago de Chile. El nombre y el wordmark
-        son de la sociedad. Fraunces e IBM Plex Mono se usan bajo licencia SIL Open Font. Para pedir
+        son de la sociedad. Fraunces, Instrument Sans e IBM Plex Mono se usan bajo licencia SIL Open
+        Font. Para pedir
         archivos o resolver una duda de uso: <a href="mailto:ian@steinmetz.cl">ian@steinmetz.cl</a>.</p>
     </div></div>
   </section>
