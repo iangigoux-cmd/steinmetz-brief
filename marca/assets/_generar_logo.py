@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 """Traza el wordmark de Steinmetz a vector y exporta SVG y PNG.
 
-El logo no tiene un peso único: cada letra pesa más que la anterior, de 300 en
-la S a 900 en la z, con la curva acelerando al final. Acá esa rampa se congela
-en contornos, para que el archivo no dependa de que cargue la fuente.
-
-    peso(i) = 300 + (i/(n-1))^1.75 * 600      opsz fijo en 144
+Un solo peso para todas las letras (wght 340) con el eje óptico en 144, que es
+donde Fraunces afila los trazos. Se congela en contornos para que el archivo no
+dependa de que cargue la fuente.
 
 Requiere: fonttools, brotli, y la variable de Fraunces (se baja de Google Fonts).
 Uso:  python3 _generar_logo.py
@@ -28,8 +26,7 @@ TINTA = "#111112"
 PAPEL = "#ffffff"
 
 
-def peso(i, n):
-    return 300 + (i / (n - 1)) ** 1.75 * 600
+PESO = 340
 
 
 def bajar_fuente():
@@ -63,11 +60,12 @@ def trazar():
     espacio = INTERLETRA * upem
     n = len(PALABRA)
 
+    inst = instantiateVariableFont(
+        TTFont(str(FUENTE)), {"opsz": OPSZ, "wght": PESO}, inplace=False)
+
     piezas, x = [], 0.0
     minx = miny = float("inf"); maxx = maxy = float("-inf")
     for i, ch in enumerate(PALABRA):
-        inst = instantiateVariableFont(
-            TTFont(str(FUENTE)), {"opsz": OPSZ, "wght": peso(i, n)}, inplace=False)
         glifo = inst.getBestCmap()[ord(ch)]
         gs = inst.getGlyphSet()
         pluma = SVGPathPen(gs)
@@ -162,8 +160,8 @@ if __name__ == "__main__":
         print("escrito:", nombre)
     (AQUI / "steinmetz-monograma.svg").write_text(monograma("#ffffff", "#111112"))
     (AQUI / "steinmetz-monograma-invertido.svg").write_text(monograma("#111112", "#ffffff"))
-    (AQUI / "steinmetz-monograma-azul.svg").write_text(monograma("#ffffff", "#12439c"))
-    print("escrito: steinmetz-monograma.svg (+ invertido, + azul)")
+    (AQUI / "steinmetz-monograma-sello.svg").write_text(monograma("#ffffff", "#111112", radio_pct=0))
+    print("escrito: steinmetz-monograma.svg (+ invertido, + sello)")
 
     an = caja[2] - caja[0]; al = caja[3] - caja[1]
     prop = al / an
