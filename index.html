@@ -47,12 +47,20 @@
 
   /* ── el vidrio ── cuerpo translúcido, filo que atrapa la luz, filo que
      la pierde, y la sombra que la placa deja caer. */
-  --vidrio:rgba(255,255,255,.44);
-  --vidrio-alto:rgba(255,255,255,.88);
+  --vidrio:rgba(255,255,255,.26);
+  --vidrio-alto:rgba(255,255,255,.74);
   --filo-luz:rgba(255,255,255,.98);
   --filo-sombra:rgba(17,17,18,.18);
-  --brillo-int:rgba(255,255,255,.70);
-  --proyectada:rgba(17,17,18,.20);
+  /* el canto que mira hacia abajo no puede ser blanco: ahí está todo el
+     peso que separa una placa de vidrio de una hoja de papel */
+  --filo-canto:rgba(17,17,18,.62);
+  --brillo-int:rgba(255,255,255,.58);
+  --proyectada:rgba(17,17,18,.34);
+  /* la pastilla oscura es el ancla tonal de la sección de capas */
+  --pastilla:rgba(17,17,18,.62);
+  --pastilla-viva:rgba(17,17,18,.72);
+  --pastilla-letra:#ffffff;
+  --pastilla-mas:rgba(255,255,255,.24);
   /* el grabado al ácido: la letra queda esmerilada, con un filo claro por
      donde entra la luz y uno oscuro por donde no. */
   --acido-cara:rgba(255,255,255,.66);
@@ -60,8 +68,8 @@
   --acido-luz:rgba(255,255,255,1);
   --letra-placa:rgba(17,17,18,.52);
   /* el campo: lo que se ve a través del vidrio */
-  --campo-luz:#ffffff; --campo-medio:#ededeb; --campo-fondo:#c6c6c3;
-  --reticula:rgba(17,17,18,.07);
+  --campo-luz:#fbfbfa; --campo-medio:#dcdcd9; --campo-fondo:#a8a8a4;
+  --reticula:rgba(17,17,18,.04);
 
   /* posición de la luz, −1..1 en cada eje. La escribe el bucle de JS. */
   --px:0; --py:0;
@@ -90,8 +98,13 @@
     --vidrio-alto:rgba(255,255,255,.15);
     --filo-luz:rgba(255,255,255,.48);
     --filo-sombra:rgba(0,0,0,.7);
+    --filo-canto:rgba(0,0,0,.82);
     --brillo-int:rgba(255,255,255,.10);
-    --proyectada:rgba(0,0,0,.66);
+    --proyectada:rgba(0,0,0,.72);
+    --pastilla:rgba(255,255,255,.10);
+    --pastilla-viva:rgba(255,255,255,.18);
+    --pastilla-letra:#f0f0f2;
+    --pastilla-mas:rgba(255,255,255,.22);
     --acido-cara:rgba(255,255,255,.10);
     --acido-sombra:rgba(0,0,0,.86);
     --acido-luz:rgba(255,255,255,.44);
@@ -119,10 +132,15 @@ section+section{border-top:1px solid var(--linea)}
 /* la cabecera de cada sección va centrada, con aire alrededor */
 .cabecera{text-align:center;max-width:42rem;margin:0 auto}
 h1,h2{font-family:var(--serif);font-optical-sizing:auto;
-  font-variation-settings:"opsz" 144,"wght" 460;font-weight:460;
-  letter-spacing:-.024em;line-height:1.05;text-wrap:balance}
-h1{font-size:clamp(2.4rem,6.4vw,4.4rem)}
-h2{font-size:clamp(1.9rem,4.6vw,3rem)}
+  line-height:1.05;text-wrap:balance}
+/* el eje óptico sigue al tamaño, que es para lo que está: clavarlo en 144
+   deja los finos de hairline a 48 px y el titular sale anémico */
+h1{font-variation-settings:"opsz" 72,"wght" 480;font-weight:480;
+  font-size:clamp(2.4rem,5.6vw,4rem);letter-spacing:-.036em;max-width:16ch}
+h2{font-variation-settings:"opsz" 48,"wght" 500;font-weight:500;
+  font-size:clamp(1.9rem,4.2vw,2.75rem);letter-spacing:-.030em}
+@media(min-width:60rem){h1{max-width:22ch}}
+.cabecera h1,.cabecera h2,.dicho h1{margin-inline:auto}
 h3{font-family:var(--serif);font-optical-sizing:auto;
   font-variation-settings:"opsz" 30,"wght" 600;font-weight:600;
   font-size:1.08rem;letter-spacing:-.005em;line-height:1.3}
@@ -155,13 +173,14 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 #marco{position:fixed;top:0;left:0;right:0;z-index:60;
   display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;
   padding:.7rem clamp(1rem,4vw,2.2rem);
-  background:color-mix(in srgb,var(--papel) 66%,transparent);
-  border-bottom:1px solid transparent;
-  -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
-  transition:border-color var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
+  background:transparent;border-bottom:1px solid transparent;
+  transition:border-color var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
+    backdrop-filter var(--t-medio) var(--ui)}
 #marco.posado{border-bottom-color:var(--linea);
-  background:color-mix(in srgb,var(--papel) 84%,transparent)}
-#marco .nav{display:none;gap:1.7rem;font-size:.92rem;color:var(--medio)}
+  background:color-mix(in srgb,var(--papel) 88%,transparent);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
+#marco .nav{display:none;gap:2rem;font-size:.8125rem;color:var(--medio);
+  white-space:nowrap}
 #marco .nav a{text-decoration:none;position:relative;padding-bottom:2px;transition:color var(--t-corto) var(--ui)}
 #marco .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;
   height:1px;background:var(--tinta);transition:right var(--t-medio) var(--ui)}
@@ -172,15 +191,18 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 #marco .derecha{grid-column:3;display:flex;justify-content:flex-end;align-items:center;gap:1rem}
 #marco .bt{min-height:38px;font-size:.86rem;padding:.4em .45em .4em 1.05em}
 #marco .bt .flecha{width:22px;height:22px}
-@media(min-width:64rem){#marco .nav{display:flex}}
-@media(max-width:63.99rem){
+@media(min-width:78rem){#marco .nav{display:flex}}
+@media(max-width:77.99rem){
   #marco{grid-template-columns:auto 1fr}
   #marco .centro-marco{grid-column:1;justify-content:flex-start}
   #marco .derecha{grid-column:2}
-  #marco .wm-chico{width:6.6rem}
-  #marco .bt{font-size:.8rem;padding:.35em .4em .35em .95em;min-height:34px}
-  #marco .bt .flecha{width:20px;height:20px}
 }
+/* el marco entero, más liviano: un botón negro de 38 px arriba a la
+   derecha era la mancha más oscura de toda la página */
+#marco{padding:.9rem clamp(1rem,4vw,2.2rem)}
+#marco .wm-chico{width:clamp(5.5rem,12vw,6.9rem)}
+#marco .bt{min-height:32px;font-size:.8125rem;padding:.32em .32em .32em 1em}
+#marco .bt .flecha{width:20px;height:20px}
 
 /* ═══ PORTADA ═══ una pieza de vidrio enorme, cortada por el marco ═══ */
 .portada{min-height:100svh;display:grid;grid-template-rows:1fr auto;
@@ -191,11 +213,24 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    transparente es invisible: la retícula fina es la que delata que hay
    vidrio, porque se ablanda al pasar por debajo. */
 .campo{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;
-  background:linear-gradient(168deg,
-    var(--campo-fondo) 0%, var(--campo-medio) 44%, var(--campo-fondo) 100%)}
+  background:
+    /* el fondo de la sala, arriba y a la derecha, se va a la sombra: es la
+       parte del plano que se aleja, y sin eso el vidrio no tiene contra qué
+       leerse */
+    radial-gradient(140% 105% at 82% 4%,
+      color-mix(in srgb,var(--tinta) 22%,transparent) 0%, transparent 58%),
+    linear-gradient(152deg,
+      var(--campo-fondo) 0%, var(--campo-medio) 30%, var(--campo-luz) 62%,
+      var(--campo-medio) 86%, var(--campo-fondo) 100%)}
 /* la luz grande se mueve con una traslación, no repintando el degradado:
    así el bucle del puntero no cuesta nada */
-.campo .luz{position:absolute;left:50%;top:40%;width:104%;height:124%;
+/* la sección de capas lleva un eje de luz único, en diagonal: sin él
+   ninguna placa puede parecer iluminada */
+.campo.sin-reticula{background:linear-gradient(146deg,
+  var(--campo-fondo) 0%, var(--campo-medio) 34%, var(--campo-luz) 74%, var(--papel) 100%)}
+.campo.sin-reticula::after{display:none}
+.campo.sin-reticula .luz{opacity:.5}
+.campo .luz{position:absolute;left:50%;top:38%;width:88%;height:104%;opacity:.7;
   background:radial-gradient(closest-side,var(--campo-luz) 0%,transparent 74%);
   transform:translate3d(-50%,-50%,0) translate(calc(var(--px)*7%),calc(var(--py)*7%));
   will-change:transform}
@@ -220,8 +255,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   will-change:transform;
   margin:-46vw 0 0 -75vw;
   background:linear-gradient(148deg,
-    var(--filo-luz) 0%, var(--vidrio-alto) 14%, var(--vidrio) 38%,
-    var(--vidrio) 58%, var(--vidrio-alto) 80%, var(--filo-luz) 100%);
+    var(--filo-luz) 0%, var(--vidrio-alto) 6%, var(--vidrio) 22%,
+    var(--vidrio) 74%, var(--vidrio-alto) 93%, var(--filo-luz) 100%);
   box-shadow:0 0 0 2px var(--filo-luz), inset 0 0 0 1px var(--filo-sombra),
     0 8vw 16vw -6vw var(--proyectada);
   transform:translateZ(calc(var(--z) * 1px))}
@@ -237,9 +272,9 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   background:radial-gradient(62% 72% at 46% 40%,
     var(--filo-luz) 0%, var(--vidrio-alto) 34%, var(--vidrio) 58%, transparent 80%)}
 /* el nombre grabado sobre la lámina nítida */
-.lamina .marca-vidrio{position:absolute;left:50%;top:34%;width:74vw;
+.lamina .marca-vidrio{position:absolute;left:50%;top:24%;width:56vw;
   transform:translate(-50%,-50%)}
-@media(max-width:56rem){.lamina .marca-vidrio{top:26%;width:96vw}}
+@media(max-width:56rem){.lamina .marca-vidrio{top:17%;width:78vw}}
 
 /* el grabado al ácido: tres copias del mismo trazado. La oscura se asoma
    por el lado de la luz —es la pared del surco a contraluz—, la clara por
@@ -259,15 +294,15 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 /* el velo: aclara el vidrio justo detrás del texto, para que el nombre
    grabado se vea alrededor y no debajo de lo que hay que leer */
 .dicho::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;
-  width:min(150vw,86rem);height:150%;transform:translate(-50%,-50%);
-  background:radial-gradient(52% 60% at 50% 50%,
-    var(--papel) 0%, color-mix(in srgb,var(--papel) 72%,transparent) 46%, transparent 74%)}
+  width:min(86vw,54rem);height:104%;transform:translate(-50%,-50%);
+  background:radial-gradient(52% 56% at 50% 54%,
+    var(--papel) 0%, color-mix(in srgb,var(--papel) 62%,transparent) 46%, transparent 76%)}
 .dicho .bajada{margin-top:1.2rem;font-size:clamp(1rem,2vw,1.18rem)}
 .dicho .acciones{margin-top:clamp(1.6rem,4vh,2.2rem);
   display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
 .franja{position:relative;z-index:3;margin-top:clamp(2.2rem,6vh,3.4rem);
   display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2.2rem;
-  font-family:var(--mono);font-size:.64rem;letter-spacing:.17em;color:var(--suave);
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;color:var(--medio);
   text-transform:uppercase}
 
 .sin-letras .entra{animation-play-state:paused}
@@ -280,44 +315,63 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    activa sube y se corre; las demás se juntan abajo. */
 .taller{margin-top:clamp(2.4rem,6vh,4rem);display:grid;gap:clamp(1.6rem,4vw,2.5rem);
   align-items:center}
-@media(min-width:60rem){.taller{grid-template-columns:minmax(0,21rem) minmax(0,1fr)}}
+@media(max-width:59.99rem){
+  .escena-caja{height:clamp(18rem,56vw,22rem);margin:.8rem 0 .2rem;
+    width:100vw;margin-left:calc(50% - 50vw)}
+  .escena{--w:clamp(12.5rem,50vw,17rem);--h:clamp(12.5rem,50vw,17rem);
+    --hueco:34px;--t:14px}
+}
+@media(min-width:60rem){
+  /* la escena sale de la caja y ocupa el ancho entero; la lista flota
+     encima, como en la referencia. Los selectores van encadenados porque
+     este bloque vive antes de las reglas base y si no, pierde por orden. */
+  .taller{grid-template-columns:minmax(0,1fr);position:relative;
+    width:100vw;margin-left:calc(50% - 50vw)}
+  .taller .escena-caja{order:1;height:min(72vh,40rem)}
+  .taller .escena{left:69%;
+    --w:clamp(15rem,32vw,26rem);--h:clamp(15rem,32vw,26rem);--hueco:58px}
+  .taller .columna{order:2;position:absolute;z-index:3;top:11%;
+    left:max(1.5rem,calc(50vw - 35.5rem));width:min(25rem,32vw)}
+  .taller .detalle{max-width:100%}
+}
 
-.columna{order:2}
-.mandos{display:flex;flex-direction:column;gap:.55rem}
-@media(min-width:60rem){.columna{order:1}}
+.columna{order:2;display:flex;flex-direction:column;
+  align-items:flex-start;gap:5px}
+.mandos{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+
 /* las pastillas de la referencia, en blanco y negro */
 .mando{appearance:none;font:inherit;color:var(--tinta);cursor:pointer;text-align:left;
-  border:1px solid var(--linea);border-radius:100px;
-  background:var(--vidrio);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  padding:.72rem 1.2rem;display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;min-height:46px;width:100%;
+  border:0;border-radius:24px;
+  background:var(--pastilla);color:var(--pastilla-letra);
+  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  padding:10px 10px 10px 15px;display:flex;align-items:center;
+  gap:10px;min-height:40px;width:auto;max-width:100%;
   transition:background var(--t-medio) var(--ui),border-color var(--t-medio) var(--ui),
     transform var(--t-medio) var(--ui),box-shadow var(--t-medio) var(--ui),
     color var(--t-medio) var(--ui)}
-.mando .nombre{font-size:.98rem;font-weight:500}
-.mando .mas{width:22px;height:22px;border-radius:50%;flex:none;display:grid;
-  place-items:center;background:var(--linea);color:var(--tinta);
+.mando .nombre{font-size:.8125rem;line-height:1.4;font-weight:400}
+.mando .mas{width:20px;height:20px;border-radius:50%;flex:none;display:grid;
+  place-items:center;background:var(--pastilla-mas);color:var(--pastilla-letra);
   transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
     color var(--t-medio) var(--ui)}
-.mando .mas svg{width:9px;height:9px}
-@media(hover:hover){.mando:hover{transform:translateX(4px);border-color:var(--linea-fuerte)}}
+.mando .mas svg{width:8px;height:8px}
+@media(hover:hover){.mando:hover{background:var(--pastilla-viva)}}
 .mando[aria-selected="true"]{background:var(--tinta);color:var(--papel);
-  border-color:var(--tinta);box-shadow:0 12px 26px -14px var(--proyectada);
-  transition-duration:var(--t-toque)}
+  box-shadow:0 14px 30px -16px var(--proyectada);transition-duration:var(--t-toque)}
 .mando[aria-selected="true"] .mas{background:var(--papel);color:var(--tinta)}
 .mando:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
 /* el texto del pilar activo, en su tarjeta, como en la referencia */
-.detalle{border:1px solid var(--linea);border-radius:18px;background:var(--vidrio);
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  padding:1.1rem 1.25rem;color:var(--medio);font-size:.95rem;line-height:1.6;
-  margin-top:.2rem}
+.detalle{border:0;border-radius:24px;background:var(--pastilla);
+  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  padding:12px 20px 18px;color:var(--pastilla-letra);font-size:1.0625rem;
+  line-height:1.45;margin-top:0;max-width:30rem}
 .detalle{transition:height var(--t-medio) var(--peso)}
 .detalle.gira{animation:asomar .42s var(--peso) .12s backwards}
 @keyframes asomar{from{opacity:0;transform:translateY(10px)}}
 
 .escena-caja{order:1;position:relative;height:clamp(19rem,58vw,33rem);
   perspective:1300px;perspective-origin:50% 50%;touch-action:pan-y}
-@media(min-width:60rem){.escena-caja{order:2}}
+
 .escena{position:absolute;left:50%;top:50%;
   --w:clamp(10.5rem,34vw,22rem); --h:clamp(10.5rem,34vw,22rem); --t:19px;
   --hueco:50px;   /* la separación entre placas: pareja siempre */
@@ -338,12 +392,13 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
   transform:translateZ(calc(var(--t)/2));
   background:
-    radial-gradient(72% 72% at 40% 22%, var(--filo-luz) 0%, transparent 58%),
+    radial-gradient(62% 62% at 36% 20%, var(--vidrio-alto) 0%, transparent 54%),
     linear-gradient(140deg,
-      var(--filo-luz) 0%, var(--vidrio) 26%, var(--vidrio) 68%, var(--vidrio-alto) 100%);
+      var(--filo-luz) 0%, var(--vidrio) 22%, var(--vidrio) 72%, var(--vidrio-alto) 100%);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  box-shadow:inset 0 0 0 2px var(--filo-luz), inset 0 0 0 5px var(--brillo-int),
-    inset 0 0 40px var(--brillo-int), inset 0 -16px 30px -16px var(--filo-sombra);
+  box-shadow:inset 0 0 0 1.5px var(--filo-luz), inset 0 0 0 4px var(--brillo-int),
+    inset 0 0 40px var(--brillo-int), inset 0 -20px 28px -18px var(--filo-canto),
+    0 26px 34px -22px var(--proyectada);
   display:grid;place-items:center;overflow:hidden}
 .placa .grabado{font-family:var(--serif);font-optical-sizing:auto;
   font-variation-settings:"opsz" 144,"wght" 440;
@@ -360,11 +415,13 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    hacia afuera, y `backface-visibility` esconde los cantos del fondo en
    vez de dejarlos cruzar la placa por detrás de la cara. */
 .placa .s{transform:translateY(calc(var(--h)/2)) rotateX(-90deg);
-  background:linear-gradient(180deg,var(--filo-sombra) 0%,var(--vidrio-alto) 65%,var(--filo-luz) 100%)}
+  background:linear-gradient(180deg,
+    var(--filo-canto) 0%,var(--vidrio-alto) 28%,var(--filo-luz) 62%,var(--filo-canto) 100%)}
 .placa .o{transform:translateX(calc(var(--w)/-2)) rotateY(-90deg);
   background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 40%,var(--filo-sombra) 100%)}
 .placa .e{transform:translateX(calc(var(--w)/2)) rotateY(90deg);
-  background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 45%,var(--filo-luz) 100%)}
+  background:linear-gradient(90deg,
+    var(--filo-canto) 0%,var(--filo-luz) 32%,var(--vidrio-alto) 64%,var(--filo-canto) 100%)}
 .placa .n,.placa .s,.placa .o,.placa .e{backface-visibility:hidden}
 .placa .sombra{width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
   transform:translateZ(calc(var(--t)/-2 - var(--hueco)));
@@ -413,7 +470,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .datos div{background:var(--panel);padding:.8rem .85rem;
   display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
 @media(min-width:30rem){.datos div{display:block}}
-.datos .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;
+.datos .k{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--suave);display:block}
 .datos .v{font-size:.94rem;color:var(--tinta);display:block}
 @media(min-width:30rem){.datos .v{margin-top:.25rem}}
@@ -431,8 +488,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   .semana:hover{transform:translateY(-2px);z-index:1;background:var(--panel);
     box-shadow:inset 0 1px 0 var(--filo-luz),0 10px 24px -18px var(--proyectada)}
 }
-.semana .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
-  color:var(--suave);display:block}
+.semana .n{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
+  color:var(--medio);display:block}
 .semana h3{margin:.7rem 0 .5rem}
 .semana p{color:var(--medio);font-size:.96rem;line-height:1.6}
 
@@ -447,8 +504,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 @media(min-width:44rem){.lista li{grid-template-columns:11rem minmax(0,1fr)}}
 .lista .k,.lista .v{transition:transform var(--t-medio) var(--ui)}
 @media(hover:hover){.lista li:hover .k,.lista li:hover .v{transform:translateX(.7rem)}}
-.lista .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--suave);padding-top:.25em}
+.lista .k{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--medio);padding-top:.2em}
 .lista .v{color:var(--medio);font-size:.96rem;line-height:1.6}
 
 .perimetro{position:relative;height:16rem;perspective:900px;
@@ -463,7 +520,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   transform:translateZ(calc(var(--z) * 1px))}
 .plano.solido{border:0;background:var(--tinta);display:grid;place-items:center;
   box-shadow:0 0 38px -6px var(--proyectada)}
-.plano .et{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;
+.plano .et{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;
   color:var(--suave);position:absolute;left:0;top:-1.35em;white-space:nowrap}
 .plano.solido .et{position:static;color:var(--papel);opacity:.9}
 
@@ -575,7 +632,7 @@ footer a:hover{color:var(--tinta)}
 
   <div class="env">
     <div class="dicho">
-      <h1 class="entra">Sistemas de IA<br>hechos para tu operación.</h1>
+      <h1 class="entra">Sistemas de IA hechos para tu operación.</h1>
       <p class="bajada entra" style="animation-delay:.09s">
         No instalamos software: construimos el que le falta a tu empresa.
         En producción en tres semanas, dentro de tu red.
@@ -594,7 +651,7 @@ footer a:hover{color:var(--tinta)}
 
 <!-- ══ LA PILA — los tres pilares ══ -->
 <section id="pilares">
-  <div class="campo" aria-hidden="true"><i class="luz"></i></div>
+  <div class="campo sin-reticula" aria-hidden="true"><i class="luz"></i></div>
   <div class="env">
     <div class="cabecera">
       <h2>Tres cosas, y las tres importan.</h2>
@@ -912,7 +969,7 @@ if(taller){
       l.style.setProperty("--z", activa ? (placas.length - 1) * HUECO + ALZA : (ranura--) * HUECO);
       l.style.setProperty("--dx", activa ? "-20px" : "0px");
       l.style.setProperty("--dy", activa ? "-20px" : "0px");
-      l.style.setProperty("--op", activa ? 1 : .7);
+      l.style.setProperty("--op", activa ? 1 : .8);
       /* la pila se abre primero; la activa sube 90 ms después, al hueco ya
          hecho. Al revés —que era como estaba— las dos placas se cruzaban
          coplanares y eso es lo que se veía como un error de armado. */
