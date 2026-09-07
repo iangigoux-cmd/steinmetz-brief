@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es-CL">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,489 +14,190 @@
 <meta property="og:image" content="https://steinmetz.cl/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Steinmetz — sistemas de IA hechos para tu operación">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Steinmetz — Sistemas de IA hechos para tu operación">
-<meta name="twitter:description" content="En producción en tres semanas, dentro de tu red.">
 <meta name="twitter:image" content="https://steinmetz.cl/assets/og.png">
 <link rel="canonical" href="https://steinmetz.cl/">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111112'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='15' font-weight='700' fill='%23fff'%3ESZ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<script>
-/* La portada no entra hasta que la tipografía esté cargada: si no, el
-   titular se desplaza solo cuando Fraunces reemplaza a Georgia, justo
-   encima de su animación de entrada, y ese salto es lo primero que se ve
-   del sitio. Si no hay JS la clase nunca se pone y todo entra igual. */
-(function(){
-  var r = document.documentElement, listo = function(){ r.classList.remove("sin-letras"); };
-  r.classList.add("sin-letras");
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(listo);
-  setTimeout(listo, 1400);
-})();
-</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* ═══════════════════════════════════════════════════════════════════
-   STEINMETZ — el vidrio
-   El sitio son placas de vidrio flotando sobre un campo de luz. La
-   portada es una pieza enorme, cortada por el marco y fuera de foco,
-   con el nombre grabado al ácido; los tres pilares son tres placas
-   apiladas en el espacio que se ven unas a través de otras; la
-   seguridad son planos encajados.
-   La luz sale del puntero —o de un vaivén lento si no hay puntero— y
-   recorre todo. El scroll nunca controla nada: carga, puntero, loop
-   y toque. Nada más.
-   ═══════════════════════════════════════════════════════════════════ */
-
 :root{
   --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#75757a;
-  --linea:rgba(17,17,18,.14); --linea-fuerte:rgba(17,17,18,.34);
+  --linea:rgba(17,17,18,.16); --linea-fuerte:rgba(17,17,18,.36);
   --serif:"Fraunces",Georgia,serif;
   --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
-  --ancho:70rem; --medida:34em;
-
-  /* ── el vidrio ── cuerpo translúcido, filo que atrapa la luz, filo que
-     la pierde, y la sombra que la placa deja caer. */
-  --vidrio:rgba(255,255,255,.44);
-  --vidrio-alto:rgba(255,255,255,.88);
-  --filo-luz:rgba(255,255,255,.98);
-  --filo-sombra:rgba(17,17,18,.18);
-  --brillo-int:rgba(255,255,255,.70);
-  --proyectada:rgba(17,17,18,.20);
-  /* el grabado al ácido: la letra queda esmerilada, con un filo claro por
-     donde entra la luz y uno oscuro por donde no. */
-  --acido-cara:rgba(255,255,255,.66);
-  --acido-sombra:rgba(17,17,18,.42);
-  --acido-luz:rgba(255,255,255,1);
-  --letra-placa:rgba(17,17,18,.52);
-  /* el campo: lo que se ve a través del vidrio */
-  --campo-luz:#ffffff; --campo-medio:#ededeb; --campo-fondo:#c6c6c3;
-  --reticula:rgba(17,17,18,.07);
-
-  /* posición de la luz, −1..1 en cada eje. La escribe el bucle de JS. */
-  --px:0; --py:0;
-
-  /* El movimiento tiene dos curvas y cuatro tiempos, y nada más.
-     `--peso` arranca lento: es masa, y es lo único que se le pide al
-     vidrio. `--ui` responde de inmediato: es acuse de recibo. */
-  --peso:cubic-bezier(.5,.05,.15,1);
-  --ui:cubic-bezier(.32,.72,0,1);
-  --t-toque:.12s;   /* el control confirma antes que el objeto obedezca */
-  --t-corto:.22s;   /* color, opacidad, borde */
-  --t-medio:.34s;   /* desplazamientos chicos */
-  --t-capa:.56s;    /* vidrio moviéndose en el espacio */
+  --ancho:68rem; --medida:36em;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --papel:#0b0b0d; --panel:#161618; --tinta:#f0f0f2; --medio:#9a9a9e; --suave:#8a8a8f;
-    --linea:rgba(255,255,255,.16); --linea-fuerte:rgba(255,255,255,.36);
-    --vidrio:rgba(255,255,255,.055);
-    --vidrio-alto:rgba(255,255,255,.15);
-    --filo-luz:rgba(255,255,255,.48);
-    --filo-sombra:rgba(0,0,0,.7);
-    --brillo-int:rgba(255,255,255,.10);
-    --proyectada:rgba(0,0,0,.66);
-    --acido-cara:rgba(255,255,255,.10);
-    --acido-sombra:rgba(0,0,0,.86);
-    --acido-luz:rgba(255,255,255,.44);
-    --letra-placa:rgba(255,255,255,.46);
-    --campo-luz:#34343c; --campo-medio:#171719; --campo-fondo:#050506;
-    --reticula:rgba(255,255,255,.055);
+    --papel:#0d0d0f; --panel:#18181a; --tinta:#f0f0f2; --medio:#9a9a9e; --suave:#8a8a8f;
+    --linea:rgba(255,255,255,.18); --linea-fuerte:rgba(255,255,255,.38);
     color-scheme:dark;
   }
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--papel);color:var(--tinta);font-family:var(--sans);
   font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--tinta);color:var(--papel)}
 a{color:inherit}
-img,svg{display:block;max-width:100%}
-
-.env{width:100%;max-width:var(--ancho);margin:0 auto;position:relative;z-index:2;
+.env{width:100%;max-width:var(--ancho);margin:0 auto;
   padding:0 clamp(1.25rem,5vw,3rem)}   /* el ancho explícito: dentro de una
      grilla, el margen auto anula el estirado y la caja se encoge al texto */
-section{padding:clamp(4.5rem,13vh,9rem) 0;position:relative;overflow-x:clip}
-section+section{border-top:1px solid var(--linea)}
-
-/* la cabecera de cada sección va centrada, con aire alrededor */
-.cabecera{text-align:center;max-width:42rem;margin:0 auto}
-h1,h2{font-family:var(--serif);font-optical-sizing:auto;
-  font-variation-settings:"opsz" 144,"wght" 460;font-weight:460;
-  letter-spacing:-.024em;line-height:1.05;text-wrap:balance}
-h1{font-size:clamp(2.5rem,7.4vw,5.5rem)}
-h2{font-size:clamp(1.9rem,4.6vw,3rem)}
+section{padding:clamp(3.5rem,9vh,6rem) 0;border-top:1px solid var(--linea)}
+h2{font-family:var(--serif);font-optical-sizing:auto;
+  font-variation-settings:"opsz" 144,"wght" 500;font-weight:500;
+  font-size:clamp(1.6rem,4.4vw,2.4rem);letter-spacing:-.018em;line-height:1.12;
+  max-width:16em}
 h3{font-family:var(--serif);font-optical-sizing:auto;
   font-variation-settings:"opsz" 30,"wght" 600;font-weight:600;
   font-size:1.08rem;letter-spacing:-.005em;line-height:1.3}
 .p{color:var(--medio);max-width:var(--medida);font-size:1rem;line-height:1.65}
+.p+.p{margin-top:.8rem}
 .p b,.bajada b{color:var(--tinta);font-weight:600}
-.bajada{color:var(--medio);margin:1.1rem auto 0;font-size:1.08rem;line-height:1.55;
-  max-width:34em;text-wrap:pretty}
-.cabecera .bajada{text-align:center}
+.bajada{color:var(--medio);max-width:var(--medida);margin-top:.9rem;font-size:1.05rem}
+.rotulo{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--suave);display:block}
 
-/* ── botones ── la forma viene de la referencia; el color, de la marca ── */
-.bt{display:inline-flex;align-items:center;gap:.7em;min-height:46px;
-  padding:.55em .6em .55em 1.35em;border-radius:100px;
-  font-family:var(--sans);font-size:.94rem;font-weight:500;letter-spacing:-.005em;
-  text-decoration:none;background:var(--tinta);color:var(--papel);
-  border:1px solid var(--tinta);position:relative;overflow:hidden;
-  transition:transform var(--t-medio) var(--ui),box-shadow var(--t-medio) var(--ui)}
-.bt .flecha{width:26px;height:26px;border-radius:50%;flex:none;
-  background:var(--papel);color:var(--tinta);display:grid;place-items:center;
-  transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
-.bt .flecha svg{width:11px;height:11px}
-.bt:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px var(--proyectada)}
-.bt:hover .flecha{transform:translateX(4px);background:#fff}
-.bt:active{transform:translateY(0)}
-.bt.linea{background:var(--vidrio);color:var(--tinta);border-color:var(--linea-fuerte);
-  padding-right:1.35em;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-.bt.linea:hover{border-color:var(--tinta)}
+/* ── botones ── */
+.bt{display:inline-flex;align-items:center;justify-content:center;min-height:48px;
+  padding:.9em 1.7em;font-family:var(--mono);font-size:.72rem;font-weight:500;
+  letter-spacing:.16em;text-decoration:none;text-transform:uppercase;
+  background:var(--tinta);color:var(--papel);border:1px solid var(--tinta);
+  transition:opacity .2s}
+.bt:hover{opacity:.84}
+.bt.linea{background:none;color:var(--tinta);border-color:var(--linea-fuerte)}
+.bt.linea:hover{border-color:var(--tinta);opacity:1}
 .bt:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
 
-/* ═══ EL MARCO ═══ enlaces · nombre al centro · llamada a la derecha ══ */
-#marco{position:fixed;top:0;left:0;right:0;z-index:60;
-  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;
-  padding:.7rem clamp(1rem,4vw,2.2rem);
-  background:color-mix(in srgb,var(--papel) 66%,transparent);
-  border-bottom:1px solid transparent;
-  -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
-  transition:border-color var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
-#marco.posado{border-bottom-color:var(--linea);
-  background:color-mix(in srgb,var(--papel) 84%,transparent)}
-#marco .nav{display:none;gap:1.7rem;font-size:.92rem;color:var(--medio)}
-#marco .nav a{text-decoration:none;position:relative;padding-bottom:2px;transition:color var(--t-corto) var(--ui)}
-#marco .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;
-  height:1px;background:var(--tinta);transition:right var(--t-medio) var(--ui)}
-#marco .nav a:hover{color:var(--tinta)}
-#marco .nav a:hover::after{right:0}
-#marco .centro-marco{grid-column:2;display:flex;justify-content:center}
-#marco .wm-chico{width:clamp(7rem,17vw,8.6rem);color:var(--tinta)}
-#marco .derecha{grid-column:3;display:flex;justify-content:flex-end;align-items:center;gap:1rem}
-#marco .bt{min-height:38px;font-size:.86rem;padding:.4em .45em .4em 1.05em}
-#marco .bt .flecha{width:22px;height:22px}
-@media(min-width:64rem){#marco .nav{display:flex}}
-@media(max-width:63.99rem){
-  #marco{grid-template-columns:auto 1fr}
-  #marco .centro-marco{grid-column:1;justify-content:flex-start}
-  #marco .derecha{grid-column:2}
-  #marco .wm-chico{width:6.6rem}
-  #marco .bt{font-size:.8rem;padding:.35em .4em .35em .95em;min-height:34px}
-  #marco .bt .flecha{width:20px;height:20px}
-}
-
-/* ═══ PORTADA ═══ una pieza de vidrio enorme, cortada por el marco ═══ */
-.portada{min-height:100svh;display:grid;grid-template-rows:1fr auto;
-  align-items:end;position:relative;isolation:isolate;overflow:hidden;
-  padding:0 0 clamp(2rem,6vh,3.5rem)}
-
-/* el campo: lo que el vidrio deforma. Sin algo detrás, una placa
-   transparente es invisible: la retícula fina es la que delata que hay
-   vidrio, porque se ablanda al pasar por debajo. */
-.campo{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;
-  background:linear-gradient(168deg,
-    var(--campo-fondo) 0%, var(--campo-medio) 44%, var(--campo-fondo) 100%)}
-/* la luz grande se mueve con una traslación, no repintando el degradado:
-   así el bucle del puntero no cuesta nada */
-.campo .luz{position:absolute;left:50%;top:40%;width:104%;height:124%;
-  background:radial-gradient(closest-side,var(--campo-luz) 0%,transparent 74%);
-  transform:translate3d(-50%,-50%,0) translate(calc(var(--px)*7%),calc(var(--py)*7%));
-  will-change:transform}
-.portada .campo::after{display:none}
-.campo::after{content:"";position:absolute;inset:0;
-  background:
-    repeating-linear-gradient(0deg,transparent 0 55px,var(--reticula) 55px 56px),
-    repeating-linear-gradient(90deg,transparent 0 55px,var(--reticula) 55px 56px);
-  mask-image:radial-gradient(130% 95% at 50% 45%,#000 15%,transparent 76%);
-  -webkit-mask-image:radial-gradient(130% 95% at 50% 45%,#000 15%,transparent 76%)}
-
-/* ═══ EL CAMPO DE TRAZOS ═══ el protagonista de la portada ═══════════
-   72 curvas que fluyen. `pathLength="1"` normaliza cada una a longitud 1,
-   así el guion de trazo se expresa en fracciones y una sola animación
-   sirve para las 72, cada una con su duración y su desfase. Es todo
-   dashoffset: no hay JavaScript detrás ni una sola librería. */
-.senderos{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.senderos svg{width:100%;height:100%;display:block;color:var(--tinta)}
-.senderos path{
-  stroke:currentColor;
-  stroke-dasharray:.32 .68;
-  stroke-dashoffset:var(--r);
-  animation:fluir var(--d) linear infinite, latir calc(var(--d) * .6) ease-in-out infinite;
-  animation-delay:calc(var(--r) * 9s)}
-@keyframes fluir{to{stroke-dashoffset:calc(var(--r) - 1)}}
-@keyframes latir{0%,100%{stroke-opacity:calc(var(--o) * .38)}50%{stroke-opacity:var(--o)}}
-
-
-/* el titular, delante de todo y nítido */
-.dicho{position:relative;z-index:3;text-align:center}
-/* el velo: aclara el vidrio justo detrás del texto, para que el nombre
-   grabado se vea alrededor y no debajo de lo que hay que leer */
-.dicho::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;
-  width:min(92vw,58rem);height:118%;transform:translate(-50%,-50%);
-  background:radial-gradient(52% 60% at 50% 50%,
-    var(--papel) 0%, color-mix(in srgb,var(--papel) 72%,transparent) 46%, transparent 74%)}
-.dicho .bajada{margin-top:1.2rem;font-size:clamp(1rem,2vw,1.18rem)}
-.dicho .acciones{margin-top:clamp(1.6rem,4vh,2.2rem);
-  display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
-.franja{position:relative;z-index:3;margin-top:clamp(2.2rem,6vh,3.4rem);
-  display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2.2rem;
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;
-  color:var(--tinta);opacity:.66;text-transform:uppercase;
-  /* los trazos pasan por acá: la franja necesita su propio suelo */
-  background:radial-gradient(60% 200% at 50% 50%,
-    var(--papel) 0%, color-mix(in srgb,var(--papel) 60%,transparent) 55%, transparent 85%)}
-
-.sin-letras .entra{animation-play-state:paused}
-/* el titular sube letra por letra. Sin JavaScript se ve entero y quieto:
-   la clase `partido` sólo aparece cuando el guion lo repartió. */
-.letras .pal{display:inline-block;white-space:nowrap}
-.letras.partido .let{display:inline-block;transform:translateY(.58em);opacity:0;
-  animation:asomar-letra .82s var(--peso) forwards;
-  animation-delay:calc(var(--i) * 26ms)}
-@keyframes asomar-letra{to{transform:none;opacity:1}}
-.sin-letras .letras.partido .let{animation-play-state:paused}
-
-.entra{opacity:0;transform:translateY(14px);
-  animation:entrar .62s var(--peso) forwards}
+/* ── portada ── */
+.portada{border-top:0;min-height:100svh;display:grid;
+  grid-template-columns:minmax(0,1fr);   /* sin esto la grilla se encoge al contenido */
+  grid-template-rows:1fr auto;padding:clamp(1.2rem,4vw,2rem) 0 0}
+.tope{display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;color:var(--suave)}
+.tope a{text-decoration:none}
+.centro{display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(2rem,8vh,4rem) 0}
+.wm{width:min(88vw,44rem);height:auto;color:var(--tinta);display:block}
+.frase{margin-top:clamp(1.8rem,5vh,2.6rem);font-size:clamp(1.1rem,2.6vw,1.5rem);
+  line-height:1.45;max-width:24em;color:var(--tinta)}
+.frase span{color:var(--medio)}
+.acciones{margin-top:clamp(1.8rem,4vh,2.4rem);display:flex;gap:.7rem;flex-wrap:wrap}
+.pie-portada{padding-bottom:clamp(1.2rem,3vh,2rem);font-family:var(--mono);
+  font-size:.64rem;letter-spacing:.16em;color:var(--suave)}
+.entra{opacity:0;transform:translateY(10px);
+  animation:entrar .9s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes entrar{to{opacity:1;transform:none}}
 
-/* ═══ LA PILA ═══ tres placas de vidrio en el espacio ═══════════════
-   Se ven unas a través de otras: eso es lo que hace el vidrio. La
-   activa sube y se corre; las demás se juntan abajo. */
-.taller{margin-top:clamp(2.4rem,6vh,4rem);display:grid;gap:clamp(1.6rem,4vw,2.5rem);
-  align-items:center}
-@media(min-width:60rem){.taller{grid-template-columns:minmax(0,21rem) minmax(0,1fr)}}
+/* ── tres pilares ── */
+.pilares{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
+  margin-top:clamp(1.8rem,4vh,2.5rem)}
+.pilar{background:var(--papel);padding:clamp(1.4rem,3vw,2rem)}
+.pilar .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--suave)}
+.pilar h3{margin:.7rem 0 .5rem}
+.pilar p{color:var(--medio);font-size:.96rem;line-height:1.6}
+@media(min-width:56rem){.pilares{grid-template-columns:repeat(3,1fr)}}
 
-.columna{order:2}
-.mandos{display:flex;flex-direction:column;gap:.55rem}
-@media(min-width:60rem){.columna{order:1}}
-/* las pastillas de la referencia, en blanco y negro */
-.mando{appearance:none;font:inherit;color:var(--tinta);cursor:pointer;text-align:left;
-  border:1px solid var(--linea);border-radius:100px;
-  background:var(--vidrio);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  padding:.72rem 1.2rem;display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;min-height:46px;width:100%;
-  transition:background var(--t-medio) var(--ui),border-color var(--t-medio) var(--ui),
-    transform var(--t-medio) var(--ui),box-shadow var(--t-medio) var(--ui),
-    color var(--t-medio) var(--ui)}
-.mando .nombre{font-size:.98rem;font-weight:500}
-.mando .mas{width:22px;height:22px;border-radius:50%;flex:none;display:grid;
-  place-items:center;background:var(--linea);color:var(--tinta);
-  transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
-    color var(--t-medio) var(--ui)}
-.mando .mas svg{width:9px;height:9px}
-@media(hover:hover){.mando:hover{transform:translateX(4px);border-color:var(--linea-fuerte)}}
-.mando[aria-selected="true"]{background:var(--tinta);color:var(--papel);
-  border-color:var(--tinta);box-shadow:0 12px 26px -14px var(--proyectada);
-  transition-duration:var(--t-toque)}
-.mando[aria-selected="true"] .mas{background:var(--papel);color:var(--tinta)}
-.mando:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
-/* el texto del pilar activo, en su tarjeta, como en la referencia */
-.detalle{border:1px solid var(--linea);border-radius:18px;background:var(--vidrio);
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  padding:1.1rem 1.25rem;color:var(--medio);font-size:.95rem;line-height:1.6;
-  margin-top:.2rem}
-.detalle{transition:height var(--t-medio) var(--peso)}
-.detalle.gira{animation:asomar .42s var(--peso) .12s backwards}
-@keyframes asomar{from{opacity:0;transform:translateY(10px)}}
-
-.escena-caja{order:1;position:relative;height:clamp(19rem,58vw,33rem);
-  perspective:1300px;perspective-origin:50% 50%;touch-action:pan-y}
-@media(min-width:60rem){.escena-caja{order:2}}
-.escena{position:absolute;left:50%;top:50%;
-  --w:clamp(10.5rem,34vw,22rem); --h:clamp(10.5rem,34vw,22rem); --t:19px;
-  --hueco:50px;   /* la separación entre placas: pareja siempre */
-  width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
-  transform-style:preserve-3d;
-  transform:rotateX(calc(57deg + var(--ty,0)*5deg)) rotateZ(calc(-40deg + var(--tx,0)*6deg))}
-.orbita{position:absolute;inset:0;transform-style:preserve-3d;
-  animation:flotar calc(6.5s + var(--i) * .9s) ease-in-out infinite;
-  animation-delay:calc(var(--i) * -2.4s)}
-@keyframes flotar{0%,100%{transform:translateZ(-2px)}50%{transform:translateZ(20px)}}
-
-.placa{position:absolute;inset:0;transform-style:preserve-3d;
-  transform:translate3d(var(--dx,0px),var(--dy,0px),calc(var(--z,0) * 1px));
-  transition:transform var(--t-capa) var(--peso),
-    opacity calc(var(--t-capa) * .7) var(--peso);cursor:pointer}
-.placa .lado{position:absolute;left:50%;top:50%}
-.placa .cara{width:var(--w);height:var(--h);
-  margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
-  transform:translateZ(calc(var(--t)/2));
-  background:
-    radial-gradient(72% 72% at 40% 22%, var(--filo-luz) 0%, transparent 58%),
-    linear-gradient(140deg,
-      var(--filo-luz) 0%, var(--vidrio) 26%, var(--vidrio) 68%, var(--vidrio-alto) 100%);
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  box-shadow:inset 0 0 0 2px var(--filo-luz), inset 0 0 0 5px var(--brillo-int),
-    inset 0 0 40px var(--brillo-int), inset 0 -16px 30px -16px var(--filo-sombra);
-  display:grid;place-items:center;overflow:hidden}
-.placa .grabado{font-family:var(--serif);font-optical-sizing:auto;
-  font-variation-settings:"opsz" 144,"wght" 440;
-  font-size:clamp(1.05rem,2.7vw,1.75rem);letter-spacing:.015em;white-space:nowrap;
-  color:var(--letra-placa);
-  text-shadow:-1px -1px 0 var(--acido-sombra), 1.5px 1.5px 0 var(--acido-luz)}
-/* los cuatro cantos: en vidrio el filo es lo más brillante de la pieza */
-.placa .n,.placa .s{width:var(--w);height:var(--t);margin:calc(var(--t)/-2) 0 0 calc(var(--w)/-2)}
-.placa .o,.placa .e{width:var(--t);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--t)/-2)}
-.placa .n{transform:translateY(calc(var(--h)/-2)) rotateX(90deg);
-  background:linear-gradient(180deg,var(--filo-luz) 0%,var(--vidrio-alto) 55%,var(--filo-luz) 100%)}
-/* `.s` y `.o` iban con el giro al revés: su cara quedaba mirando hacia
-   adentro del prisma. Con el signo corregido las cuatro normales apuntan
-   hacia afuera, y `backface-visibility` esconde los cantos del fondo en
-   vez de dejarlos cruzar la placa por detrás de la cara. */
-.placa .s{transform:translateY(calc(var(--h)/2)) rotateX(-90deg);
-  background:linear-gradient(180deg,var(--filo-sombra) 0%,var(--vidrio-alto) 65%,var(--filo-luz) 100%)}
-.placa .o{transform:translateX(calc(var(--w)/-2)) rotateY(-90deg);
-  background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 40%,var(--filo-sombra) 100%)}
-.placa .e{transform:translateX(calc(var(--w)/2)) rotateY(90deg);
-  background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 45%,var(--filo-luz) 100%)}
-.placa .n,.placa .s,.placa .o,.placa .e{backface-visibility:hidden}
-.placa .sombra{width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
-  transform:translateZ(calc(var(--t)/-2 - var(--hueco)));
-  background:radial-gradient(closest-side,var(--proyectada) 0%,
-    color-mix(in srgb,var(--proyectada) 32%,transparent) 58%, transparent 84%);
-  opacity:.55}
-.placa:focus-visible{outline:0}
-.placa:focus-visible .cara{box-shadow:inset 0 0 0 2px var(--tinta)}
-
-.placa{opacity:0}
-.taller.montada .placa{opacity:var(--op,1);
-  animation:asentar .68s var(--peso) backwards, encender .34s linear backwards;
-  animation-delay:calc((2 - var(--i)) * .1s)}
-@keyframes asentar{from{transform:translate3d(0,0,-460px)}}
-@keyframes encender{from{opacity:0}}
-
-/* ═══ ELEGÍ TU CASO ═══ */
+/* ── elegí tu caso ── */
 .caso{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
-  border-radius:18px;overflow:hidden;margin-top:clamp(2.4rem,6vh,3.5rem)}
-@media(min-width:56rem){.caso{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}}
+  margin-top:clamp(1.8rem,4vh,2.5rem)}
+@media(min-width:56rem){.caso{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}}
 .opciones{background:var(--papel);display:flex;flex-direction:column}
-.op{appearance:none;background:var(--papel);border:0;border-bottom:1px solid var(--linea);
+.op{appearance:none;background:none;border:0;border-bottom:1px solid var(--linea);
   text-align:left;font:inherit;color:var(--tinta);cursor:pointer;
   padding:1.05rem clamp(1.1rem,3vw,1.5rem);min-height:56px;display:flex;gap:.85rem;
-  align-items:flex-start;position:relative;
-  transition:background var(--t-medio) var(--ui),color var(--t-medio) var(--ui),
-    transform var(--t-medio) var(--ui)}
+  align-items:flex-start;transition:background .18s}
 .opciones .op:last-child{border-bottom:0}
-@media(hover:hover){.op:hover{background:var(--panel);transform:translateX(4px)}}
-.op[aria-selected="true"]{background:var(--tinta);color:var(--papel);transform:translateX(6px);
-  z-index:1;transition-duration:var(--t-toque)}
-.op .marca{font-family:var(--mono);font-size:.72rem;opacity:.55;padding-top:.15em;
-  transition:opacity var(--t-corto) var(--ui)}
+.op:hover{background:var(--panel)}
+.op[aria-selected="true"]{background:var(--tinta);color:var(--papel)}
+.op .marca{font-family:var(--mono);font-size:.72rem;opacity:.55;padding-top:.15em}
 .op[aria-selected="true"] .marca{opacity:1}
 .op .txt{font-size:.98rem;line-height:1.45}
 .op:focus-visible{outline:2px solid var(--tinta);outline-offset:-3px}
 .respuesta{background:var(--panel);padding:clamp(1.4rem,3.5vw,2rem);display:flex;
   flex-direction:column;gap:1.1rem}
-.respuesta.gira>*{animation:levantar .34s var(--peso) backwards}
-.respuesta.gira>*:nth-child(2){animation-delay:.1s}
-@keyframes levantar{from{opacity:.55;transform:translateY(9px)}}
 .respuesta .que{font-size:1.02rem;line-height:1.55;color:var(--tinta)}
 .datos{display:grid;grid-template-columns:1fr;gap:1px;
-  background:var(--linea);border:1px solid var(--linea);border-radius:12px;overflow:hidden}
+  background:var(--linea);border:1px solid var(--linea)}
 @media(min-width:30rem){.datos{grid-template-columns:repeat(3,1fr)}}
-.datos div{background:var(--panel);padding:.8rem .85rem;
-  display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.datos div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
 @media(min-width:30rem){.datos div{display:block}}
-.datos .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;
+.datos div{background:var(--panel);padding:.8rem .85rem}
+.datos .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--suave);display:block}
-.datos .v{font-size:.94rem;color:var(--tinta);display:block}
-@media(min-width:30rem){.datos .v{margin-top:.25rem}}
+@media(min-width:30rem){.datos .k{margin-bottom:.35rem}}
+.datos .v{font-family:var(--mono);font-size:.88rem;font-variant-numeric:tabular-nums}
+.cambia{animation:aparecer .35s ease-out}
+@keyframes aparecer{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
-/* ═══ LAS TRES SEMANAS ═══ tarjetas sobre un riel con luz ═══════════ */
-.riel{position:relative;margin-top:clamp(2.4rem,6vh,3.5rem)}
-.riel::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;
-  background:var(--linea)}
-.semanas{display:grid;gap:1px;background:var(--linea)}
+/* ── semanas ── */
+.semanas{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
+  margin-top:clamp(1.8rem,4vh,2.5rem)}
 @media(min-width:56rem){.semanas{grid-template-columns:repeat(3,1fr)}}
-.semana{background:var(--papel);padding:clamp(1.5rem,3vw,2.2rem);position:relative;
-  transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
-    box-shadow var(--t-medio) var(--ui)}
-@media(hover:hover){
-  .semana:hover{transform:translateY(-2px);z-index:1;background:var(--panel);
-    box-shadow:inset 0 1px 0 var(--filo-luz),0 10px 24px -18px var(--proyectada)}
-}
-.semana .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
-  color:var(--suave);display:block}
-.semana h3{margin:.7rem 0 .5rem}
+.semana{background:var(--papel);padding:clamp(1.4rem,3vw,2rem)}
+.semana .n{font-family:var(--serif);font-optical-sizing:auto;
+  font-variation-settings:"opsz" 144,"wght" 300;font-size:2.6rem;line-height:1;
+  color:var(--tinta)}
+.semana h3{margin:.8rem 0 .5rem}
 .semana p{color:var(--medio);font-size:.96rem;line-height:1.6}
 
-/* ═══ SEGURIDAD ═══ el perímetro como planos encajados ══════════════ */
-.seg{display:grid;gap:clamp(2rem,5vw,3.5rem);margin-top:clamp(2.4rem,6vh,3.5rem);
-  align-items:start}
-@media(min-width:60rem){.seg{grid-template-columns:minmax(0,1fr) minmax(0,17rem)}}
-.lista{list-style:none;display:grid;gap:1px;background:var(--linea);
-  border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
-.lista li{background:var(--papel);padding:1.05rem 0;display:grid;gap:.15rem .9rem;
-}
-@media(min-width:44rem){.lista li{grid-template-columns:11rem minmax(0,1fr)}}
-.lista .k,.lista .v{transition:transform var(--t-medio) var(--ui)}
-@media(hover:hover){.lista li:hover .k,.lista li:hover .v{transform:translateX(.7rem)}}
-.lista .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--suave);padding-top:.25em}
-.lista .v{color:var(--medio);font-size:.96rem;line-height:1.6}
+/* ── seguridad ── */
+.lista{margin-top:clamp(1.6rem,4vh,2.2rem);border-top:1px solid var(--linea)}
+.lista li{list-style:none;border-bottom:1px solid var(--linea);padding:1.05rem 0;
+  display:grid;gap:.2rem .9rem;max-width:52em}
+@media(min-width:44rem){.lista li{grid-template-columns:13rem 1fr;align-items:baseline}}
+.lista .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--suave)}
+.lista .v{color:var(--medio);font-size:.98rem;line-height:1.55}
 
-.perimetro{position:relative;height:16rem;perspective:900px;
-  perspective-origin:50% 50%;display:none}
-@media(min-width:60rem){.perimetro{display:block}}
-.pila-seg{position:absolute;inset:0;transform-style:preserve-3d;
-  transform:rotateX(calc(60deg + var(--ty,0)*4deg)) rotateZ(calc(-38deg + var(--tx,0)*5deg))}
-.plano{position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);
-  margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);
-  border:1px solid var(--linea-fuerte);
-  background:linear-gradient(140deg,var(--vidrio-alto),transparent 70%);
-  transform:translateZ(calc(var(--z) * 1px))}
-.plano.solido{border:0;background:var(--tinta);display:grid;place-items:center;
-  box-shadow:0 0 38px -6px var(--proyectada)}
-.plano .et{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;
-  color:var(--suave);position:absolute;left:0;top:-1.35em;white-space:nowrap}
-.plano.solido .et{position:static;color:var(--papel);opacity:.9}
+/* ── trabajo ── */
+.obras{margin-top:clamp(1.6rem,4vh,2.2rem);border-top:1px solid var(--linea)}
+.obra{border-bottom:1px solid var(--linea);padding:1.5rem 0;display:grid;
+  gap:.5rem 2rem;max-width:56em}
+@media(min-width:44rem){.obra{grid-template-columns:14rem 1fr}}
+.obra .quien{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;
+  text-transform:uppercase;line-height:1.7}
+.obra .que{color:var(--medio);font-size:.98rem;line-height:1.6}
 
-/* ═══ EL TRABAJO ═══ */
-.obras{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
-  border-radius:18px;overflow:hidden;margin-top:clamp(2.4rem,6vh,3.5rem)}
-@media(min-width:56rem){.obras{grid-template-columns:repeat(2,1fr)}}
-.obra{background:var(--papel);padding:clamp(1.6rem,3vw,2.2rem);transition:background var(--t-corto) var(--ui)}
-@media(hover:hover){.obra:hover{background:var(--panel)}}
-.obra .quien{font-family:var(--serif);font-optical-sizing:auto;
-  font-variation-settings:"opsz" 60,"wght" 500;font-size:1.3rem;line-height:1.22;
-  letter-spacing:-.012em}
-.obra .que{color:var(--medio);font-size:.96rem;line-height:1.6;margin-top:.9rem}
-
-/* ═══ HABLEMOS ═══ */
-.cierre{position:relative;overflow:hidden;text-align:center}
-.cierre .acciones{margin-top:clamp(1.8rem,4vh,2.4rem);display:flex;gap:.6rem;
-  flex-wrap:wrap;justify-content:center}
-.cierre .firma{margin:2.2rem auto 0;max-width:32em;color:var(--medio);font-size:.94rem}
-footer{padding:1.5rem 0;border-top:1px solid var(--linea);
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--suave)}
-footer .env{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;justify-content:space-between}
+/* ── cierre ── */
+.cierre{text-align:left}
+.cierre .acciones{margin-top:1.8rem}
+footer{border-top:1px solid var(--linea);padding:2rem 0 6.5rem;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--suave);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
 footer a{text-decoration:none}
-footer a:hover{color:var(--tinta)}
 
-/* ═══ movimiento reducido ═══ nada se mueve solo; todo sigue usable ═══ */
+/* ── barra fija del teléfono ── */
+.barra-movil{position:fixed;left:0;right:0;bottom:0;z-index:60;
+  padding:.7rem clamp(1.25rem,5vw,3rem) calc(.7rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--papel) 92%,transparent);
+  backdrop-filter:blur(10px);border-top:1px solid var(--linea);
+  transform:translateY(110%);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.barra-movil.on{transform:none}
+.barra-movil .bt{width:100%}
+@media(min-width:56rem){.barra-movil{display:none}}
+
 @media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
-    animation-delay:0s!important;
-    transition-duration:.001ms!important;transition-delay:0s!important}
   .entra{opacity:1;transform:none}
-  .placa{opacity:var(--op,1)}
+  .barra-movil{transition:none}
 }
 </style>
 </head>
 <body>
 
-<!-- el trazado del nombre, una sola vez; el marco y el grabado lo usan -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-<g id="letras" fill="currentColor" transform="translate(-89.68,1422.40) scale(1,-1)">
+<main>
+<!-- ══ PORTADA ══ -->
+<header class="portada">
+  <div class="env centro">
+    <svg class="wm entra" aria-label="Steinmetz" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7133 1446"  role="img" aria-label="Steinmetz">
+<title>Steinmetz</title>
+<g fill="currentColor" transform="translate(-89.68,1422.40) scale(1,-1)">
 <path transform="translate(0.00,0)" d="M606.4000244140625 -21.1199951171875Q509.9600830078125 -21.1199951171875 448.4601135253906 6.05999755859375Q386.96014404296875 33.239990234375 353.16015625 60.41998291015625Q319.36016845703125 87.5999755859375 306.8001708984375 87.5999755859375Q300.72015380859375 87.5999755859375 288.30010986328125 70.81997680664062Q275.88006591796875 54.03997802734375 261.4200134277344 32.03997802734375Q246.9599609375 10.03997802734375 234.09991455078125 -6.740020751953125Q221.2398681640625 -23.52001953125 213.83984375 -23.52001953125Q209.079833984375 -23.52001953125 204.059814453125 -19.600006103515625Q199.039794921875 -15.67999267578125 197.039794921875 -9.5999755859375L117.599853515625 395.680419921875Q117.15985107421875 400.76043701171875 117.31985473632812 403.9204406738281Q117.4798583984375 407.0804443359375 119.35986328125 408.0804443359375Q121.79986572265625 410.0804443359375 124.95986938476562 408.14044189453125Q128.119873046875 406.200439453125 129.9998779296875 402.3204345703125Q202.9200439453125 245.6002197265625 278.6800842285156 157.14013671875Q354.44012451171875 68.6800537109375 432.580078125 32.4200439453125Q510.72003173828125 -3.8399658203125 590.5599365234375 -3.8399658203125Q704.0398559570312 -3.8399658203125 772.0198059082031 59.77996826171875Q839.999755859375 123.39990234375 839.999755859375 241.83984375Q839.999755859375 312.9598388671875 809.7997741699219 373.9598083496094Q779.5997924804688 434.95977783203125 706.83984375 488.4397277832031Q634.0798950195312 541.919677734375 507.1199951171875 588.2396240234375Q353.5599365234375 644.7996215820312 262.07989501953125 710.4196472167969Q170.599853515625 776.0396728515625 130.13983154296875 854.959716796875Q89.6798095703125 933.8797607421875 89.6798095703125 1031.4398193359375Q89.6798095703125 1147.2398681640625 147.15985107421875 1234.7199096679688Q204.639892578125 1322.199951171875 303.91998291015625 1371.0999755859375Q403.2000732421875 1420 528.480224609375 1420Q618.0801391601562 1420 675.60009765625 1397.5000305175781Q733.1200561523438 1375.0000610351562 765.8600463867188 1352.5000915527344Q798.6000366210938 1330.0001220703125 812.800048828125 1330.0001220703125Q823.9600830078125 1330.0001220703125 845.1001586914062 1353.10009765625Q866.240234375 1376.2000732421875 886.3803100585938 1399.300048828125Q906.5203857421875 1422.4000244140625 914.5604248046875 1422.4000244140625Q918.3204345703125 1422.4000244140625 921.8004455566406 1420.1400146484375Q925.2804565429688 1417.8800048828125 926.720458984375 1411.1199951171875L1030.8804931640625 999.8397216796875Q1031.760498046875 995.3197021484375 1031.6604919433594 992.3796997070312Q1031.5604858398438 989.439697265625 1029.1204833984375 987.439697265625Q1027.240478515625 986.439697265625 1024.0804748535156 988.0997009277344Q1020.9204711914062 989.7597045898438 1018.48046875 993.19970703125Q940.7202758789062 1150.9198608398438 863.9402160644531 1240.0999145507812Q787.16015625 1329.2799682617188 707.1601867675781 1365.9999694824219Q627.1602172851562 1402.719970703125 540.80029296875 1402.719970703125Q427.3204345703125 1402.719970703125 353.4205322265625 1331.8400268554688Q279.5206298828125 1260.9600830078125 279.5206298828125 1133.6002197265625Q279.5206298828125 1059.9202270507812 308.8406066894531 997.1402587890625Q338.16058349609375 934.3602905273438 408.4405212402344 880.4403381347656Q478.720458984375 826.5203857421875 601.600341796875 780.0804443359375Q762.0404052734375 721.200439453125 853.96044921875 655.2804260253906Q945.8804931640625 589.3604125976562 984.3405151367188 513.7603759765625Q1022.800537109375 438.16033935546875 1022.800537109375 348.4002685546875Q1022.800537109375 245.2001953125 973.5804748535156 161.42013549804688Q924.3604125976562 77.64007568359375 831.1802978515625 28.260040283203125Q738.0001831054688 -21.1199951171875 606.4000244140625 -21.1199951171875Z"/>
 <path transform="translate(1051.00,0)" d="M115.83984375 840.080078125 23.919921875 856.7200927734375Q19.159912109375 858.1600952148438 17.21990966796875 859.8200988769531Q15.2799072265625 861.4801025390625 15.2799072265625 864.4801025390625Q15.2799072265625 866.9201049804688 17.21990966796875 868.5801086425781Q19.159912109375 870.2401123046875 21.0399169921875 870.2401123046875H112.2398681640625Q120.27984619140625 870.2401123046875 124.89984130859375 872.6401062011719Q129.51983642578125 875.0401000976562 132.7198486328125 880.7200927734375L285.8404541015625 1064.3201904296875Q290.48046875 1068.6401977539062 294.7204895019531 1071.2402038574219Q298.96051025390625 1073.8402099609375 303.280517578125 1073.8402099609375Q307.9205322265625 1073.8402099609375 310.6805419921875 1070.8601989746094Q313.4405517578125 1067.8801879882812 313.4405517578125 1061.920166015625V207.120361328125Q313.4405517578125 129.3203125 343.4805603027344 91.4202880859375Q373.52056884765625 53.520263671875 425.840576171875 53.520263671875Q445.52056884765625 53.520263671875 463.14056396484375 58.96026611328125Q480.76055908203125 64.4002685546875 495.88055419921875 76.1602783203125Q511.00054931640625 87.9202880859375 522.8405456542969 106.60031127929688Q534.6805419921875 125.28033447265625 542.800537109375 151.7603759765625Q544.800537109375 156.96038818359375 548.560546875 156.400390625Q552.320556640625 155.84039306640625 550.320556640625 149.5203857421875Q534.2005615234375 92.76025390625 507.7005310058594 55.920166015625Q481.20050048828125 19.080078125 441.9004211425781 1.22003173828125Q402.600341796875 -16.6400146484375 348.0802001953125 -16.6400146484375Q244.8800048828125 -16.6400146484375 187.47991943359375 32.88006591796875Q130.079833984375 82.400146484375 130.079833984375 185.2003173828125V820.9600830078125Q130.079833984375 829.4000854492188 127.23983764648438 834.2400817871094Q124.39984130859375 839.080078125 115.83984375 840.080078125ZM252.0003662109375 852.080078125 257.2803955078125 870.2401123046875H542.9605712890625Q547.9605712890625 870.2401123046875 549.9005737304688 868.7401123046875Q551.840576171875 867.2401123046875 551.840576171875 863.360107421875Q551.840576171875 858.60009765625 546.08056640625 855.340087890625Q540.320556640625 852.080078125 529.6805419921875 852.080078125Z"/>
 <path transform="translate(1559.00,0)" d="M804.2405395507812 525.119873046875Q804.2405395507812 517.35986328125 799.1405334472656 512.599853515625Q794.04052734375 507.83984375 784.0805053710938 507.83984375H167.04046630859375V522.8798828125H598.4797973632812Q614.2398071289062 522.8798828125 614.2398071289062 540.39990234375Q614.2398071289062 708.9200439453125 562.3398742675781 793.06005859375Q510.43994140625 877.2000732421875 431.68011474609375 877.2000732421875Q363.80029296875 877.2000732421875 315.60040283203125 834.7001342773438Q267.4005126953125 792.2001953125 241.42056274414062 709.3202514648438Q215.44061279296875 626.4403076171875 215.44061279296875 505.6802978515625Q215.44061279296875 299.80029296875 303.2005920410156 193.54034423828125Q390.9605712890625 87.2803955078125 531.2005615234375 87.2803955078125Q631.5606079101562 87.2803955078125 703.3005981445312 145.30038452148438Q775.0405883789062 203.32037353515625 787.3605346679688 303.04034423828125Q787.9205322265625 306.92034912109375 789.5805358886719 308.42034912109375Q791.2405395507812 309.92034912109375 792.2405395507812 309.92034912109375Q794.6805419921875 309.92034912109375 796.6205444335938 308.2003479003906Q798.560546875 306.4803466796875 798.0005493164062 301.04034423828125Q790.1605834960938 208.8802490234375 741.060546875 136.3001708984375Q691.9605102539062 63.7200927734375 613.1204223632812 21.86004638671875Q534.2803344726562 -20 436.72021484375 -20Q318.08013916015625 -20 228.76007080078125 33.52001953125Q139.44000244140625 87.0400390625 89.51995849609375 185.28005981445312Q39.59991455078125 283.52008056640625 39.59991455078125 415.840087890625Q39.59991455078125 554.64013671875 91.03994750976562 661.8601379394531Q142.47998046875 769.0801391601562 235.86004638671875 830.2201232910156Q329.2401123046875 891.360107421875 454.40020751953125 891.360107421875Q560.7603149414062 891.360107421875 639.1803894042969 843.9200744628906Q717.6004638671875 796.4800415039062 760.9205017089844 713.7999877929688Q804.2405395507812 631.1199340820312 804.2405395507812 525.119873046875Z"/>
@@ -506,300 +207,122 @@ footer a:hover{color:var(--tinta)}
 <path transform="translate(5167.00,0)" d="M804.2405395507812 525.119873046875Q804.2405395507812 517.35986328125 799.1405334472656 512.599853515625Q794.04052734375 507.83984375 784.0805053710938 507.83984375H167.04046630859375V522.8798828125H598.4797973632812Q614.2398071289062 522.8798828125 614.2398071289062 540.39990234375Q614.2398071289062 708.9200439453125 562.3398742675781 793.06005859375Q510.43994140625 877.2000732421875 431.68011474609375 877.2000732421875Q363.80029296875 877.2000732421875 315.60040283203125 834.7001342773438Q267.4005126953125 792.2001953125 241.42056274414062 709.3202514648438Q215.44061279296875 626.4403076171875 215.44061279296875 505.6802978515625Q215.44061279296875 299.80029296875 303.2005920410156 193.54034423828125Q390.9605712890625 87.2803955078125 531.2005615234375 87.2803955078125Q631.5606079101562 87.2803955078125 703.3005981445312 145.30038452148438Q775.0405883789062 203.32037353515625 787.3605346679688 303.04034423828125Q787.9205322265625 306.92034912109375 789.5805358886719 308.42034912109375Q791.2405395507812 309.92034912109375 792.2405395507812 309.92034912109375Q794.6805419921875 309.92034912109375 796.6205444335938 308.2003479003906Q798.560546875 306.4803466796875 798.0005493164062 301.04034423828125Q790.1605834960938 208.8802490234375 741.060546875 136.3001708984375Q691.9605102539062 63.7200927734375 613.1204223632812 21.86004638671875Q534.2803344726562 -20 436.72021484375 -20Q318.08013916015625 -20 228.76007080078125 33.52001953125Q139.44000244140625 87.0400390625 89.51995849609375 185.28005981445312Q39.59991455078125 283.52008056640625 39.59991455078125 415.840087890625Q39.59991455078125 554.64013671875 91.03994750976562 661.8601379394531Q142.47998046875 769.0801391601562 235.86004638671875 830.2201232910156Q329.2401123046875 891.360107421875 454.40020751953125 891.360107421875Q560.7603149414062 891.360107421875 639.1803894042969 843.9200744628906Q717.6004638671875 796.4800415039062 760.9205017089844 713.7999877929688Q804.2405395507812 631.1199340820312 804.2405395507812 525.119873046875Z"/>
 <path transform="translate(5948.00,0)" d="M115.83984375 840.080078125 23.919921875 856.7200927734375Q19.159912109375 858.1600952148438 17.21990966796875 859.8200988769531Q15.2799072265625 861.4801025390625 15.2799072265625 864.4801025390625Q15.2799072265625 866.9201049804688 17.21990966796875 868.5801086425781Q19.159912109375 870.2401123046875 21.0399169921875 870.2401123046875H112.2398681640625Q120.27984619140625 870.2401123046875 124.89984130859375 872.6401062011719Q129.51983642578125 875.0401000976562 132.7198486328125 880.7200927734375L285.8404541015625 1064.3201904296875Q290.48046875 1068.6401977539062 294.7204895019531 1071.2402038574219Q298.96051025390625 1073.8402099609375 303.280517578125 1073.8402099609375Q307.9205322265625 1073.8402099609375 310.6805419921875 1070.8601989746094Q313.4405517578125 1067.8801879882812 313.4405517578125 1061.920166015625V207.120361328125Q313.4405517578125 129.3203125 343.4805603027344 91.4202880859375Q373.52056884765625 53.520263671875 425.840576171875 53.520263671875Q445.52056884765625 53.520263671875 463.14056396484375 58.96026611328125Q480.76055908203125 64.4002685546875 495.88055419921875 76.1602783203125Q511.00054931640625 87.9202880859375 522.8405456542969 106.60031127929688Q534.6805419921875 125.28033447265625 542.800537109375 151.7603759765625Q544.800537109375 156.96038818359375 548.560546875 156.400390625Q552.320556640625 155.84039306640625 550.320556640625 149.5203857421875Q534.2005615234375 92.76025390625 507.7005310058594 55.920166015625Q481.20050048828125 19.080078125 441.9004211425781 1.22003173828125Q402.600341796875 -16.6400146484375 348.0802001953125 -16.6400146484375Q244.8800048828125 -16.6400146484375 187.47991943359375 32.88006591796875Q130.079833984375 82.400146484375 130.079833984375 185.2003173828125V820.9600830078125Q130.079833984375 829.4000854492188 127.23983764648438 834.2400817871094Q124.39984130859375 839.080078125 115.83984375 840.080078125ZM252.0003662109375 852.080078125 257.2803955078125 870.2401123046875H542.9605712890625Q547.9605712890625 870.2401123046875 549.9005737304688 868.7401123046875Q551.840576171875 867.2401123046875 551.840576171875 863.360107421875Q551.840576171875 858.60009765625 546.08056640625 855.340087890625Q540.320556640625 852.080078125 529.6805419921875 852.080078125Z"/>
 <path transform="translate(6456.00,0)" d="M735.3605346679688 846.4800415039062 242.7607421875 8.4000244140625 212.92059326171875 13.9200439453125H485.84033203125Q530.8803100585938 13.9200439453125 566.5403137207031 28.920074462890625Q602.2003173828125 43.92010498046875 637.120361328125 84.96017456054688Q672.0404052734375 126.000244140625 713.2005004882812 203.120361328125L754.1205444335938 283.7603759765625Q756.560546875 287.640380859375 758.9405517578125 289.3003845214844Q761.320556640625 290.96038818359375 764.2005615234375 289.5203857421875Q766.2005615234375 288.5203857421875 766.8005676269531 285.2403869628906Q767.4005737304688 281.96038818359375 765.9605712890625 275.44036865234375L707.4005737304688 -7.51995849609375Q705.9605712890625 -15.79998779296875 704.3005676269531 -18.339996337890625Q702.6405639648438 -20.8800048828125 700.2005615234375 -20.8800048828125Q692.8805541992188 -20.8800048828125 678.7405090332031 -10.44000244140625Q664.6004638671875 0 639.9603881835938 0H48.5999755859375Q45.8399658203125 0 43.9599609375 1.44000244140625Q42.0799560546875 2.8800048828125 42.0799560546875 5.20001220703125Q42.0799560546875 7.96002197265625 43.4599609375 11.60003662109375Q44.8399658203125 15.24005126953125 48.47998046875 22.080078125L545.0797729492188 863.080078125L578.7999267578125 856.320068359375H290.28021240234375Q255.64019775390625 856.320068359375 225.80020141601562 840.8800659179688Q195.960205078125 825.4400634765625 167.22018432617188 788.5000305175781Q138.48016357421875 751.5599975585938 107.76007080078125 686.7199096679688L67.23992919921875 604.7997436523438Q64.919921875 599.9197387695312 61.97991943359375 597.5797424316406Q59.0399169921875 595.23974609375 54.919921875 595.6797485351562Q51.35992431640625 596.5597534179688 50.35992431640625 600.0597534179688Q49.35992431640625 603.5597534179688 50.35992431640625 611.4397583007812L103.3199462890625 869.9201049804688Q105.3199462890625 879.3201293945312 107.25994873046875 882.7001342773438Q109.199951171875 886.0801391601562 112.75994873046875 886.0801391601562Q119.9599609375 886.0801391601562 133.54000854492188 878.1601257324219Q147.12005615234375 870.2401123046875 170.20013427734375 870.2401123046875H735.2405395507812Q738.560546875 870.2401123046875 740.4405517578125 869.0201110839844Q742.320556640625 867.8001098632812 742.320556640625 864.4801025390625Q742.320556640625 861.7200927734375 740.9405517578125 858.0200805664062Q739.560546875 854.320068359375 735.3605346679688 846.4800415039062Z"/>
-</g>
-  </defs>
-</svg>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="flecha" viewBox="0 0 12 12">
-      <path d="M1 6h9M6.5 2l4 4-4 4" fill="none" stroke="currentColor"
-            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="mas" viewBox="0 0 12 12">
-      <path d="M6 1.6v8.8M1.6 6h8.8" fill="none" stroke="currentColor"
-            stroke-width="1.6" stroke-linecap="round"/>
-    </symbol>
-  </defs>
-</svg>
-
-<nav id="marco" aria-label="Principal">
-  <div class="nav">
-    <a href="#pilares">Cómo trabajamos</a>
-    <a href="#caso">Qué construimos</a>
-    <a href="#semanas">Tres semanas</a>
-    <a href="#seguridad">Seguridad</a>
-  </div>
-  <div class="centro-marco">
-    <a href="#" aria-label="Steinmetz — inicio">
-      <svg class="wm-chico" viewBox="0 0 7133 1446" role="img" aria-label="Steinmetz">
-        <use href="#letras" fill="currentColor"/>
-      </svg>
-    </a>
-  </div>
-  <div class="derecha">
-    <a class="bt" href="#hablemos">Hablemos
-      <span class="flecha"><svg aria-hidden="true"><use href="#flecha"/></svg></span></a>
-  </div>
-</nav>
-
-<main>
-<!-- ══ PORTADA ══ -->
-<header class="portada">
-  <div class="campo" aria-hidden="true"><i class="luz"></i></div>
-  <!-- el campo de trazos: 72 curvas que fluyen, calculadas igual que el
-       componente de referencia y portadas a SVG y CSS puros. `pathLength="1"`
-       normaliza cada curva a longitud 1, así el guion de trazo se expresa en
-       fracciones y una sola animación sirve para todas. -->
-  <div class="senderos" aria-hidden="true">
-    <svg viewBox="0 0 696 316" fill="none" preserveAspectRatio="none">
-      <path pathLength="1" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke-width="0.5" style="--o:0.1;--d:23.2s;--r:-0.151"/>
-      <path pathLength="1" d="M-375 -195C-375 -195 -307 210 147 337C611 464 679 869 679 869" stroke-width="0.53" style="--o:0.13;--d:26.5s;--r:-0.072"/>
-      <path pathLength="1" d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke-width="0.56" style="--o:0.16;--d:25.4s;--r:-0.366"/>
-      <path pathLength="1" d="M-365 -207C-365 -207 -297 198 137 325C601 452 669 857 669 857" stroke-width="0.59" style="--o:0.19;--d:20.6s;--r:-0.507"/>
-      <path pathLength="1" d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke-width="0.62" style="--o:0.22;--d:20.4s;--r:-0.434"/>
-      <path pathLength="1" d="M-355 -219C-355 -219 -287 186 127 313C591 440 659 845 659 845" stroke-width="0.65" style="--o:0.25;--d:20.7s;--r:-0.091"/>
-      <path pathLength="1" d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke-width="0.68" style="--o:0.28;--d:24.2s;--r:-0.827"/>
-      <path pathLength="1" d="M-345 -231C-345 -231 -277 174 117 301C581 428 649 833 649 833" stroke-width="0.71" style="--o:0.31;--d:21.2s;--r:-0.223"/>
-      <path pathLength="1" d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke-width="0.74" style="--o:0.34;--d:26.3s;--r:-0.948"/>
-      <path pathLength="1" d="M-335 -243C-335 -243 -267 162 107 289C571 416 639 821 639 821" stroke-width="0.77" style="--o:0.37;--d:25.8s;--r:-0.397"/>
-      <path pathLength="1" d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke-width="0.8" style="--o:0.4;--d:29.8s;--r:-0.047"/>
-      <path pathLength="1" d="M-325 -255C-325 -255 -257 150 97 277C561 404 629 809 629 809" stroke-width="0.83" style="--o:0.43;--d:28.6s;--r:-0.29"/>
-      <path pathLength="1" d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke-width="0.86" style="--o:0.46;--d:21.4s;--r:-0.118"/>
-      <path pathLength="1" d="M-315 -267C-315 -267 -247 138 87 265C551 392 619 797 619 797" stroke-width="0.89" style="--o:0.49;--d:23.1s;--r:-0.816"/>
-      <path pathLength="1" d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke-width="0.92" style="--o:0.52;--d:21.8s;--r:-0.582"/>
-      <path pathLength="1" d="M-305 -279C-305 -279 -237 126 77 253C541 380 609 785 609 785" stroke-width="0.95" style="--o:0.55;--d:26.4s;--r:-0.372"/>
-      <path pathLength="1" d="M-300 -285C-300 -285 -232 120 72 247C536 374 604 779 604 779" stroke-width="0.98" style="--o:0.58;--d:25.5s;--r:-0.063"/>
-      <path pathLength="1" d="M-295 -291C-295 -291 -227 114 67 241C531 368 599 773 599 773" stroke-width="1.01" style="--o:0.61;--d:20.6s;--r:-0.206"/>
-      <path pathLength="1" d="M-290 -297C-290 -297 -222 108 62 235C526 362 594 767 594 767" stroke-width="1.04" style="--o:0.64;--d:26.8s;--r:-0.428"/>
-      <path pathLength="1" d="M-285 -303C-285 -303 -217 102 57 229C521 356 589 761 589 761" stroke-width="1.07" style="--o:0.67;--d:23.1s;--r:-0.586"/>
-      <path pathLength="1" d="M-280 -309C-280 -309 -212 96 52 223C516 350 584 755 584 755" stroke-width="1.1" style="--o:0.7;--d:24.5s;--r:-0.3"/>
-      <path pathLength="1" d="M-275 -315C-275 -315 -207 90 47 217C511 344 579 749 579 749" stroke-width="1.13" style="--o:0.73;--d:27.9s;--r:-0.699"/>
-      <path pathLength="1" d="M-270 -321C-270 -321 -202 84 42 211C506 338 574 743 574 743" stroke-width="1.16" style="--o:0.76;--d:22.4s;--r:-0.574"/>
-      <path pathLength="1" d="M-265 -327C-265 -327 -197 78 37 205C501 332 569 737 569 737" stroke-width="1.19" style="--o:0.79;--d:25.3s;--r:-0.875"/>
-      <path pathLength="1" d="M-260 -333C-260 -333 -192 72 32 199C496 326 564 731 564 731" stroke-width="1.22" style="--o:0.82;--d:27.3s;--r:-0.288"/>
-      <path pathLength="1" d="M-255 -339C-255 -339 -187 66 27 193C491 320 559 725 559 725" stroke-width="1.25" style="--o:0.85;--d:29.8s;--r:-0.118"/>
-      <path pathLength="1" d="M-250 -345C-250 -345 -182 60 22 187C486 314 554 719 554 719" stroke-width="1.28" style="--o:0.88;--d:24.2s;--r:-0.757"/>
-      <path pathLength="1" d="M-245 -351C-245 -351 -177 54 17 181C481 308 549 713 549 713" stroke-width="1.31" style="--o:0.91;--d:21.5s;--r:-0.489"/>
-      <path pathLength="1" d="M-240 -357C-240 -357 -172 48 12 175C476 302 544 707 544 707" stroke-width="1.34" style="--o:0.94;--d:20.4s;--r:-0.668"/>
-      <path pathLength="1" d="M-235 -363C-235 -363 -167 42 7 169C471 296 539 701 539 701" stroke-width="1.37" style="--o:0.97;--d:27.6s;--r:-0.573"/>
-      <path pathLength="1" d="M-230 -369C-230 -369 -162 36 2 163C466 290 534 695 534 695" stroke-width="1.4" style="--o:1.0;--d:28.8s;--r:-0.314"/>
-      <path pathLength="1" d="M-225 -375C-225 -375 -157 30 -3 157C461 284 529 689 529 689" stroke-width="1.43" style="--o:1;--d:27.0s;--r:-0.594"/>
-      <path pathLength="1" d="M-220 -381C-220 -381 -152 24 -8 151C456 278 524 683 524 683" stroke-width="1.46" style="--o:1;--d:25.8s;--r:-0.456"/>
-      <path pathLength="1" d="M-215 -387C-215 -387 -147 18 -13 145C451 272 519 677 519 677" stroke-width="1.49" style="--o:1;--d:28.4s;--r:-0.945"/>
-      <path pathLength="1" d="M-210 -393C-210 -393 -142 12 -18 139C446 266 514 671 514 671" stroke-width="1.52" style="--o:1;--d:24.7s;--r:-0.664"/>
-      <path pathLength="1" d="M-205 -399C-205 -399 -137 6 -23 133C441 260 509 665 509 665" stroke-width="1.55" style="--o:1;--d:20.6s;--r:-0.701"/>
-      <path pathLength="1" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke-width="0.5" style="--o:0.1;--d:26.5s;--r:-0.993"/>
-      <path pathLength="1" d="M-385 -195C-385 -195 -317 210 157 337C621 464 689 869 689 869" stroke-width="0.53" style="--o:0.13;--d:28.2s;--r:-0.285"/>
-      <path pathLength="1" d="M-390 -201C-390 -201 -322 204 162 331C626 458 694 863 694 863" stroke-width="0.56" style="--o:0.16;--d:23.9s;--r:-0.669"/>
-      <path pathLength="1" d="M-395 -207C-395 -207 -327 198 167 325C631 452 699 857 699 857" stroke-width="0.59" style="--o:0.19;--d:20.2s;--r:-0.462"/>
-      <path pathLength="1" d="M-400 -213C-400 -213 -332 192 172 319C636 446 704 851 704 851" stroke-width="0.62" style="--o:0.22;--d:21.7s;--r:-0.117"/>
-      <path pathLength="1" d="M-405 -219C-405 -219 -337 186 177 313C641 440 709 845 709 845" stroke-width="0.65" style="--o:0.25;--d:20.6s;--r:-0.768"/>
-      <path pathLength="1" d="M-410 -225C-410 -225 -342 180 182 307C646 434 714 839 714 839" stroke-width="0.68" style="--o:0.28;--d:21.3s;--r:-0.248"/>
-      <path pathLength="1" d="M-415 -231C-415 -231 -347 174 187 301C651 428 719 833 719 833" stroke-width="0.71" style="--o:0.31;--d:23.9s;--r:-0.871"/>
-      <path pathLength="1" d="M-420 -237C-420 -237 -352 168 192 295C656 422 724 827 724 827" stroke-width="0.74" style="--o:0.34;--d:20.8s;--r:-0.449"/>
-      <path pathLength="1" d="M-425 -243C-425 -243 -357 162 197 289C661 416 729 821 729 821" stroke-width="0.77" style="--o:0.37;--d:25.5s;--r:-0.883"/>
-      <path pathLength="1" d="M-430 -249C-430 -249 -362 156 202 283C666 410 734 815 734 815" stroke-width="0.8" style="--o:0.4;--d:28.2s;--r:-0.864"/>
-      <path pathLength="1" d="M-435 -255C-435 -255 -367 150 207 277C671 404 739 809 739 809" stroke-width="0.83" style="--o:0.43;--d:22.8s;--r:-0.415"/>
-      <path pathLength="1" d="M-440 -261C-440 -261 -372 144 212 271C676 398 744 803 744 803" stroke-width="0.86" style="--o:0.46;--d:23.6s;--r:-0.884"/>
-      <path pathLength="1" d="M-445 -267C-445 -267 -377 138 217 265C681 392 749 797 749 797" stroke-width="0.89" style="--o:0.49;--d:29.6s;--r:-0.151"/>
-      <path pathLength="1" d="M-450 -273C-450 -273 -382 132 222 259C686 386 754 791 754 791" stroke-width="0.92" style="--o:0.52;--d:21.8s;--r:-0.232"/>
-      <path pathLength="1" d="M-455 -279C-455 -279 -387 126 227 253C691 380 759 785 759 785" stroke-width="0.95" style="--o:0.55;--d:22.3s;--r:-0.485"/>
-      <path pathLength="1" d="M-460 -285C-460 -285 -392 120 232 247C696 374 764 779 764 779" stroke-width="0.98" style="--o:0.58;--d:25.9s;--r:-0.263"/>
-      <path pathLength="1" d="M-465 -291C-465 -291 -397 114 237 241C701 368 769 773 769 773" stroke-width="1.01" style="--o:0.61;--d:20.0s;--r:-0.419"/>
-      <path pathLength="1" d="M-470 -297C-470 -297 -402 108 242 235C706 362 774 767 774 767" stroke-width="1.04" style="--o:0.64;--d:23.7s;--r:-0.566"/>
-      <path pathLength="1" d="M-475 -303C-475 -303 -407 102 247 229C711 356 779 761 779 761" stroke-width="1.07" style="--o:0.67;--d:29.5s;--r:-0.69"/>
-      <path pathLength="1" d="M-480 -309C-480 -309 -412 96 252 223C716 350 784 755 784 755" stroke-width="1.1" style="--o:0.7;--d:25.2s;--r:-0.618"/>
-      <path pathLength="1" d="M-485 -315C-485 -315 -417 90 257 217C721 344 789 749 789 749" stroke-width="1.13" style="--o:0.73;--d:26.8s;--r:-0.054"/>
-      <path pathLength="1" d="M-490 -321C-490 -321 -422 84 262 211C726 338 794 743 794 743" stroke-width="1.16" style="--o:0.76;--d:29.0s;--r:-0.78"/>
-      <path pathLength="1" d="M-495 -327C-495 -327 -427 78 267 205C731 332 799 737 799 737" stroke-width="1.19" style="--o:0.79;--d:28.7s;--r:-0.798"/>
-      <path pathLength="1" d="M-500 -333C-500 -333 -432 72 272 199C736 326 804 731 804 731" stroke-width="1.22" style="--o:0.82;--d:23.9s;--r:-0.399"/>
-      <path pathLength="1" d="M-505 -339C-505 -339 -437 66 277 193C741 320 809 725 809 725" stroke-width="1.25" style="--o:0.85;--d:21.0s;--r:-0.634"/>
-      <path pathLength="1" d="M-510 -345C-510 -345 -442 60 282 187C746 314 814 719 814 719" stroke-width="1.28" style="--o:0.88;--d:20.6s;--r:-0.067"/>
-      <path pathLength="1" d="M-515 -351C-515 -351 -447 54 287 181C751 308 819 713 819 713" stroke-width="1.31" style="--o:0.91;--d:22.1s;--r:-0.162"/>
-      <path pathLength="1" d="M-520 -357C-520 -357 -452 48 292 175C756 302 824 707 824 707" stroke-width="1.34" style="--o:0.94;--d:23.4s;--r:-0.053"/>
-      <path pathLength="1" d="M-525 -363C-525 -363 -457 42 297 169C761 296 829 701 829 701" stroke-width="1.37" style="--o:0.97;--d:20.0s;--r:-0.151"/>
-      <path pathLength="1" d="M-530 -369C-530 -369 -462 36 302 163C766 290 834 695 834 695" stroke-width="1.4" style="--o:1.0;--d:21.0s;--r:-0.364"/>
-      <path pathLength="1" d="M-535 -375C-535 -375 -467 30 307 157C771 284 839 689 839 689" stroke-width="1.43" style="--o:1;--d:20.3s;--r:-0.874"/>
-      <path pathLength="1" d="M-540 -381C-540 -381 -472 24 312 151C776 278 844 683 844 683" stroke-width="1.46" style="--o:1;--d:26.1s;--r:-0.149"/>
-      <path pathLength="1" d="M-545 -387C-545 -387 -477 18 317 145C781 272 849 677 849 677" stroke-width="1.49" style="--o:1;--d:22.5s;--r:-0.347"/>
-      <path pathLength="1" d="M-550 -393C-550 -393 -482 12 322 139C786 266 854 671 854 671" stroke-width="1.52" style="--o:1;--d:23.6s;--r:-0.123"/>
-      <path pathLength="1" d="M-555 -399C-555 -399 -487 6 327 133C791 260 859 665 859 665" stroke-width="1.55" style="--o:1;--d:28.5s;--r:-0.993"/>
-    </svg>
-  </div>
-
-  <div></div>
-
-  <div class="env">
-    <div class="dicho">
-      <h1 class="letras">Sistemas de IA hechos para tu operación.</h1>
-      <p class="bajada entra" style="animation-delay:.09s">
-        No instalamos software: construimos el que le falta a tu empresa.
-        En producción en tres semanas, dentro de tu red.
-      </p>
-      <div class="acciones entra" style="animation-delay:.18s">
-        <a class="bt" href="#hablemos">Hablemos
-          <span class="flecha"><svg aria-hidden="true"><use href="#flecha"/></svg></span></a>
-        <a class="bt linea" href="#caso">Ver qué construiríamos</a>
-      </div>
+</g></svg>
+    <p class="frase entra" style="animation-delay:.15s">
+      Construimos sistemas de inteligencia artificial hechos para tu operación.
+      <span>En producción en tres semanas, dentro de tu red.</span>
+    </p>
+    <div class="acciones entra" style="animation-delay:.3s">
+      <a class="bt" href="#hablemos">Hablemos</a>
+      <a class="bt linea" href="#caso">Ver qué construiríamos</a>
     </div>
-    <div class="franja entra" style="animation-delay:.27s">
-      <span>A medida</span><span>En tres semanas</span><span>Dentro de tu perímetro</span>
-    </div>
+  </div>
+  <div class="env pie-portada entra" style="animation-delay:.45s">
+    A MEDIDA · EN TRES SEMANAS · DENTRO DE TU PERÍMETRO
   </div>
 </header>
 
-<!-- ══ LA PILA — los tres pilares ══ -->
-<section id="pilares">
-  <div class="campo" aria-hidden="true"><i class="luz"></i></div>
-  <div class="env">
-    <div class="cabecera">
-      <h2>Tres cosas, y las tres importan.</h2>
-      <p class="bajada">Un sistema que no es tuyo no sirve. Uno que llega tarde tampoco.
-        Y uno que expone tu información no debería existir.</p>
+<!-- ══ LOS TRES PILARES ══ -->
+<section id="pilares"><div class="env">
+  <h2>Tres cosas, y las tres importan.</h2>
+  <p class="bajada">Un sistema que no es tuyo no sirve. Uno que llega tarde tampoco.
+    Y uno que expone tu información no debería existir.</p>
+  <div class="pilares">
+    <div class="pilar">
+      <span class="n">01</span>
+      <h3>A medida</h3>
+      <p>No instalamos software. Construimos el sistema que le falta a tu operación,
+        dentro de tu operación y con tus reglas. Nada de adaptar tu empresa a una
+        herramienta que se vendió igual a otras cien.</p>
     </div>
-
-    <div class="taller" id="taller">
-      <div class="columna">
-        <div class="mandos" role="tablist" aria-label="Los tres pilares">
-          <button class="mando" role="tab" aria-selected="true" data-i="0">
-            <span class="nombre">A medida</span>
-            <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
-          </button>
-          <button class="mando" role="tab" aria-selected="false" data-i="1">
-            <span class="nombre">Rápido</span>
-            <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
-          </button>
-          <button class="mando" role="tab" aria-selected="false" data-i="2">
-            <span class="nombre">Seguro</span>
-            <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
-          </button>
-        </div>
-        <div class="detalle" id="detalle" role="tabpanel" aria-live="polite"></div>
-      </div>
-
-      <div class="escena-caja">
-        <div class="escena" id="escena" aria-hidden="true">
-          <div class="orbita" style="--i:0">
-            <div class="placa" data-i="0" style="--i:0">
-              <div class="lado sombra"></div>
-              <div class="lado n"></div><div class="lado s"></div>
-              <div class="lado o"></div><div class="lado e"></div>
-              <div class="lado cara"><span class="grabado">A medida</span></div>
-            </div>
-          </div>
-          <div class="orbita" style="--i:1">
-            <div class="placa" data-i="1" style="--i:1">
-              <div class="lado sombra"></div>
-              <div class="lado n"></div><div class="lado s"></div>
-              <div class="lado o"></div><div class="lado e"></div>
-              <div class="lado cara"><span class="grabado">Rápido</span></div>
-            </div>
-          </div>
-          <div class="orbita" style="--i:2">
-            <div class="placa" data-i="2" style="--i:2">
-              <div class="lado sombra"></div>
-              <div class="lado n"></div><div class="lado s"></div>
-              <div class="lado o"></div><div class="lado e"></div>
-              <div class="lado cara"><span class="grabado">Seguro</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="pilar">
+      <span class="n">02</span>
+      <h3>Rápido</h3>
+      <p>Tres semanas desde la orden de compra. No un piloto ni una maqueta: un
+        sistema encendido, en producción, con tu equipo usándolo y un acta firmada
+        que lo dice.</p>
+    </div>
+    <div class="pilar">
+      <span class="n">03</span>
+      <h3>Seguro</h3>
+      <p>Todo ocurre dentro de tu perímetro, sobre tu nube y con tus cuentas. Tus
+        datos no entrenan modelos, no salen de tu red, y al terminar te los
+        entregamos íntegros.</p>
     </div>
   </div>
-</section>
+</div></section>
 
 <!-- ══ ELEGÍ TU CASO ══ -->
 <section id="caso"><div class="env">
-  <div class="cabecera">
-    <h2>¿Qué te está costando tiempo hoy?</h2>
-    <p class="bajada">Elegí el que más se parezca a lo tuyo y te digo qué
-      construiríamos, en cuánto y desde cuánto.</p>
-  </div>
+  <h2>¿Qué te está costando tiempo hoy?</h2>
+  <p class="bajada">Elegí el que más se parezca a lo tuyo y te digo qué
+    construiríamos, en cuánto y desde cuánto.</p>
   <div class="caso">
     <div class="opciones" role="tablist" aria-label="Casos"></div>
     <div class="respuesta" id="respuesta" role="tabpanel" aria-live="polite"></div>
   </div>
+  <p class="p" style="margin-top:1.2rem;font-size:.92rem">¿No calza ninguno? Suele
+    pasar: por eso el primer paso siempre es mirar tu operación, no elegir de un menú.</p>
 </div></section>
 
 <!-- ══ LAS TRES SEMANAS ══ -->
 <section id="semanas"><div class="env">
-  <div class="cabecera">
-    <h2>Qué pasa en las tres semanas.</h2>
-    <p class="bajada">El plazo corre desde la orden de compra y desde que llegan los
-      antecedentes. Si algo se demora de tu lado, la fecha se corre día por día — y
-      queda escrito así en la cotización.</p>
-  </div>
-  <div class="riel">
-    <div class="semanas">
-      <div class="semana">
-        <span class="n">SEMANA 1</span>
-        <h3>Leemos la operación real</h3>
-        <p>No la declarada. Se cargan los antecedentes y definimos juntos el caso
-          concreto con el que se va a verificar la entrega. Ese caso es el criterio
-          de «listo», y se acuerda antes de escribir una línea.</p>
-      </div>
-      <div class="semana">
-        <span class="n">SEMANA 2</span>
-        <h3>Se construye</h3>
-        <p>El sistema toma forma dentro de tu red, autenticado con tus cuentas y bajo
-          tus permisos. Ves avances, no un informe de avance.</p>
-      </div>
-      <div class="semana">
-        <span class="n">SEMANA 3</span>
-        <h3>Se enciende</h3>
-        <p>Tu equipo lo usa sobre casos reales, se corrige lo que aparezca y se firma
-          el acta de entrega. Queda funcionando, con manual y con tu gente capacitada.</p>
-      </div>
+  <h2>Qué pasa en las tres semanas.</h2>
+  <p class="bajada">El plazo corre desde la orden de compra y desde que llegan los
+    antecedentes. Si algo se demora de tu lado, la fecha se corre día por día — y
+    queda escrito así en la cotización.</p>
+  <div class="semanas">
+    <div class="semana">
+      <span class="n">1</span>
+      <h3>Leemos la operación real</h3>
+      <p>No la declarada. Se cargan los antecedentes y definimos juntos el caso
+        concreto con el que se va a verificar la entrega. Ese caso es el criterio
+        de «listo», y se acuerda antes de escribir una línea.</p>
+    </div>
+    <div class="semana">
+      <span class="n">2</span>
+      <h3>Se construye</h3>
+      <p>El sistema toma forma dentro de tu red, autenticado con tus cuentas y bajo
+        tus permisos. Ves avances, no un informe de avance.</p>
+    </div>
+    <div class="semana">
+      <span class="n">3</span>
+      <h3>Se enciende</h3>
+      <p>Tu equipo lo usa sobre casos reales, se corrige lo que aparezca y se firma
+        el acta de entrega. Queda funcionando, con manual y con tu gente capacitada.</p>
     </div>
   </div>
 </div></section>
 
 <!-- ══ SEGURIDAD ══ -->
-<section id="seguridad">
-  <div class="env">
-    <div class="cabecera">
-      <h2>Dónde vive tu información.</h2>
-      <p class="bajada">Es la primera pregunta que hace cualquiera que tenga algo que
-        perder. Estas son las respuestas, y van escritas en el contrato.</p>
-    </div>
-    <div class="seg">
-      <ul class="lista">
-        <li><span class="k">Dónde corre</span><span class="v">Dentro de tu perímetro,
-          sobre tu propia nube y autenticado con tus cuentas. La información no sale de
-          tu control.</span></li>
-        <li><span class="k">Entrenamiento</span><span class="v">Tus datos no entrenan
-          modelos. Ni los nuestros, ni los de nadie.</span></li>
-        <li><span class="k">Quién ve qué</span><span class="v">Permisos por usuario, por
-          área y por documento. Cada persona accede sólo a lo que le corresponde.</span></li>
-        <li><span class="k">Trazabilidad</span><span class="v">Cada consulta y cada
-          cambio queda registrado, con autor y fecha, disponible para auditoría.</span></li>
-        <li><span class="k">Las suscripciones</span><span class="v">Los servicios de IA
-          se contratan a tu nombre y por tu cuenta, bajo tus condiciones de tratamiento
-          de datos.</span></li>
-        <li><span class="k">Al terminar</span><span class="v">Se te entrega todo íntegro,
-          en formato estándar, dentro de 30 días. Sin retención y sin formatos
-          propietarios.</span></li>
-      </ul>
-      <div class="perimetro" aria-hidden="true">
-        <div class="pila-seg">
-          <div class="plano" style="--s:13rem;--z:0"><span class="et">TU NUBE</span></div>
-          <div class="plano" style="--s:9.6rem;--z:34"><span class="et">TU RED</span></div>
-          <div class="plano" style="--s:6.4rem;--z:68"><span class="et">TUS PERMISOS</span></div>
-          <div class="plano solido" style="--s:3.4rem;--z:102"><span class="et">TUS DATOS</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<section id="seguridad"><div class="env">
+  <h2>Dónde vive tu información.</h2>
+  <p class="bajada">Es la primera pregunta que hace cualquiera que tenga algo que
+    perder. Estas son las respuestas, y van escritas en el contrato.</p>
+  <ul class="lista">
+    <li><span class="k">Dónde corre</span><span class="v">Dentro de tu perímetro,
+      sobre tu propia nube y autenticado con tus cuentas. La información no sale de
+      tu control.</span></li>
+    <li><span class="k">Entrenamiento</span><span class="v">Tus datos no entrenan
+      modelos. Ni los nuestros, ni los de nadie.</span></li>
+    <li><span class="k">Quién ve qué</span><span class="v">Permisos por usuario, por
+      área y por documento. Cada persona accede sólo a lo que le corresponde.</span></li>
+    <li><span class="k">Trazabilidad</span><span class="v">Cada consulta y cada
+      cambio queda registrado, con autor y fecha, disponible para auditoría.</span></li>
+    <li><span class="k">Las suscripciones</span><span class="v">Los servicios de IA
+      se contratan a tu nombre y por tu cuenta, bajo tus condiciones de tratamiento
+      de datos.</span></li>
+    <li><span class="k">Al terminar</span><span class="v">Se te entrega todo íntegro,
+      en formato estándar, dentro de 30 días. Sin retención y sin formatos
+      propietarios.</span></li>
+  </ul>
+</div></section>
 
 <!-- ══ EL TRABAJO ══ -->
 <section id="trabajo"><div class="env">
-  <div class="cabecera">
-    <h2>No mostramos logos. Mostramos sistemas encendidos.</h2>
-    <p class="bajada">A nuestros clientes no los nombramos, y a vos tampoco te
-      nombraríamos. Referencias, a solicitud.</p>
-  </div>
+  <h2>No mostramos logos. Mostramos sistemas encendidos.</h2>
+  <p class="bajada">A nuestros clientes no los nombramos, y a vos tampoco te
+    nombraríamos. Referencias, a solicitud.</p>
   <div class="obras">
     <div class="obra">
       <p class="quien">Una de las grandes<br>cerveceras de Chile</p>
@@ -817,313 +340,104 @@ footer a:hover{color:var(--tinta)}
 </div></section>
 
 <!-- ══ HABLEMOS ══ -->
-<section id="hablemos" class="cierre">
-  <div class="campo" aria-hidden="true"><i class="luz"></i></div>
-  <div class="env">
-    <div class="cabecera">
-      <h2>Media hora y sabés si tiene sentido.</h2>
-      <p class="bajada">Proyectos acotados, de semanas y no de trimestres, con
-        <b>precio cerrado antes de partir</b>. La primera conversación son 30 minutos,
-        sin costo y sin compromiso. Si no hay nada que construir, te lo digo.</p>
-    </div>
-    <div class="acciones">
-      <a class="bt" href="mailto:ian@steinmetz.cl?subject=Conversemos%20sobre%20un%20proyecto">Escribir a Ian
-        <span class="flecha"><svg aria-hidden="true"><use href="#flecha"/></svg></span></a>
-      <a class="bt linea" href="https://wa.me/56993215043?text=Hola%2C%20vi%20steinmetz.cl%20y%20quiero%20conversar%20sobre%20un%20proyecto." rel="noopener">Por WhatsApp</a>
-    </div>
-    <p class="firma">Detrás de esto hay una persona: <b>Ian Berndt</b>. Los sistemas
-      de arriba los construyó él, dentro de las redes y bajo las reglas de seguridad
-      de cada cliente.</p>
+<section id="hablemos" class="cierre"><div class="env">
+  <h2>Media hora y sabés si tiene sentido.</h2>
+  <p class="bajada">Proyectos acotados, de semanas y no de trimestres, con
+    <b>precio cerrado antes de partir</b>. La primera conversación son 30 minutos,
+    sin costo y sin compromiso. Si no hay nada que construir, te lo digo.</p>
+  <div class="acciones">
+    <a class="bt" href="mailto:ian@steinmetz.cl?subject=Conversemos%20sobre%20un%20proyecto">Escribir a Ian</a>
+    <a class="bt linea" href="https://wa.me/56993215043?text=Hola%2C%20vi%20steinmetz.cl%20y%20quiero%20conversar%20sobre%20un%20proyecto." rel="noopener">Por WhatsApp</a>
   </div>
-</section>
+  <p class="p" style="margin-top:1.6rem;font-size:.92rem">Detrás de esto hay una
+    persona: <b>Ian Berndt</b>. Los sistemas de arriba los construyó él, dentro de
+    las redes y bajo las reglas de seguridad de cada cliente.</p>
+</div></section>
 </main>
 
-<footer><div class="env">
+<footer><div class="env" style="display:contents">
   <span>STEINMETZ SpA · RUT 78.484.226-6</span>
   <span><a href="mailto:ian@steinmetz.cl">IAN@STEINMETZ.CL</a></span>
   <span>SANTIAGO DE CHILE</span>
 </div></footer>
 
+<div class="barra-movil" id="barraMovil">
+  <a class="bt" href="#hablemos">Hablemos</a>
+</div>
+
 <script>
 (function(){
-"use strict";
-var quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
-var raiz = document.documentElement;
+  /* ── Elegí tu caso ── */
+  var CASOS = [
+    { t:"Tenemos documentos que nadie encuentra a tiempo",
+      q:"Un índice que se mantiene solo. Cada documento entra, se clasifica y queda buscable en lenguaje natural, con la fuente citada: quién lo dice, en qué documento y en qué página.",
+      d:"3 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
+    { t:"Mi equipo copia datos de un sistema a otro",
+      q:"Un puente entre los dos sistemas que hace ese traspaso solo, valida que la información calce y avisa cuando algo no cuadra en vez de escribirlo mal.",
+      d:"3 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
+    { t:"Reviso contratos parecidos, uno por uno, a mano",
+      q:"Un asistente que redacta el borrador con los antecedentes de la operación a la vista —quién puede firmar, qué se acordó antes, qué compromisos ya existen— y marca lo que no calza.",
+      d:"3 semanas", v:"Dentro de tu red", p:"Desde 38 UF" },
+    { t:"Sé que algo se está perdiendo, pero no sé dónde",
+      q:"Un diagnóstico sobre los datos que ya tenés: dónde se va el tiempo y la plata, con evidencia sacada de tus sistemas y no de entrevistas. Después decidimos si hay algo que construir.",
+      d:"2 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
+    { t:"Ya usamos IA, pero no conoce nuestra empresa",
+      q:"El mismo modelo, con tu contexto cargado: tus documentos, tus reglas y tu histórico. Deja de responder con lo que sabe del mundo y empieza a responder con lo que sabe de ustedes.",
+      d:"3 semanas", v:"Dentro de tu red", p:"Desde 38 UF" }
+  ];
+  var lista = document.querySelector(".opciones");
+  var panel = document.getElementById("respuesta");
+  var botones = [];
 
-/* ════════════════════════════════════════════════════════════════════
-   LA LUZ — un solo bucle. Si hay puntero, la luz está donde el puntero;
-   si no lo hay, hace un vaivén lento. Nunca la manda el scroll.
-   ════════════════════════════════════════════════════════════════════ */
-var destino = {x:0, y:0}, actual = {x:0, y:0}, escrito = {x:9, y:9};
-var hayPuntero = false, t0 = performance.now(), previo = t0;
-
-addEventListener("pointermove", function(e){
-  if(e.pointerType === "touch") return;
-  hayPuntero = true;
-  destino.x = (e.clientX / innerWidth) * 2 - 1;
-  destino.y = (e.clientY / innerHeight) * 2 - 1;
-}, {passive:true});
-
-/* la inclinación de las escenas 3D sigue al puntero dentro de su caja.
-   No se escribe en el evento: se guarda el destino y el bucle la alcanza
-   con el mismo retardo que la luz. Antes volvía a cero de golpe al salir
-   el puntero, y ese tirón era lo que la delataba como plástico. */
-var escenas = [];
-function seguirCaja(caja, blanco){
-  if(!caja || !blanco) return;
-  var e = {blanco:blanco, dx:0, dy:0, ax:0, ay:0, ex:9, ey:9};
-  escenas.push(e);
-  caja.addEventListener("pointermove", function(ev){
-    if(ev.pointerType === "touch") return;
-    var r = caja.getBoundingClientRect();
-    e.dx = (ev.clientX - r.left) / r.width * 2 - 1;
-    e.dy = (ev.clientY - r.top) / r.height * 2 - 1;
-  }, {passive:true});
-  caja.addEventListener("pointerleave", function(){ e.dx = 0; e.dy = 0; });
-}
-seguirCaja(document.querySelector(".escena-caja"), document.getElementById("escena"));
-seguirCaja(document.querySelector(".perimetro"), document.querySelector(".pila-seg"));
-
-if(!quieto){
-  (function bucle(ahora){
-    /* el paso va normalizado por tiempo: con un factor fijo por fotograma
-       el sitio se sentía el doble de rápido en una pantalla de 120 Hz */
-    var dt = Math.min(64, ahora - previo); previo = ahora;
-    var kLuz = 1 - Math.pow(1 - .12, dt / 16.667);   /* 90% en 300 ms */
-    var kInc = 1 - Math.pow(1 - .18, dt / 16.667);   /* 90% en 193 ms */
-
-    if(!hayPuntero){       /* deriva ambiente: 13 s la vuelta, con un
-       armónico chico encima para que no se lea como un péndulo */
-      var f = (ahora - t0) / 13000 * Math.PI * 2;
-      destino.x = Math.sin(f) * .82 + Math.sin(f * 2.7 + .4) * .12;
-      destino.y = Math.sin(f * .61 + 1.1) * .64 + Math.sin(f * 3.1) * .09;
-    }
-    actual.x += (destino.x - actual.x) * kLuz;   /* la luz pesa y llega tarde */
-    actual.y += (destino.y - actual.y) * kLuz;
-    if(Math.abs(actual.x - escrito.x) > .0015 || Math.abs(actual.y - escrito.y) > .0015){
-      escrito.x = actual.x; escrito.y = actual.y;
-      raiz.style.setProperty("--px", actual.x.toFixed(3));
-      raiz.style.setProperty("--py", actual.y.toFixed(3));
-    }
-    for(var i = 0; i < escenas.length; i++){
-      var e = escenas[i];
-      e.ax += (e.dx - e.ax) * kInc;   /* la inclinación no: va pegada al dedo */
-      e.ay += (e.dy - e.ay) * kInc;
-      if(Math.abs(e.ax - e.ex) > .0015 || Math.abs(e.ay - e.ey) > .0015){
-        e.ex = e.ax; e.ey = e.ay;
-        e.blanco.style.setProperty("--tx", e.ax.toFixed(3));
-        e.blanco.style.setProperty("--ty", e.ay.toFixed(3));
-      }
-    }
-    requestAnimationFrame(bucle);
-  })(t0);
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   EL TITULAR — se reparte en palabras y letras para que suba escalonado.
-   Si esto no corre, el titular se ve entero: el HTML ya trae el texto.
-   ════════════════════════════════════════════════════════════════════ */
-var titular = document.querySelector(".letras");
-if(titular && !quieto){
-  var k = 0, frag = document.createDocumentFragment();
-  titular.textContent.trim().split(" ").forEach(function(palabra, ip, todas){
-    var pal = document.createElement("span");
-    pal.className = "pal";
-    palabra.split("").forEach(function(letra){
-      var s = document.createElement("span");
-      s.className = "let"; s.style.setProperty("--i", k++);
-      s.textContent = letra;
-      pal.appendChild(s);
-    });
-    frag.appendChild(pal);
-    if(ip < todas.length - 1) frag.appendChild(document.createTextNode(" "));
-  });
-  titular.textContent = "";
-  titular.appendChild(frag);
-  titular.classList.add("partido");
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   LA PILA — tres placas. La activa sube y se corre; las otras se juntan
-   abajo. Se maneja con clic, con las flechas o tocando la placa misma.
-   ════════════════════════════════════════════════════════════════════ */
-var PILARES = [
-  "No instalamos software. Construimos el sistema que le falta a tu operación, dentro de tu operación y con tus reglas. Nada de adaptar tu empresa a una herramienta que se vendió igual a otras cien.",
-  "Tres semanas desde la orden de compra. No un piloto ni una maqueta: un sistema encendido, en producción, con tu equipo usándolo y un acta firmada que lo dice.",
-  "Todo ocurre dentro de tu perímetro, sobre tu nube y con tus cuentas. Tus datos no entrenan modelos, no salen de tu red, y al terminar te los entregamos íntegros."
-];
-var taller = document.getElementById("taller");
-if(taller){
-  var mandos = [].slice.call(taller.querySelectorAll(".mando"));
-  var placas = [].slice.call(taller.querySelectorAll(".placa"));
-  var detalle = document.getElementById("detalle");
-  var puedeHover = matchMedia("(hover:hover)").matches;
-  var actualPilar = -1, intencion = 0;
-  var HUECO = parseFloat(getComputedStyle(document.getElementById("escena"))
-                .getPropertyValue("--hueco")) || 50;
-  var ALZA = 74;
-
-  function acomodar(n){
-    if(n === actualPilar) return;
-    actualPilar = n;
-    mandos.forEach(function(m, i){ m.setAttribute("aria-selected", i === n ? "true" : "false"); });
-    /* Las que no están activas conservan su orden y ocupan las ranuras de
-       abajo, todas separadas por el mismo hueco; la activa sube siempre a
-       la misma altura. Antes los huecos salían 44 y 54 —desparejos— y con
-       la del medio activa el orden en pantalla pasaba a ser 0, 2, 1: la
-       pila se barajaba sola. Eso era lo que se veía mal armado. */
-    var ranura = placas.length - 2;   /* de arriba hacia abajo: la primera
-       pastilla queda en la placa más alta de las que no están activas */
-    placas.forEach(function(l, i){
-      var activa = i === n;
-      l.style.setProperty("--z", activa ? (placas.length - 1) * HUECO + ALZA : (ranura--) * HUECO);
-      l.style.setProperty("--dx", activa ? "-20px" : "0px");
-      l.style.setProperty("--dy", activa ? "-20px" : "0px");
-      l.style.setProperty("--op", activa ? 1 : .7);
-      /* la pila se abre primero; la activa sube 90 ms después, al hueco ya
-         hecho. Al revés —que era como estaba— las dos placas se cruzaban
-         coplanares y eso es lo que se veía como un error de armado. */
-      l.style.transitionDelay = activa ? "90ms" : (Math.abs(i - n) - 1) * 25 + "ms";
-    });
-    /* el texto cambia de largo y la caja saltaba de golpe, con el texto
-       invisible: un salto de layout que no pertenecía a ninguna animación.
-       Se mide antes y después y se interpola el alto. */
-    var alto0 = detalle.getBoundingClientRect().height;
-    detalle.style.height = "auto";
-    detalle.textContent = PILARES[n];
-    var alto1 = detalle.getBoundingClientRect().height;
-    if(quieto || !alto0){
-      detalle.style.height = "";
-    }else{
-      detalle.style.height = alto0 + "px";
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ detalle.style.height = alto1 + "px"; });
-      });
-    }
-    if(!quieto){
-      detalle.classList.remove("gira");
-      void detalle.offsetWidth;             /* reinicia la animación */
-      detalle.classList.add("gira");
-    }
-  }
-
-  mandos.forEach(function(m, i){
-    m.addEventListener("click", function(){ acomodar(i); });
-    /* el hover pide intención: barrer el puntero por las tres pastillas
-       convulsionaba la pila entera */
-    m.addEventListener("pointerenter", function(e){
-      if(e.pointerType === "touch" || !puedeHover) return;
-      clearTimeout(intencion);
-      intencion = setTimeout(function(){ acomodar(i); }, 110);
-    });
-    m.addEventListener("pointerleave", function(){ clearTimeout(intencion); });
-    m.addEventListener("keydown", function(e){
-      var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
-            : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
-      if(!d) return;
-      e.preventDefault();
-      var n = (i + d + mandos.length) % mandos.length;
-      mandos[n].focus(); acomodar(n);
-    });
-  });
-  placas.forEach(function(l, i){
-    l.addEventListener("click", function(){ acomodar(i); mandos[i].focus(); });
-  });
-
-  /* cuando termina de crecer, el alto vuelve a ser automático: si no,
-     quedaría clavado en píxeles y se rompería al cambiar de tamaño */
-  detalle.addEventListener("transitionend", function(e){
-    if(e.propertyName === "height") detalle.style.height = "";
-  });
-
-  acomodar(0);
-  if(quieto || !("IntersectionObserver" in window)){
-    taller.classList.add("montada");
-  }else{
-    /* el armado se dispara una vez, cuando la pila aparece: es una
-       animación que se reproduce sola, no una atada al scroll */
-    new IntersectionObserver(function(e, obs){
-      if(e[0].isIntersecting){ taller.classList.add("montada"); obs.disconnect(); }
-    }, {threshold:.2}).observe(taller);
-  }
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   ELEGÍ TU CASO
-   ════════════════════════════════════════════════════════════════════ */
-var CASOS = [
-  { t:"Tenemos documentos que nadie encuentra a tiempo",
-    q:"Un índice que se mantiene solo. Cada documento entra, se clasifica y queda buscable en lenguaje natural, con la fuente citada: quién lo dice, en qué documento y en qué página.",
-    d:"3 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
-  { t:"Mi equipo copia datos de un sistema a otro",
-    q:"Un puente entre los dos sistemas que hace ese traspaso solo, valida que la información calce y avisa cuando algo no cuadra en vez de escribirlo mal.",
-    d:"3 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
-  { t:"Reviso contratos parecidos, uno por uno, a mano",
-    q:"Un asistente que redacta el borrador con los antecedentes de la operación a la vista —quién puede firmar, qué se acordó antes, qué compromisos ya existen— y marca lo que no calza.",
-    d:"3 semanas", v:"Dentro de tu red", p:"Desde 38 UF" },
-  { t:"Sé que algo se está perdiendo, pero no sé dónde",
-    q:"Un diagnóstico sobre los datos que ya tenés: dónde se va el tiempo y la plata, con evidencia sacada de tus sistemas y no de entrevistas. Después decidimos si hay algo que construir.",
-    d:"2 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
-  { t:"Ya usamos IA, pero no conoce nuestra empresa",
-    q:"El mismo modelo, con tu contexto cargado: tus documentos, tus reglas y tu histórico. Deja de responder con lo que sabe del mundo y empieza a responder con lo que sabe de ustedes.",
-    d:"3 semanas", v:"Dentro de tu red", p:"Desde 28 UF" }
-];
-
-var listaOp = document.querySelector(".opciones");
-var panel = document.getElementById("respuesta");
-if(listaOp && panel){
-  var elegir = function(i, primera){
+  function pintar(i){
     var c = CASOS[i];
-    [].forEach.call(listaOp.children, function(b, j){
-      b.setAttribute("aria-selected", j === i ? "true" : "false");
-    });
+    botones.forEach(function(b,j){ b.setAttribute("aria-selected", String(j===i)); });
     panel.innerHTML =
-      '<p class="que">' + c.q + '</p>' +
-      '<div class="datos">' +
-        '<div><span class="k">Plazo</span><span class="v">' + c.d + '</span></div>' +
+      '<p class="que cambia">' + c.q + '</p>' +
+      '<div class="datos cambia">' +
+        '<div><span class="k">En cuánto</span><span class="v">' + c.d + '</span></div>' +
         '<div><span class="k">Dónde vive</span><span class="v">' + c.v + '</span></div>' +
         '<div><span class="k">Inversión</span><span class="v">' + c.p + '</span></div>' +
-      '</div>';
-    if(!primera && !quieto){
-      panel.classList.remove("gira");
-      void panel.offsetWidth;
-      panel.classList.add("gira");
-    }
-    if(!primera && innerWidth < 896){
-      panel.scrollIntoView({behavior:quieto ? "auto" : "smooth", block:"nearest"});
-    }
-  };
+      '</div>' +
+      '<a class="bt" href="mailto:ian@steinmetz.cl?subject=' +
+        encodeURIComponent("Consulta: " + c.t) + '">Conversemos este caso</a>';
+  }
 
-  CASOS.forEach(function(c, i){
+  CASOS.forEach(function(c,i){
     var b = document.createElement("button");
-    b.className = "op"; b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", i === 0 ? "true" : "false");
-    b.innerHTML = '<span class="marca">' + String(i + 1).padStart(2, "0") + '</span>' +
-                  '<span class="txt">' + c.t + '</span>';
-    b.addEventListener("click", function(){ elegir(i, false); });
-    b.addEventListener("keydown", function(e){
-      var d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
-      if(!d) return;
-      e.preventDefault();
-      var n = (i + d + CASOS.length) % CASOS.length;
-      listaOp.children[n].focus(); elegir(n, false);
+    b.className = "op"; b.type = "button"; b.setAttribute("role","tab");
+    b.setAttribute("aria-selected","false");
+    b.innerHTML = '<span class="marca">' + String(i+1).padStart(2,"0") +
+                  '</span><span class="txt">' + c.t + '</span>';
+    b.addEventListener("click", function(){
+      pintar(i);
+      /* en el teléfono la respuesta queda debajo de la lista: hay que ir a verla */
+      if (window.matchMedia("(max-width:55.99rem)").matches) {
+        var suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        panel.scrollIntoView({behavior: suave ? "smooth" : "auto", block: "nearest"});
+      }
     });
-    listaOp.appendChild(b);
+    lista.appendChild(b); botones.push(b);
   });
-  elegir(0, true);
-}
+  pintar(0);
 
-/* ════════════════════════════════════════════════════════════════════
-   EL MARCO — se posa cuando la portada se va. Estado, no control.
-   ════════════════════════════════════════════════════════════════════ */
-var marco = document.getElementById("marco");
-var portada = document.querySelector(".portada");
-if(marco && portada && "IntersectionObserver" in window){
-  new IntersectionObserver(function(e){
-    marco.classList.toggle("posado", !e[0].isIntersecting);
-  }, {threshold:0, rootMargin:"-72px 0px 0px 0px"}).observe(portada);
-}
+  /* teclado: flechas entre opciones */
+  lista.addEventListener("keydown", function(e){
+    var i = botones.indexOf(document.activeElement);
+    if (i < 0) return;
+    var n = e.key === "ArrowDown" ? i+1 : e.key === "ArrowUp" ? i-1 : -1;
+    if (n < 0 || n >= botones.length) return;
+    e.preventDefault(); botones[n].focus(); pintar(n);
+  });
+
+  /* ── barra fija del teléfono: aparece pasada la portada ── */
+  var barra = document.getElementById("barraMovil");
+  var portada = document.querySelector(".portada");
+  if ("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){
+      barra.classList.toggle("on", !es[0].isIntersecting);
+    }, {threshold:0}).observe(portada);
+  }
 })();
 </script>
 </body>
