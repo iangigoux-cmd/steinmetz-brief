@@ -1,507 +1,691 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Steinmetz — marca de trabajo</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141414'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='22' font-weight='700' fill='%23f2efe8'%3ES%3C/text%3E%3C/svg%3E">
+<title>Steinmetz — Manual de marca</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111112'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='21' font-weight='700' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
-  :root{
-    --shell:#141414; --shell-alto:#1c1c1c; --shell-borde:rgba(255,255,255,.14);
-    --shell-texto:#e8e6e1; --shell-medio:#8d8b86;
-    --mono:"IBM Plex Mono",ui-monospace,monospace;
-    --serif:"Fraunces",Georgia,serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--shell);color:var(--shell-texto);font-family:var(--serif);
-    font-optical-sizing:auto;font-variation-settings:"wght" 350,"opsz" 14;
-    -webkit-font-smoothing:antialiased;line-height:1.6}
-  ::selection{background:var(--shell-texto);color:var(--shell)}
+:root{
+  --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#75757a;
+  --linea:rgba(17,17,18,.14); --linea-fuerte:rgba(17,17,18,.34);
+  --azul:#12439c; --azul-vivo:#2e6bd6; --sobre-azul:#ffffff;
+  --serif:"Fraunces",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --anchura:74rem; --medida:38em;
+}
+[data-tema="oscuro"]{
+  --papel:#0d0d0f; --panel:#1b1b1e; --tinta:#f0f0f2; --medio:#9a9a9e; --suave:#8a8a8f;
+  --linea:rgba(255,255,255,.16); --linea-fuerte:rgba(255,255,255,.36);
+  --azul:#6ea8ff; --azul-vivo:#8fbcff; --sobre-azul:#0d0d0f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--papel);color:var(--tinta);font-family:var(--serif);
+  font-optical-sizing:auto;font-variation-settings:"wght" 350,"opsz" 14;
+  line-height:1.65;-webkit-font-smoothing:antialiased;
+  transition:background .35s ease,color .35s ease}
+::selection{background:var(--tinta);color:var(--papel)}
+a{color:var(--azul)}
+.env{max-width:var(--anchura);margin:0 auto;padding:0 clamp(1.2rem,5vw,4rem)}
 
-  .env{max-width:78rem;margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem)}
+/* ── barra ── */
+.barra{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--papel) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
+.barra .env{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  height:3.4rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--tinta)}
+.tema{display:flex;border:1px solid var(--linea);border-radius:100px;overflow:hidden;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em}
+.tema button{appearance:none;background:none;border:0;cursor:pointer;padding:.44rem .9rem;
+  color:var(--medio);font:inherit;letter-spacing:inherit;transition:background .2s,color .2s}
+.tema button[aria-pressed="true"]{background:var(--tinta);color:var(--papel)}
+.tema button:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
 
-  /* ── portada ── */
-  .portada{padding:clamp(3.5rem,10vh,7rem) 0 clamp(2.5rem,6vh,4rem)}
-  .cinta{font-family:var(--mono);display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
-    font-size:.7rem;letter-spacing:.2em;color:var(--shell-medio);
-    border-bottom:1px solid var(--shell-borde);padding-bottom:1rem;margin-bottom:clamp(2.5rem,7vh,4.5rem)}
-  .cinta b{color:var(--shell-texto);font-weight:500}
-  h1{font-family:var(--serif);font-optical-sizing:auto;
-    font-variation-settings:"wght" 300,"opsz" 144;
-    font-size:clamp(2.1rem,5.6vw,4.4rem);line-height:1.06;letter-spacing:-.025em;
-    max-width:16em;margin-bottom:1.6rem}
-  h1 i{font-style:normal;font-variation-settings:"wght" 800,"opsz" 144}
-  .entrada{max-width:40em;font-size:1.05rem;line-height:1.75;color:var(--shell-medio)}
-  .entrada + .entrada{margin-top:1.1rem}
-  .entrada b{color:var(--shell-texto);font-variation-settings:"wght" 650,"opsz" 14}
+/* ── portada ── */
+.portada{padding:clamp(4rem,14vh,9rem) 0 clamp(3rem,8vh,5rem)}
+.marca-viva{font-family:var(--serif);font-optical-sizing:auto;display:flex;user-select:none;
+  line-height:1;letter-spacing:-.03em;font-size:clamp(3rem,14vw,11rem);cursor:default;
+  justify-content:center}
+.marca-viva span{display:inline-block;font-variation-settings:"wght" 340,"opsz" 144}
+.lema{margin:clamp(2rem,5vh,3.2rem) auto 0;max-width:33em;text-align:center;
+  font-size:clamp(1.05rem,1.7vw,1.28rem);line-height:1.7;color:var(--medio)}
+.meta{margin-top:2.4rem;text-align:center;font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.18em;color:var(--suave)}
 
-  /* ── índice ── */
-  .indice{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.6rem}
-  .indice a{font-family:var(--mono);display:flex;align-items:baseline;gap:.6rem;padding:.7rem 1.1rem;
-    border:1px solid var(--shell-borde);border-radius:2px;text-decoration:none;
-    color:var(--shell-texto);font-size:.78rem;letter-spacing:.06em;
-    transition:background .2s,border-color .2s}
-  .indice a:hover,.indice a:focus-visible{background:#242424;border-color:#3a3a3a}
-  .indice span{color:var(--shell-medio);font-size:.68rem}
+/* ── secciones ── */
+section{padding:clamp(3.5rem,9vh,6.5rem) 0;border-top:1px solid var(--linea)}
+.cab{display:grid;grid-template-columns:3.4rem 1fr;gap:1.4rem;align-items:baseline;
+  margin-bottom:clamp(2rem,5vh,3rem)}
+.num{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--suave);padding-top:.5rem}
+h2{font-variation-settings:"wght" 500,"opsz" 144;font-size:clamp(1.5rem,3.4vw,2.3rem);
+  letter-spacing:-.015em;line-height:1.15}
+h3{font-variation-settings:"wght" 600,"opsz" 60;font-size:1.06rem;letter-spacing:-.005em;
+  margin:1.9rem 0 .5rem;line-height:1.3}
+.bajada{margin-top:.8rem;max-width:31em;color:var(--tinta);font-size:1.22rem;
+  line-height:1.5;font-variation-settings:"wght" 380,"opsz" 24}
+.cuerpo{display:grid;grid-template-columns:3.4rem 1fr;gap:1.4rem}
+.cuerpo > *{min-width:0}
+.rejilla > div{min-width:0}
+.cuerpo > :first-child{grid-column:2}
+p+p{margin-top:1rem}
+.p{max-width:var(--medida);color:var(--medio);font-size:1.02rem;line-height:1.72}
+.p b,.bajada b{color:inherit;font-variation-settings:"wght" 620,"opsz" 14}
+.p code,.bajada code{font-family:var(--mono);font-size:.86em;color:var(--tinta)}
+.pie-fig{font-size:.9rem;color:var(--medio);line-height:1.55;margin-top:.85rem}
+.pie-fig b{color:var(--tinta);font-variation-settings:"wght" 600,"opsz" 14}
 
-  /* ── una dirección ── */
-  .via{padding:clamp(3rem,9vh,6rem) 0;border-top:1px solid var(--shell-borde)}
-  .via-cab{display:grid;grid-template-columns:2.6rem 1fr;gap:1.2rem;align-items:start;
-    margin-bottom:clamp(1.8rem,4vh,2.8rem)}
-  .letra{font-family:var(--serif);font-size:2rem;line-height:.9;
-    font-variation-settings:"wght" 800,"opsz" 144;color:var(--shell-medio)}
-  .via-cab h2{font-family:var(--serif);font-optical-sizing:auto;
-    font-variation-settings:"wght" 500,"opsz" 144;
-    font-size:clamp(1.5rem,3.2vw,2.1rem);letter-spacing:-.01em;line-height:1.1}
-  .esencia{margin-top:.6rem;font-size:1.02rem;color:var(--shell-medio);max-width:38em;line-height:1.7}
+/* ── piezas comunes ── */
+.rotulo{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--medio);
+  text-transform:uppercase;display:block;margin-bottom:.8rem}
+.rejilla{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea)}
+.rejilla > div{background:var(--papel);padding:1.5rem 1.4rem}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.ancho{grid-column:1/-1}
+@media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}
+  .g3 .span2,.g4 .span2{grid-column:auto}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}
+  .cab,.cuerpo{grid-template-columns:1fr;gap:.4rem}.cuerpo > :first-child{grid-column:1}}
+.span2{grid-column:span 2}
 
-  /* el panel de material: cada dirección trae su mundo */
-  .panel{border-radius:3px;overflow:hidden;border:1px solid var(--shell-borde)}
-  .lienzo{display:grid;place-items:center;padding:clamp(2.5rem,8vw,5.5rem) 1.5rem;
-    background:var(--fondo);position:relative;isolation:isolate}
-  .firma{font-family:var(--serif);font-optical-sizing:auto;line-height:1;
-    display:flex;user-select:none;white-space:nowrap}
-  .firma span{display:inline-block}
+/* wordmark specimen */
+.espec{display:grid;place-items:center;padding:clamp(2.2rem,6vw,4.5rem);background:var(--panel);
+  border:1px solid var(--linea)}
+.wm{font-family:var(--serif);font-optical-sizing:auto;line-height:1;letter-spacing:-.03em;
+  font-variation-settings:"wght" 340,"opsz" 144;color:var(--tinta)}
 
-  /* aplicaciones */
-  .usos{display:grid;grid-template-columns:repeat(3,1fr);
-    gap:1px;background:var(--shell-borde);border-top:1px solid var(--shell-borde)}
-  @media (max-width:900px){.usos{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:560px){.usos{grid-template-columns:1fr}}
-  .uso{background:var(--fondo-2,var(--fondo));padding:1.5rem 1.4rem;display:flex;
-    flex-direction:column;gap:.9rem}
-  .uso h3{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;
-    color:var(--rotulo);font-weight:500;text-transform:uppercase}
+/* espacio libre: x = altura de la S */
+.aire{position:relative;display:inline-block;padding:.72em;
+  font-size:clamp(1.8rem,6vw,4rem);outline:1px dashed var(--linea-fuerte)}
+.aire .wm{font-size:1em;line-height:.86}
+.aire .cota{position:absolute;font-family:var(--mono);font-size:.6875rem;color:var(--azul);
+  letter-spacing:.08em}
+.aire .cota.arriba{top:.30em;left:50%;transform:translateX(-50%)}
+.aire .cota.izq{left:.26em;top:50%;transform:translateY(-50%)}
+.aire .marco{outline:1px solid color-mix(in srgb,var(--azul) 45%,transparent);outline-offset:0}
 
-  /* avatar */
-  .avatar{width:74px;height:74px;border-radius:14px;display:grid;place-items:center;
-    background:var(--avatar-fondo);color:var(--avatar-tinta);font-family:var(--serif);
-    font-size:2.5rem;line-height:1;font-variation-settings:"wght" 800,"opsz" 144;
-    box-shadow:var(--avatar-sombra,none)}
-  .avatar.mono{font-family:var(--mono);font-size:1.5rem;font-weight:600;letter-spacing:.02em}
+/* color */
+.tono{display:flex;flex-direction:column;gap:.5rem}
+.tono i{display:block;height:5.5rem;background:var(--c);border:1px solid var(--linea-fuerte)}
+.tono .n{font-family:var(--serif);font-size:.98rem;font-variation-settings:"wght" 600,"opsz" 14;
+  color:var(--tinta);margin-top:.2rem}
+.tono .h{font-family:var(--mono);font-size:.72rem;color:var(--tinta);letter-spacing:.02em}
+.tono .u{font-size:.88rem;color:var(--medio);line-height:1.55}
 
-  /* paleta */
-  .tonos{display:flex;flex-wrap:wrap;gap:.5rem}
-  .tono{flex:1 1 4.2rem}
-  .tono i{display:block;height:2.6rem;border-radius:2px;background:var(--c);
-    border:1px solid rgba(128,128,128,.28)}
-  .tono b{display:block;margin-top:.4rem;font-size:.58rem;letter-spacing:.06em;
-    color:var(--rotulo);font-weight:400}
+/* tipografía */
+.escala > div{display:grid;grid-template-columns:9rem 1fr;gap:1.4rem;align-items:baseline;
+  padding:1.15rem 0;border-bottom:1px solid var(--linea)}
+.escala > div:last-child{border-bottom:0}
+.escala dd{max-width:var(--medida)}
+.escala dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;color:var(--medio);line-height:1.85}
+@media(max-width:640px){.escala > div{grid-template-columns:1fr;gap:.35rem}}
+.cifras{font-family:var(--mono);font-size:1rem;font-variant-numeric:tabular-nums;
+  line-height:1.85;color:var(--tinta)}
+.cifras span{display:inline-block;min-width:5.5rem;text-align:right}
 
-  /* cabecera de cotización */
-  .papel{background:var(--doc-fondo);color:var(--doc-tinta);padding:.95rem 1.1rem;
-    border:1px solid var(--doc-borde);border-radius:2px}
-  .papel .nom{font-family:var(--doc-familia,var(--serif));
-    font-variation-settings:"wght" 700,"opsz" 144;font-size:1.02rem;line-height:1.1;
-    letter-spacing:var(--doc-track,-.01em);color:var(--doc-marca)}
-  .papel .nom.mono{font-family:var(--mono);font-weight:600;font-size:.82rem}
-  .papel .rut{font-family:var(--mono);font-size:.53rem;letter-spacing:.08em;
-    color:var(--doc-suave);margin-top:.25rem}
-  .papel hr{border:0;border-top:1.5px solid var(--doc-regla);margin:.6rem 0 .55rem}
-  .papel .tit{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.04em}
-  .papel .sub{font-family:var(--mono);font-size:.53rem;color:var(--doc-suave);margin-top:.15rem}
+/* aplicaciones */
+.papel-doc,.tarjeta,.lamina{--papel:#ffffff;--panel:#f4f4f2;--tinta:#111112;
+  --medio:#6e6e73;--suave:#75757a;--linea:rgba(17,17,18,.16);
+  background:#ffffff;color:#111112}
+.papel-doc{border:1px solid var(--linea);padding:1.15rem 1.25rem}
+.papel-doc .nom{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+  font-size:1.2rem;line-height:1.1;letter-spacing:-.015em}
+.papel-doc .rut{font-family:var(--mono);font-size:.58rem;letter-spacing:.05em;color:var(--suave);
+  margin-top:.35rem;line-height:1.7}
+.papel-doc hr{border:0;border-top:1.5px solid var(--tinta);margin:.75rem 0 .65rem}
+.papel-doc .t{font-family:var(--mono);font-size:.68rem;font-weight:600}
+.papel-doc .s{font-family:var(--mono);font-size:.58rem;color:var(--suave);margin-top:.22rem}
+.lamina{aspect-ratio:16/9;background:#f4f4f2;border:1px solid var(--linea);
+  display:flex;flex-direction:column;justify-content:space-between;padding:1.6rem 1.7rem}
+.lamina .m{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+  font-size:1.5rem;line-height:1;letter-spacing:-.015em}
+.lamina .tema-l{font-family:var(--serif);font-variation-settings:"wght" 400,"opsz" 60;
+  font-size:clamp(1.1rem,2.4vw,1.7rem);line-height:1.3;max-width:20em;color:var(--tinta)}
+.lamina .p2{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;color:var(--suave)}
+.tarjeta{aspect-ratio:85/55;border:1px solid var(--linea);max-width:19rem;
+  padding:1rem;display:flex;flex-direction:column;justify-content:space-between}
+.tarjeta .m{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+  font-size:1.2rem;line-height:1;letter-spacing:-.015em}
+.tarjeta .d{font-family:var(--mono);font-size:.56rem;line-height:1.9;color:var(--suave)}
+.tarjeta .d b{display:block;color:var(--tinta);font-size:.6rem;font-weight:600;letter-spacing:.04em}
+.avatar{width:76px;height:76px;border-radius:15px;display:grid;place-items:center;
+  background:#111112;color:#ffffff;font-family:var(--serif);font-size:2.6rem;line-height:1;
+  font-variation-settings:"wght" 800,"opsz" 144}
+.boton{display:inline-block;font-family:var(--mono);font-size:.64rem;font-weight:500;
+  letter-spacing:.16em;text-decoration:none;color:var(--sobre-azul);background:var(--azul);
+  padding:.95em 1.9em;transition:background .2s}
+.boton:hover{background:var(--azul-vivo)}
+.boton.fantasma{background:none;color:var(--azul);border:1px solid currentColor}
+.correo{font-family:var(--mono);font-size:.64rem;line-height:1.95;color:var(--medio)}
+.correo b{display:block;font-size:.74rem;color:var(--tinta);font-weight:600;letter-spacing:.04em}
+.correo .a{color:var(--azul)}
 
-  /* portada de lámina */
-  .lamina{aspect-ratio:16/9;background:var(--slide-fondo);border-radius:2px;
-    border:1px solid var(--doc-borde);display:flex;flex-direction:column;
-    justify-content:flex-end;padding:1rem;gap:.35rem;position:relative;overflow:hidden}
-  .lamina .marca{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
-    font-size:1.35rem;line-height:1;color:var(--slide-marca);letter-spacing:-.015em}
-  .lamina .marca.mono{font-family:var(--mono);font-size:.8rem;font-weight:600;letter-spacing:.22em}
-  .lamina .pie{font-family:var(--mono);font-size:.52rem;letter-spacing:.14em;color:var(--slide-suave)}
+/* usos incorrectos */
+.mal .ej{height:8rem;display:grid;place-items:center;border:1px solid var(--linea);
+  background:var(--panel);margin-bottom:.9rem;overflow:hidden}
+.mal .ej > span{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+  font-size:1.9rem;letter-spacing:-.015em;color:var(--tinta)}
+.mal p{font-size:.95rem;color:var(--medio);line-height:1.6}
+.mal p b{color:var(--tinta);font-variation-settings:"wght" 600,"opsz" 14}
 
-  /* firma de correo */
-  .correo{font-family:var(--mono);font-size:.6rem;line-height:1.9;color:var(--doc-suave)}
-  .correo b{display:block;font-size:.7rem;color:var(--doc-tinta);font-weight:600;letter-spacing:.04em}
-  .tarjeta{aspect-ratio:85/55;background:var(--doc-fondo);border:1px solid var(--doc-borde);
-    border-radius:2px;padding:.85rem .9rem;display:flex;flex-direction:column;justify-content:space-between}
-  .tarjeta .m{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
-    font-size:1.05rem;line-height:1;color:var(--doc-marca);letter-spacing:-.015em}
-  .tarjeta .m.mono{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.28em}
-  .tarjeta .d{font-family:var(--mono);font-size:.5rem;line-height:1.75;color:var(--doc-suave)}
-  .tarjeta .d b{display:block;color:var(--doc-tinta);font-weight:600;letter-spacing:.04em;font-size:.55rem}
-  .correo .m{color:var(--doc-marca);font-weight:500}
+/* tokens */
+pre{max-width:100%;font-family:var(--mono);font-size:.7rem;line-height:1.9;color:var(--medio);
+  background:var(--panel);border:1px solid var(--linea);padding:1.4rem 1.5rem;overflow-x:auto}
+pre b{color:var(--tinta);font-weight:500}
+.copiar{margin-top:1rem;appearance:none;background:none;border:1px solid var(--linea);
+  color:var(--medio);font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;
+  padding:.6rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s}
+.copiar:hover{border-color:var(--linea-fuerte);color:var(--tinta)}
+.copiar:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
 
-  /* ficha técnica */
-  .ficha{font-family:var(--mono);display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1.2rem;
-    padding:1.4rem 0 0;font-size:.7rem;line-height:1.75;color:var(--shell-medio)}
-  .ficha div b{display:block;color:var(--shell-texto);font-weight:500;font-size:.62rem;
-    letter-spacing:.16em;margin-bottom:.3rem}
-  .ficha code{font-family:var(--mono);color:var(--shell-texto);font-size:.68rem}
+/* índice */
+.indice{margin-top:clamp(2.6rem,7vh,4rem);border-top:1px solid var(--linea)}
+.indice a{display:grid;grid-template-columns:3.4rem 1fr auto;gap:1.4rem;align-items:baseline;
+  padding:.85rem 0;border-bottom:1px solid var(--linea);text-decoration:none;color:var(--tinta);
+  transition:padding-left .25s cubic-bezier(.19,1,.22,1)}
+.indice a:hover,.indice a:focus-visible{padding-left:.6rem}
+.indice .i-num{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--suave)}
+.indice .i-tit{font-size:1.05rem;font-variation-settings:"wght" 450,"opsz" 24}
+.indice .i-des{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--medio);
+  text-align:right}
+@media(max-width:640px){.indice a{grid-template-columns:2.4rem 1fr;gap:.9rem}.indice .i-des{display:none}}
 
-  .veredicto{margin-top:1.3rem;padding:.2rem 0 .2rem 1.3rem;border-left:2px solid var(--shell-borde);
-    font-size:.98rem;line-height:1.7;color:var(--shell-medio);max-width:46em}
-  .veredicto b{color:var(--shell-texto);font-variation-settings:"wght" 650,"opsz" 14}
+/* ejemplo correcto */
+.bien{border:1px solid var(--linea);background:var(--panel);padding:2rem;display:grid;
+  place-items:center;margin-bottom:1.6rem}
+.bien .marco-ok{border-left:2px solid var(--azul);padding-left:1.1rem}
 
-  /* cierre */
-  .cierre{padding:clamp(3rem,9vh,6rem) 0 clamp(4rem,12vh,8rem);border-top:1px solid var(--shell-borde)}
-  .cierre h2{font-family:var(--serif);font-variation-settings:"wght" 500,"opsz" 144;
-    font-size:clamp(1.4rem,3vw,2rem);letter-spacing:-.01em;margin-bottom:1.2rem}
-  .tabla{width:100%;border-collapse:collapse;margin-top:1.8rem;font-size:.92rem}
-  .tabla th,.tabla td{text-align:left;padding:.75rem .8rem;border-bottom:1px solid var(--shell-borde);
-    vertical-align:top}
-  .tabla th{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
-    color:var(--shell-medio);font-weight:500}
-  .tabla td:first-child{color:var(--shell-texto);white-space:nowrap}
-  .tabla td{color:var(--shell-medio)}
+/* lockup */
+.lockup{display:inline-flex;flex-direction:column;gap:.45rem}
+.lockup .l-nom{font-family:var(--serif);font-variation-settings:"wght" 340,"opsz" 144;
+  font-size:2.6rem;line-height:1;letter-spacing:-.03em}
+.lockup .l-des{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--medio);
+  padding-top:.5rem;border-top:1px solid var(--linea)}
 
-  @media (max-width:640px){
-    .via-cab{grid-template-columns:1fr;gap:.4rem}
-    .letra{font-size:1.4rem}
-  }
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+footer{padding:3rem 0 5rem;border-top:1px solid var(--linea);font-family:var(--mono);
+  font-size:.66rem;letter-spacing:.14em;color:var(--medio);display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer a{color:var(--azul);text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 
+<div class="barra">
+  <div class="env">
+    <span>STEINMETZ</span>
+    <div class="tema" role="group" aria-label="Tema">
+      <button id="b-claro" aria-pressed="true">CLARO</button>
+      <button id="b-oscuro" aria-pressed="false">OSCURO</button>
+    </div>
+  </div>
+</div>
+
 <div class="env">
 
   <header class="portada">
-    <div class="cinta">
-      <span><b>STEINMETZ SpA</b> · marca de trabajo</span>
-      <span>v0.1 · septiembre 2026</span>
+    <div class="marca-viva" id="marca" aria-label="Steinmetz">
+      <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
     </div>
-    <h1>El nombre es el logo. Lo que cambia es <i>el material</i> en que está hecho.</h1>
-    <p class="entrada">Steinmetz significa cantero: el que talla la piedra. Las tres referencias que
-      elegiste —las versales espaciadas, la serifa que se afila, el relieve en piedra— no son tres
-      logos distintos. Son <b>la misma palabra tallada en tres materiales</b>: acero, papel y piedra.</p>
-    <p class="entrada">Cada dirección de abajo es un sistema completo, no un dibujo: trae wordmark,
-      monograma, paleta, tipografía y las cuatro piezas que vas a necesitar esta semana —cabecera de
-      cotización, portada de lámina, avatar y firma de correo.</p>
-    <nav class="indice">
-      <a href="#a">A <span>El filo · papel</span></a>
-      <a href="#b">B <span>La inscripción · piedra</span></a>
-      <a href="#c">C <span>La placa · acero</span></a>
-      <a href="#cierre">Recomendación</a>
+    <p class="lema">Steinmetz significa cantero: el que sabe dónde dar el golpe.
+      La marca es el nombre, tallado con precisión y sin adorno.</p>
+    <p class="meta">MANUAL DE MARCA, VERSIÓN 1.0. SEPTIEMBRE DE 2026.</p>
+
+    <nav class="indice" aria-label="Contenido">
+      <a href="#idea"><span class="i-num">01</span><span class="i-tit">La idea</span><span class="i-des">DE DÓNDE SALE TODO</span></a>
+      <a href="#wordmark"><span class="i-num">02</span><span class="i-tit">El wordmark</span><span class="i-des">TIPOGRAFÍA, PESO, TAMAÑO MÍNIMO</span></a>
+      <a href="#monograma"><span class="i-num">03</span><span class="i-tit">El monograma</span><span class="i-des">AVATAR, FAVICON, SELLO</span></a>
+      <a href="#aire"><span class="i-num">04</span><span class="i-tit">Espacio libre</span><span class="i-des">LA REGLA DE 1X</span></a>
+      <a href="#color"><span class="i-num">05</span><span class="i-tit">Color</span><span class="i-des">BASE Y ACENTO, DOS TEMAS</span></a>
+      <a href="#tipografia"><span class="i-num">06</span><span class="i-tit">Tipografía</span><span class="i-des">ESCALA Y OFICIOS</span></a>
+      <a href="#voz"><span class="i-num">07</span><span class="i-tit">Cómo se escribe</span><span class="i-des">VOZ Y REGLAS DE COPY</span></a>
+      <a href="#aplicaciones"><span class="i-num">08</span><span class="i-tit">Aplicaciones</span><span class="i-des">LAS PIEZAS DE HOY</span></a>
+      <a href="#incorrectos"><span class="i-num">09</span><span class="i-tit">Lo que rompe la marca</span><span class="i-des">USOS PROHIBIDOS</span></a>
+      <a href="#tokens"><span class="i-num">10</span><span class="i-tit">Para llevar al código</span><span class="i-des">VARIABLES CSS</span></a>
+      <a href="#letra-chica"><span class="i-num">11</span><span class="i-tit">Lockup y letra chica</span><span class="i-des">DESCRIPTOR, ARCHIVOS, LEGAL</span></a>
     </nav>
   </header>
 
-  <!-- ════════ A · EL FILO ════════ -->
-  <section class="via" id="a" style="
-      --fondo:#ffffff; --fondo-2:#fbfbfa; --rotulo:#9a9a9e;
-      --avatar-fondo:#111112; --avatar-tinta:#ffffff;
-      --doc-fondo:#ffffff; --doc-tinta:#111112; --doc-marca:#111112; --doc-suave:#9a9a9e;
-      --doc-borde:rgba(17,17,18,.14); --doc-regla:#111112;
-      --slide-fondo:#ffffff; --slide-marca:#111112; --slide-suave:#9a9a9e;">
-    <div class="via-cab">
-      <div class="letra">A</div>
-      <div>
-        <h2>El filo — la marca en papel</h2>
-        <p class="esencia">La serifa de contraste alto: los trazos gruesos se afilan hasta el pelo.
-          Es la precisión hecha letra, y es la que mejor aguanta un PDF, una impresión y una pantalla
-          sin manejar un solo color. Mové el cursor sobre el nombre: las letras engordan al acercarte.</p>
+  <!-- 01 -->
+  <section id="idea">
+    <div class="cab"><div class="num">01</div>
+      <div><h2>La idea</h2>
+        <p class="bajada">Todo el sistema sale de una palabra alemana y de una factura de 1920.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <p class="p">En 1920 la planta de Ford llevaba semanas detenida. Llamaron a Charles Steinmetz,
+        que miró la máquina dos días, hizo una marca de tiza y dijo dónde abrir. Cobró diez mil
+        dólares: uno por la marca, nueve mil novecientos noventa y nueve por saber dónde hacerla.</p>
+      <p class="p">Esa es la promesa de la empresa y también la regla de su diseño. <b>El valor está
+        en la precisión, no en el volumen.</b> Por eso la marca no tiene símbolo. Un isotipo sería una
+        capa entre el nombre y quien lo lee, y el nombre basta.</p>
+      <p class="p">La palabra <i>Steinmetz</i> significa cantero en alemán. De ahí viene el resto:
+        la letra con contraste de cincel, el canto vivo en lugar de la esquina redondeada, y la
+        disciplina de trabajar un solo material a la vez.</p>
+    </div></div>
+  </section>
+
+  <!-- 02 -->
+  <section id="wordmark">
+    <div class="cab"><div class="num">02</div>
+      <div><h2>El wordmark</h2>
+        <p class="bajada">El nombre en Fraunces, con el peso justo para que el contraste del trazo
+          se lea como el filo de un cincel.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="espec"><div class="wm" style="font-size:clamp(2.2rem,8vw,5.5rem)">Steinmetz</div></div>
+      <p class="pie-fig">Fraunces variable, eje óptico en 144 para que las terminaciones se afinen.
+        Peso <code style="font-family:var(--mono)">340</code> en uso corriente y
+        <code style="font-family:var(--mono)">700</code> cuando compite con texto denso, como en la
+        cabecera de un documento. El interletrado es <code style="font-family:var(--mono)">−0,03&nbsp;em</code>
+        y no se modifica: el ajuste óptico ya está resuelto.</p>
+
+      <h3>Tamaño mínimo</h3>
+      <p class="p">96&nbsp;px de ancho en pantalla, 22&nbsp;mm impreso. Por debajo de eso las
+        terminaciones finas desaparecen y la palabra se ensucia. Ahí se usa el monograma.</p>
+
+      <h3>Comportamiento en pantalla</h3>
+      <p class="p">Las letras engordan de 340 a 900 según la cercanía del puntero. Es el único
+        movimiento del sistema y vive sólo en la marca: no se aplica a titulares ni a ningún otro
+        texto.</p>
+    </div></div>
+  </section>
+
+  <!-- 03 -->
+  <section id="monograma">
+    <div class="cab"><div class="num">03</div>
+      <div><h2>El monograma</h2>
+        <p class="bajada">Una S para cuando no cabe el nombre: avatar, favicon, perfil, sello.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="rejilla g4">
+        <div><div class="avatar">S</div><p class="pie-fig">Avatar, 76&nbsp;px.</p></div>
+        <div><div class="avatar" style="width:32px;height:32px;border-radius:6px;font-size:1.1rem">S</div>
+          <p class="pie-fig">Favicon, 32&nbsp;px.</p></div>
+        <div><div class="avatar" style="background:#ffffff;color:#111112;border:1px solid rgba(17,17,18,.2)">S</div>
+          <p class="pie-fig">Invertido, sobre fondo oscuro.</p></div>
+        <div><div class="avatar" style="background:#12439c;color:#ffffff">S</div>
+          <p class="pie-fig">En azul, sólo cuando compite con muchos íconos.</p></div>
       </div>
-    </div>
-    <div class="panel">
-      <div class="lienzo">
-        <div class="firma" id="firma-a" aria-label="Steinmetz"
-             style="font-size:clamp(2.4rem,10.5vw,7.5rem);letter-spacing:-.03em;color:#111112">
-          <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
+      <p class="p" style="margin-top:1.5rem">Fraunces en peso 800, óptico 144, centrada sobre el
+        cuadrado. El radio de esquina es del 20&nbsp;% del lado, y es el único lugar del sistema
+        donde algo se redondea.</p>
+    </div></div>
+  </section>
+
+  <!-- 04 -->
+  <section id="aire">
+    <div class="cab"><div class="num">04</div>
+      <div><h2>Espacio libre</h2>
+        <p class="bajada">La marca respira lo que mide su propia S. Nada entra en ese margen.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="espec">
+        <div class="aire">
+          <span class="cota arriba">1x</span><span class="cota izq">1x</span>
+          <div class="wm marco">Steinmetz</div>
         </div>
       </div>
-      <div class="usos">
-        <div class="uso">
-          <h3>Avatar y favicon</h3>
-          <div class="avatar">S</div>
-        </div>
-        <div class="uso">
-          <h3>Paleta</h3>
-          <div class="tonos">
-            <div class="tono" style="--c:#ffffff"><i></i><b>#FFFFFF</b></div>
-            <div class="tono" style="--c:#111112"><i></i><b>#111112</b></div>
-            <div class="tono" style="--c:#9a9a9e"><i></i><b>#9A9A9E</b></div>
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Cabecera de cotización</h3>
-          <div class="papel">
+      <p class="pie-fig">La unidad <b>x</b> es la altura de la S mayúscula. El margen mínimo es
+        <b>1x por los cuatro lados</b>, medido desde la caja del wordmark. Ni texto, ni reglas, ni
+        bordes de imagen entran ahí. Ante la duda, sobra espacio antes que faltar.</p>
+    </div></div>
+  </section>
+
+  <!-- 05 -->
+  <section id="color">
+    <div class="cab"><div class="num">05</div>
+      <div><h2>Color</h2>
+        <p class="bajada">Blanco y negro hacen el trabajo. El azul aparece poco, y cuando aparece
+          significa algo: es lo accionable.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <span class="rotulo">Base</span>
+      <div class="rejilla g4">
+        <div class="tono" style="--c:var(--papel)"><i></i><span class="n">Papel</span>
+          <span class="h" id="hex-papel">#FFFFFF</span><span class="u">Fondo. Todo nace de acá.</span></div>
+        <div class="tono" style="--c:var(--tinta)"><i></i><span class="n">Tinta</span>
+          <span class="h" id="hex-tinta">#111112</span><span class="u">Texto, wordmark, reglas fuertes.</span></div>
+        <div class="tono" style="--c:var(--medio)"><i></i><span class="n">Medio</span>
+          <span class="h" id="hex-medio">#6E6E73</span><span class="u">Texto secundario y descripciones.</span></div>
+        <div class="tono" style="--c:var(--suave)"><i></i><span class="n">Suave</span>
+          <span class="h" id="hex-suave">#75757A</span><span class="u">Datos, metadatos, pies de figura.</span></div>
+      </div>
+
+      <span class="rotulo" style="margin-top:2.2rem">Acento</span>
+      <div class="rejilla g2">
+        <div class="tono" style="--c:#12439c;background:#ffffff;color:#111112">
+          <i style="border-color:rgba(17,17,18,.25)"></i>
+          <span class="n" style="color:#111112">Azul, sobre papel</span>
+          <span class="h" style="color:#111112">#12439C</span>
+          <span class="u" style="color:#6e6e73">Enlaces, botones y lo que hay que mirar primero.</span></div>
+        <div class="tono" style="--c:#6ea8ff;background:#0d0d0f;color:#f0f0f2">
+          <i style="border-color:rgba(255,255,255,.3)"></i>
+          <span class="n" style="color:#f0f0f2">Azul, sobre fondo oscuro</span>
+          <span class="h" style="color:#f0f0f2">#6EA8FF</span>
+          <span class="u" style="color:#9a9a9e">El mismo rol, subido de tono para sostener el contraste.</span></div>
+      </div>
+
+      <h3>La regla del azul</h3>
+      <p class="p">No es un color de relleno: marca lo que se puede accionar o lo que hay que mirar
+        primero. Un documento bien hecho tiene azul en menos del cinco por ciento de su superficie.
+        <b>El wordmark nunca va en azul.</b></p>
+      <p class="p">Es un solo acento a dos luces, no dos colores. Al pasar el cursor sobre una acción
+        aclara a <code style="font-family:var(--mono)">#2E6BD6</code> en tema claro y a
+        <code style="font-family:var(--mono)">#8FBCFF</code> en oscuro; fuera de ese estado, no hay
+        más azules en el sistema.</p>
+      <div style="display:flex;gap:.9rem;flex-wrap:wrap;margin-top:1.4rem;align-items:center">
+        <a class="boton" href="#color">HABLEMOS</a>
+        <a class="boton fantasma" href="#color">VER EL TRABAJO</a>
+      </div>
+      <p class="pie-fig">Acción principal en azul lleno; secundaria en contorno. Siempre en versales
+        monoespaciadas.</p>
+    </div></div>
+  </section>
+
+  <!-- 06 -->
+  <section id="tipografia">
+    <div class="cab"><div class="num">06</div>
+      <div><h2>Tipografía</h2>
+        <p class="bajada">Dos familias con oficios distintos: la serifa piensa, la monoespaciada
+          informa.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="escala">
+        <div><dt>Fraunces 500<br>óptico 144<br>24 a 37&nbsp;px<br>interletra −0,015&nbsp;em</dt>
+          <dd style="font-variation-settings:'wght' 500,'opsz' 144;font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:-.015em;line-height:1.15">Títulos de sección</dd></div>
+        <div><dt>Fraunces 600<br>óptico 60<br>17&nbsp;px</dt>
+          <dd style="font-variation-settings:'wght' 600,'opsz' 60;font-size:1.06rem">Subtítulos dentro de una sección</dd></div>
+        <div><dt>Fraunces 350<br>óptico 14<br>16,3&nbsp;px<br>interlínea 1,7<br>medida 38&nbsp;em</dt>
+          <dd style="font-size:1.02rem;color:var(--medio);line-height:1.7">Texto corrido. La serifa lleva la voz de la marca y se usa para todo lo que se lee de principio a fin: propuestas, correos largos, el sitio.</dd></div>
+        <div><dt>IBM Plex Mono 500<br>versales, 0,16&nbsp;em<br>11&nbsp;px</dt>
+          <dd style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--medio)">ETIQUETAS Y RÓTULOS</dd></div>
+        <div><dt>IBM Plex Mono 400<br>cifras tabulares<br>16&nbsp;px</dt>
+          <dd><div class="cifras"><span>38 UF</span><br><span>13 UF</span><br><span>1.493.400</span></div></dd></div>
+      </div>
+      <h3>Por qué monoespaciada para las cifras</h3>
+      <p class="p">Los números salen alineados en columna sin trucos, como arriba. Eso hace que un
+        precio se lea como un dato verificable y no como un argumento de venta. Ninguna otra familia
+        entra al sistema: si falta un peso, se busca dentro de Fraunces antes que fuera.</p>
+    </div></div>
+  </section>
+
+  <!-- 07 -->
+  <section id="voz">
+    <div class="cab"><div class="num">07</div>
+      <div><h2>Cómo se escribe</h2>
+        <p class="bajada">La marca suena como habla un buen ingeniero: directo, específico y sin
+          adjetivos que no se puedan comprobar.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="rejilla g2">
+        <div><span class="rotulo">Se dice</span>
+          <p class="p" style="font-size:.98rem">Ocho semanas desde la orden de compra.</p>
+          <p class="p" style="font-size:.98rem">Ningún dato sale de tu red.</p>
+          <p class="p" style="font-size:.98rem">Encendido, o no existe.</p></div>
+        <div><span class="rotulo">No se dice</span>
+          <p class="p" style="font-size:.98rem">Plazos ágiles y flexibles.</p>
+          <p class="p" style="font-size:.98rem">Seguridad de nivel empresarial.</p>
+          <p class="p" style="font-size:.98rem">Soluciones innovadoras de vanguardia.</p></div>
+      </div>
+      <p class="p" style="margin-top:1.6rem">Tres reglas. Una idea por frase. Ningún número sin
+        fuente. Y los clientes no se nombran: se describen por tamaño e industria, como «una de las
+        grandes cerveceras de Chile».</p>
+    </div></div>
+  </section>
+
+  <!-- 08 -->
+  <section id="aplicaciones">
+    <div class="cab"><div class="num">08</div>
+      <div><h2>Aplicaciones</h2>
+        <p class="bajada">El sistema puesto a trabajar en las piezas que la empresa usa hoy.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="rejilla g3">
+        <div class="span2">
+          <div class="papel-doc">
             <div class="nom">Steinmetz</div>
-            <div class="rut">RUT 78.484.226-6 · ian@steinmetz.cl</div>
+            <div class="rut">STEINMETZ SpA &nbsp; RUT 78.484.226-6<br>ian@steinmetz.cl &nbsp; steinmetz.cl</div>
             <hr>
-            <div class="tit">COTIZACIÓN N° COT-2026-003</div>
-            <div class="sub">TAAG Genetics · 3 de septiembre de 2026</div>
+            <div class="t">COTIZACIÓN N° COT-0000-000</div>
+            <div class="s">Nombre del cliente, fecha</div>
           </div>
+          <p class="pie-fig">Cabecera de cotización. El nombre en peso 700 para que gane al texto
+            denso; el filete grueso separa el membrete del documento.</p>
         </div>
-        <div class="uso">
-          <h3>Portada de lámina</h3>
+        <div>
+          <div class="tarjeta"><div class="m">Steinmetz</div>
+            <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl<br>+56 9 9321 5043</div></div>
+          <p class="pie-fig">Tarjeta, 85&nbsp;×&nbsp;55&nbsp;mm.</p>
+        </div>
+        <div class="ancho">
           <div class="lamina">
-            <div class="marca">Steinmetz</div>
-            <div class="pie">SANTIAGO DE CHILE</div>
+            <div class="tema-l">Sistema de gestión legal asistida por inteligencia artificial</div>
+            <div>
+              <div class="m">Steinmetz</div>
+              <div class="p2" style="margin-top:.35rem">PROPUESTA TÉCNICA, 2026</div>
+            </div>
           </div>
+          <p class="pie-fig">Portada de lámina. El tema arriba, la marca abajo: quien mira lee
+            primero de qué se trata y después de quién viene.</p>
         </div>
-        <div class="uso">
-          <h3>Firma de correo</h3>
-          <div class="correo">
-            <b>Ian Berndt</b>
-            Steinmetz SpA<br>
-            <span class="m">ian@steinmetz.cl</span> · +56 9 9321 5043
-          </div>
+        <div>
+          <div class="correo"><b>Ian Berndt</b>Steinmetz SpA<br>
+            <span class="a">ian@steinmetz.cl</span><br>+56 9 9321 5043</div>
+          <p class="pie-fig">Firma de correo. Sin imágenes, para que no se rompa en ningún cliente.</p>
         </div>
-        <div class="uso">
-          <h3>Tarjeta</h3>
-          <div class="tarjeta">
-            <div class="m">Steinmetz</div>
-            <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl · +56 9 9321 5043</div>
+        <div>
+          <div style="display:flex;align-items:flex-end;gap:1rem">
+            <div class="avatar">S</div>
+            <div class="avatar" style="width:32px;height:32px;border-radius:6px;font-size:1.1rem">S</div>
           </div>
+          <p class="pie-fig">Avatar y favicon.</p>
+        </div>
+        <div>
+          <div style="display:flex;flex-direction:column;gap:.8rem;align-items:flex-start">
+            <a class="boton" href="#aplicaciones">HABLEMOS</a>
+            <a class="boton fantasma" href="#aplicaciones">VER EL TRABAJO</a>
+          </div>
+          <p class="pie-fig">Acciones en web.</p>
         </div>
       </div>
-    </div>
-    <div class="ficha">
-      <div><b>TIPOGRAFÍA</b><code>Fraunces</code> variable, opsz 144, wght 340 en reposo</div>
-      <div><b>ACOMPAÑA</b><code>IBM Plex Mono</code> para datos, cifras y etiquetas</div>
-      <div><b>ESPACIADO</b>letter-spacing <code>-0.03em</code> en el wordmark</div>
-      <div><b>COLOR</b>Sin acento. El contraste del trazo es el acento</div>
-    </div>
-    <p class="veredicto"><b>Para qué sirve.</b> Es la más versátil de las tres y la que puede cargar
-      todo: cotizaciones, propuestas, el landing y las demos. Al no tener color de acento no se
-      rompe nunca —ni impresa en blanco y negro, ni proyectada en una sala con mala luz.</p>
+    </div></div>
   </section>
 
-  <!-- ════════ B · LA INSCRIPCIÓN ════════ -->
-  <section class="via" id="b" style="
-      --fondo:#e6e1d6; --fondo-2:#eae6dc; --rotulo:#8f8878;
-      --avatar-fondo:#262119; --avatar-tinta:#e6e1d6;
-      --doc-fondo:#f2efe8; --doc-tinta:#262119; --doc-marca:#262119; --doc-suave:#8f8878;
-      --doc-borde:rgba(38,33,25,.2); --doc-regla:#a4501f;
-      --slide-fondo:#e6e1d6; --slide-marca:#262119; --slide-suave:#8f8878;">
-    <div class="via-cab">
-      <div class="letra">B</div>
-      <div>
-        <h2>La inscripción — la marca en piedra</h2>
-        <p class="esencia">El nombre no está impreso sobre la superficie: está hundido en ella.
-          Se lee sólo por la luz, y la luz sigue tu cursor. Es la dirección que cuenta lo que
-          significa el nombre sin decirlo, y la única con un color propio: el óxido.</p>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="lienzo" id="piedra" style="
-          background:
-            radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.5), transparent 50%),
-            radial-gradient(130% 110% at 85% 95%, rgba(120,105,80,.16), transparent 55%),
-            #e6e1d6;">
-        <div class="firma" id="firma-b" aria-label="Steinmetz"
-             style="font-size:clamp(2.4rem,10.5vw,7.5rem);letter-spacing:-.015em;
-                    font-variation-settings:'wght' 900,'opsz' 144;color:#cfc8b8">
-          <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
+  <!-- 09 -->
+  <section id="incorrectos">
+    <div class="cab"><div class="num">09</div>
+      <div><h2>Lo que rompe la marca</h2>
+        <p class="bajada">Casi todo lo que se le puede hacer de más.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="bien">
+        <div class="marco-ok">
+          <div class="wm" style="font-size:clamp(1.6rem,4.5vw,2.6rem)">Steinmetz</div>
         </div>
       </div>
-      <div class="usos">
-        <div class="uso">
-          <h3>Avatar y favicon</h3>
-          <div class="avatar">S</div>
-        </div>
-        <div class="uso">
-          <h3>Paleta</h3>
-          <div class="tonos">
-            <div class="tono" style="--c:#e6e1d6"><i></i><b>#E6E1D6</b></div>
-            <div class="tono" style="--c:#cfc8b8"><i></i><b>#CFC8B8</b></div>
-            <div class="tono" style="--c:#262119"><i></i><b>#262119</b></div>
-            <div class="tono" style="--c:#a4501f"><i></i><b>#A4501F</b></div>
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Cabecera de cotización</h3>
-          <div class="papel">
-            <div class="nom">Steinmetz</div>
-            <div class="rut">RUT 78.484.226-6 · ian@steinmetz.cl</div>
-            <hr>
-            <div class="tit">COTIZACIÓN N° COT-2026-003</div>
-            <div class="sub">TAAG Genetics · 3 de septiembre de 2026</div>
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Portada de lámina</h3>
-          <div class="lamina" style="background:
-              radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.5), transparent 50%), #e6e1d6">
-            <div class="marca" style="color:#cfc8b8;
-                 text-shadow:0 1.5px 1px rgba(255,255,255,.85), 0 -1.5px 2px rgba(38,33,25,.45)">Steinmetz</div>
-            <div class="pie">SANTIAGO DE CHILE</div>
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Firma de correo</h3>
-          <div class="correo">
-            <b>Ian Berndt</b>
-            Steinmetz SpA<br>
-            <span class="m">ian@steinmetz.cl</span> · +56 9 9321 5043
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Tarjeta</h3>
-          <div class="tarjeta">
-            <div class="m">Steinmetz</div>
-            <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl · +56 9 9321 5043</div>
-          </div>
-        </div>
+      <p class="pie-fig" style="margin-top:0;margin-bottom:2.4rem">Así se usa: peso 340, interletra
+        original, tinta plana sobre fondo liso, con su espacio libre alrededor. Todo lo de abajo es
+        lo que no.</p>
+      <div class="rejilla g2 mal">
+        <div><div class="ej"><span style="transform:scaleX(1.6)">Steinmetz</span></div>
+          <p><b>No se estira ni se condensa.</b> Si no cabe, se achica entero.</p></div>
+        <div><div class="ej"><span style="color:var(--azul)">Steinmetz</span></div>
+          <p><b>El wordmark no se pinta de azul.</b> El acento es para acciones, no para la marca.</p></div>
+        <div><div class="ej"><span style="letter-spacing:.34em">Steinmetz</span></div>
+          <p><b>El espaciado no se toca.</b> Ese ajuste ya viene resuelto en el wordmark.</p></div>
+        <div><div class="ej"><span style="-webkit-text-stroke:1.4px var(--tinta);color:transparent">Steinmetz</span></div>
+          <p><b>Nada de contornos, sombras ni relieve.</b> El wordmark es macizo o no es.</p></div>
+        <div><div class="ej" style="background:linear-gradient(115deg,#8f97a1,#3b434c 52%,#7d848d)">
+            <span style="color:#fff">Steinmetz</span></div>
+          <p><b>No va sobre imágenes con textura.</b> Necesita un fondo plano que lo deje leerse.</p></div>
+        <div><div class="ej"><span style="font-family:Georgia,serif;font-variation-settings:normal">Steinmetz</span></div>
+          <p><b>No se sustituye la tipografía.</b> Sin Fraunces no hay wordmark: se usa una imagen.</p></div>
       </div>
-    </div>
-    <div class="ficha">
-      <div><b>TIPOGRAFÍA</b><code>Fraunces</code> peso 900, opsz 144</div>
-      <div><b>EL RELIEVE</b>sombra doble: clara abajo, oscura arriba adentro</div>
-      <div><b>LA LUZ</b>una sola fuente; en la web sigue al puntero</div>
-      <div><b>ACENTO</b><code>#A4501F</code> óxido, sólo para subrayar</div>
-    </div>
-    <p class="veredicto"><b>Para qué sirve.</b> Es la de mayor carácter y la que mejor funciona en
-      portadas, propuestas y el landing. Su límite es práctico: el relieve depende de la luz, así que
-      no sobrevive a blanco y negro ni a un fondo cualquiera. <b>Conviene tenerla como registro de
-      portada, no como marca de uso diario.</b></p>
+    </div></div>
   </section>
 
-  <!-- ════════ C · LA PLACA ════════ -->
-  <section class="via" id="c" style="
-      --fondo:#0a0a0a; --fondo-2:#101010; --rotulo:#6e6e6e;
-      --avatar-fondo:#f5f5f3; --avatar-tinta:#0a0a0a;
-      --doc-fondo:#0a0a0a; --doc-tinta:#f5f5f3; --doc-marca:#f5f5f3; --doc-suave:#6e6e6e;
-      --doc-borde:rgba(255,255,255,.16); --doc-regla:#f5f5f3;
-      --slide-fondo:#0a0a0a; --slide-marca:#f5f5f3; --slide-suave:#6e6e6e;">
-    <div class="via-cab">
-      <div class="letra">C</div>
-      <div>
-        <h2>La placa — la marca en acero</h2>
-        <p class="esencia">Versales espaciadas sobre negro, sin serifas y sin color: la marca
-          troquelada en una placa. Es la más severa y la más técnica de las tres, y la única que no se
-          mueve — el acero no responde al tacto. Ese silencio es parte del argumento.</p>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="lienzo">
-        <div style="font-family:var(--mono);font-weight:500;color:#f5f5f3;
-                    font-size:clamp(.8rem,3.4vw,2.2rem);letter-spacing:.42em;
-                    text-indent:.42em;white-space:nowrap">STEINMETZ</div>
-      </div>
-      <div class="usos">
-        <div class="uso">
-          <h3>Avatar y favicon</h3>
-          <div class="avatar mono">S</div>
-        </div>
-        <div class="uso">
-          <h3>Paleta</h3>
-          <div class="tonos">
-            <div class="tono" style="--c:#0a0a0a"><i></i><b>#0A0A0A</b></div>
-            <div class="tono" style="--c:#f5f5f3"><i></i><b>#F5F5F3</b></div>
-            <div class="tono" style="--c:#6e6e6e"><i></i><b>#6E6E6E</b></div>
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Cabecera de cotización</h3>
-          <div class="papel">
-            <div class="nom mono" style="letter-spacing:.3em">STEINMETZ</div>
-            <div class="rut">RUT 78.484.226-6 · ian@steinmetz.cl</div>
-            <hr>
-            <div class="tit">COTIZACIÓN N° COT-2026-003</div>
-            <div class="sub">TAAG Genetics · 3 de septiembre de 2026</div>
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Portada de lámina</h3>
-          <div class="lamina">
-            <div class="marca mono">STEINMETZ</div>
-            <div class="pie">SANTIAGO DE CHILE</div>
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Firma de correo</h3>
-          <div class="correo">
-            <b>IAN BERNDT</b>
-            Steinmetz SpA<br>
-            <span class="m">ian@steinmetz.cl</span> · +56 9 9321 5043
-          </div>
-        </div>
-        <div class="uso">
-          <h3>Tarjeta</h3>
-          <div class="tarjeta">
-            <div class="m mono">STEINMETZ</div>
-            <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl · +56 9 9321 5043</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="ficha">
-      <div><b>TIPOGRAFÍA</b><code>IBM Plex Mono</code> 500, versales</div>
-      <div><b>ESPACIADO</b><code>letter-spacing .42em</code> — el aire es la mitad del logo</div>
-      <div><b>COLOR</b>Sin acento, nunca. Blanco sobre negro</div>
-      <div><b>MOVIMIENTO</b>Ninguno, a propósito</div>
-    </div>
-    <p class="veredicto"><b>Para qué sirve.</b> Es la que dice «infraestructura» y la que mejor
-      calza con demos de producto, terminales y pantallas oscuras. Su límite: en documentos impresos
-      el fondo negro se come la tinta, y sola es difícil de distinguir de cualquier otra empresa
-      técnica. <b>Funciona como modo oscuro del sistema, no como su cara principal.</b></p>
+  <!-- 10 -->
+  <section id="tokens">
+    <div class="cab"><div class="num">10</div>
+      <div><h2>Para llevar al código</h2>
+        <p class="bajada">El sistema en variables CSS. Sólo lo que la marca usa de verdad.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+<pre id="tokens-css">:root{
+  <b>/* base, tema claro */</b>
+  --papel:#ffffff;   --panel:#f9f9fa;
+  --tinta:#111112;   --medio:#6e6e73;   --suave:#75757a;
+  --linea:rgba(17,17,18,.14);   --linea-fuerte:rgba(17,17,18,.34);
+
+  <b>/* acento */</b>
+  --azul:#12439c;    --azul-vivo:#2e6bd6;   --sobre-azul:#ffffff;
+
+  <b>/* tipografía */</b>
+  --serif:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --wordmark:"wght" 340,"opsz" 144;   /* letter-spacing:-.03em */
+  --titulo:"wght" 500,"opsz" 144;     /* letter-spacing:-.015em */
+  --subtitulo:"wght" 600,"opsz" 60;
+  --texto:"wght" 350,"opsz" 14;       /* line-height:1.7 */
+}
+[data-tema="oscuro"]{
+  --papel:#0d0d0f;   --panel:#161618;
+  --tinta:#f0f0f2;   --medio:#9a9a9e;   --suave:#8a8a8f;
+  --linea:rgba(255,255,255,.16);
+  --azul:#6ea8ff;    --azul-vivo:#8fbcff;   --sobre-azul:#0d0d0f;
+  --linea-fuerte:rgba(255,255,255,.36);
+}
+
+<b>/* medidas */</b>
+--anchura:74rem;   /* ancho máximo de página */
+--medida:38em;     /* medida de lectura, ~69 caracteres */</pre>
+      <button class="copiar" id="copiar">COPIAR TOKENS</button>
+    </div></div>
   </section>
 
-  <!-- ════════ CIERRE ════════ -->
-  <section class="cierre" id="cierre">
-    <h2>Lo que recomiendo para estas semanas</h2>
-    <p class="entrada"><b>Adoptá A como la marca, y quedate con B y C como registros.</b> El filo
-      resuelve todo lo que necesitás firmar esta semana, no depende de la luz ni del fondo, e imprime
-      igual de bien en negro que en color. La inscripción es demasiado buena para perderla, pero es
-      un registro de portada: úsala donde haya una superficie grande y una sola imagen que dejar.
-      La placa es el modo oscuro, para demos y pantallas.</p>
-    <p class="entrada">Las tres comparten la misma tipografía y el mismo nombre, así que convivir no
-      las contradice: es la misma marca sobre distintos materiales. Eso es exactamente lo que hace
-      un cantero.</p>
-    <table class="tabla">
-      <thead><tr><th>Pieza</th><th>Qué usar</th><th>Por qué</th></tr></thead>
-      <tbody>
-        <tr><td>Cotizaciones y propuestas</td><td>A · El filo</td><td>Imprime y se lee en cualquier parte; ya calza con el formato actual</td></tr>
-        <tr><td>Landing</td><td>A, con B de portada</td><td>El relieve funciona en la primera pantalla; el resto necesita legibilidad</td></tr>
-        <tr><td>Demos y producto</td><td>C · La placa</td><td>Pantallas oscuras, registro técnico</td></tr>
-        <tr><td>Láminas y decks</td><td>B de portada, A adentro</td><td>Una imagen fuerte al abrir, claridad después</td></tr>
-        <tr><td>Avatar, favicon, WhatsApp</td><td>S en Fraunces 800, blanco sobre <code>#111112</code></td><td>Legible a 32 px, mismo gesto en todos lados</td></tr>
-        <tr><td>Correo y firma</td><td>A</td><td>Se ve igual en cliente claro y oscuro</td></tr>
-      </tbody>
-    </table>
-    <p class="veredicto" style="margin-top:2rem">Esto es una <b>marca de trabajo</b>: sirve para
-      operar ahora y aguantar unas semanas. Lo que falta para que sea una identidad terminada es una
-      tipografía de licencia propia en lugar de Google Fonts, el wordmark trazado como vector —hoy
-      es texto vivo— y una decisión sobre si el óxido queda como color de la casa.</p>
+  <!-- 11 -->
+  <section id="letra-chica">
+    <div class="cab"><div class="num">11</div>
+      <div><h2>Lockup y letra chica</h2>
+        <p class="bajada">Cómo se acompaña el nombre cuando hace falta explicar a qué se dedica la
+          empresa, y dónde están los archivos.</p>
+      </div></div>
+    <div class="cuerpo"><div>
+      <div class="rejilla g2">
+        <div>
+          <div class="lockup">
+            <span class="l-nom">Steinmetz</span>
+            <span class="l-des">INGENIERÍA EN INTELIGENCIA ARTIFICIAL</span>
+          </div>
+          <p class="pie-fig">Lockup con descriptor. El filete separa a un tercio de la altura de la
+            S; el descriptor va en mono, versales, del ancho del wordmark. Se usa la primera vez que
+            alguien ve la marca: portadas, firmas, perfiles.</p>
+        </div>
+        <div>
+          <div class="lockup">
+            <span class="l-nom" style="font-size:1.9rem">Steinmetz</span>
+            <span class="l-des" style="border-top:0;padding-top:0;font-size:.62rem">SANTIAGO DE CHILE</span>
+          </div>
+          <p class="pie-fig">Variante corta, sin filete, para pies de página y lugares donde el
+            descriptor largo no cabe. Nunca se usan los dos descriptores juntos.</p>
+        </div>
+      </div>
+
+      <h3>Dónde están los archivos</h3>
+      <p class="p">El manual y las piezas viven en el repositorio del sitio, en
+        <code style="font-family:var(--mono)">03-producto/sitio-web/marca/</code>. El wordmark no es
+        un archivo: es texto en Fraunces con los ajustes de esta página. Para usarlo donde no se
+        pueda cargar la fuente, se exporta un PNG a 4x desde acá y se documenta el tamaño.</p>
+
+      <h3>Qué falta para que esto sea definitivo</h3>
+      <p class="p">Tres cosas, en orden: una tipografía con licencia propia en lugar de Google
+        Fonts; el wordmark trazado como vector, para no depender de que la fuente cargue; y decidir
+        si el azul queda como color de la casa o si la marca se queda en blanco y negro.</p>
+
+      <h3>Legal</h3>
+      <p class="p">Steinmetz&nbsp;SpA, RUT 78.484.226-6, Santiago de Chile. El nombre y el wordmark
+        son de la sociedad. Fraunces e IBM Plex Mono se usan bajo licencia SIL Open Font. Para pedir
+        archivos o resolver una duda de uso: <a href="mailto:ian@steinmetz.cl">ian@steinmetz.cl</a>.</p>
+    </div></div>
   </section>
+
+  <footer>
+    <span>STEINMETZ SpA, RUT 78.484.226-6</span>
+    <span><a href="/marca/direcciones/">Las tres direcciones exploradas</a></span>
+    <span>VERSIÓN 1.0</span>
+  </footer>
 
 </div>
 
 <script>
 (function(){
-  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reducido) return;
+  var raiz = document.documentElement;
+  var bClaro = document.getElementById("b-claro"), bOscuro = document.getElementById("b-oscuro");
+  var hex = { papel:["#FFFFFF","#0D0D0F"], tinta:["#111112","#F0F0F2"],
+              medio:["#6E6E73","#9A9A9E"], suave:["#75757A","#8A8A8F"] };
+  function poner(tema){
+    raiz.dataset.tema = tema;
+    var oscuro = tema === "oscuro";
+    bClaro.setAttribute("aria-pressed", String(!oscuro));
+    bOscuro.setAttribute("aria-pressed", String(oscuro));
+    Object.keys(hex).forEach(function(k){
+      var el = document.getElementById("hex-"+k);
+      if (el) el.textContent = hex[k][oscuro ? 1 : 0];
+    });
+    try { localStorage.setItem("steinmetz-tema", tema); } catch(e){}
+  }
+  var guardado = null;
+  try { guardado = localStorage.getItem("steinmetz-tema"); } catch(e){}
+  poner(guardado || (matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro"));
+  bClaro.addEventListener("click", function(){ poner("claro"); });
+  bOscuro.addEventListener("click", function(){ poner("oscuro"); });
 
-  /* A · el filo: las letras engordan con la cercanía del puntero */
-  var letras = [].slice.call(document.querySelectorAll("#firma-a span"));
+  var boton = document.getElementById("copiar");
+  boton.addEventListener("click", function(){
+    var txt = document.getElementById("tokens-css").innerText;
+    function ok(){ boton.textContent = "COPIADO";
+      setTimeout(function(){ boton.textContent = "COPIAR TOKENS"; }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(ok).catch(reserva);
+    } else { reserva(); }
+    function reserva(){
+      var a = document.createElement("textarea");
+      a.value = txt; a.style.position = "fixed"; a.style.opacity = "0";
+      document.body.appendChild(a); a.select();
+      try { document.execCommand("copy"); ok(); }
+      catch(e){ boton.textContent = "SELECCIONÁ Y COPIÁ"; }
+      a.remove();
+    }
+  });
+
+  /* el wordmark responde al puntero; se detiene cuando no está a la vista */
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var marca = document.getElementById("marca");
+  var letras = [].slice.call(marca.querySelectorAll("span"));
   var peso = letras.map(function(){ return 340; });
-  var mx = -9999, my = -9999;
+  var mx = -9999, my = -9999, visible = true, corriendo = false;
   addEventListener("pointermove", function(e){ mx = e.clientX; my = e.clientY; }, {passive:true});
-  (function cuadro(){
+  new IntersectionObserver(function(es){
+    visible = es[0].isIntersecting;
+    if (visible && !corriendo) { corriendo = true; requestAnimationFrame(cuadro); }
+  }).observe(marca);
+  function cuadro(){
+    if (!visible) { corriendo = false; return; }
     letras.forEach(function(el,i){
       var r = el.getBoundingClientRect();
       var d = Math.hypot(mx-(r.left+r.width/2), my-(r.top+r.height/2));
-      var cerca = Math.max(0, 1 - d/300);
+      var cerca = Math.max(0, 1 - d/320);
       var destino = 340 + cerca*cerca*560;
       peso[i] += (destino-peso[i])*.12;
       el.style.fontVariationSettings = '"wght" '+peso[i].toFixed(1)+', "opsz" 144';
     });
     requestAnimationFrame(cuadro);
-  })();
-
-  /* B · la inscripción: la luz rasante sigue al puntero */
-  var piedra = document.getElementById("piedra");
-  var firmaB = document.getElementById("firma-b");
-  var lx = -1.5, ly = -1.5, tx = lx, ty = ly;
-  piedra.addEventListener("pointermove", function(e){
-    var r = piedra.getBoundingClientRect();
-    tx = -((e.clientX-r.left)/r.width - .5)*2*3.2;
-    ty = -((e.clientY-r.top)/r.height - .5)*2*3.2;
-  }, {passive:true});
-  piedra.addEventListener("pointerleave", function(){ tx = -1.5; ty = -1.5; });
-  (function luz(){
-    lx += (tx-lx)*.06; ly += (ty-ly)*.06;
-    firmaB.style.textShadow =
-      (-lx).toFixed(2)+"px "+(-ly).toFixed(2)+"px 1px rgba(255,255,255,.85), "+
-      lx.toFixed(2)+"px "+ly.toFixed(2)+"px 2px rgba(38,33,25,.45)";
-    requestAnimationFrame(luz);
-  })();
+  }
 })();
 </script>
 </body>

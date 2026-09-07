@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Steinmetz — marca de trabajo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141414'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='22' font-weight='700' fill='%23f2efe8'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --shell:#141414; --shell-alto:#1c1c1c; --shell-borde:rgba(255,255,255,.14);
+    --shell-texto:#e8e6e1; --shell-medio:#8d8b86;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--shell);color:var(--shell-texto);font-family:var(--serif);
+    font-optical-sizing:auto;font-variation-settings:"wght" 350,"opsz" 14;
+    -webkit-font-smoothing:antialiased;line-height:1.6}
+  ::selection{background:var(--shell-texto);color:var(--shell)}
+
+  .env{max-width:78rem;margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem)}
+
+  /* ── portada ── */
+  .portada{padding:clamp(3.5rem,10vh,7rem) 0 clamp(2.5rem,6vh,4rem)}
+  .cinta{font-family:var(--mono);display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+    font-size:.7rem;letter-spacing:.2em;color:var(--shell-medio);
+    border-bottom:1px solid var(--shell-borde);padding-bottom:1rem;margin-bottom:clamp(2.5rem,7vh,4.5rem)}
+  .cinta b{color:var(--shell-texto);font-weight:500}
+  h1{font-family:var(--serif);font-optical-sizing:auto;
+    font-variation-settings:"wght" 300,"opsz" 144;
+    font-size:clamp(2.1rem,5.6vw,4.4rem);line-height:1.06;letter-spacing:-.025em;
+    max-width:16em;margin-bottom:1.6rem}
+  h1 i{font-style:normal;font-variation-settings:"wght" 800,"opsz" 144}
+  .entrada{max-width:40em;font-size:1.05rem;line-height:1.75;color:var(--shell-medio)}
+  .entrada + .entrada{margin-top:1.1rem}
+  .entrada b{color:var(--shell-texto);font-variation-settings:"wght" 650,"opsz" 14}
+
+  /* ── índice ── */
+  .indice{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.6rem}
+  .indice a{font-family:var(--mono);display:flex;align-items:baseline;gap:.6rem;padding:.7rem 1.1rem;
+    border:1px solid var(--shell-borde);border-radius:2px;text-decoration:none;
+    color:var(--shell-texto);font-size:.78rem;letter-spacing:.06em;
+    transition:background .2s,border-color .2s}
+  .indice a:hover,.indice a:focus-visible{background:#242424;border-color:#3a3a3a}
+  .indice span{color:var(--shell-medio);font-size:.68rem}
+
+  /* ── una dirección ── */
+  .via{padding:clamp(3rem,9vh,6rem) 0;border-top:1px solid var(--shell-borde)}
+  .via-cab{display:grid;grid-template-columns:2.6rem 1fr;gap:1.2rem;align-items:start;
+    margin-bottom:clamp(1.8rem,4vh,2.8rem)}
+  .letra{font-family:var(--serif);font-size:2rem;line-height:.9;
+    font-variation-settings:"wght" 800,"opsz" 144;color:var(--shell-medio)}
+  .via-cab h2{font-family:var(--serif);font-optical-sizing:auto;
+    font-variation-settings:"wght" 500,"opsz" 144;
+    font-size:clamp(1.5rem,3.2vw,2.1rem);letter-spacing:-.01em;line-height:1.1}
+  .esencia{margin-top:.6rem;font-size:1.02rem;color:var(--shell-medio);max-width:38em;line-height:1.7}
+
+  /* el panel de material: cada dirección trae su mundo */
+  .panel{border-radius:3px;overflow:hidden;border:1px solid var(--shell-borde)}
+  .lienzo{display:grid;place-items:center;padding:clamp(2.5rem,8vw,5.5rem) 1.5rem;
+    background:var(--fondo);position:relative;isolation:isolate}
+  .firma{font-family:var(--serif);font-optical-sizing:auto;line-height:1;
+    display:flex;user-select:none;white-space:nowrap}
+  .firma span{display:inline-block}
+
+  /* aplicaciones */
+  .usos{display:grid;grid-template-columns:repeat(3,1fr);
+    gap:1px;background:var(--shell-borde);border-top:1px solid var(--shell-borde)}
+  @media (max-width:900px){.usos{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.usos{grid-template-columns:1fr}}
+  .uso{background:var(--fondo-2,var(--fondo));padding:1.5rem 1.4rem;display:flex;
+    flex-direction:column;gap:.9rem}
+  .uso h3{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;
+    color:var(--rotulo);font-weight:500;text-transform:uppercase}
+
+  /* avatar */
+  .avatar{width:74px;height:74px;border-radius:14px;display:grid;place-items:center;
+    background:var(--avatar-fondo);color:var(--avatar-tinta);font-family:var(--serif);
+    font-size:2.5rem;line-height:1;font-variation-settings:"wght" 800,"opsz" 144;
+    box-shadow:var(--avatar-sombra,none)}
+  .avatar.mono{font-family:var(--mono);font-size:1.5rem;font-weight:600;letter-spacing:.02em}
+
+  /* paleta */
+  .tonos{display:flex;flex-wrap:wrap;gap:.5rem}
+  .tono{flex:1 1 4.2rem}
+  .tono i{display:block;height:2.6rem;border-radius:2px;background:var(--c);
+    border:1px solid rgba(128,128,128,.28)}
+  .tono b{display:block;margin-top:.4rem;font-size:.58rem;letter-spacing:.06em;
+    color:var(--rotulo);font-weight:400}
+
+  /* cabecera de cotización */
+  .papel{background:var(--doc-fondo);color:var(--doc-tinta);padding:.95rem 1.1rem;
+    border:1px solid var(--doc-borde);border-radius:2px}
+  .papel .nom{font-family:var(--doc-familia,var(--serif));
+    font-variation-settings:"wght" 700,"opsz" 144;font-size:1.02rem;line-height:1.1;
+    letter-spacing:var(--doc-track,-.01em);color:var(--doc-marca)}
+  .papel .nom.mono{font-family:var(--mono);font-weight:600;font-size:.82rem}
+  .papel .rut{font-family:var(--mono);font-size:.53rem;letter-spacing:.08em;
+    color:var(--doc-suave);margin-top:.25rem}
+  .papel hr{border:0;border-top:1.5px solid var(--doc-regla);margin:.6rem 0 .55rem}
+  .papel .tit{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.04em}
+  .papel .sub{font-family:var(--mono);font-size:.53rem;color:var(--doc-suave);margin-top:.15rem}
+
+  /* portada de lámina */
+  .lamina{aspect-ratio:16/9;background:var(--slide-fondo);border-radius:2px;
+    border:1px solid var(--doc-borde);display:flex;flex-direction:column;
+    justify-content:flex-end;padding:1rem;gap:.35rem;position:relative;overflow:hidden}
+  .lamina .marca{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+    font-size:1.35rem;line-height:1;color:var(--slide-marca);letter-spacing:-.015em}
+  .lamina .marca.mono{font-family:var(--mono);font-size:.8rem;font-weight:600;letter-spacing:.22em}
+  .lamina .pie{font-family:var(--mono);font-size:.52rem;letter-spacing:.14em;color:var(--slide-suave)}
+
+  /* firma de correo */
+  .correo{font-family:var(--mono);font-size:.6rem;line-height:1.9;color:var(--doc-suave)}
+  .correo b{display:block;font-size:.7rem;color:var(--doc-tinta);font-weight:600;letter-spacing:.04em}
+  .tarjeta{aspect-ratio:85/55;background:var(--doc-fondo);border:1px solid var(--doc-borde);
+    border-radius:2px;padding:.85rem .9rem;display:flex;flex-direction:column;justify-content:space-between}
+  .tarjeta .m{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+    font-size:1.05rem;line-height:1;color:var(--doc-marca);letter-spacing:-.015em}
+  .tarjeta .m.mono{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.28em}
+  .tarjeta .d{font-family:var(--mono);font-size:.5rem;line-height:1.75;color:var(--doc-suave)}
+  .tarjeta .d b{display:block;color:var(--doc-tinta);font-weight:600;letter-spacing:.04em;font-size:.55rem}
+  .correo .m{color:var(--doc-marca);font-weight:500}
+
+  /* ficha técnica */
+  .ficha{font-family:var(--mono);display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1.2rem;
+    padding:1.4rem 0 0;font-size:.7rem;line-height:1.75;color:var(--shell-medio)}
+  .ficha div b{display:block;color:var(--shell-texto);font-weight:500;font-size:.62rem;
+    letter-spacing:.16em;margin-bottom:.3rem}
+  .ficha code{font-family:var(--mono);color:var(--shell-texto);font-size:.68rem}
+
+  .veredicto{margin-top:1.3rem;padding:.2rem 0 .2rem 1.3rem;border-left:2px solid var(--shell-borde);
+    font-size:.98rem;line-height:1.7;color:var(--shell-medio);max-width:46em}
+  .veredicto b{color:var(--shell-texto);font-variation-settings:"wght" 650,"opsz" 14}
+
+  /* cierre */
+  .cierre{padding:clamp(3rem,9vh,6rem) 0 clamp(4rem,12vh,8rem);border-top:1px solid var(--shell-borde)}
+  .cierre h2{font-family:var(--serif);font-variation-settings:"wght" 500,"opsz" 144;
+    font-size:clamp(1.4rem,3vw,2rem);letter-spacing:-.01em;margin-bottom:1.2rem}
+  .tabla{width:100%;border-collapse:collapse;margin-top:1.8rem;font-size:.92rem}
+  .tabla th,.tabla td{text-align:left;padding:.75rem .8rem;border-bottom:1px solid var(--shell-borde);
+    vertical-align:top}
+  .tabla th{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+    color:var(--shell-medio);font-weight:500}
+  .tabla td:first-child{color:var(--shell-texto);white-space:nowrap}
+  .tabla td{color:var(--shell-medio)}
+
+  @media (max-width:640px){
+    .via-cab{grid-template-columns:1fr;gap:.4rem}
+    .letra{font-size:1.4rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="env">
+
+  <header class="portada">
+    <div class="cinta">
+      <span><b>STEINMETZ SpA</b> · marca de trabajo</span>
+      <span>v0.1 · septiembre 2026</span>
+    </div>
+    <h1>El nombre es el logo. Lo que cambia es <i>el material</i> en que está hecho.</h1>
+    <p class="entrada">Steinmetz significa cantero: el que talla la piedra. Las tres referencias que
+      elegiste —las versales espaciadas, la serifa que se afila, el relieve en piedra— no son tres
+      logos distintos. Son <b>la misma palabra tallada en tres materiales</b>: acero, papel y piedra.</p>
+    <p class="entrada">Cada dirección de abajo es un sistema completo, no un dibujo: trae wordmark,
+      monograma, paleta, tipografía y las cuatro piezas que vas a necesitar esta semana —cabecera de
+      cotización, portada de lámina, avatar y firma de correo.</p>
+    <nav class="indice">
+      <a href="#a">A <span>El filo · papel</span></a>
+      <a href="#b">B <span>La inscripción · piedra</span></a>
+      <a href="#c">C <span>La placa · acero</span></a>
+      <a href="#cierre">Recomendación</a>
+    </nav>
+  </header>
+
+  <!-- ════════ A · EL FILO ════════ -->
+  <section class="via" id="a" style="
+      --fondo:#ffffff; --fondo-2:#fbfbfa; --rotulo:#9a9a9e;
+      --avatar-fondo:#111112; --avatar-tinta:#ffffff;
+      --doc-fondo:#ffffff; --doc-tinta:#111112; --doc-marca:#111112; --doc-suave:#9a9a9e;
+      --doc-borde:rgba(17,17,18,.14); --doc-regla:#111112;
+      --slide-fondo:#ffffff; --slide-marca:#111112; --slide-suave:#9a9a9e;">
+    <div class="via-cab">
+      <div class="letra">A</div>
+      <div>
+        <h2>El filo — la marca en papel</h2>
+        <p class="esencia">La serifa de contraste alto: los trazos gruesos se afilan hasta el pelo.
+          Es la precisión hecha letra, y es la que mejor aguanta un PDF, una impresión y una pantalla
+          sin manejar un solo color. Mové el cursor sobre el nombre: las letras engordan al acercarte.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="lienzo">
+        <div class="firma" id="firma-a" aria-label="Steinmetz"
+             style="font-size:clamp(2.4rem,10.5vw,7.5rem);letter-spacing:-.03em;color:#111112">
+          <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
+        </div>
+      </div>
+      <div class="usos">
+        <div class="uso">
+          <h3>Avatar y favicon</h3>
+          <div class="avatar">S</div>
+        </div>
+        <div class="uso">
+          <h3>Paleta</h3>
+          <div class="tonos">
+            <div class="tono" style="--c:#ffffff"><i></i><b>#FFFFFF</b></div>
+            <div class="tono" style="--c:#111112"><i></i><b>#111112</b></div>
+            <div class="tono" style="--c:#9a9a9e"><i></i><b>#9A9A9E</b></div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Cabecera de cotización</h3>
+          <div class="papel">
+            <div class="nom">Steinmetz</div>
+            <div class="rut">RUT 78.484.226-6 · ian@steinmetz.cl</div>
+            <hr>
+            <div class="tit">COTIZACIÓN N° COT-2026-003</div>
+            <div class="sub">TAAG Genetics · 3 de septiembre de 2026</div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Portada de lámina</h3>
+          <div class="lamina">
+            <div class="marca">Steinmetz</div>
+            <div class="pie">SANTIAGO DE CHILE</div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Firma de correo</h3>
+          <div class="correo">
+            <b>Ian Berndt</b>
+            Steinmetz SpA<br>
+            <span class="m">ian@steinmetz.cl</span> · +56 9 9321 5043
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Tarjeta</h3>
+          <div class="tarjeta">
+            <div class="m">Steinmetz</div>
+            <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl · +56 9 9321 5043</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ficha">
+      <div><b>TIPOGRAFÍA</b><code>Fraunces</code> variable, opsz 144, wght 340 en reposo</div>
+      <div><b>ACOMPAÑA</b><code>IBM Plex Mono</code> para datos, cifras y etiquetas</div>
+      <div><b>ESPACIADO</b>letter-spacing <code>-0.03em</code> en el wordmark</div>
+      <div><b>COLOR</b>Sin acento. El contraste del trazo es el acento</div>
+    </div>
+    <p class="veredicto"><b>Para qué sirve.</b> Es la más versátil de las tres y la que puede cargar
+      todo: cotizaciones, propuestas, el landing y las demos. Al no tener color de acento no se
+      rompe nunca —ni impresa en blanco y negro, ni proyectada en una sala con mala luz.</p>
+  </section>
+
+  <!-- ════════ B · LA INSCRIPCIÓN ════════ -->
+  <section class="via" id="b" style="
+      --fondo:#e6e1d6; --fondo-2:#eae6dc; --rotulo:#8f8878;
+      --avatar-fondo:#262119; --avatar-tinta:#e6e1d6;
+      --doc-fondo:#f2efe8; --doc-tinta:#262119; --doc-marca:#262119; --doc-suave:#8f8878;
+      --doc-borde:rgba(38,33,25,.2); --doc-regla:#a4501f;
+      --slide-fondo:#e6e1d6; --slide-marca:#262119; --slide-suave:#8f8878;">
+    <div class="via-cab">
+      <div class="letra">B</div>
+      <div>
+        <h2>La inscripción — la marca en piedra</h2>
+        <p class="esencia">El nombre no está impreso sobre la superficie: está hundido en ella.
+          Se lee sólo por la luz, y la luz sigue tu cursor. Es la dirección que cuenta lo que
+          significa el nombre sin decirlo, y la única con un color propio: el óxido.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="lienzo" id="piedra" style="
+          background:
+            radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.5), transparent 50%),
+            radial-gradient(130% 110% at 85% 95%, rgba(120,105,80,.16), transparent 55%),
+            #e6e1d6;">
+        <div class="firma" id="firma-b" aria-label="Steinmetz"
+             style="font-size:clamp(2.4rem,10.5vw,7.5rem);letter-spacing:-.015em;
+                    font-variation-settings:'wght' 900,'opsz' 144;color:#cfc8b8">
+          <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
+        </div>
+      </div>
+      <div class="usos">
+        <div class="uso">
+          <h3>Avatar y favicon</h3>
+          <div class="avatar">S</div>
+        </div>
+        <div class="uso">
+          <h3>Paleta</h3>
+          <div class="tonos">
+            <div class="tono" style="--c:#e6e1d6"><i></i><b>#E6E1D6</b></div>
+            <div class="tono" style="--c:#cfc8b8"><i></i><b>#CFC8B8</b></div>
+            <div class="tono" style="--c:#262119"><i></i><b>#262119</b></div>
+            <div class="tono" style="--c:#a4501f"><i></i><b>#A4501F</b></div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Cabecera de cotización</h3>
+          <div class="papel">
+            <div class="nom">Steinmetz</div>
+            <div class="rut">RUT 78.484.226-6 · ian@steinmetz.cl</div>
+            <hr>
+            <div class="tit">COTIZACIÓN N° COT-2026-003</div>
+            <div class="sub">TAAG Genetics · 3 de septiembre de 2026</div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Portada de lámina</h3>
+          <div class="lamina" style="background:
+              radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.5), transparent 50%), #e6e1d6">
+            <div class="marca" style="color:#cfc8b8;
+                 text-shadow:0 1.5px 1px rgba(255,255,255,.85), 0 -1.5px 2px rgba(38,33,25,.45)">Steinmetz</div>
+            <div class="pie">SANTIAGO DE CHILE</div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Firma de correo</h3>
+          <div class="correo">
+            <b>Ian Berndt</b>
+            Steinmetz SpA<br>
+            <span class="m">ian@steinmetz.cl</span> · +56 9 9321 5043
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Tarjeta</h3>
+          <div class="tarjeta">
+            <div class="m">Steinmetz</div>
+            <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl · +56 9 9321 5043</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ficha">
+      <div><b>TIPOGRAFÍA</b><code>Fraunces</code> peso 900, opsz 144</div>
+      <div><b>EL RELIEVE</b>sombra doble: clara abajo, oscura arriba adentro</div>
+      <div><b>LA LUZ</b>una sola fuente; en la web sigue al puntero</div>
+      <div><b>ACENTO</b><code>#A4501F</code> óxido, sólo para subrayar</div>
+    </div>
+    <p class="veredicto"><b>Para qué sirve.</b> Es la de mayor carácter y la que mejor funciona en
+      portadas, propuestas y el landing. Su límite es práctico: el relieve depende de la luz, así que
+      no sobrevive a blanco y negro ni a un fondo cualquiera. <b>Conviene tenerla como registro de
+      portada, no como marca de uso diario.</b></p>
+  </section>
+
+  <!-- ════════ C · LA PLACA ════════ -->
+  <section class="via" id="c" style="
+      --fondo:#0a0a0a; --fondo-2:#101010; --rotulo:#6e6e6e;
+      --avatar-fondo:#f5f5f3; --avatar-tinta:#0a0a0a;
+      --doc-fondo:#0a0a0a; --doc-tinta:#f5f5f3; --doc-marca:#f5f5f3; --doc-suave:#6e6e6e;
+      --doc-borde:rgba(255,255,255,.16); --doc-regla:#f5f5f3;
+      --slide-fondo:#0a0a0a; --slide-marca:#f5f5f3; --slide-suave:#6e6e6e;">
+    <div class="via-cab">
+      <div class="letra">C</div>
+      <div>
+        <h2>La placa — la marca en acero</h2>
+        <p class="esencia">Versales espaciadas sobre negro, sin serifas y sin color: la marca
+          troquelada en una placa. Es la más severa y la más técnica de las tres, y la única que no se
+          mueve — el acero no responde al tacto. Ese silencio es parte del argumento.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="lienzo">
+        <div style="font-family:var(--mono);font-weight:500;color:#f5f5f3;
+                    font-size:clamp(.8rem,3.4vw,2.2rem);letter-spacing:.42em;
+                    text-indent:.42em;white-space:nowrap">STEINMETZ</div>
+      </div>
+      <div class="usos">
+        <div class="uso">
+          <h3>Avatar y favicon</h3>
+          <div class="avatar mono">S</div>
+        </div>
+        <div class="uso">
+          <h3>Paleta</h3>
+          <div class="tonos">
+            <div class="tono" style="--c:#0a0a0a"><i></i><b>#0A0A0A</b></div>
+            <div class="tono" style="--c:#f5f5f3"><i></i><b>#F5F5F3</b></div>
+            <div class="tono" style="--c:#6e6e6e"><i></i><b>#6E6E6E</b></div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Cabecera de cotización</h3>
+          <div class="papel">
+            <div class="nom mono" style="letter-spacing:.3em">STEINMETZ</div>
+            <div class="rut">RUT 78.484.226-6 · ian@steinmetz.cl</div>
+            <hr>
+            <div class="tit">COTIZACIÓN N° COT-2026-003</div>
+            <div class="sub">TAAG Genetics · 3 de septiembre de 2026</div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Portada de lámina</h3>
+          <div class="lamina">
+            <div class="marca mono">STEINMETZ</div>
+            <div class="pie">SANTIAGO DE CHILE</div>
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Firma de correo</h3>
+          <div class="correo">
+            <b>IAN BERNDT</b>
+            Steinmetz SpA<br>
+            <span class="m">ian@steinmetz.cl</span> · +56 9 9321 5043
+          </div>
+        </div>
+        <div class="uso">
+          <h3>Tarjeta</h3>
+          <div class="tarjeta">
+            <div class="m mono">STEINMETZ</div>
+            <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl · +56 9 9321 5043</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ficha">
+      <div><b>TIPOGRAFÍA</b><code>IBM Plex Mono</code> 500, versales</div>
+      <div><b>ESPACIADO</b><code>letter-spacing .42em</code> — el aire es la mitad del logo</div>
+      <div><b>COLOR</b>Sin acento, nunca. Blanco sobre negro</div>
+      <div><b>MOVIMIENTO</b>Ninguno, a propósito</div>
+    </div>
+    <p class="veredicto"><b>Para qué sirve.</b> Es la que dice «infraestructura» y la que mejor
+      calza con demos de producto, terminales y pantallas oscuras. Su límite: en documentos impresos
+      el fondo negro se come la tinta, y sola es difícil de distinguir de cualquier otra empresa
+      técnica. <b>Funciona como modo oscuro del sistema, no como su cara principal.</b></p>
+  </section>
+
+  <!-- ════════ CIERRE ════════ -->
+  <section class="cierre" id="cierre">
+    <h2>Lo que recomiendo para estas semanas</h2>
+    <p class="entrada"><b>Adoptá A como la marca, y quedate con B y C como registros.</b> El filo
+      resuelve todo lo que necesitás firmar esta semana, no depende de la luz ni del fondo, e imprime
+      igual de bien en negro que en color. La inscripción es demasiado buena para perderla, pero es
+      un registro de portada: úsala donde haya una superficie grande y una sola imagen que dejar.
+      La placa es el modo oscuro, para demos y pantallas.</p>
+    <p class="entrada">Las tres comparten la misma tipografía y el mismo nombre, así que convivir no
+      las contradice: es la misma marca sobre distintos materiales. Eso es exactamente lo que hace
+      un cantero.</p>
+    <table class="tabla">
+      <thead><tr><th>Pieza</th><th>Qué usar</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr><td>Cotizaciones y propuestas</td><td>A · El filo</td><td>Imprime y se lee en cualquier parte; ya calza con el formato actual</td></tr>
+        <tr><td>Landing</td><td>A, con B de portada</td><td>El relieve funciona en la primera pantalla; el resto necesita legibilidad</td></tr>
+        <tr><td>Demos y producto</td><td>C · La placa</td><td>Pantallas oscuras, registro técnico</td></tr>
+        <tr><td>Láminas y decks</td><td>B de portada, A adentro</td><td>Una imagen fuerte al abrir, claridad después</td></tr>
+        <tr><td>Avatar, favicon, WhatsApp</td><td>S en Fraunces 800, blanco sobre <code>#111112</code></td><td>Legible a 32 px, mismo gesto en todos lados</td></tr>
+        <tr><td>Correo y firma</td><td>A</td><td>Se ve igual en cliente claro y oscuro</td></tr>
+      </tbody>
+    </table>
+    <p class="veredicto" style="margin-top:2rem">Esto es una <b>marca de trabajo</b>: sirve para
+      operar ahora y aguantar unas semanas. Lo que falta para que sea una identidad terminada es una
+      tipografía de licencia propia en lugar de Google Fonts, el wordmark trazado como vector —hoy
+      es texto vivo— y una decisión sobre si el óxido queda como color de la casa.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducido) return;
+
+  /* A · el filo: las letras engordan con la cercanía del puntero */
+  var letras = [].slice.call(document.querySelectorAll("#firma-a span"));
+  var peso = letras.map(function(){ return 340; });
+  var mx = -9999, my = -9999;
+  addEventListener("pointermove", function(e){ mx = e.clientX; my = e.clientY; }, {passive:true});
+  (function cuadro(){
+    letras.forEach(function(el,i){
+      var r = el.getBoundingClientRect();
+      var d = Math.hypot(mx-(r.left+r.width/2), my-(r.top+r.height/2));
+      var cerca = Math.max(0, 1 - d/300);
+      var destino = 340 + cerca*cerca*560;
+      peso[i] += (destino-peso[i])*.12;
+      el.style.fontVariationSettings = '"wght" '+peso[i].toFixed(1)+', "opsz" 144';
+    });
+    requestAnimationFrame(cuadro);
+  })();
+
+  /* B · la inscripción: la luz rasante sigue al puntero */
+  var piedra = document.getElementById("piedra");
+  var firmaB = document.getElementById("firma-b");
+  var lx = -1.5, ly = -1.5, tx = lx, ty = ly;
+  piedra.addEventListener("pointermove", function(e){
+    var r = piedra.getBoundingClientRect();
+    tx = -((e.clientX-r.left)/r.width - .5)*2*3.2;
+    ty = -((e.clientY-r.top)/r.height - .5)*2*3.2;
+  }, {passive:true});
+  piedra.addEventListener("pointerleave", function(){ tx = -1.5; ty = -1.5; });
+  (function luz(){
+    lx += (tx-lx)*.06; ly += (ty-ly)*.06;
+    firmaB.style.textShadow =
+      (-lx).toFixed(2)+"px "+(-ly).toFixed(2)+"px 1px rgba(255,255,255,.85), "+
+      lx.toFixed(2)+"px "+ly.toFixed(2)+"px 2px rgba(38,33,25,.45)";
+    requestAnimationFrame(luz);
+  })();
+})();
+</script>
+</body>
+</html>
