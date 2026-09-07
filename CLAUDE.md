@@ -1,129 +1,47 @@
-# Steinmetz — sitio público
+# Steinmetz — el sitio
 
-Landing de **Steinmetz SpA** (consultoría en IA, Santiago de Chile), servido en
-GitHub Pages sobre **`steinmetz.cl`** (desde 2026-08-07; antes `steinmetz.it.com`,
-que ya no sirve el sitio). Push a `main` = deploy. El DNS del dominio vive en
-Azure (`steinmetz-rg`); su documentación en `dominio/dns.md` (antes
-`~/Desktop/admin/steinmetz/`).
+`steinmetz.cl`, servido por GitHub Pages. **Push a `main` = despliegue.**
+El DNS vive en Azure; su documentación en `Admin/dominio/dns.md`.
 
-El sitio anterior (brief con lockscreen + propuesta) vive en el historial de
-git y en `old/` (local, gitignoreado). **Este landing lo reemplazó por completo
-el 2026-08-07.** No confundir documentación vieja con el sitio actual.
-
-## Identidad
-
-- **Esencia:** *la marca de tiza*. Precisión contra volumen. Historia
-  Steinmetz/Ford: $1 por la marca, $9.999 por saber dónde.
-- **Hero:** "Tu visión vale $9.999. / La ejecución vale $1. / Sin el $1, no
-  vale nada."
-- **Visual:** fotografía industrial cinematográfica generada con IA (Gemini/Veo).
-  Registro Anduril/Palantir. Sin caras nunca. El sitio parece industria, no
-  software.
-- **Antagonista:** la consultora grande. Se nombra la conducta, nunca la firma.
-- **Clientes:** nunca se nombran ("una de las grandes cerveceras de Chile").
-
-## Sistema visual — reglas estrictas
-
-- Blanco sobre `#0a0a0a`. **Sin color de acento**: el único color sale de las
-  fotos (óxido, ocre).
-- Inter (todo) + IBM Plex Mono (cifras, etiquetas, datos). Las cifras se leen
-  como factura, no como titular.
-- **Un solo momento animado**: el hero (canvas scrubbing, 80 frames WebP atados
-  al scroll). El resto: fades de opacidad ≤500ms. Sin parallax, sin translate,
-  sin spring. GSAP ScrollTrigger fue rechazado por el usuario en el pasado —
-  no reintentar.
-- Grano de película global (`body::after`), hairlines `rgba(255,255,255,0.14)`.
-
-## Estructura
+## Qué hay acá
 
 ```
-index.html / style.css / main.js   el landing (estático, sin build)
-portal/index.html                  placeholder del portal de clientes
-assets/web/                        SERVIDO: AVIF/WebP responsive, frames, video
-assets/img/, assets/video/         CRUDOS (gitignoreados): PNG Gemini, MP4 Veo
-assets/tools/                      pipeline: limpiar-watermark{,-video}.py,
-                                   exportar-web.py
-assets/prompts/biblioteca-visual.md  los prompts de toda la identidad visual
-docs/                              planes y specs
-lab/                               heros de una pantalla; finalistas 7 y 24
-old/                               sitio anterior (local, no comiteado)
-
-empresa/                           LOCAL, gitignoreada: doc legal y tributaria
-                                   de Steinmetz SpA (era ~/Desktop/Steinmetz SpA)
-dominio/                           LOCAL, gitignoreada: DNS, Workspace, dominio
-                                   (era ~/Desktop/admin/steinmetz)
-landing-v1/                        LOCAL, gitignoreada: el landing tallado
-                                   (era ~/Desktop/LandingV1)
+index.html    la raíz: el wordmark, qué hace la empresa y el correo. Nada más.
+marca/        el manual de marca → steinmetz.cl/marca
+  assets/     el logo trazado (SVG y PNG) y las piezas para redes y correo
+  direcciones/  las tres direcciones exploradas antes de elegir
+CNAME         steinmetz.cl. Si falta, el dominio cae.
 ```
 
-**Las tres carpetas LOCAL nunca se comitean** (2026-09-03: el escritorio se
-juntó acá). `empresa/` y `dominio/` llevan además su propio `.gitignore` con
-`*`, para que sigan fuera aunque cambie el de la raíz. Nada de eso se publica.
+## El estado, en tres frases
 
-## Flujo de assets
+El **landing v1** —la «marca de tiza», con fotografía industrial generada por
+IA y un hero atado al scroll— **se archivó el 2026-09-07** junto con el resto de
+la identidad anterior, incluidas las 31 exploraciones del lab. Todo está en
+`Archivo/identidad-v1/`, no se borró.
 
-1. Generar en Gemini/Veo con los prompts de `biblioteca-visual.md` (respetar el
-   bloque "ADN de estilo").
-2. `python3 assets/tools/limpiar-watermark.py` (imágenes, mapa adentro) o
-   `limpiar-watermark-video.py in.mp4 out.mp4` (video).
-3. Los frames del hero salen de **masters upscaled con Real-ESRGAN x4plus**
-   (el video de Veo es 720p): 80 PNG de 2560px en
-   `assets/video/master-frames-2560/` (gitignoreados). Si cambia el video,
-   regenerarlos: extraer 80 frames nativos → `realesrgan-ncnn-vulkan -n
-   realesrgan-x4plus -s 4` → downscale a 2560.
-4. `python3 assets/tools/exportar-web.py` → regenera `assets/web/` (usa los
-   masters si existen; el script tiene ajustes de grade por imagen en AJUSTES).
-5. Los frames son `f000..f079`, 0-indexados (`-start_number 0` en ffmpeg).
+Mientras tanto la raíz sirve **una presencia mínima**: el wordmark, la línea de
+qué hace la empresa y el correo. No es un landing y no pretende serlo — el
+mensaje de la marca todavía no está definido, y el documento no promete lo que
+no está decidido.
 
-## Presupuestos
+Lo que sí está definido es la **identidad**, y vive en `marca/`.
 
-- LCP: solo poster + primer frame (< 300 KB). Los 80 frames cargan en streaming
-  con prioridad (keyframes primero) — desktop ~4-5 MB en total, móvil ~1 MB.
-- No comitear PNG/MP4 crudos. No servir nada fuera de `assets/web/`.
+## Reglas
 
-## Contacto y dominio
+- **La marca manda.** Cualquier página nueva toma su sistema del manual: el
+  nombre en Fraunces, Instrument Sans para leer, IBM Plex Mono para datos,
+  blanco y negro **sin color de acento**, canto vivo.
+- **El logo no es texto.** Se usa el SVG trazado de `marca/assets/`, para que no
+  dependa de que cargue la fuente.
+- **Movimiento:** se reproduce solo —carga, puntero, loop— y el scroll nunca es
+  el control. Esa regla salió de la autopsia del landing v1, que Ian rechazó
+  justamente por eso.
+- Español en todo: contenido, código, comentarios y commits.
 
-- Correo corporativo: **`ian@steinmetz.cl`** (operativo, Google Workspace).
-  Es el CTA principal (mailto); WhatsApp con mensaje pre-cargado es la
-  alternativa.
-- `CNAME` (**steinmetz.cl**) debe estar SIEMPRE en la raíz o el dominio cae.
+## Cuando se construya el landing de verdad
 
-## Contexto de empresa
-
-La carpeta `empresa/` (antes `~/Desktop/Steinmetz SpA/`) tiene la
-documentación legal/tributaria de la sociedad (RUT 78.484.226-6). El relato del estado vive en sus dos
-handoffs y su README. El portal de clientes es un proyecto aparte, aún sin
-construir — el placeholder solo deja la puerta.
-
-## Idioma
-
-Contenido del sitio: español. Comunicación con Ian: español. "vamos" = aprobar
-e implementar directo.
-
-## Revisión de la regla de movimiento — 2026-08-13
-
-La sección "Sistema visual" de más arriba dice *"un solo momento animado · sin
-parallax, sin translate, sin spring · GSAP ScrollTrigger fue rechazado — no
-reintentar"*. Ese texto refleja el estado del sitio en la raíz y **sigue siendo
-válido para `index.html`**. Para `lab/6` en adelante, la regla vigente es la de
-`docs/2026-08-13-spec-landing-profundidad.md`:
-
-- **Lo prohibido es atar narrativa a la posición del scroll**, no animar. Esa
-  prohibición se mantiene con toda su fuerza: fue el error del landing muerto.
-- **GSAP como orquestador de la timeline de carga: permitido.** GSAP
-  ScrollTrigger controlando el scroll: no.
-- **Lenis: permitido.** Suaviza la rueda, no controla la posición.
-- Los disparadores válidos son tres: la carga, el puntero y el loop ambiental.
-  La entrada en viewport se admite sólo para opacidad.
-- La regla "un solo momento animado" queda superada, para `lab/6`, por el
-  presupuesto de capas de §3 y §4 de la spec.
-- Sigue vigente sin cambios: **sin color de acento**, blanco sobre `#0a0a0a`,
-  Inter + IBM Plex Mono, sin caras, grano global.
-
-**WebGL: OGL, no three.js.** three.js pesa 385 KB gzip y de él sólo se usaba la
-plomería de buffers y uniforms. OGL hace lo mismo en 38 KB. Total de `lab/6`:
-119 KB gzip contra un tope de 250. Ver `lab/6/VERIFICACION.md`.
-
-**Corrección de dato:** el copy del hero que cita este archivo más arriba es de
-una versión anterior. El del sitio en vivo es: *"Hacer la marca cuesta $1. Saber
-dónde hacerla: $9.999. Steinmetz es saber dónde."*
+Antes hace falta decidir el mensaje. Lo que ya está resuelto y no hay que
+rediscutir: la identidad visual, el logo, la tipografía y el tono de escritura
+—directo, específico, sin adjetivos que no se puedan comprobar—, todo
+documentado en `steinmetz.cl/marca`.
