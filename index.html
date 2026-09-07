@@ -12,6 +12,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+/* La portada no entra hasta que la tipografía esté cargada: si no, el
+   titular se desplaza solo cuando Fraunces reemplaza a Georgia, justo
+   encima de su animación de entrada, y ese salto es lo primero que se ve
+   del sitio. Si no hay JS la clase nunca se pone y todo entra igual. */
+(function(){
+  var r = document.documentElement, listo = function(){ r.classList.remove("sin-letras"); };
+  r.classList.add("sin-letras");
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(listo);
+  setTimeout(listo, 1400);
+})();
+</script>
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    STEINMETZ — el vidrio
@@ -58,6 +70,16 @@
      `base + puntero*k`, y en cierta posición los dos se cancelaban: el
      nombre se quedaba sin tallar. */
   --ux:-.6; --uy:-.8;
+
+  /* El movimiento tiene dos curvas y cuatro tiempos, y nada más.
+     `--peso` arranca lento: es masa, y es lo único que se le pide al
+     vidrio. `--ui` responde de inmediato: es acuse de recibo. */
+  --peso:cubic-bezier(.5,.05,.15,1);
+  --ui:cubic-bezier(.32,.72,0,1);
+  --t-toque:.12s;   /* el control confirma antes que el objeto obedezca */
+  --t-corto:.22s;   /* color, opacidad, borde */
+  --t-medio:.34s;   /* desplazamientos chicos */
+  --t-capa:.56s;    /* vidrio moviéndose en el espacio */
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
@@ -116,13 +138,13 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   font-family:var(--sans);font-size:.94rem;font-weight:500;letter-spacing:-.005em;
   text-decoration:none;background:var(--tinta);color:var(--papel);
   border:1px solid var(--tinta);position:relative;overflow:hidden;
-  transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s}
+  transition:transform var(--t-medio) var(--ui),box-shadow var(--t-medio) var(--ui)}
 .bt .flecha{width:26px;height:26px;border-radius:50%;flex:none;
   background:var(--papel);color:var(--tinta);display:grid;place-items:center;
-  transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
 .bt .flecha svg{width:11px;height:11px}
 .bt:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px var(--proyectada)}
-.bt:hover .flecha{transform:translateX(3px)}
+.bt:hover .flecha{transform:translateX(4px);background:#fff}
 .bt:active{transform:translateY(0)}
 .bt.linea{background:var(--vidrio);color:var(--tinta);border-color:var(--linea-fuerte);
   padding-right:1.35em;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
@@ -136,13 +158,13 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   background:color-mix(in srgb,var(--papel) 66%,transparent);
   border-bottom:1px solid transparent;
   -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
-  transition:border-color .35s,background .35s}
+  transition:border-color var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
 #marco.posado{border-bottom-color:var(--linea);
   background:color-mix(in srgb,var(--papel) 84%,transparent)}
 #marco .nav{display:none;gap:1.7rem;font-size:.92rem;color:var(--medio)}
-#marco .nav a{text-decoration:none;position:relative;padding-bottom:2px;transition:color .2s}
+#marco .nav a{text-decoration:none;position:relative;padding-bottom:2px;transition:color var(--t-corto) var(--ui)}
 #marco .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;
-  height:1px;background:var(--tinta);transition:right .3s cubic-bezier(.2,.8,.2,1)}
+  height:1px;background:var(--tinta);transition:right var(--t-medio) var(--ui)}
 #marco .nav a:hover{color:var(--tinta)}
 #marco .nav a:hover::after{right:0}
 #marco .centro-marco{grid-column:2;display:flex;justify-content:center}
@@ -248,8 +270,9 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   font-family:var(--mono);font-size:.64rem;letter-spacing:.17em;color:var(--suave);
   text-transform:uppercase}
 
+.sin-letras .entra{animation-play-state:paused}
 .entra{opacity:0;transform:translateY(14px);
-  animation:entrar 1.1s cubic-bezier(.16,1,.3,1) forwards}
+  animation:entrar .62s var(--peso) forwards}
 @keyframes entrar{to{opacity:1;transform:none}}
 
 /* ═══ LA PILA ═══ tres placas de vidrio en el espacio ═══════════════
@@ -268,16 +291,19 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   background:var(--vidrio);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   padding:.72rem 1.2rem;display:flex;align-items:center;justify-content:space-between;
   gap:1rem;min-height:46px;width:100%;
-  transition:background .3s,border-color .3s,transform .3s cubic-bezier(.2,.8,.2,1),
-    box-shadow .3s,color .3s}
+  transition:background var(--t-medio) var(--ui),border-color var(--t-medio) var(--ui),
+    transform var(--t-medio) var(--ui),box-shadow var(--t-medio) var(--ui),
+    color var(--t-medio) var(--ui)}
 .mando .nombre{font-size:.98rem;font-weight:500}
 .mando .mas{width:22px;height:22px;border-radius:50%;flex:none;display:grid;
   place-items:center;background:var(--linea);color:var(--tinta);
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),background .3s,color .3s}
+  transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
+    color var(--t-medio) var(--ui)}
 .mando .mas svg{width:9px;height:9px}
 @media(hover:hover){.mando:hover{transform:translateX(4px);border-color:var(--linea-fuerte)}}
 .mando[aria-selected="true"]{background:var(--tinta);color:var(--papel);
-  border-color:var(--tinta);box-shadow:0 12px 26px -14px var(--proyectada)}
+  border-color:var(--tinta);box-shadow:0 12px 26px -14px var(--proyectada);
+  transition-duration:var(--t-toque)}
 .mando[aria-selected="true"] .mas{background:var(--papel);color:var(--tinta)}
 .mando:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
 /* el texto del pilar activo, en su tarjeta, como en la referencia */
@@ -285,8 +311,9 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   padding:1.1rem 1.25rem;color:var(--medio);font-size:.95rem;line-height:1.6;
   margin-top:.2rem}
-.detalle.gira{animation:asomar .45s cubic-bezier(.16,1,.3,1)}
-@keyframes asomar{from{opacity:0;transform:translateY(8px)}}
+.detalle{transition:height var(--t-medio) var(--peso)}
+.detalle.gira{animation:asomar .42s var(--peso) .12s backwards}
+@keyframes asomar{from{opacity:0;transform:translateY(10px)}}
 
 .escena-caja{order:1;position:relative;height:clamp(19rem,58vw,33rem);
   perspective:1300px;perspective-origin:50% 50%;touch-action:pan-y}
@@ -298,12 +325,14 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   transform-style:preserve-3d;
   transform:rotateX(calc(57deg + var(--ty,0)*5deg)) rotateZ(calc(-40deg + var(--tx,0)*6deg))}
 .orbita{position:absolute;inset:0;transform-style:preserve-3d;
-  animation:flotar 9s ease-in-out infinite;animation-delay:calc(var(--i) * -3s)}
-@keyframes flotar{0%,100%{transform:translateZ(0)}50%{transform:translateZ(10px)}}
+  animation:flotar calc(6.5s + var(--i) * .9s) ease-in-out infinite;
+  animation-delay:calc(var(--i) * -2.4s)}
+@keyframes flotar{0%,100%{transform:translateZ(-2px)}50%{transform:translateZ(20px)}}
 
 .placa{position:absolute;inset:0;transform-style:preserve-3d;
   transform:translate3d(var(--dx,0px),var(--dy,0px),calc(var(--z,0) * 1px));
-  transition:transform .65s cubic-bezier(.22,1,.36,1),opacity .4s;cursor:pointer}
+  transition:transform var(--t-capa) var(--peso),
+    opacity calc(var(--t-capa) * .7) var(--peso);cursor:pointer}
 .placa .lado{position:absolute;left:50%;top:50%}
 .placa .cara{width:var(--w);height:var(--h);
   margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
@@ -347,9 +376,10 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 
 .placa{opacity:0}
 .taller.montada .placa{opacity:var(--op,1);
-  animation:asentar 1s cubic-bezier(.16,1,.3,1) backwards;
-  animation-delay:calc(var(--i) * .14s)}
-@keyframes asentar{from{opacity:0;transform:translate3d(0,0,-260px)}}
+  animation:asentar .68s var(--peso) backwards, encender .34s linear backwards;
+  animation-delay:calc((2 - var(--i)) * .1s)}
+@keyframes asentar{from{transform:translate3d(0,0,-460px)}}
+@keyframes encender{from{opacity:0}}
 
 /* ═══ ELEGÍ TU CASO ═══ */
 .caso{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
@@ -360,20 +390,22 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   text-align:left;font:inherit;color:var(--tinta);cursor:pointer;
   padding:1.05rem clamp(1.1rem,3vw,1.5rem);min-height:56px;display:flex;gap:.85rem;
   align-items:flex-start;position:relative;
-  transition:background .2s,color .2s,transform .3s cubic-bezier(.2,.8,.2,1)}
+  transition:background var(--t-medio) var(--ui),color var(--t-medio) var(--ui),
+    transform var(--t-medio) var(--ui)}
 .opciones .op:last-child{border-bottom:0}
 @media(hover:hover){.op:hover{background:var(--panel);transform:translateX(4px)}}
-.op[aria-selected="true"]{background:var(--tinta);color:var(--papel);transform:translateX(6px);z-index:1}
+.op[aria-selected="true"]{background:var(--tinta);color:var(--papel);transform:translateX(6px);
+  z-index:1;transition-duration:var(--t-toque)}
 .op .marca{font-family:var(--mono);font-size:.72rem;opacity:.55;padding-top:.15em;
-  transition:opacity .2s}
+  transition:opacity var(--t-corto) var(--ui)}
 .op[aria-selected="true"] .marca{opacity:1}
 .op .txt{font-size:.98rem;line-height:1.45}
 .op:focus-visible{outline:2px solid var(--tinta);outline-offset:-3px}
 .respuesta{background:var(--panel);padding:clamp(1.4rem,3.5vw,2rem);display:flex;
-  flex-direction:column;gap:1.1rem;perspective:900px}
-.respuesta.gira>*{animation:levantar .5s cubic-bezier(.16,1,.3,1) backwards}
-.respuesta.gira>*:nth-child(2){animation-delay:.06s}
-@keyframes levantar{from{opacity:0;transform:translateY(14px) rotateX(-7deg)}}
+  flex-direction:column;gap:1.1rem}
+.respuesta.gira>*{animation:levantar .34s var(--peso) backwards}
+.respuesta.gira>*:nth-child(2){animation-delay:.1s}
+@keyframes levantar{from{opacity:.55;transform:translateY(9px)}}
 .respuesta .que{font-size:1.02rem;line-height:1.55;color:var(--tinta)}
 .datos{display:grid;grid-template-columns:1fr;gap:1px;
   background:var(--linea);border:1px solid var(--linea);border-radius:12px;overflow:hidden}
@@ -390,17 +422,14 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .riel{position:relative;margin-top:clamp(2.4rem,6vh,3.5rem)}
 .riel::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;
   background:var(--linea)}
-.riel::after{content:"";position:absolute;left:0;top:0;height:1px;width:22%;
-  background:linear-gradient(90deg,transparent,var(--tinta),transparent);
-  animation:correr 7s linear infinite}
-@keyframes correr{from{transform:translateX(-100%)}to{transform:translateX(460%)}}
 .semanas{display:grid;gap:1px;background:var(--linea)}
 @media(min-width:56rem){.semanas{grid-template-columns:repeat(3,1fr)}}
 .semana{background:var(--papel);padding:clamp(1.5rem,3vw,2.2rem);position:relative;
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+  transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
+    box-shadow var(--t-medio) var(--ui)}
 @media(hover:hover){
-  .semana:hover{transform:translateY(-6px);z-index:1;
-    box-shadow:0 22px 40px -26px var(--proyectada)}
+  .semana:hover{transform:translateY(-2px);z-index:1;background:var(--panel);
+    box-shadow:inset 0 1px 0 var(--filo-luz),0 10px 24px -18px var(--proyectada)}
 }
 .semana .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
   color:var(--suave);display:block}
@@ -414,9 +443,10 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .lista{list-style:none;display:grid;gap:1px;background:var(--linea);
   border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
 .lista li{background:var(--papel);padding:1.05rem 0;display:grid;gap:.15rem .9rem;
-  transition:padding-left .3s cubic-bezier(.2,.8,.2,1)}
+}
 @media(min-width:44rem){.lista li{grid-template-columns:11rem minmax(0,1fr)}}
-@media(hover:hover){.lista li:hover{padding-left:.7rem}}
+.lista .k,.lista .v{transition:transform var(--t-medio) var(--ui)}
+@media(hover:hover){.lista li:hover .k,.lista li:hover .v{transform:translateX(.7rem)}}
 .lista .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--suave);padding-top:.25em}
 .lista .v{color:var(--medio);font-size:.96rem;line-height:1.6}
@@ -441,7 +471,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .obras{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
   border-radius:18px;overflow:hidden;margin-top:clamp(2.4rem,6vh,3.5rem)}
 @media(min-width:56rem){.obras{grid-template-columns:repeat(2,1fr)}}
-.obra{background:var(--papel);padding:clamp(1.6rem,3vw,2.2rem);transition:background .3s}
+.obra{background:var(--papel);padding:clamp(1.6rem,3vw,2.2rem);transition:background var(--t-corto) var(--ui)}
 @media(hover:hover){.obra:hover{background:var(--panel)}}
 .obra .quien{font-family:var(--serif);font-optical-sizing:auto;
   font-variation-settings:"opsz" 60,"wght" 500;font-size:1.3rem;line-height:1.22;
@@ -463,9 +493,10 @@ footer a:hover{color:var(--tinta)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
-    transition-duration:.001ms!important}
+    animation-delay:0s!important;
+    transition-duration:.001ms!important;transition-delay:0s!important}
   .entra{opacity:1;transform:none}
-  .placa{opacity:1}
+  .placa{opacity:var(--op,1)}
 }
 </style>
 </head>
@@ -545,17 +576,17 @@ footer a:hover{color:var(--tinta)}
   <div class="env">
     <div class="dicho">
       <h1 class="entra">Sistemas de IA<br>hechos para tu operación.</h1>
-      <p class="bajada entra" style="animation-delay:.12s">
+      <p class="bajada entra" style="animation-delay:.09s">
         No instalamos software: construimos el que le falta a tu empresa.
         En producción en tres semanas, dentro de tu red.
       </p>
-      <div class="acciones entra" style="animation-delay:.24s">
+      <div class="acciones entra" style="animation-delay:.18s">
         <a class="bt" href="#hablemos">Hablemos
           <span class="flecha"><svg aria-hidden="true"><use href="#flecha"/></svg></span></a>
         <a class="bt linea" href="#caso">Ver qué construiríamos</a>
       </div>
     </div>
-    <div class="franja entra" style="animation-delay:.36s">
+    <div class="franja entra" style="animation-delay:.27s">
       <span>A medida</span><span>En tres semanas</span><span>Dentro de tu perímetro</span>
     </div>
   </div>
@@ -768,7 +799,7 @@ var raiz = document.documentElement;
    si no lo hay, hace un vaivén lento. Nunca la manda el scroll.
    ════════════════════════════════════════════════════════════════════ */
 var destino = {x:0, y:0}, actual = {x:0, y:0}, escrito = {x:9, y:9};
-var hayPuntero = false, t0 = performance.now();
+var hayPuntero = false, t0 = performance.now(), previo = t0;
 
 addEventListener("pointermove", function(e){
   if(e.pointerType === "touch") return;
@@ -799,13 +830,20 @@ seguirCaja(document.querySelector(".perimetro"), document.querySelector(".pila-s
 
 if(!quieto){
   (function bucle(ahora){
-    if(!hayPuntero){                       /* vaivén ambiente, 24 s la vuelta */
-      var f = (ahora - t0) / 24000 * Math.PI * 2;
-      destino.x = Math.sin(f) * .8;
-      destino.y = Math.sin(f * .63 + 1.1) * .6;
+    /* el paso va normalizado por tiempo: con un factor fijo por fotograma
+       el sitio se sentía el doble de rápido en una pantalla de 120 Hz */
+    var dt = Math.min(64, ahora - previo); previo = ahora;
+    var kLuz = 1 - Math.pow(1 - .12, dt / 16.667);   /* 90% en 300 ms */
+    var kInc = 1 - Math.pow(1 - .18, dt / 16.667);   /* 90% en 193 ms */
+
+    if(!hayPuntero){       /* deriva ambiente: 13 s la vuelta, con un
+       armónico chico encima para que no se lea como un péndulo */
+      var f = (ahora - t0) / 13000 * Math.PI * 2;
+      destino.x = Math.sin(f) * .82 + Math.sin(f * 2.7 + .4) * .12;
+      destino.y = Math.sin(f * .61 + 1.1) * .64 + Math.sin(f * 3.1) * .09;
     }
-    actual.x += (destino.x - actual.x) * .06;   /* el vidrio pesa: la luz llega tarde */
-    actual.y += (destino.y - actual.y) * .06;
+    actual.x += (destino.x - actual.x) * kLuz;   /* la luz pesa y llega tarde */
+    actual.y += (destino.y - actual.y) * kLuz;
     if(Math.abs(actual.x - escrito.x) > .0015 || Math.abs(actual.y - escrito.y) > .0015){
       escrito.x = actual.x; escrito.y = actual.y;
       raiz.style.setProperty("--px", actual.x.toFixed(3));
@@ -826,8 +864,8 @@ if(!quieto){
     }
     for(var i = 0; i < escenas.length; i++){
       var e = escenas[i];
-      e.ax += (e.dx - e.ax) * .085;
-      e.ay += (e.dy - e.ay) * .085;
+      e.ax += (e.dx - e.ax) * kInc;   /* la inclinación no: va pegada al dedo */
+      e.ay += (e.dy - e.ay) * kInc;
       if(Math.abs(e.ax - e.ex) > .0015 || Math.abs(e.ay - e.ey) > .0015){
         e.ex = e.ax; e.ey = e.ay;
         e.blanco.style.setProperty("--tx", e.ax.toFixed(3));
@@ -875,11 +913,26 @@ if(taller){
       l.style.setProperty("--dx", activa ? "-20px" : "0px");
       l.style.setProperty("--dy", activa ? "-20px" : "0px");
       l.style.setProperty("--op", activa ? 1 : .7);
-      /* la activa arranca primero y las otras la siguen: la pila se abre
-         en vez de moverse en bloque */
-      l.style.transitionDelay = activa ? "0ms" : (70 + Math.abs(i - n) * 45) + "ms";
+      /* la pila se abre primero; la activa sube 90 ms después, al hueco ya
+         hecho. Al revés —que era como estaba— las dos placas se cruzaban
+         coplanares y eso es lo que se veía como un error de armado. */
+      l.style.transitionDelay = activa ? "90ms" : (Math.abs(i - n) - 1) * 25 + "ms";
     });
+    /* el texto cambia de largo y la caja saltaba de golpe, con el texto
+       invisible: un salto de layout que no pertenecía a ninguna animación.
+       Se mide antes y después y se interpola el alto. */
+    var alto0 = detalle.getBoundingClientRect().height;
+    detalle.style.height = "auto";
     detalle.textContent = PILARES[n];
+    var alto1 = detalle.getBoundingClientRect().height;
+    if(quieto || !alto0){
+      detalle.style.height = "";
+    }else{
+      detalle.style.height = alto0 + "px";
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ detalle.style.height = alto1 + "px"; });
+      });
+    }
     if(!quieto){
       detalle.classList.remove("gira");
       void detalle.offsetWidth;             /* reinicia la animación */
@@ -908,6 +961,12 @@ if(taller){
   });
   placas.forEach(function(l, i){
     l.addEventListener("click", function(){ acomodar(i); mandos[i].focus(); });
+  });
+
+  /* cuando termina de crecer, el alto vuelve a ser automático: si no,
+     quedaría clavado en píxeles y se rompería al cambiar de tamaño */
+  detalle.addEventListener("transitionend", function(e){
+    if(e.propertyName === "height") detalle.style.height = "";
   });
 
   acomodar(0);
