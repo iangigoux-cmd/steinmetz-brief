@@ -20,6 +20,7 @@ from fontTools.pens.boundsPen import BoundsPen
 AQUI = Path(__file__).resolve().parent
 FUENTE = AQUI / "_fraunces-var.ttf"
 PALABRA = "Steinmetz"
+MONOGRAMA = "SZ"        # las letras que abren y cierran el nombre
 OPSZ = 144
 INTERLETRA = -0.03          # em, igual que en la web
 TINTA = "#111112"
@@ -96,29 +97,43 @@ def svg(piezas, caja, upem, color, fondo=None):
     return "\n".join(cuerpo)
 
 
-def monograma(color, fondo, radio_pct=20):
-    """La S sola, centrada en un cuadrado. Peso 800, como manda el manual."""
+def monograma(color, fondo, radio_pct=20, texto=MONOGRAMA, peso=800):
+    """Las dos letras que abren y cierran el nombre, centradas en el cuadrado."""
     base = TTFont(str(FUENTE))
     upem = base["head"].unitsPerEm
     inst = instantiateVariableFont(TTFont(str(FUENTE)),
-                                   {"opsz": OPSZ, "wght": 800}, inplace=False)
-    glifo = inst.getBestCmap()[ord("S")]
+                                   {"opsz": OPSZ, "wght": peso}, inplace=False)
     gs = inst.getGlyphSet()
-    pluma = SVGPathPen(gs); gs[glifo].draw(pluma)
-    lim = BoundsPen(gs); gs[glifo].draw(lim)
-    x0, y0, x1, y1 = lim.bounds
-    lado = upem
-    dx = (lado - (x1 - x0)) / 2 - x0
-    dy = (lado - (y1 - y0)) / 2 - y0
+    espacio = INTERLETRA * upem
+
+    piezas, x = [], 0.0
+    minx = miny = float("inf"); maxx = maxy = float("-inf")
+    for ch in texto:
+        glifo = inst.getBestCmap()[ord(ch)]
+        pluma = SVGPathPen(gs); gs[glifo].draw(pluma)
+        lim = BoundsPen(gs); gs[glifo].draw(lim)
+        if lim.bounds:
+            x0, y0, x1, y1 = lim.bounds
+            minx = min(minx, x + x0); maxx = max(maxx, x + x1)
+            miny = min(miny, y0);     maxy = max(maxy, y1)
+        piezas.append((pluma.getCommands(), x))
+        x += inst["hmtx"][glifo][0] + espacio
+
+    an, al = maxx - minx, maxy - miny
+    lado = max(an, al) / 0.60          # el aire alrededor: 20 % por lado
+    dx = (lado - an) / 2 - minx
+    dy = (lado - al) / 2 - miny
     r = lado * radio_pct / 100
-    piezas = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {lado} {lado}" '
-              f'width="256" height="256" role="img" aria-label="Steinmetz">',
-              "<title>Steinmetz</title>"]
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {lado:.0f} {lado:.0f}" '
+           f'width="256" height="256" role="img" aria-label="Steinmetz">',
+           "<title>Steinmetz</title>"]
     if fondo:
-        piezas.append(f'<rect width="{lado}" height="{lado}" rx="{r:.0f}" fill="{fondo}"/>')
-    piezas.append(f'<g fill="{color}" transform="translate({dx:.2f},{lado - dy:.2f}) scale(1,-1)">'
-                  f'<path d="{pluma.getCommands()}"/></g></svg>')
-    return "\n".join(piezas)
+        out.append(f'<rect width="{lado:.0f}" height="{lado:.0f}" rx="{r:.0f}" fill="{fondo}"/>')
+    out.append(f'<g fill="{color}" transform="translate({dx:.2f},{lado - dy:.2f}) scale(1,-1)">')
+    for d, px in piezas:
+        out.append(f'<path transform="translate({px:.2f},0)" d="{d}"/>')
+    out.append("</g></svg>")
+    return "\n".join(out)
 
 
 def exportar_png(svgs, ancho_px):
