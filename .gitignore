@@ -20,3 +20,5 @@ landing-v1/
 
 # la variable de Fraunces se rebaja sola con _generar_logo.py
 marca/assets/_fraunces-var.ttf
+CLAUDE.md
+docs/

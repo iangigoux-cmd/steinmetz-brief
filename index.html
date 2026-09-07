@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-CL">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,10 +8,31 @@
 <meta property="og:title" content="Steinmetz">
 <meta property="og:description" content="Sistemas de IA hechos para tu operación. En producción en tres semanas, dentro de tu red.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://steinmetz.cl/">
+<meta property="og:site_name" content="Steinmetz">
+<meta property="og:locale" content="es_CL">
+<meta property="og:image" content="https://steinmetz.cl/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Steinmetz — sistemas de IA hechos para tu operación">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Steinmetz — Sistemas de IA hechos para tu operación">
+<meta name="twitter:description" content="En producción en tres semanas, dentro de tu red.">
+<meta name="twitter:image" content="https://steinmetz.cl/assets/og.png">
+<link rel="canonical" href="https://steinmetz.cl/">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Steinmetz SpA",
+ "url":"https://steinmetz.cl/","email":"ian@steinmetz.cl","telephone":"+56993215043",
+ "founder":{"@type":"Person","name":"Ian Berndt"},"areaServed":"CL",
+ "address":{"@type":"PostalAddress","addressLocality":"Santiago","addressCountry":"CL"},
+ "description":"Sistemas de inteligencia artificial hechos a medida, en producción en tres semanas, dentro de tu red."}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111112'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='15' font-weight='700' fill='%23fff'%3ESZ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script>
 /* La portada no entra hasta que la tipografía esté cargada: si no, el
    titular se desplaza solo cuando Fraunces reemplaza a Georgia, justo
@@ -19,7 +40,7 @@
    del sitio. Si no hay JS la clase nunca se pone y todo entra igual. */
 (function(){
   var r = document.documentElement, listo = function(){ r.classList.remove("sin-letras"); };
-  r.classList.add("sin-letras");
+  r.classList.add("sin-letras", "con-js");
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(listo);
   setTimeout(listo, 1400);
 })();
@@ -38,7 +59,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 :root{
-  --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#75757a;
+  --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#68686d;
   --linea:rgba(17,17,18,.14); --linea-fuerte:rgba(17,17,18,.34);
   --serif:"Fraunces",Georgia,serif;
   --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
@@ -145,6 +166,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   font-variation-settings:"opsz" 30,"wght" 600;font-weight:600;
   font-size:1.08rem;letter-spacing:-.005em;line-height:1.3}
 .p{color:var(--medio);max-width:var(--medida);font-size:1rem;line-height:1.65}
+.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap}
 .p b,.bajada b{color:var(--tinta);font-weight:600}
 .bajada{color:var(--medio);margin:1.1rem auto 0;font-size:1.08rem;line-height:1.55;
   max-width:34em;text-wrap:pretty}
@@ -161,36 +184,42 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   background:var(--papel);color:var(--tinta);display:grid;place-items:center;
   transition:transform var(--t-medio) var(--ui),background var(--t-medio) var(--ui)}
 .bt .flecha svg{width:11px;height:11px}
-.bt:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px var(--proyectada)}
-.bt:hover .flecha{transform:translateX(4px);background:#fff}
 .bt:active{transform:translateY(0)}
 .bt.linea{background:var(--vidrio);color:var(--tinta);border-color:var(--linea-fuerte);
   padding-right:1.35em;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-.bt.linea:hover{border-color:var(--tinta)}
+/* los hovers, sólo donde hay puntero: en táctil quedaban pegados y el
+   botón se veía levantado hasta que tocabas otra cosa */
+@media(hover:hover){
+  .bt:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px var(--proyectada)}
+  .bt:hover .flecha{transform:translateX(4px);
+    background:color-mix(in srgb,var(--papel) 82%,var(--tinta))}
+  .bt.linea:hover{border-color:var(--tinta)}
+  #marco .nav a:hover{opacity:1}
+  #marco .nav a:hover::after{right:0}
+  footer a:hover{color:var(--tinta)}
+}
 .bt:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
 
 /* ═══ EL MARCO ═══ enlaces · nombre al centro · llamada a la derecha ══ */
 #marco{position:fixed;top:0;left:0;right:0;z-index:60;
   display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;
-  padding:.7rem clamp(1rem,4vw,2.2rem);
   background:transparent;border-bottom:1px solid transparent;
   transition:border-color var(--t-medio) var(--ui),background var(--t-medio) var(--ui),
     backdrop-filter var(--t-medio) var(--ui)}
 #marco.posado{border-bottom-color:var(--linea);
   background:color-mix(in srgb,var(--papel) 88%,transparent);
   -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
-#marco .nav{display:none;gap:2rem;font-size:.8125rem;color:var(--medio);
+#marco .nav{display:none;gap:2rem;font-size:.8125rem;color:var(--tinta);
   white-space:nowrap}
+#marco .nav a{opacity:.78}
 #marco .nav a{text-decoration:none;position:relative;padding-bottom:2px;transition:color var(--t-corto) var(--ui)}
 #marco .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;
   height:1px;background:var(--tinta);transition:right var(--t-medio) var(--ui)}
-#marco .nav a:hover{color:var(--tinta)}
-#marco .nav a:hover::after{right:0}
+
 #marco .centro-marco{grid-column:2;display:flex;justify-content:center}
-#marco .wm-chico{width:clamp(7rem,17vw,8.6rem);color:var(--tinta)}
+#marco .centro-marco a{display:flex;align-items:center;min-height:44px;padding:0 .4rem}
+#marco .wm-chico{color:var(--tinta)}
 #marco .derecha{grid-column:3;display:flex;justify-content:flex-end;align-items:center;gap:1rem}
-#marco .bt{min-height:38px;font-size:.86rem;padding:.4em .45em .4em 1.05em}
-#marco .bt .flecha{width:22px;height:22px}
 @media(min-width:78rem){#marco .nav{display:flex}}
 @media(max-width:77.99rem){
   #marco{grid-template-columns:auto 1fr}
@@ -232,8 +261,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .campo.sin-reticula .luz{opacity:.5}
 .campo .luz{position:absolute;left:50%;top:38%;width:88%;height:104%;opacity:.7;
   background:radial-gradient(closest-side,var(--campo-luz) 0%,transparent 74%);
-  transform:translate3d(-50%,-50%,0) translate(calc(var(--px)*7%),calc(var(--py)*7%));
-  will-change:transform}
+  transform:translate3d(-50%,-50%,0) translate(calc(var(--px)*7%),calc(var(--py)*7%))}
+.campo.viva .luz{will-change:transform}
 .campo::after{content:"";position:absolute;inset:0;
   background:
     repeating-linear-gradient(0deg,transparent 0 55px,var(--reticula) 55px 56px),
@@ -302,8 +331,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
 .franja{position:relative;z-index:3;margin-top:clamp(2.2rem,6vh,3.4rem);
   display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2.2rem;
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;color:var(--medio);
-  text-transform:uppercase}
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
+  color:var(--tinta);opacity:.72;text-transform:uppercase}
 
 .sin-letras .entra{animation-play-state:paused}
 .entra{opacity:0;transform:translateY(14px);
@@ -342,10 +371,10 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 /* las pastillas de la referencia, en blanco y negro */
 .mando{appearance:none;font:inherit;color:var(--tinta);cursor:pointer;text-align:left;
   border:0;border-radius:24px;
-  background:var(--pastilla);color:var(--pastilla-letra);
+  background:var(--pastilla);
   -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
   padding:10px 10px 10px 15px;display:flex;align-items:center;
-  gap:10px;min-height:40px;width:auto;max-width:100%;
+  gap:10px;min-height:44px;width:auto;max-width:100%;
   transition:background var(--t-medio) var(--ui),border-color var(--t-medio) var(--ui),
     transform var(--t-medio) var(--ui),box-shadow var(--t-medio) var(--ui),
     color var(--t-medio) var(--ui)}
@@ -383,10 +412,11 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   animation-delay:calc(var(--i) * -2.4s)}
 @keyframes flotar{0%,100%{transform:translateZ(-2px)}50%{transform:translateZ(20px)}}
 
-.placa{position:absolute;inset:0;transform-style:preserve-3d;
+.placa{position:absolute;inset:0;transform-style:preserve-3d;cursor:default;
   transform:translate3d(var(--dx,0px),var(--dy,0px),calc(var(--z,0) * 1px));
   transition:transform var(--t-capa) var(--peso),
-    opacity calc(var(--t-capa) * .7) var(--peso);cursor:pointer}
+    opacity calc(var(--t-capa) * .7) var(--peso)}
+@media(hover:hover){.placa{cursor:pointer}}
 .placa .lado{position:absolute;left:50%;top:50%}
 .placa .cara{width:var(--w);height:var(--h);
   margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
@@ -395,7 +425,6 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
     radial-gradient(62% 62% at 36% 20%, var(--vidrio-alto) 0%, transparent 54%),
     linear-gradient(140deg,
       var(--filo-luz) 0%, var(--vidrio) 22%, var(--vidrio) 72%, var(--vidrio-alto) 100%);
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   box-shadow:inset 0 0 0 1.5px var(--filo-luz), inset 0 0 0 4px var(--brillo-int),
     inset 0 0 40px var(--brillo-int), inset 0 -20px 28px -18px var(--filo-canto),
     0 26px 34px -22px var(--proyectada);
@@ -431,7 +460,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .placa:focus-visible{outline:0}
 .placa:focus-visible .cara{box-shadow:inset 0 0 0 2px var(--tinta)}
 
-.placa{opacity:0}
+.con-js .taller:not(.montada) .placa{opacity:0}   /* sin JS la pila se ve igual */
 .taller.montada .placa{opacity:var(--op,1);
   animation:asentar .68s var(--peso) backwards, encender .34s linear backwards;
   animation-delay:calc((2 - var(--i)) * .1s)}
@@ -457,7 +486,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   transition:opacity var(--t-corto) var(--ui)}
 .op[aria-selected="true"] .marca{opacity:1}
 .op .txt{font-size:.98rem;line-height:1.45}
-.op:focus-visible{outline:2px solid var(--tinta);outline-offset:-3px}
+.op:focus-visible{outline:2px solid currentColor;outline-offset:-4px}
 .respuesta{background:var(--panel);padding:clamp(1.4rem,3.5vw,2rem);display:flex;
   flex-direction:column;gap:1.1rem}
 .respuesta.gira>*{animation:levantar .34s var(--peso) backwards}
@@ -536,15 +565,16 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .obra .que{color:var(--medio);font-size:.96rem;line-height:1.6;margin-top:.9rem}
 
 /* ═══ HABLEMOS ═══ */
-.cierre{position:relative;overflow:hidden;text-align:center}
+/* el cierre vive sobre el campo gris: su gris de texto tiene que ser más
+   firme que el del papel blanco */
+.cierre{position:relative;overflow:hidden;text-align:center;--medio:#5a5a5f}
 .cierre .acciones{margin-top:clamp(1.8rem,4vh,2.4rem);display:flex;gap:.6rem;
   flex-wrap:wrap;justify-content:center}
 .cierre .firma{margin:2.2rem auto 0;max-width:32em;color:var(--medio);font-size:.94rem}
 footer{padding:1.5rem 0;border-top:1px solid var(--linea);
   font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--suave)}
 footer .env{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;justify-content:space-between}
-footer a{text-decoration:none}
-footer a:hover{color:var(--tinta)}
+footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
 
 /* ═══ movimiento reducido ═══ nada se mueve solo; todo sigue usable ═══ */
 @media (prefers-reduced-motion:reduce){
@@ -661,21 +691,30 @@ footer a:hover{color:var(--tinta)}
 
     <div class="taller" id="taller">
       <div class="columna">
-        <div class="mandos" role="tablist" aria-label="Los tres pilares">
-          <button class="mando" role="tab" aria-selected="true" data-i="0">
+        <div class="mandos" role="tablist" aria-label="Los tres pilares" aria-orientation="vertical">
+          <button class="mando" type="button" role="tab" id="pilar-0"
+                  aria-controls="detalle" aria-selected="true"
+                  tabindex="0" data-i="0">
             <span class="nombre">A medida</span>
             <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
           </button>
-          <button class="mando" role="tab" aria-selected="false" data-i="1">
+          <button class="mando" type="button" role="tab" id="pilar-1"
+                  aria-controls="detalle" aria-selected="false"
+                  tabindex="-1" data-i="1">
             <span class="nombre">Rápido</span>
             <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
           </button>
-          <button class="mando" role="tab" aria-selected="false" data-i="2">
+          <button class="mando" type="button" role="tab" id="pilar-2"
+                  aria-controls="detalle" aria-selected="false"
+                  tabindex="-1" data-i="2">
             <span class="nombre">Seguro</span>
             <span class="mas"><svg aria-hidden="true"><use href="#mas"/></svg></span>
           </button>
         </div>
-        <div class="detalle" id="detalle" role="tabpanel" aria-live="polite"></div>
+        <div class="detalle" id="detalle" role="tabpanel" tabindex="0"
+             aria-labelledby="pilar-0">No instalamos software. Construimos el sistema que le
+          falta a tu operación, dentro de tu operación y con tus reglas. Nada de adaptar tu
+          empresa a una herramienta que se vendió igual a otras cien.</div>
       </div>
 
       <div class="escena-caja">
@@ -718,9 +757,33 @@ footer a:hover{color:var(--tinta)}
       construiríamos, en cuánto y desde cuánto.</p>
   </div>
   <div class="caso">
-    <div class="opciones" role="tablist" aria-label="Casos"></div>
-    <div class="respuesta" id="respuesta" role="tabpanel" aria-live="polite"></div>
+    <!-- los cinco casos van escritos en el documento. Antes vivían sólo en
+         un array de JS, y sin él desaparecían los titulares, los plazos y
+         los precios: 687 caracteres, el 17% del texto de la página. -->
+    <div class="opciones" role="tablist" aria-label="Casos" aria-orientation="vertical">
+      <button class="op" type="button" role="tab" id="caso-0" aria-controls="respuesta"
+              aria-selected="true" tabindex="0"><span class="marca">01</span><span class="txt">Tenemos documentos que nadie encuentra a tiempo</span></button>
+      <button class="op" type="button" role="tab" id="caso-1" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">02</span><span class="txt">Mi equipo copia datos de un sistema a otro</span></button>
+      <button class="op" type="button" role="tab" id="caso-2" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">03</span><span class="txt">Reviso contratos parecidos, uno por uno, a mano</span></button>
+      <button class="op" type="button" role="tab" id="caso-3" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">04</span><span class="txt">Sé que algo se está perdiendo, pero no sé dónde</span></button>
+      <button class="op" type="button" role="tab" id="caso-4" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">05</span><span class="txt">Ya usamos IA, pero no conoce nuestra empresa</span></button>
+    </div>
+    <div class="respuesta" id="respuesta" role="tabpanel" tabindex="0" aria-labelledby="caso-0">
+      <p class="que">Un índice que se mantiene solo. Cada documento entra, se clasifica y queda
+        buscable en lenguaje natural, con la fuente citada: quién lo dice, en qué documento y en
+        qué página.</p>
+      <div class="datos">
+        <div><span class="k">Plazo</span><span class="v">3 semanas</span></div>
+        <div><span class="k">Dónde vive</span><span class="v">Dentro de tu red</span></div>
+        <div><span class="k">Inversión</span><span class="v">Desde 28 UF</span></div>
+      </div>
+    </div>
   </div>
+  <p class="solo-lector" id="aviso" aria-live="polite"></p>
 </div></section>
 
 <!-- ══ LAS TRES SEMANAS ══ -->
@@ -956,7 +1019,11 @@ if(taller){
   function acomodar(n){
     if(n === actualPilar) return;
     actualPilar = n;
-    mandos.forEach(function(m, i){ m.setAttribute("aria-selected", i === n ? "true" : "false"); });
+    mandos.forEach(function(m, i){
+      m.setAttribute("aria-selected", i === n ? "true" : "false");
+      m.tabIndex = i === n ? 0 : -1;          /* una sola parada de tabulación */
+    });
+    detalle.setAttribute("aria-labelledby", mandos[n].id);
     /* Las que no están activas conservan su orden y ocupan las ranuras de
        abajo, todas separadas por el mismo hueco; la activa sube siempre a
        la misma altura. Antes los huecos salían 44 y 54 —desparejos— y con
@@ -964,11 +1031,17 @@ if(taller){
        pila se barajaba sola. Eso era lo que se veía mal armado. */
     var ranura = placas.length - 2;   /* de arriba hacia abajo: la primera
        pastilla queda en la placa más alta de las que no están activas */
+    var cima = placas.length - 1;
     placas.forEach(function(l, i){
       var activa = i === n;
-      l.style.setProperty("--z", activa ? (placas.length - 1) * HUECO + ALZA : (ranura--) * HUECO);
-      l.style.setProperty("--dx", activa ? "-20px" : "0px");
-      l.style.setProperty("--dy", activa ? "-20px" : "0px");
+      var r = activa ? cima : (ranura--);
+      l.style.setProperty("--z", activa ? cima * HUECO + ALZA : r * HUECO);
+      /* respaldo dentro del plano: hay motores que aplanan el eje Z de un
+         contexto `preserve-3d`. Con este desplazamiento la pila se lee como
+         pila aunque la profundidad se pierda. */
+      var corr = (cima - r) * 14 - 20 + "px";
+      l.style.setProperty("--dx", corr);
+      l.style.setProperty("--dy", corr);
       l.style.setProperty("--op", activa ? 1 : .8);
       /* la pila se abre primero; la activa sube 90 ms después, al hueco ya
          hecho. Al revés —que era como estaba— las dos placas se cruzaban
@@ -1008,16 +1081,21 @@ if(taller){
     });
     m.addEventListener("pointerleave", function(){ clearTimeout(intencion); });
     m.addEventListener("keydown", function(e){
-      var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
-            : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
-      if(!d) return;
+      var n;
+      if(e.key === "Home") n = 0;
+      else if(e.key === "End") n = mandos.length - 1;
+      else{
+        var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
+              : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
+        if(!d) return;
+        n = (i + d + mandos.length) % mandos.length;
+      }
       e.preventDefault();
-      var n = (i + d + mandos.length) % mandos.length;
       mandos[n].focus(); acomodar(n);
     });
   });
   placas.forEach(function(l, i){
-    l.addEventListener("click", function(){ acomodar(i); mandos[i].focus(); });
+    l.addEventListener("click", function(){ acomodar(i); });
   });
 
   /* cuando termina de crecer, el alto vuelve a ser automático: si no,
@@ -1062,11 +1140,19 @@ var CASOS = [
 var listaOp = document.querySelector(".opciones");
 var panel = document.getElementById("respuesta");
 if(listaOp && panel){
+  var aviso = document.getElementById("aviso");
   var elegir = function(i, primera){
     var c = CASOS[i];
     [].forEach.call(listaOp.children, function(b, j){
       b.setAttribute("aria-selected", j === i ? "true" : "false");
+      b.tabIndex = j === i ? 0 : -1;
     });
+    panel.setAttribute("aria-labelledby", listaOp.children[i].id);
+    /* el aviso va en una región chica y aparte: cuando el panel entero era
+       `aria-live`, cada flecha hacía leer los tres datos pegados
+       —«Plazo3 semanasDónde viveDentro de tu red…»— y recorrer los cinco
+       casos encolaba cinco párrafos de eso */
+    if(aviso && !primera) aviso.textContent = "Caso " + (i + 1) + " de " + CASOS.length + ": " + c.t;
     panel.innerHTML =
       '<p class="que">' + c.q + '</p>' +
       '<div class="datos">' +
@@ -1084,24 +1170,32 @@ if(listaOp && panel){
     }
   };
 
-  CASOS.forEach(function(c, i){
-    var b = document.createElement("button");
-    b.className = "op"; b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", i === 0 ? "true" : "false");
-    b.innerHTML = '<span class="marca">' + String(i + 1).padStart(2, "0") + '</span>' +
-                  '<span class="txt">' + c.t + '</span>';
+  /* los botones ya vienen escritos en el HTML: acá sólo se atan */
+  [].forEach.call(listaOp.children, function(b, i){
     b.addEventListener("click", function(){ elegir(i, false); });
     b.addEventListener("keydown", function(e){
-      var d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
-      if(!d) return;
+      var n;
+      if(e.key === "Home") n = 0;
+      else if(e.key === "End") n = CASOS.length - 1;
+      else{
+        var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
+              : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
+        if(!d) return;
+        n = (i + d + CASOS.length) % CASOS.length;
+      }
       e.preventDefault();
-      var n = (i + d + CASOS.length) % CASOS.length;
       listaOp.children[n].focus(); elegir(n, false);
     });
-    listaOp.appendChild(b);
   });
-  elegir(0, true);
+}
+
+/* sólo se promueve a capa la luz que está en pantalla: las tres juntas
+   sumaban 31,6 MB de textura en un teléfono */
+if("IntersectionObserver" in window){
+  var vigia = new IntersectionObserver(function(es){
+    es.forEach(function(e){ e.target.classList.toggle("viva", e.isIntersecting); });
+  }, {rootMargin:"20% 0px"});
+  [].forEach.call(document.querySelectorAll(".campo"), function(c){ vigia.observe(c); });
 }
 
 /* ════════════════════════════════════════════════════════════════════
