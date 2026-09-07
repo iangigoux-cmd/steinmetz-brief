@@ -74,7 +74,33 @@ def centrado(an, al, fondo, wm, proporcion=0.52):
                  f'<img src="{dato(wm)}" style="width:{an*proporcion:.0f}px">', fondo, an, al)
 
 
+def organizacion(an, al, fondo, wm, ancho_rel=0.72, descriptor=False,
+                 color_desc="#6e6e73"):
+    """Logo de organización a medida exacta (Google Workspace pide 320x132).
+
+    Se despliega al pixel, sin escalar, así que el archivo va a ese tamaño y
+    el contenido se queda dentro del 75 % del lienzo: varias plataformas
+    recortan unos pixeles de borde.
+    """
+    desc = (f'<div style="font-size:8px;letter-spacing:.18em;color:{color_desc};'
+            f'margin-top:9px;text-align:center">{DESCRIPTOR}</div>'
+            if descriptor else "")
+    return marco(
+        f'<body style="align-items:center;justify-content:center">'
+        f'<div><img src="{dato(wm)}" style="width:{an*ancho_rel:.0f}px;display:block">{desc}</div>',
+        fondo, an, al)
+
+
 PIEZAS = [
+    # logo de organización: Google Workspace, exacto a 320x132
+    ("organizacion-320x132.png", 320, 132,
+     lambda: organizacion(320, 132, PAPEL, "steinmetz-wordmark.svg")),
+    ("organizacion-320x132-descriptor.png", 320, 132,
+     lambda: organizacion(320, 132, PAPEL, "steinmetz-wordmark.svg", .68, True)),
+    ("organizacion-320x132-oscuro.png", 320, 132,
+     lambda: organizacion(320, 132, TINTA, "steinmetz-wordmark-blanco.svg")),
+    ("organizacion-320x132-transparente.png", 320, 132,
+     lambda: organizacion(320, 132, "rgba(0,0,0,0)", "steinmetz-wordmark.svg")),
     # perfiles: cuadrados a sangre, los recorta la red
     ("perfil-linkedin-400.png",      400, 400, lambda: perfil(400, TINTA, "steinmetz-monograma-sello.svg")),
     ("perfil-instagram-1000.png",   1000, 1000, lambda: perfil(1000, TINTA, "steinmetz-monograma-sello.svg")),
@@ -131,10 +157,11 @@ if __name__ == "__main__":
             pg = nav.new_page(viewport={"width": an, "height": al}, device_scale_factor=1)
             pg.set_content(hacer())
             pg.wait_for_timeout(500)
-            transparente = nombre.startswith("firma")
+            firma = nombre.startswith("firma")          # sólo la firma se recorta
+            transparente = firma or "transparente" in nombre
             pg.screenshot(path=str(SALIDA / nombre), omit_background=transparente,
                           clip={"x": 0, "y": 0, "width": an,
-                                "height": 124 if transparente else al})
+                                "height": 124 if firma else al})
             pg.close()
             print("escrito: piezas/" + nombre)
         nav.close()
