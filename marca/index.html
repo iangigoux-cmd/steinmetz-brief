@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Manual de marca de Steinmetz SpA: wordmark, monograma, color, tipografía y aplicaciones.">
 <title>Steinmetz — Manual de marca</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111112'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia' font-size='21' font-weight='700' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,9 +16,11 @@
   --linea:rgba(17,17,18,.14); --linea-fuerte:rgba(17,17,18,.34);
   --azul:#12439c; --azul-vivo:#2e6bd6; --sobre-azul:#ffffff;
   --serif:"Fraunces",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:light;
   --anchura:74rem; --medida:38em;
 }
 [data-tema="oscuro"]{
+  color-scheme:dark;
   --papel:#0d0d0f; --panel:#1b1b1e; --tinta:#f0f0f2; --medio:#9a9a9e; --suave:#8a8a8f;
   --linea:rgba(255,255,255,.16); --linea-fuerte:rgba(255,255,255,.36);
   --azul:#6ea8ff; --azul-vivo:#8fbcff; --sobre-azul:#0d0d0f;
@@ -37,8 +40,13 @@ a{color:var(--azul)}
   backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
 .barra .env{display:flex;align-items:center;justify-content:space-between;gap:1rem;
   height:3.4rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--tinta)}
-.tema{display:flex;border:1px solid var(--linea);border-radius:100px;overflow:hidden;
+.marca-barra{display:block;width:106px;height:21px;
+  background:url(assets/steinmetz-wordmark.svg) left center/contain no-repeat}
+[data-tema="oscuro"] .marca-barra{background-image:url(assets/steinmetz-wordmark-blanco.svg)}
+.tema{display:flex;border:1px solid var(--linea);border-radius:100px;
   font-family:var(--mono);font-size:.62rem;letter-spacing:.14em}
+.tema button:first-child{border-radius:100px 0 0 100px}
+.tema button:last-child{border-radius:0 100px 100px 0}
 .tema button{appearance:none;background:none;border:0;cursor:pointer;padding:.44rem .9rem;
   color:var(--medio);font:inherit;letter-spacing:inherit;transition:background .2s,color .2s}
 .tema button[aria-pressed="true"]{background:var(--tinta);color:var(--papel)}
@@ -47,9 +55,10 @@ a{color:var(--azul)}
 /* ── portada ── */
 .portada{padding:clamp(4rem,14vh,9rem) 0 clamp(3rem,8vh,5rem)}
 .marca-viva{font-family:var(--serif);font-optical-sizing:auto;display:flex;user-select:none;
+  font-variation-settings:"wght" 340,"opsz" 144;
   line-height:1;letter-spacing:-.03em;font-size:clamp(3rem,14vw,11rem);cursor:default;
   justify-content:center}
-.marca-viva span{display:inline-block;font-variation-settings:"wght" 340,"opsz" 144}
+.marca-viva span{display:inline-block}
 .lema{margin:clamp(2rem,5vh,3.2rem) auto 0;max-width:33em;text-align:center;
   font-size:clamp(1.05rem,1.7vw,1.28rem);line-height:1.7;color:var(--medio)}
 .meta{margin-top:2.4rem;text-align:center;font-family:var(--mono);font-size:.66rem;
@@ -60,6 +69,7 @@ section{padding:clamp(3.5rem,9vh,6.5rem) 0;border-top:1px solid var(--linea)}
 .cab{display:grid;grid-template-columns:3.4rem 1fr;gap:1.4rem;align-items:baseline;
   margin-bottom:clamp(2rem,5vh,3rem)}
 .num{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--suave);padding-top:.5rem}
+h1{font-weight:inherit}
 h2{font-variation-settings:"wght" 500,"opsz" 144;font-size:clamp(1.5rem,3.4vw,2.3rem);
   letter-spacing:-.015em;line-height:1.15}
 h3{font-variation-settings:"wght" 600,"opsz" 60;font-size:1.06rem;letter-spacing:-.005em;
@@ -95,7 +105,7 @@ p+p{margin-top:1rem}
 .espec{display:grid;place-items:center;padding:clamp(2.2rem,6vw,4.5rem);background:var(--panel);
   border:1px solid var(--linea)}
 .wm{font-family:var(--serif);font-optical-sizing:auto;line-height:1;letter-spacing:-.03em;
-  font-variation-settings:"wght" 340,"opsz" 144;color:var(--tinta)}
+  color:var(--tinta)}
 
 /* espacio libre: x = altura de la S */
 .aire{position:relative;display:inline-block;padding:.72em;
@@ -131,7 +141,7 @@ p+p{margin-top:1rem}
   --medio:#6e6e73;--suave:#75757a;--linea:rgba(17,17,18,.16);
   background:#ffffff;color:#111112}
 .papel-doc{border:1px solid var(--linea);padding:1.15rem 1.25rem}
-.papel-doc .nom{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+.papel-doc .nom{font-family:var(--serif);
   font-size:1.2rem;line-height:1.1;letter-spacing:-.015em}
 .papel-doc .rut{font-family:var(--mono);font-size:.58rem;letter-spacing:.05em;color:var(--suave);
   margin-top:.35rem;line-height:1.7}
@@ -140,14 +150,14 @@ p+p{margin-top:1rem}
 .papel-doc .s{font-family:var(--mono);font-size:.58rem;color:var(--suave);margin-top:.22rem}
 .lamina{aspect-ratio:16/9;background:#f4f4f2;border:1px solid var(--linea);
   display:flex;flex-direction:column;justify-content:space-between;padding:1.6rem 1.7rem}
-.lamina .m{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+.lamina .m{font-family:var(--serif);
   font-size:1.5rem;line-height:1;letter-spacing:-.015em}
 .lamina .tema-l{font-family:var(--serif);font-variation-settings:"wght" 400,"opsz" 60;
   font-size:clamp(1.1rem,2.4vw,1.7rem);line-height:1.3;max-width:20em;color:var(--tinta)}
-.lamina .p2{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;color:var(--suave)}
+.lamina .p2{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;color:var(--medio)}
 .tarjeta{aspect-ratio:85/55;border:1px solid var(--linea);max-width:19rem;
   padding:1rem;display:flex;flex-direction:column;justify-content:space-between}
-.tarjeta .m{font-family:var(--serif);font-variation-settings:"wght" 700,"opsz" 144;
+.tarjeta .m{font-family:var(--serif);
   font-size:1.2rem;line-height:1;letter-spacing:-.015em}
 .tarjeta .d{font-family:var(--mono);font-size:.56rem;line-height:1.9;color:var(--suave)}
 .tarjeta .d b{display:block;color:var(--tinta);font-size:.6rem;font-weight:600;letter-spacing:.04em}
@@ -198,9 +208,18 @@ pre b{color:var(--tinta);font-weight:500}
   place-items:center;margin-bottom:1.6rem}
 .bien .marco-ok{border-left:2px solid var(--azul);padding-left:1.1rem}
 
+/* descargas */
+.descargas{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));
+  gap:1px;background:var(--linea);border:1px solid var(--linea);margin:1.2rem 0}
+.descargas a{background:var(--papel);padding:.9rem 1rem;text-decoration:none;color:var(--azul);
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;display:flex;flex-direction:column;
+  gap:.3rem;transition:background .2s}
+.descargas a:hover{background:var(--panel)}
+.descargas span{color:var(--medio);letter-spacing:.04em;font-size:.66rem}
+
 /* lockup */
 .lockup{display:inline-flex;flex-direction:column;gap:.45rem}
-.lockup .l-nom{font-family:var(--serif);font-variation-settings:"wght" 340,"opsz" 144;
+.lockup .l-nom{font-family:var(--serif);
   font-size:2.6rem;line-height:1;letter-spacing:-.03em}
 .lockup .l-des{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--medio);
   padding-top:.5rem;border-top:1px solid var(--linea)}
@@ -210,14 +229,15 @@ footer{padding:3rem 0 5rem;border-top:1px solid var(--linea);font-family:var(--m
   justify-content:space-between;flex-wrap:wrap;gap:1rem}
 footer a{color:var(--azul);text-decoration:none}
 footer a:hover{text-decoration:underline}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
 <div class="barra">
   <div class="env">
-    <span>STEINMETZ</span>
+    <a class="marca-barra" href="#" aria-label="Steinmetz, ir al inicio"></a>
     <div class="tema" role="group" aria-label="Tema">
       <button id="b-claro" aria-pressed="true">CLARO</button>
       <button id="b-oscuro" aria-pressed="false">OSCURO</button>
@@ -227,10 +247,9 @@ footer a:hover{text-decoration:underline}
 
 <div class="env">
 
+  <main>
   <header class="portada">
-    <div class="marca-viva" id="marca" aria-label="Steinmetz">
-      <span>S</span><span>t</span><span>e</span><span>i</span><span>n</span><span>m</span><span>e</span><span>t</span><span>z</span>
-    </div>
+    <h1 class="marca-viva" id="marca" data-marca role="img" aria-label="Steinmetz">Steinmetz</h1>
     <p class="lema">Steinmetz significa cantero: el que sabe dónde dar el golpe.
       La marca es el nombre, tallado con precisión y sin adorno.</p>
     <p class="meta">MANUAL DE MARCA, VERSIÓN 1.0. SEPTIEMBRE DE 2026.</p>
@@ -277,12 +296,20 @@ footer a:hover{text-decoration:underline}
           se lea como el filo de un cincel.</p>
       </div></div>
     <div class="cuerpo"><div>
-      <div class="espec"><div class="wm" style="font-size:clamp(2.2rem,8vw,5.5rem)">Steinmetz</div></div>
+      <div class="espec"><div class="wm" data-marca style="font-size:clamp(2.2rem,8vw,5.5rem)">Steinmetz</div></div>
       <p class="pie-fig">Fraunces variable, eje óptico en 144 para que las terminaciones se afinen.
-        Peso <code style="font-family:var(--mono)">340</code> en uso corriente y
-        <code style="font-family:var(--mono)">700</code> cuando compite con texto denso, como en la
-        cabecera de un documento. El interletrado es <code style="font-family:var(--mono)">−0,03&nbsp;em</code>
-        y no se modifica: el ajuste óptico ya está resuelto.</p>
+        El interletrado es <code style="font-family:var(--mono)">−0,03&nbsp;em</code> y no se
+        modifica: el ajuste óptico ya está resuelto.</p>
+
+      <h3>El peso crece hacia el final</h3>
+      <p class="p">El wordmark no tiene un peso único. Cada letra pesa más que la anterior, de
+        <code style="font-family:var(--mono)">300</code> en la S a
+        <code style="font-family:var(--mono)">900</code> en la z, con una curva que arranca lenta y
+        acelera en las últimas tres letras. <b>Es la presión de un cincel que entra en la piedra:</b>
+        el golpe empieza suave y termina hondo.</p>
+      <p class="p">La progresión es parte de la marca y no se reemplaza por un peso plano. Fórmula:
+        <code style="font-family:var(--mono)">300 + (i/8)^1,75 × 600</code>, donde
+        <code style="font-family:var(--mono)">i</code> es la posición de la letra.</p>
 
       <h3>Tamaño mínimo</h3>
       <p class="p">96&nbsp;px de ancho en pantalla, 22&nbsp;mm impreso. Por debajo de eso las
@@ -327,7 +354,7 @@ footer a:hover{text-decoration:underline}
       <div class="espec">
         <div class="aire">
           <span class="cota arriba">1x</span><span class="cota izq">1x</span>
-          <div class="wm marco">Steinmetz</div>
+          <div class="wm marco" data-marca>Steinmetz</div>
         </div>
       </div>
       <p class="pie-fig">La unidad <b>x</b> es la altura de la S mayúscula. El margen mínimo es
@@ -448,7 +475,7 @@ footer a:hover{text-decoration:underline}
       <div class="rejilla g3">
         <div class="span2">
           <div class="papel-doc">
-            <div class="nom">Steinmetz</div>
+            <div class="nom" data-marca>Steinmetz</div>
             <div class="rut">STEINMETZ SpA &nbsp; RUT 78.484.226-6<br>ian@steinmetz.cl &nbsp; steinmetz.cl</div>
             <hr>
             <div class="t">COTIZACIÓN N° COT-0000-000</div>
@@ -458,7 +485,7 @@ footer a:hover{text-decoration:underline}
             denso; el filete grueso separa el membrete del documento.</p>
         </div>
         <div>
-          <div class="tarjeta"><div class="m">Steinmetz</div>
+          <div class="tarjeta"><div class="m" data-marca>Steinmetz</div>
             <div class="d"><b>Ian Berndt</b>ian@steinmetz.cl<br>+56 9 9321 5043</div></div>
           <p class="pie-fig">Tarjeta, 85&nbsp;×&nbsp;55&nbsp;mm.</p>
         </div>
@@ -466,7 +493,7 @@ footer a:hover{text-decoration:underline}
           <div class="lamina">
             <div class="tema-l">Sistema de gestión legal asistida por inteligencia artificial</div>
             <div>
-              <div class="m">Steinmetz</div>
+              <div class="m" data-marca>Steinmetz</div>
               <div class="p2" style="margin-top:.35rem">PROPUESTA TÉCNICA, 2026</div>
             </div>
           </div>
@@ -505,7 +532,7 @@ footer a:hover{text-decoration:underline}
     <div class="cuerpo"><div>
       <div class="bien">
         <div class="marco-ok">
-          <div class="wm" style="font-size:clamp(1.6rem,4.5vw,2.6rem)">Steinmetz</div>
+          <div class="wm" data-marca style="font-size:clamp(1.6rem,4.5vw,2.6rem)">Steinmetz</div>
         </div>
       </div>
       <p class="pie-fig" style="margin-top:0;margin-bottom:2.4rem">Así se usa: peso 340, interletra
@@ -538,9 +565,13 @@ footer a:hover{text-decoration:underline}
     <div class="cuerpo"><div>
 <pre id="tokens-css">:root{
   <b>/* base, tema claro */</b>
-  --papel:#ffffff;   --panel:#f9f9fa;
+  --papel:#ffffff;   --panel:#f4f4f2;
   --tinta:#111112;   --medio:#6e6e73;   --suave:#75757a;
   --linea:rgba(17,17,18,.14);   --linea-fuerte:rgba(17,17,18,.34);
+
+  <b>/* medidas */</b>
+  --anchura:74rem;   /* ancho máximo de página */
+  --medida:38em;     /* medida de lectura, ~69 caracteres */
 
   <b>/* acento */</b>
   --azul:#12439c;    --azul-vivo:#2e6bd6;   --sobre-azul:#ffffff;
@@ -548,22 +579,19 @@ footer a:hover{text-decoration:underline}
   <b>/* tipografía */</b>
   --serif:"Fraunces",Georgia,serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
-  --wordmark:"wght" 340,"opsz" 144;   /* letter-spacing:-.03em */
+  /* el wordmark no tiene peso único: rampa por letra,
+     wght = 300 + (i/(n-1))^1.75 * 600, opsz 144, letter-spacing -.03em */
   --titulo:"wght" 500,"opsz" 144;     /* letter-spacing:-.015em */
   --subtitulo:"wght" 600,"opsz" 60;
   --texto:"wght" 350,"opsz" 14;       /* line-height:1.7 */
 }
 [data-tema="oscuro"]{
-  --papel:#0d0d0f;   --panel:#161618;
+  --papel:#0d0d0f;   --panel:#1b1b1e;
   --tinta:#f0f0f2;   --medio:#9a9a9e;   --suave:#8a8a8f;
   --linea:rgba(255,255,255,.16);
   --azul:#6ea8ff;    --azul-vivo:#8fbcff;   --sobre-azul:#0d0d0f;
   --linea-fuerte:rgba(255,255,255,.36);
-}
-
-<b>/* medidas */</b>
---anchura:74rem;   /* ancho máximo de página */
---medida:38em;     /* medida de lectura, ~69 caracteres */</pre>
+}</pre>
       <button class="copiar" id="copiar">COPIAR TOKENS</button>
     </div></div>
   </section>
@@ -579,7 +607,7 @@ footer a:hover{text-decoration:underline}
       <div class="rejilla g2">
         <div>
           <div class="lockup">
-            <span class="l-nom">Steinmetz</span>
+            <span class="l-nom" data-marca>Steinmetz</span>
             <span class="l-des">INGENIERÍA EN INTELIGENCIA ARTIFICIAL</span>
           </div>
           <p class="pie-fig">Lockup con descriptor. El filete separa a un tercio de la altura de la
@@ -588,7 +616,7 @@ footer a:hover{text-decoration:underline}
         </div>
         <div>
           <div class="lockup">
-            <span class="l-nom" style="font-size:1.9rem">Steinmetz</span>
+            <span class="l-nom" style="font-size:1.9rem" data-marca>Steinmetz</span>
             <span class="l-des" style="border-top:0;padding-top:0;font-size:.62rem">SANTIAGO DE CHILE</span>
           </div>
           <p class="pie-fig">Variante corta, sin filete, para pies de página y lugares donde el
@@ -596,11 +624,22 @@ footer a:hover{text-decoration:underline}
         </div>
       </div>
 
-      <h3>Dónde están los archivos</h3>
-      <p class="p">El manual y las piezas viven en el repositorio del sitio, en
-        <code style="font-family:var(--mono)">03-producto/sitio-web/marca/</code>. El wordmark no es
-        un archivo: es texto en Fraunces con los ajustes de esta página. Para usarlo donde no se
-        pueda cargar la fuente, se exporta un PNG a 4x desde acá y se documenta el tamaño.</p>
+      <h3>Archivos del logo</h3>
+      <p class="p">El wordmark está trazado a contornos: los archivos no dependen de que cargue
+        Fraunces. La proporción es <b>5,082 : 1</b> y no se altera.</p>
+      <div class="descargas">
+        <a href="assets/steinmetz-wordmark.svg" download>SVG <span>wordmark, tinta</span></a>
+        <a href="assets/steinmetz-wordmark-blanco.svg" download>SVG <span>wordmark, blanco</span></a>
+        <a href="assets/steinmetz-wordmark-color.svg" download>SVG <span>wordmark, currentColor</span></a>
+        <a href="assets/steinmetz-wordmark-2400.png" download>PNG <span>2400 px, fondo libre</span></a>
+        <a href="assets/steinmetz-wordmark-blanco-2400.png" download>PNG <span>2400 px, blanco</span></a>
+        <a href="assets/steinmetz-monograma.svg" download>SVG <span>monograma</span></a>
+        <a href="assets/steinmetz-monograma-1024.png" download>PNG <span>monograma, 1024 px</span></a>
+        <a href="assets/_generar_logo.py" download>PY <span>el script que los genera</span></a>
+      </div>
+      <p class="pie-fig">Los PNG salen con fondo transparente. Para regenerarlos con otro tamaño o
+        peso, correr <code style="font-family:var(--mono)">_generar_logo.py</code>: baja la variable
+        de Fraunces, congela la rampa en contornos y rasteriza con el navegador.</p>
 
       <h3>Qué falta para que esto sea definitivo</h3>
       <p class="p">Tres cosas, en orden: una tipografía con licencia propia en lugar de Google
@@ -613,6 +652,8 @@ footer a:hover{text-decoration:underline}
         archivos o resolver una duda de uso: <a href="mailto:ian@steinmetz.cl">ian@steinmetz.cl</a>.</p>
     </div></div>
   </section>
+
+  </main>
 
   <footer>
     <span>STEINMETZ SpA, RUT 78.484.226-6</span>
@@ -637,13 +678,22 @@ footer a:hover{text-decoration:underline}
       var el = document.getElementById("hex-"+k);
       if (el) el.textContent = hex[k][oscuro ? 1 : 0];
     });
+  }
+  function elegir(tema){                     // sólo la elección explícita se guarda
+    poner(tema);
     try { localStorage.setItem("steinmetz-tema", tema); } catch(e){}
   }
   var guardado = null;
   try { guardado = localStorage.getItem("steinmetz-tema"); } catch(e){}
-  poner(guardado || (matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro"));
-  bClaro.addEventListener("click", function(){ poner("claro"); });
-  bOscuro.addEventListener("click", function(){ poner("oscuro"); });
+  var delSistema = matchMedia("(prefers-color-scheme: dark)");
+  poner(guardado || (delSistema.matches ? "oscuro" : "claro"));
+  if (!guardado) {                           // si nunca eligió, sigue al sistema
+    delSistema.addEventListener("change", function(e){
+      poner(e.matches ? "oscuro" : "claro");
+    });
+  }
+  bClaro.addEventListener("click", function(){ elegir("claro"); });
+  bOscuro.addEventListener("click", function(){ elegir("oscuro"); });
 
   var boton = document.getElementById("copiar");
   boton.addEventListener("click", function(){
@@ -663,27 +713,63 @@ footer a:hover{text-decoration:underline}
     }
   });
 
-  /* el wordmark responde al puntero; se detiene cuando no está a la vista */
+  /* ── la rampa: cada letra pesa más que la anterior ──
+     300 en la S, 900 en la z, con la curva acelerando al final. */
+  function pesoBase(i, n){ return 300 + Math.pow(i/(n-1), 1.75) * 600; }
+  function tallar(el){
+    var txt = (el.dataset.texto || el.textContent).trim();
+    el.dataset.texto = txt;
+    el.textContent = "";
+    for (var i = 0; i < txt.length; i++){
+      var s = document.createElement("span");
+      s.textContent = txt[i];
+      s.style.display = "inline-block";
+      s.style.fontVariationSettings = '"wght" ' + pesoBase(i, txt.length).toFixed(0) + ', "opsz" 144';
+      el.appendChild(s);
+    }
+    return [].slice.call(el.children);
+  }
+  var marcas = [].slice.call(document.querySelectorAll("[data-marca]"));
+  marcas.forEach(tallar);
+
+  /* el wordmark de portada responde al puntero, sumando sobre la rampa */
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var marca = document.getElementById("marca");
-  var letras = [].slice.call(marca.querySelectorAll("span"));
-  var peso = letras.map(function(){ return 340; });
-  var mx = -9999, my = -9999, visible = true, corriendo = false;
-  addEventListener("pointermove", function(e){ mx = e.clientX; my = e.clientY; }, {passive:true});
+  var letras = [].slice.call(marca.children);
+  var base = letras.map(function(_,i){ return pesoBase(i, letras.length); });
+  var peso = base.slice();
+  var mx = -9999, my = -9999, visible = false, corriendo = false;
+  var centros = [];
+
+  function medir(){                          // los rects se cachean: leerlos por
+    centros = letras.map(function(el){        // cuadro forzaba layout nueve veces
+      var r = el.getBoundingClientRect();
+      return [r.left + r.width/2, r.top + r.height/2];
+    });
+  }
+  function arrancar(){ if (visible && !corriendo){ corriendo = true; medir(); requestAnimationFrame(cuadro); } }
+
+  addEventListener("pointermove", function(e){ mx = e.clientX; my = e.clientY; arrancar(); }, {passive:true});
+  addEventListener("scroll", function(){ if (corriendo) medir(); }, {passive:true});
+  addEventListener("resize", function(){ if (corriendo) medir(); });
   new IntersectionObserver(function(es){
     visible = es[0].isIntersecting;
-    if (visible && !corriendo) { corriendo = true; requestAnimationFrame(cuadro); }
+    if (visible) arrancar();
   }).observe(marca);
+
   function cuadro(){
     if (!visible) { corriendo = false; return; }
+    var quieto = true;
     letras.forEach(function(el,i){
-      var r = el.getBoundingClientRect();
-      var d = Math.hypot(mx-(r.left+r.width/2), my-(r.top+r.height/2));
+      var c = centros[i] || [0,0];
+      var d = Math.hypot(mx-c[0], my-c[1]);
       var cerca = Math.max(0, 1 - d/320);
-      var destino = 340 + cerca*cerca*560;
+      var destino = Math.min(900, base[i] + cerca*cerca*(900 - base[i]));
+      if (Math.abs(destino - peso[i]) > .5) quieto = false;
       peso[i] += (destino-peso[i])*.12;
       el.style.fontVariationSettings = '"wght" '+peso[i].toFixed(1)+', "opsz" 144';
     });
+    if (quieto) { corriendo = false; return; }   // converge y se detiene
     requestAnimationFrame(cuadro);
   }
 })();
