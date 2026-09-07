@@ -46,13 +46,18 @@
   --acido-cara:rgba(255,255,255,.66);
   --acido-sombra:rgba(17,17,18,.42);
   --acido-luz:rgba(255,255,255,1);
-  --letra-placa:rgba(17,17,18,.40);
+  --letra-placa:rgba(17,17,18,.52);
   /* el campo: lo que se ve a través del vidrio */
   --campo-luz:#ffffff; --campo-medio:#ededeb; --campo-fondo:#c6c6c3;
   --reticula:rgba(17,17,18,.07);
 
   /* posición de la luz, −1..1 en cada eje. La escribe el bucle de JS. */
   --px:0; --py:0;
+  /* dirección de la luz, ya normalizada: el surco conserva siempre la
+     misma profundidad y sólo gira. Antes el desplazamiento era
+     `base + puntero*k`, y en cierta posición los dos se cancelaban: el
+     nombre se quedaba sin tallar. */
+  --ux:-.6; --uy:-.8;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
@@ -68,7 +73,7 @@
     --acido-cara:rgba(255,255,255,.10);
     --acido-sombra:rgba(0,0,0,.86);
     --acido-luz:rgba(255,255,255,.44);
-    --letra-placa:rgba(255,255,255,.34);
+    --letra-placa:rgba(255,255,255,.46);
     --campo-luz:#34343c; --campo-medio:#171719; --campo-fondo:#050506;
     --reticula:rgba(255,255,255,.055);
     color-scheme:dark;
@@ -206,7 +211,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   background:radial-gradient(58% 66% at 38% 34%,
     var(--filo-luz) 0%, var(--vidrio-alto) 32%, var(--vidrio) 54%, transparent 76%)}
 .lamina.f2{--z:0}
-.lamina.f3{--z:340;height:52vw;margin-top:22vw;opacity:.9;box-shadow:none;
+.lamina.f3{--z:340;width:96vw;height:38vw;margin:14vw 0 0 -48vw;opacity:.9;box-shadow:none;
   background:radial-gradient(62% 72% at 46% 40%,
     var(--filo-luz) 0%, var(--vidrio-alto) 34%, var(--vidrio) 58%, transparent 80%)}
 /* el nombre grabado sobre la lámina nítida */
@@ -218,14 +223,14 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    por el lado de la luz —es la pared del surco a contraluz—, la clara por
    el opuesto, y la cara esmerilada las tapa por el centro. Mover copias es
    transformación pura: 60 fps sin recomponer filtros. */
-.esmerilado{position:relative;line-height:0}
-.capa{width:100%;height:auto}
-.capa.s,.capa.l{position:absolute;inset:0;pointer-events:none;will-change:transform}
+.esmerilado{position:relative;width:100%;aspect-ratio:7133/1446;line-height:0}
+.capa{position:absolute;inset:0;width:100%;height:100%}
+.capa.s,.capa.l{pointer-events:none;will-change:transform}
 .capa.s{color:var(--acido-sombra);
-  transform:translate(calc(-1.4px + var(--px)*5px),calc(-1.8px + var(--py)*5px))}
+  transform:translate(calc(var(--ux)*4px),calc(var(--uy)*4px))}
 .capa.l{color:var(--acido-luz);
-  transform:translate(calc(1.4px + var(--px)*-5px),calc(1.8px + var(--py)*-5px))}
-.capa.p{position:relative;color:var(--acido-cara)}
+  transform:translate(calc(var(--ux)*-4px),calc(var(--uy)*-4px))}
+.capa.p{color:var(--acido-cara)}
 
 /* el titular, delante de todo y nítido */
 .dicho{position:relative;z-index:3;text-align:center}
@@ -284,10 +289,11 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 @keyframes asomar{from{opacity:0;transform:translateY(8px)}}
 
 .escena-caja{order:1;position:relative;height:clamp(19rem,58vw,33rem);
-  perspective:1300px;perspective-origin:50% 44%;touch-action:pan-y}
+  perspective:1300px;perspective-origin:50% 50%;touch-action:pan-y}
 @media(min-width:60rem){.escena-caja{order:2}}
 .escena{position:absolute;left:50%;top:50%;
   --w:clamp(10.5rem,34vw,22rem); --h:clamp(10.5rem,34vw,22rem); --t:19px;
+  --hueco:50px;   /* la separación entre placas: pareja siempre */
   width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
   transform-style:preserve-3d;
   transform:rotateX(calc(57deg + var(--ty,0)*5deg)) rotateZ(calc(-40deg + var(--tx,0)*6deg))}
@@ -320,23 +326,27 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .placa .o,.placa .e{width:var(--t);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--t)/-2)}
 .placa .n{transform:translateY(calc(var(--h)/-2)) rotateX(90deg);
   background:linear-gradient(180deg,var(--filo-luz) 0%,var(--vidrio-alto) 55%,var(--filo-luz) 100%)}
-.placa .s{transform:translateY(calc(var(--h)/2)) rotateX(90deg);
-  background:linear-gradient(180deg,var(--filo-luz) 0%,var(--vidrio-alto) 35%,var(--filo-sombra) 100%);
-  box-shadow:inset 0 1px 0 var(--filo-luz)}
-.placa .o{transform:translateX(calc(var(--w)/-2)) rotateY(90deg);
-  background:linear-gradient(90deg,var(--filo-sombra) 0%,var(--vidrio-alto) 60%,var(--filo-luz) 100%)}
+/* `.s` y `.o` iban con el giro al revés: su cara quedaba mirando hacia
+   adentro del prisma. Con el signo corregido las cuatro normales apuntan
+   hacia afuera, y `backface-visibility` esconde los cantos del fondo en
+   vez de dejarlos cruzar la placa por detrás de la cara. */
+.placa .s{transform:translateY(calc(var(--h)/2)) rotateX(-90deg);
+  background:linear-gradient(180deg,var(--filo-sombra) 0%,var(--vidrio-alto) 65%,var(--filo-luz) 100%)}
+.placa .o{transform:translateX(calc(var(--w)/-2)) rotateY(-90deg);
+  background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 40%,var(--filo-sombra) 100%)}
 .placa .e{transform:translateX(calc(var(--w)/2)) rotateY(90deg);
   background:linear-gradient(90deg,var(--filo-luz) 0%,var(--vidrio-alto) 45%,var(--filo-luz) 100%)}
+.placa .n,.placa .s,.placa .o,.placa .e{backface-visibility:hidden}
 .placa .sombra{width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
-  transform:translateZ(calc(var(--t)/-2 - 3px));
+  transform:translateZ(calc(var(--t)/-2 - var(--hueco)));
   background:radial-gradient(closest-side,var(--proyectada) 0%,
-    color-mix(in srgb,var(--proyectada) 40%,transparent) 62%, transparent 88%);
-  opacity:.85}
+    color-mix(in srgb,var(--proyectada) 32%,transparent) 58%, transparent 84%);
+  opacity:.55}
 .placa:focus-visible{outline:0}
 .placa:focus-visible .cara{box-shadow:inset 0 0 0 2px var(--tinta)}
 
 .placa{opacity:0}
-.taller.montada .placa{opacity:1;
+.taller.montada .placa{opacity:var(--op,1);
   animation:asentar 1s cubic-bezier(.16,1,.3,1) backwards;
   animation-delay:calc(var(--i) * .14s)}
 @keyframes asentar{from{opacity:0;transform:translate3d(0,0,-260px)}}
@@ -411,7 +421,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
   text-transform:uppercase;color:var(--suave);padding-top:.25em}
 .lista .v{color:var(--medio);font-size:.96rem;line-height:1.6}
 
-.perimetro{position:relative;height:16rem;perspective:900px;display:none}
+.perimetro{position:relative;height:16rem;perspective:900px;
+  perspective-origin:50% 50%;display:none}
 @media(min-width:60rem){.perimetro{display:block}}
 .pila-seg{position:absolute;inset:0;transform-style:preserve-3d;
   transform:rotateX(calc(60deg + var(--ty,0)*4deg)) rotateZ(calc(-38deg + var(--tx,0)*5deg))}
@@ -766,19 +777,22 @@ addEventListener("pointermove", function(e){
   destino.y = (e.clientY / innerHeight) * 2 - 1;
 }, {passive:true});
 
-/* la inclinación de las escenas 3D sigue al puntero dentro de su caja */
+/* la inclinación de las escenas 3D sigue al puntero dentro de su caja.
+   No se escribe en el evento: se guarda el destino y el bucle la alcanza
+   con el mismo retardo que la luz. Antes volvía a cero de golpe al salir
+   el puntero, y ese tirón era lo que la delataba como plástico. */
+var escenas = [];
 function seguirCaja(caja, blanco){
   if(!caja || !blanco) return;
-  caja.addEventListener("pointermove", function(e){
-    if(e.pointerType === "touch") return;
+  var e = {blanco:blanco, dx:0, dy:0, ax:0, ay:0, ex:9, ey:9};
+  escenas.push(e);
+  caja.addEventListener("pointermove", function(ev){
+    if(ev.pointerType === "touch") return;
     var r = caja.getBoundingClientRect();
-    blanco.style.setProperty("--tx", ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3));
-    blanco.style.setProperty("--ty", ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3));
+    e.dx = (ev.clientX - r.left) / r.width * 2 - 1;
+    e.dy = (ev.clientY - r.top) / r.height * 2 - 1;
   }, {passive:true});
-  caja.addEventListener("pointerleave", function(){
-    blanco.style.setProperty("--tx", 0);
-    blanco.style.setProperty("--ty", 0);
-  });
+  caja.addEventListener("pointerleave", function(){ e.dx = 0; e.dy = 0; });
 }
 seguirCaja(document.querySelector(".escena-caja"), document.getElementById("escena"));
 seguirCaja(document.querySelector(".perimetro"), document.querySelector(".pila-seg"));
@@ -796,6 +810,29 @@ if(!quieto){
       escrito.x = actual.x; escrito.y = actual.y;
       raiz.style.setProperty("--px", actual.x.toFixed(3));
       raiz.style.setProperty("--py", actual.y.toFixed(3));
+      /* la dirección, normalizada y mezclada con la de reposo cuando la
+         luz pasa cerca del centro y el ángulo se vuelve indefinido */
+      var largo = Math.sqrt(actual.x * actual.x + actual.y * actual.y);
+      var manda = Math.min(1, largo / .35);
+      var ux = largo > 1e-4 ? actual.x / largo : -.6;
+      var uy = largo > 1e-4 ? actual.y / largo : -.8;
+      var bx = ux * manda + -.6 * (1 - manda);
+      var by = uy * manda + -.8 * (1 - manda);
+      var bl = Math.sqrt(bx * bx + by * by) || 1;   /* la mezcla de dos
+         vectores unitarios no es unitaria: hay que volver a normalizarla o
+         el surco se achica cuando la luz cruza el centro */
+      raiz.style.setProperty("--ux", (bx / bl).toFixed(3));
+      raiz.style.setProperty("--uy", (by / bl).toFixed(3));
+    }
+    for(var i = 0; i < escenas.length; i++){
+      var e = escenas[i];
+      e.ax += (e.dx - e.ax) * .085;
+      e.ay += (e.dy - e.ay) * .085;
+      if(Math.abs(e.ax - e.ex) > .0015 || Math.abs(e.ay - e.ey) > .0015){
+        e.ex = e.ax; e.ey = e.ay;
+        e.blanco.style.setProperty("--tx", e.ax.toFixed(3));
+        e.blanco.style.setProperty("--ty", e.ay.toFixed(3));
+      }
     }
     requestAnimationFrame(bucle);
   })(t0);
@@ -816,17 +853,31 @@ if(taller){
   var placas = [].slice.call(taller.querySelectorAll(".placa"));
   var detalle = document.getElementById("detalle");
   var puedeHover = matchMedia("(hover:hover)").matches;
-  var actualPilar = -1;
+  var actualPilar = -1, intencion = 0;
+  var HUECO = parseFloat(getComputedStyle(document.getElementById("escena"))
+                .getPropertyValue("--hueco")) || 50;
+  var ALZA = 74;
 
   function acomodar(n){
     if(n === actualPilar) return;
     actualPilar = n;
     mandos.forEach(function(m, i){ m.setAttribute("aria-selected", i === n ? "true" : "false"); });
+    /* Las que no están activas conservan su orden y ocupan las ranuras de
+       abajo, todas separadas por el mismo hueco; la activa sube siempre a
+       la misma altura. Antes los huecos salían 44 y 54 —desparejos— y con
+       la del medio activa el orden en pantalla pasaba a ser 0, 2, 1: la
+       pila se barajaba sola. Eso era lo que se veía mal armado. */
+    var ranura = placas.length - 2;   /* de arriba hacia abajo: la primera
+       pastilla queda en la placa más alta de las que no están activas */
     placas.forEach(function(l, i){
-      l.style.setProperty("--z", i === n ? 168 : (i < n ? -14 + i * 44 : 26 + i * 44));
-      l.style.setProperty("--dx", i === n ? "-22px" : "0px");
-      l.style.setProperty("--dy", i === n ? "-22px" : "0px");
-      l.style.opacity = i === n ? 1 : .72;
+      var activa = i === n;
+      l.style.setProperty("--z", activa ? (placas.length - 1) * HUECO + ALZA : (ranura--) * HUECO);
+      l.style.setProperty("--dx", activa ? "-20px" : "0px");
+      l.style.setProperty("--dy", activa ? "-20px" : "0px");
+      l.style.setProperty("--op", activa ? 1 : .7);
+      /* la activa arranca primero y las otras la siguen: la pila se abre
+         en vez de moverse en bloque */
+      l.style.transitionDelay = activa ? "0ms" : (70 + Math.abs(i - n) * 45) + "ms";
     });
     detalle.textContent = PILARES[n];
     if(!quieto){
@@ -838,9 +889,14 @@ if(taller){
 
   mandos.forEach(function(m, i){
     m.addEventListener("click", function(){ acomodar(i); });
+    /* el hover pide intención: barrer el puntero por las tres pastillas
+       convulsionaba la pila entera */
     m.addEventListener("pointerenter", function(e){
-      if(e.pointerType !== "touch" && puedeHover) acomodar(i);
+      if(e.pointerType === "touch" || !puedeHover) return;
+      clearTimeout(intencion);
+      intencion = setTimeout(function(){ acomodar(i); }, 110);
     });
+    m.addEventListener("pointerleave", function(){ clearTimeout(intencion); });
     m.addEventListener("keydown", function(e){
       var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
             : e.key === "ArrowUp"   || e.key === "ArrowLeft"  ? -1 : 0;
