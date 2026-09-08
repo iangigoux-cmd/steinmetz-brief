@@ -97,7 +97,10 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
    normaliza cada una a longitud 1, así el guion de trazo va en fracciones
    y una sola regla sirve para las 72, cada una con su duración y su
    desfase. Es todo dashoffset: se compone en la GPU. */
-.senderos{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.senderos{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  animation:asomar-lineas 1.7s cubic-bezier(.16,1,.3,1) 1.85s backwards}
+@keyframes asomar-lineas{from{opacity:0}}
+.sin-letras .senderos,.sin-letras .senderos path{animation-play-state:paused}
 .senderos svg{width:100%;height:100%;display:block;color:var(--tinta)}
 .senderos path{stroke:currentColor;stroke-dasharray:.3px .7px;
   animation:fluir var(--d) linear infinite, latir calc(var(--d) * .6) ease-in-out infinite;
@@ -298,16 +301,16 @@ footer a{text-decoration:none}
   </div>
   <div class="env centro">
     <h1 class="wm-vivo entra" aria-label="Steinmetz">Steinmetz</h1>
-    <p class="frase entra" style="animation-delay:.15s">
+    <p class="frase entra" style="animation-delay:2.2s">
       Construimos sistemas de inteligencia artificial hechos para tu operación.
       <span>En producción en tres semanas, dentro de tu red.</span>
     </p>
-    <div class="acciones entra" style="animation-delay:.3s">
+    <div class="acciones entra" style="animation-delay:2.35s">
       <a class="bt" href="#hablemos">Hablemos</a>
       <a class="bt linea" href="#caso">Ver qué construiríamos</a>
     </div>
   </div>
-  <div class="env pie-portada entra" style="animation-delay:.45s">
+  <div class="env pie-portada entra" style="animation-delay:2.5s">
     A MEDIDA · EN TRES SEMANAS · DENTRO DE TU PERÍMETRO
   </div>
 </header>
@@ -472,14 +475,23 @@ footer a{text-decoration:none}
 var quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 var nombre = document.querySelector(".wm-vivo");
 if(nombre){
-  var REPOSO = 380, PICO = 830, ALCANCE = 420, AMBIENTE = .52;
+  var REPOSO = quieto ? 440 : 380;   /* sin animación, el peso de marca */
+  var PICO = 830, ALCANCE = 420, AMBIENTE = .52;
+  /* La entrada: el nombre aparece solo y una ola de peso lo recorre de
+     punta a punta, como si el mouse pasara por encima. Después llegan las
+     líneas y el resto. El reloj arranca cuando está la tipografía, no
+     cuando corre el guion: con Georgia el barrido no significaría nada. */
+  var ENTRADA_ESPERA = 620, ENTRADA_DURA = 1450, tListo = 0;
+  var arrancar = function(){ if(!tListo) tListo = performance.now(); };
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(arrancar);
+  setTimeout(arrancar, 1400);
   var letras = [], centros = [], raton = {x:-9999, y:-9999}, hayRaton = false;
   var texto = nombre.textContent.trim();
   nombre.textContent = "";
   texto.split("").forEach(function(ch){
     var s = document.createElement("span");
     s.className = "l"; s.textContent = ch;
-    s.style.setProperty("--w", quieto ? 440 : REPOSO);
+    s.style.setProperty("--w", REPOSO);
     s.__w = REPOSO;              /* sin esto la comparación da NaN y no escribe nunca */
     nombre.appendChild(s); letras.push({el:s, w:REPOSO, d:REPOSO});
   });
@@ -519,11 +531,23 @@ if(nombre){
          la onda se apagaba en cuanto el puntero entraba a la página, y con
          el cursor lejos de las letras la palabra se quedaba clavada en su
          peso más fino: parecía muerta. */
-      var onda = ((ahora - t0) / 5200) % 1.38;   /* poca pausa entre olas */
+      var tv = tListo ? ahora - tListo : -1;
+      var entrando = tv >= 0 && tv < ENTRADA_ESPERA + ENTRADA_DURA;
+      var cresta, amplitud, agudeza;
+      if(entrando){
+        var pr = Math.max(0, (tv - ENTRADA_ESPERA) / ENTRADA_DURA);
+        pr = pr * pr * (3 - 2 * pr);           /* entra y sale sin tirones */
+        cresta = -.45 + 1.9 * pr;   /* arranca bien afuera: con -.2 la cola de
+           la ola ya engordaba la S antes de que la entrada empezara */
+        amplitud = 1; agudeza = 3.2;           /* la ola del estreno va entera */
+      }else{
+        cresta = ((ahora - t0) / 5200) % 1.38; /* poca pausa entre olas */
+        amplitud = AMBIENTE; agudeza = 4.2;
+      }
       for(var i = 0; i < letras.length; i++){
         var pos = i / Math.max(1, letras.length - 1);
-        var fo = Math.max(0, 1 - Math.abs(onda - pos) * 4.2);
-        fo = fo * fo * (3 - 2 * fo) * AMBIENTE;
+        var fo = Math.max(0, 1 - Math.abs(cresta - pos) * agudeza);
+        fo = fo * fo * (3 - 2 * fo) * amplitud;
 
         var fp = 0;
         if(hayRaton && centros[i]){
