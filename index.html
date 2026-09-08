@@ -468,7 +468,7 @@ footer a{text-decoration:none}
 var quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 var nombre = document.querySelector(".wm-vivo");
 if(nombre){
-  var REPOSO = 300, PICO = 780, ALCANCE = 300;
+  var REPOSO = 380, PICO = 830, ALCANCE = 420, AMBIENTE = .52;
   var letras = [], centros = [], raton = {x:-9999, y:-9999}, hayRaton = false;
   var texto = nombre.textContent.trim();
   nombre.textContent = "";
@@ -511,19 +511,24 @@ if(nombre){
   if(!quieto){
     var t0 = performance.now();
     (function bucle(ahora){
-      var onda = ((ahora - t0) / 4200) % 1.7;      /* la onda ambiente */
+      /* La onda ambiente corre SIEMPRE y el cursor se suma encima. Antes
+         la onda se apagaba en cuanto el puntero entraba a la página, y con
+         el cursor lejos de las letras la palabra se quedaba clavada en su
+         peso más fino: parecía muerta. */
+      var onda = ((ahora - t0) / 5200) % 1.38;   /* poca pausa entre olas */
       for(var i = 0; i < letras.length; i++){
-        var f = 0;
+        var pos = i / Math.max(1, letras.length - 1);
+        var fo = Math.max(0, 1 - Math.abs(onda - pos) * 4.2);
+        fo = fo * fo * (3 - 2 * fo) * AMBIENTE;
+
+        var fp = 0;
         if(hayRaton && centros[i]){
           var dx = centros[i].x - raton.x, dy = centros[i].y - raton.y;
           var dist = Math.sqrt(dx * dx + dy * dy);
-          f = Math.max(0, 1 - dist / ALCANCE);
-          f = f * f * (3 - 2 * f);                 /* suaviza los bordes */
-        }else{
-          var p = i / Math.max(1, letras.length - 1);
-          f = Math.max(0, 1 - Math.abs(onda - p) * 5);
-          f = f * f * (3 - 2 * f) * .8;
+          fp = Math.max(0, 1 - dist / ALCANCE);
+          fp = fp * fp * (3 - 2 * fp);             /* suaviza los bordes */
         }
+        var f = Math.max(fo, fp);
         var L = letras[i];
         L.d = REPOSO + (PICO - REPOSO) * f;
         L.w += (L.d - L.w) * .18;                  /* el peso llega con inercia */
