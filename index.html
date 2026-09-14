@@ -11,16 +11,32 @@
 <meta property="og:url" content="https://steinmetz.cl/">
 <meta property="og:site_name" content="Steinmetz">
 <meta property="og:locale" content="es_CL">
-<meta property="og:image" content="https://steinmetz.cl/assets/og.png">
+<meta property="og:image" content="https://steinmetz.cl/assets/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://steinmetz.cl/assets/og.png">
+<meta name="twitter:image" content="https://steinmetz.cl/assets/og.jpg">
 <link rel="canonical" href="https://steinmetz.cl/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111112'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='15' font-weight='700' fill='%23fff'%3ESZ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,200..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+/* Toda la entrada —el barrido de peso, las líneas, el texto— tiene que
+   arrancar cuando está la tipografía, no cuando se parsea el documento.
+   El guion del peso ya esperaba a `document.fonts.ready`; las animaciones
+   de CSS no, así que con la caché fría las líneas y la frase aparecían
+   antes de que el nombre terminara su ola. Esta clase las retiene hasta
+   el mismo instante. Va en la cabecera y a prueba de fallos: sin JS nunca
+   se pone y todo entra igual. */
+(function(){
+  var r = document.documentElement, listo = function(){ r.classList.remove("sin-letras"); };
+  r.classList.add("sin-letras");
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(listo);
+  setTimeout(listo, 1400);
+})();
+</script>
 <style>
 :root{
   --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#75757a;
@@ -59,6 +75,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .p+.p{margin-top:.8rem}
 .p b,.bajada b{color:var(--tinta);font-weight:600}
 .bajada{color:var(--medio);max-width:var(--medida);margin-top:.9rem;font-size:1.05rem}
+.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap}
 .rotulo{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
   text-transform:uppercase;color:var(--suave);display:block}
 
@@ -100,7 +118,8 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .senderos{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   animation:asomar-lineas 1.7s cubic-bezier(.16,1,.3,1) 1.85s backwards}
 @keyframes asomar-lineas{from{opacity:0}}
-.sin-letras .senderos,.sin-letras .senderos path{animation-play-state:paused}
+.sin-letras .senderos,.sin-letras .senderos path,
+.sin-letras .entra{animation-play-state:paused}
 .senderos svg{width:100%;height:100%;display:block;color:var(--tinta)}
 .senderos path{stroke:currentColor;stroke-dasharray:.3px .7px;
   animation:fluir var(--d) linear infinite, latir calc(var(--d) * .6) ease-in-out infinite;
@@ -146,7 +165,9 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 .op .marca{font-family:var(--mono);font-size:.72rem;opacity:.55;padding-top:.15em}
 .op[aria-selected="true"] .marca{opacity:1}
 .op .txt{font-size:.98rem;line-height:1.45}
-.op:focus-visible{outline:2px solid var(--tinta);outline-offset:-3px}
+/* la opción elegida se pinta con `--tinta` de fondo, así que un anillo
+   de `--tinta` encima era invisible: `currentColor` se invierte con ella */
+.op:focus-visible{outline:2px solid currentColor;outline-offset:-4px}
 .respuesta{background:var(--panel);padding:clamp(1.4rem,3.5vw,2rem);display:flex;
   flex-direction:column;gap:1.1rem}
 .respuesta .que{font-size:1.02rem;line-height:1.55;color:var(--tinta)}
@@ -198,7 +219,7 @@ h3{font-family:var(--serif);font-optical-sizing:auto;
 footer{border-top:1px solid var(--linea);padding:2rem 0 6.5rem;
   font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--suave);
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
-footer a{text-decoration:none}
+footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
 
 /* ── barra fija del teléfono ── */
 .barra-movil{position:fixed;left:0;right:0;bottom:0;z-index:60;
@@ -351,9 +372,34 @@ footer a{text-decoration:none}
   <p class="bajada">Elegí el que más se parezca a lo tuyo y te digo qué
     construiríamos, en cuánto y desde cuánto.</p>
   <div class="caso">
-    <div class="opciones" role="tablist" aria-label="Casos"></div>
-    <div class="respuesta" id="respuesta" role="tabpanel" aria-live="polite"></div>
+    <!-- los cinco casos van escritos acá: antes vivían sólo en un array de
+         JS y sin él desaparecían del documento los titulares, los plazos y
+         los precios. Un buscador y un preview de enlace veían una caja vacía. -->
+    <div class="opciones" role="tablist" aria-label="Casos" aria-orientation="vertical">
+      <button class="op" type="button" role="tab" id="caso-0" aria-controls="respuesta"
+              aria-selected="true" tabindex="0"><span class="marca">01</span><span class="txt">Tenemos documentos que nadie encuentra a tiempo</span></button>
+      <button class="op" type="button" role="tab" id="caso-1" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">02</span><span class="txt">Mi equipo copia datos de un sistema a otro</span></button>
+      <button class="op" type="button" role="tab" id="caso-2" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">03</span><span class="txt">Reviso contratos parecidos, uno por uno, a mano</span></button>
+      <button class="op" type="button" role="tab" id="caso-3" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">04</span><span class="txt">Sé que algo se está perdiendo, pero no sé dónde</span></button>
+      <button class="op" type="button" role="tab" id="caso-4" aria-controls="respuesta"
+              aria-selected="false" tabindex="-1"><span class="marca">05</span><span class="txt">Ya usamos IA, pero no conoce nuestra empresa</span></button>
+    </div>
+    <div class="respuesta" id="respuesta" role="tabpanel" tabindex="0" aria-labelledby="caso-0">
+      <p class="que">Un índice que se mantiene solo. Cada documento entra, se clasifica y queda
+        buscable en lenguaje natural, con la fuente citada: quién lo dice, en qué documento y en
+        qué página.</p>
+      <div class="datos">
+        <div><span class="k">En cuánto</span><span class="v">3 semanas</span></div>
+        <div><span class="k">Dónde vive</span><span class="v">Dentro de tu red</span></div>
+        <div><span class="k">Inversión</span><span class="v">Desde 28 UF</span></div>
+      </div>
+      <a class="bt" href="mailto:ian@steinmetz.cl?subject=Consulta%3A%20Tenemos%20documentos%20que%20nadie%20encuentra%20a%20tiempo">Conversemos este caso</a>
+    </div>
   </div>
+  <p class="solo-lector" id="aviso" aria-live="polite"></p>
   <p class="p" style="margin-top:1.2rem;font-size:.92rem">¿No calza ninguno? Suele
     pasar: por eso el primer paso siempre es mirar tu operación, no elegir de un menú.</p>
 </div></section>
@@ -594,7 +640,15 @@ if(nombre){
 
   function pintar(i){
     var c = CASOS[i];
-    botones.forEach(function(b,j){ b.setAttribute("aria-selected", String(j===i)); });
+    botones.forEach(function(b,j){
+      b.setAttribute("aria-selected", String(j===i));
+      b.tabIndex = j === i ? 0 : -1;
+    });
+    panel.setAttribute("aria-labelledby", botones[i].id);
+    /* el aviso va aparte: con `aria-live` en el panel entero, cada flecha
+       hacía leer los tres datos pegados a sus etiquetas */
+    var av = document.getElementById("aviso");
+    if (av) av.textContent = "Caso " + (i+1) + " de " + CASOS.length + ": " + c.t;
     panel.innerHTML =
       '<p class="que cambia">' + c.q + '</p>' +
       '<div class="datos cambia">' +
@@ -606,12 +660,10 @@ if(nombre){
         encodeURIComponent("Consulta: " + c.t) + '">Conversemos este caso</a>';
   }
 
-  CASOS.forEach(function(c,i){
-    var b = document.createElement("button");
-    b.className = "op"; b.type = "button"; b.setAttribute("role","tab");
-    b.setAttribute("aria-selected","false");
-    b.innerHTML = '<span class="marca">' + String(i+1).padStart(2,"0") +
-                  '</span><span class="txt">' + c.t + '</span>';
+  /* los botones ya vienen escritos en el HTML: acá sólo se les atan los
+     eventos, y el estado inicial lo trae el documento */
+  [].forEach.call(lista.children, function(b, i){
+    botones.push(b);
     b.addEventListener("click", function(){
       pintar(i);
       /* en el teléfono la respuesta queda debajo de la lista: hay que ir a verla */
@@ -620,15 +672,16 @@ if(nombre){
         panel.scrollIntoView({behavior: suave ? "smooth" : "auto", block: "nearest"});
       }
     });
-    lista.appendChild(b); botones.push(b);
   });
-  pintar(0);
 
   /* teclado: flechas entre opciones */
   lista.addEventListener("keydown", function(e){
     var i = botones.indexOf(document.activeElement);
     if (i < 0) return;
-    var n = e.key === "ArrowDown" ? i+1 : e.key === "ArrowUp" ? i-1 : -1;
+    var n = e.key === "Home" ? 0
+          : e.key === "End" ? botones.length - 1
+          : (e.key === "ArrowDown" || e.key === "ArrowRight") ? i+1
+          : (e.key === "ArrowUp"   || e.key === "ArrowLeft")  ? i-1 : -1;
     if (n < 0 || n >= botones.length) return;
     e.preventDefault(); botones[n].focus(); pintar(n);
   });
