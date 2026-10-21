@@ -183,9 +183,9 @@ else {
 (() => {
   const sec = $('#problema'), fijo = $('.fijo', sec), cont = $('#problemaFotos');
   const MIEDOS = [
-    ['Que te vendan lo mismo que a todos.', 'Ni genérico', 'A medida.'],
-    ['Que tome seis meses y muera en piloto.', 'Ni piloto eterno', 'Tres semanas.'],
-    ['Que tus datos terminen en un servidor ajeno.', 'Ni servidor ajeno', 'Dentro de tu red.'],
+    ['Una herramienta genérica que no calza con tu operación.', 'Ni genérico', 'A medida.'],
+    ['Un piloto que se alarga meses y nunca se usa.', 'Ni piloto eterno', 'Tres semanas.'],
+    ['Tu información en servidores que no controlas.', 'Ni servidor ajeno', 'Dentro de tu red.'],
   ];
   const fs = fotos('problema', 3);
   cont.innerHTML = MIEDOS.map(([m, d, r], i) => `<div class="foto fuera">${img(fs[i])}<p class="miedo">${m}</p><div class="respuesta"><span class="dato">${d}</span><span class="display">${r}</span></div></div>`).join('');
