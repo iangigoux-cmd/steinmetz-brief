@@ -648,7 +648,6 @@
   {
    "clave": "a-medida-oficina",
    "seccion": "a-medida",
-   "tono": "c",
    "descripcion": "Oficina · un arquitecto revisa los planos",
    "archivos": {
     "1080": "video/a-medida-oficina-1080.mp4",
@@ -662,7 +661,6 @@
   {
    "clave": "agentes-robot",
    "seccion": "agentes",
-   "tono": "c",
    "descripcion": "Industria · un brazo robótico mueve piezas",
    "archivos": {
     "1080": "video/agentes-robot-1080.mp4",
@@ -676,7 +674,6 @@
   {
    "clave": "agentes-linea",
    "seccion": "agentes",
-   "tono": "c",
    "descripcion": "Industria · la línea despacha sola",
    "archivos": {
     "1080": "video/agentes-linea-1080.mp4",
@@ -690,7 +687,6 @@
   {
    "clave": "agentes-cinta",
    "seccion": "agentes",
-   "tono": "c",
    "descripcion": "Logística · la cinta mueve la carga sola",
    "archivos": {
     "1080": "video/agentes-cinta-1080.mp4",
@@ -704,7 +700,6 @@
   {
    "clave": "conocimiento-servidores",
    "seccion": "conocimiento",
-   "tono": "b",
    "descripcion": "Datos · los servidores donde viven tus documentos",
    "archivos": {
     "1080": "video/conocimiento-servidores-1080.mp4",
@@ -718,7 +713,6 @@
   {
    "clave": "semanas-obra",
    "seccion": "tres-semanas",
-   "tono": "b",
    "descripcion": "Construcción · una torre sube en semanas",
    "archivos": {
     "1080": "video/semanas-obra-1080.mp4",
@@ -786,7 +780,7 @@
    {
     "descripcion": "Portada · Oficina",
     "fuente": "https://www.pexels.com/video/5020282/",
-    "autor": "autor no consta (Pexels)",
+    "autor": "Pexels",
     "licencia": "Licencia Pexels (uso comercial libre)"
    },
    {
@@ -798,10 +792,9 @@
    {
     "descripcion": "Portada · Construcción",
     "fuente": "https://www.pexels.com/video/5567023/",
-    "autor": "autor no consta (Pexels)",
+    "autor": "Pexels",
     "licencia": "Licencia Pexels (uso comercial libre)"
    }
-  ],
-  "tono": "b"
+  ]
  }
 }

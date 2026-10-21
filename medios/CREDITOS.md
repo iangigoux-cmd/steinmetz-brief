@@ -2,22 +2,22 @@
 
 Fotos de Unsplash y Pexels; videos de Pexels. Todo con licencia que permite uso comercial
 (https://unsplash.com/license · https://www.pexels.com/license/). Se acredita igual.
-Todas pasan por la bicromía de Steinmetz: B brasa (hollín → brasa → cal) o C pizarra (pizarra profundo → cal).
+Las fotos pasan por la bicromía de Steinmetz: B brasa (hollín → brasa → cal) o C pizarra (pizarra profundo → cal). Los videos van a color.
 
 ## Videos
 
 - Portada · Minería · Musko io · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/8382429/
 - Portada · Fundición · ArtHouse Studio · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/5121701/
 - Portada · Industria · Usman AbdulrasheedGambo · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/32386532/
-- Portada · Oficina · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/5020282/
+- Portada · Oficina · Pexels · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/5020282/
 - Portada · Redes neuronales · Adis Resic · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/18333010/
-- Portada · Construcción · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/5567023/
-- Oficina · un arquitecto revisa los planos · bicromía C · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/6615054/
-- Industria · un brazo robótico mueve piezas · bicromía C · Usman AbdulrasheedGambo · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/32386590/
-- Industria · la línea despacha sola · bicromía C · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/852388/
-- Logística · la cinta mueve la carga sola · bicromía C · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/4473187/
-- Datos · los servidores donde viven tus documentos · bicromía B · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/5028622/
-- Construcción · una torre sube en semanas · bicromía B · Site Engine · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/6164052/
+- Portada · Construcción · Pexels · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/5567023/
+- Oficina · un arquitecto revisa los planos · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/6615054/
+- Industria · un brazo robótico mueve piezas · Usman AbdulrasheedGambo · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/32386590/
+- Industria · la línea despacha sola · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/852388/
+- Logística · la cinta mueve la carga sola · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/4473187/
+- Datos · los servidores donde viven tus documentos · autor no consta (Pexels) · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/5028622/
+- Construcción · una torre sube en semanas · Site Engine · Licencia Pexels (uso comercial libre) · https://www.pexels.com/video/6164052/
 
 ## Fotos
 
