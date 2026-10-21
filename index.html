@@ -42,7 +42,7 @@
 
 <main>
 
-<section class="portada" id="portada" data-nombre="Portada">
+<section class="portada" id="portada" data-nombre="Portada" data-tono="b">
   <div class="portada-texto">
     <h1 class="display t1"><span class="linea"><span>Sistemas de IA</span></span><span class="linea"><span>hechos para</span></span><span class="linea"><span>tu operación.</span></span></h1>
     <p class="bajada entra">Un sistema tuyo, encendido en tres semanas, dentro de tu red.</p>
@@ -52,7 +52,7 @@
 </section>
 
 <!-- 02 · donde fallan: tres fotos que se vuelven el tríptico de las respuestas -->
-<section class="escena problema" id="problema" data-nombre="Donde fallan" style="--alto:650svh">
+<section class="escena problema" id="problema" data-nombre="Donde fallan" data-tono="c" style="--alto:330svh">
   <div class="fijo">
     <div class="problema-cab">
       <p class="dato sec">El problema</p>
@@ -64,25 +64,25 @@
   </div>
 </section>
 
-<!-- 03 · mosaico estilo revista: columnas a distinta velocidad, una foto se abre y te mete en la sección siguiente -->
-<section class="escena mosaico" id="oficios" data-nombre="Cinco oficios" style="--alto:560svh">
+<!-- 03 · índice de los cinco oficios: nombre, una línea y una foto cada uno, en el tono de su sección.
+     La foto del primero se abre y te mete en «a medida». -->
+<section class="escena oficios" id="oficios" data-nombre="Cinco oficios" data-tono="b" style="--alto:300svh">
   <div class="fijo">
-    <div class="mosaico-cols" id="mosaicoCols"></div>
-    <div class="mosaico-centro">
-      <p class="dato">Lo que hacemos</p>
-      <h2 class="display t1 barrido"><span>Cinco</span> <span>oficios.</span></h2>
-      <p class="bajada entra">Un sistema de IA se construye como cualquier pieza bien hecha: midiendo primero.</p>
+    <div class="oficios-cab">
+      <h2 class="display t2 barrido"><span>Cinco</span> <span>oficios.</span></h2>
+      <p class="bajada entra">Lo que construimos dentro de tu operación.</p>
     </div>
+    <ol class="oficios-lista" id="oficiosLista"></ol>
     <div class="atraviesa" id="atraviesa"><img alt=""></div>
   </div>
 </section>
 
 <!-- 04 · a medida: tramo horizontal -->
-<section class="escena horizontal" id="a-medida" data-nombre="A medida" style="--alto:520svh">
+<section class="escena horizontal" id="a-medida" data-nombre="A medida" data-tono="c" style="--alto:520svh">
   <div class="fijo">
     <div class="pista" id="pistaMedida">
       <article class="panel panel-portada"><img id="medidaPortada" alt=""><div class="panel-texto">
-        <p class="dato"><b class="brasa">01</b> · A medida</p>
+        <p class="dato"><b class="acento">01</b> · A medida</p>
         <h2 class="display t2">Hecho para tu operación.</h2>
         <p class="bajada">No instalamos software. Construimos el sistema que le falta a tu operación, dentro de ella y con tus reglas.</p>
       </div></article>
@@ -91,11 +91,11 @@
 </section>
 
 <!-- 05 · conocimiento: la foto chica crece hasta tapar todo y se parte en cuatro fuentes -->
-<section class="escena conocimiento" id="conocimiento" data-nombre="Conocimiento" style="--alto:760svh">
+<section class="escena conocimiento" id="conocimiento" data-nombre="Conocimiento" data-tono="b" style="--alto:360svh">
   <div class="fijo">
     <div class="zoom" id="zoomCon"><img alt=""></div>
     <div class="con-texto">
-      <p class="dato"><b class="brasa">02</b> · Conocimiento que responde</p>
+      <p class="dato"><b class="acento">02</b> · Conocimiento que responde</p>
       <h2 class="display t2 barrido"><span>Tus documentos</span> <span>responden.</span></h2>
       <p class="bajada entra">En lenguaje natural y con la fuente citada: quién lo dice, en qué documento y en qué página.</p>
     </div>
@@ -104,11 +104,11 @@
 </section>
 
 <!-- 06 · agentes: videos que se relevan y un registro que se escribe -->
-<section class="escena agentes" id="agentes" data-nombre="Agentes" style="--alto:480svh">
+<section class="escena agentes" id="agentes" data-nombre="Agentes" data-tono="c" style="--alto:260svh">
   <div class="fijo">
     <div class="agentes-videos" id="agentesVideos"></div>
     <div class="agentes-texto">
-      <p class="dato"><b class="brasa">03</b> · Agentes que hacen el trabajo</p>
+      <p class="dato"><b class="acento">03</b> · Agentes que hacen el trabajo</p>
       <h2 class="display t2 barrido"><span>Lo hace</span> <span>el sistema.</span></h2>
       <p class="bajada entra">Copiar datos de un sistema a otro, revisar contratos parecidos, armar el informe de cada lunes. Y deja registro.</p>
       <ol class="registro" id="registro" aria-label="Registro de ejemplo"></ol>
@@ -117,17 +117,17 @@
 </section>
 
 <!-- 07 · tres semanas: un contador de días sobre un time-lapse -->
-<section class="escena semanas" id="tres-semanas" data-nombre="Tres semanas" style="--alto:460svh">
+<section class="escena semanas" id="tres-semanas" data-nombre="Tres semanas" data-tono="b" style="--alto:260svh">
   <div class="fijo">
     <div class="semanas-video" id="semanasVideo"></div>
     <div class="semanas-dia"><span class="dato">Día</span><b id="dia">01</b><span class="dato">/ 21</span></div>
     <div class="semanas-pasos">
-      <article data-desde=".14"><p class="dato">Semana 1</p><h3 class="display t3">Leemos la operación real.</h3></article>
-      <article data-desde=".42"><p class="dato">Semana 2</p><h3 class="display t3">Se construye.</h3></article>
-      <article data-desde=".54"><p class="dato">Semana 3</p><h3 class="display t3">Se enciende.</h3><p class="sec">Acta de entrega, manual y tu equipo usándolo.</p></article>
+      <article data-desde=".10"><p class="dato">Semana 1</p><h3 class="display t3">Leemos la operación real.</h3></article>
+      <article data-desde=".38"><p class="dato">Semana 2</p><h3 class="display t3">Se construye.</h3></article>
+      <article data-desde=".64"><p class="dato">Semana 3</p><h3 class="display t3">Se enciende.</h3><p class="sec">Acta de entrega, manual y tu equipo usándolo.</p></article>
     </div>
     <div class="semanas-cab">
-      <p class="dato"><b class="brasa">04</b> · Tres semanas, encendido</p>
+      <p class="dato"><b class="acento">04</b> · Tres semanas, encendido</p>
       <h2 class="display t2">No un piloto.</h2>
     </div>
     <div class="encendido" id="encendido"><i></i></div>
@@ -135,12 +135,12 @@
 </section>
 
 <!-- 08 · perímetro: los muros se cierran alrededor de una luz -->
-<section class="escena perimetro" id="perimetro" data-nombre="Perímetro" style="--alto:600svh">
+<section class="escena perimetro" id="perimetro" data-nombre="Perímetro" data-tono="c" style="--alto:300svh">
   <div class="fijo">
     <div class="peri-centro" id="periCentro"><img alt=""></div>
     <div class="muros" id="muros"></div>
     <div class="peri-texto">
-      <p class="dato"><b class="brasa">05</b> · Dentro de tu perímetro</p>
+      <p class="dato"><b class="acento">05</b> · Dentro de tu perímetro</p>
       <h2 class="display t2 barrido"><span>Tu información</span> <span>no sale.</span></h2>
       <p class="bajada entra">Sobre tu nube, con tus cuentas. Tus datos no entrenan modelos ni salen de tu red.</p>
     </div>
@@ -149,7 +149,7 @@
 </section>
 
 <!-- 09 · lo que queda escrito: tarjetas que se apilan -->
-<section class="apilado" id="contrato" data-nombre="Por escrito">
+<section class="apilado" id="contrato" data-nombre="Por escrito" data-tono="b">
   <div class="apilado-cab env">
     <p class="dato sec">Dónde vive tu información</p>
     <h2 class="display t2">Todo queda escrito en el contrato.</h2>
@@ -158,8 +158,8 @@
 </section>
 
 <!-- 10 · cierre -->
-<section class="cierre" id="hablemos" data-nombre="Hablemos">
-  <div class="cierre-foto cortina" id="cierreFoto"><img alt=""></div>
+<section class="cierre" id="hablemos" data-nombre="Hablemos" data-tono="c">
+  <div class="cierre-foto cortina" id="cierreFoto"><img alt=""><img class="otro-tono" alt="" aria-hidden="true"></div>
   <div class="cierre-texto">
     <p class="dato">30 minutos sin costo · desde 28 UF</p>
     <h2 class="display t1 barrido"><span>Media hora</span> <span>y sabes si tiene</span> <span>sentido.</span></h2>
@@ -167,7 +167,7 @@
   </div>
 </section>
 
-<footer class="pie">
+<footer class="pie" data-tono="c">
   <div class="pie-logo" data-logo></div>
   <div class="pie-datos dato sec">Steinmetz SpA · Santiago de Chile · steinmetz.cl<br>Fotos y videos de terceros con licencia libre · <button type="button" id="verCreditos" class="enlace">ver créditos</button></div>
   <div class="creditos" id="creditos" hidden></div>

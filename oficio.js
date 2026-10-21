@@ -5,6 +5,18 @@
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MOVIL = () => innerWidth <= 820;
+const TACTIL = matchMedia('(pointer: coarse)').matches;
+// alto estable de pantalla: el de las escenas (100lvh). En el teléfono innerHeight cambia cada vez que la barra del
+// navegador aparece o se esconde; si el largo de las escenas dependiera de él, la página saltaría a medio gesto.
+const sonda = document.createElement('div');
+sonda.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';
+document.body.appendChild(sonda);
+let VH = sonda.offsetHeight || innerHeight, anchoPrev = innerWidth;
+// 'tamano' sólo se dispara cuando de verdad cambia la pantalla (ancho o alto estable), no con la barra
+addEventListener('resize', () => {
+  const v = sonda.offsetHeight || innerHeight; if (v === VH && innerWidth === anchoPrev) return;
+  VH = v; anchoPrev = innerWidth; dispatchEvent(new Event('tamano'));
+});
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const mapa = (v, a, b) => clamp((v - a) / (b - a));
 const G = window.GEO, NS = 'http://www.w3.org/2000/svg';
@@ -23,12 +35,12 @@ function fotos(seccion, n, {orient} = {}) {
   const out = pool.slice(0, n); out.forEach(f => usadas.add(f.clave)); return out;
 }
 function videos(seccion, n) {
-  let pool = M.videos.filter(v => v.seccion === seccion && !usadas.has(v.clave));
-  if (pool.length < n) pool = pool.concat(M.videos.filter(v => v.seccion !== seccion && !usadas.has(v.clave)));
+  const pool = M.videos.filter(v => v.seccion === seccion && !usadas.has(v.clave));   // sólo los de su sección: no se roban entre escenas
   const out = pool.slice(0, n); out.forEach(v => usadas.add(v.clave)); return out;
 }
-const src = (f, grande = true) => ruta(f?.archivos?.[grande && !MOVIL() ? '2400' : '1200'] || f?.archivos?.['2400'] || f?.archivos?.['1200']);
-const img = (f, {grande = true, eager = false} = {}) => f ? `<img src="${src(f, grande)}" alt="${(f.descripcion || '').replace(/"/g, '&quot;')}" ${eager ? '' : 'loading="lazy"'} decoding="async">` : '';
+// cada foto viene pre-renderizada en bicromía B (brasa) y/o C (pizarra); f.tono es la de su sección
+const src = (f, grande = true, tono = f?.tono) => { const a = f?.archivos?.[tono] || f?.archivos?.[f?.tono] || {}; return ruta(a[grande && !MOVIL() ? '1600' : '1200'] || a['1600'] || a['1200']); };
+const img = (f, {grande = true, eager = false, tono, clase = ''} = {}) => f ? `<img ${clase ? `class="${clase}" ` : ''}src="${src(f, grande, tono)}" alt="${clase ? '' : (f.descripcion || '').replace(/"/g, '&quot;')}" ${clase ? 'aria-hidden="true" ' : ''}${eager || clase ? '' : 'loading="lazy"'} decoding="async">` : '';
 const vsrc = v => ruta(v?.archivos?.[MOVIL() ? '720' : '1080'] || v?.archivos?.['1080'] || v?.archivos?.['720']);
 // video diferido: se carga cerca de la vista y se pausa fuera
 const vids = [];
@@ -59,14 +71,33 @@ function firma(n, {sello = false} = {}) {
   return {svg, circulo, letras};
 }
 $$('[data-logo]').forEach(n => firma(n));
-firma($('#barraLogo'));
+// en la barra el logotipo se comprime a SZ al bajar y se expande al subir: TEINMET se pliega contra la S
+// (de la Z hacia la S) mientras la Z se corre hasta formar el par del sello. La Z va siempre en el acento.
+const barraLogo = $('#barraLogo');
+(() => {
+  const {letras} = firma(barraLogo), sEnd = letras[0].firstChild.getBBox(), x0 = sEnd.x + sEnd.width;
+  letras.slice(1, -1).forEach((g, i) => { const b = g.firstChild.getBBox(); g.style.setProperty('--dx', `${x0 - b.x}px`); g.style.setProperty('--i', i); });
+  letras.at(-1).style.setProperty('--zdx', `${SZ.sello.zDx}px`);
+})();
+let yPrev = scrollY, acum = 0;
+function logoSegunScroll() {
+  const y = scrollY, d = y - yPrev; yPrev = y; if (!d) return;
+  if (Math.sign(d) !== Math.sign(acum)) acum = 0;   // cambia la dirección: se cuenta de nuevo (umbral, sin parpadeo)
+  acum += d;
+  const sz = barraLogo.classList.contains('sz');
+  if (!sz && acum > 90 && y > VH * .5) barraLogo.classList.add('sz');
+  else if (sz && (acum < -90 || y < VH * .3)) barraLogo.classList.remove('sz');
+}
 
 // ---------------- scroll con inercia ----------------
 const lenis = (!RM && window.Lenis) ? new Lenis({lerp: .075, smoothWheel: true, wheelMultiplier: .9, touchMultiplier: 1.4}) : null;
-$$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+// delegado: también sirve para los enlaces que se arman después (el índice de oficios)
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
   const t = $(a.getAttribute('href')); if (!t) return; e.preventDefault();
-  lenis ? lenis.scrollTo(t, {duration: 2.2}) : t.scrollIntoView();
-}));
+  const y = t.getBoundingClientRect().top + scrollY + (t.classList.contains('escena') ? VH * .3 : 0);
+  if (lenis) { lenis.start(); lenis.scrollTo(y, {duration: 2.2}); } else scrollTo(0, y);   // un clic suelta el scroll aunque la portada aún esté entrando
+});
 
 // ---------------- estados por umbral con histéresis ----------------
 function umbral(n, cls, p, at, h = .02) {
@@ -75,10 +106,11 @@ function umbral(n, cls, p, at, h = .02) {
   if (on && p < at - h / 2) { n.classList.remove(cls); return -1; }
   return 0;
 }
-const progreso = sec => { const r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight)); };
+const progreso = sec => { const r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - VH)); };
 const relativo = (n, padre) => { const a = n.getBoundingClientRect(), b = padre.getBoundingClientRect(); return {left: a.left - b.left, top: a.top - b.top, width: a.width, height: a.height}; };
 const caja = (n, r) => { n.style.left = r.left + 'px'; n.style.top = r.top + 'px'; n.style.width = r.width + 'px'; n.style.height = r.height + 'px'; };
 const escenas = [];
+let cierreTick = null;
 
 // ================= 00 · película e intro =================
 const pelicula = $('#pelicula'), pv = $('#peliculaVideo');
@@ -98,7 +130,8 @@ function encender() {
   $('#portada').classList.add('on'); $('#barra').classList.add('on');
   document.body.classList.remove('en-intro');
   // el scroll se libera cuando la portada ya terminó de entrar (el titular dura ~1,5 s)
-  lenis ? setTimeout(() => lenis.start(), 2200) : 0;
+  // en táctil el scroll es nativo: se suelta casi de inmediato para que el gesto no se sienta trabado
+  lenis ? setTimeout(() => lenis.start(), TACTIL ? 200 : 700) : 0;
 }
 const intro = $('#intro');
 const saltar = RM || scrollY > 10 || location.hash;
@@ -126,55 +159,62 @@ else {
     el('line', {x1: zx1 + (zx1 - zx0) * k, y1: yCap - zb.height * k, x2: zx0 - (zx1 - zx0) * k, y2: yBase + zb.height * k}, guias),
   ];
   G.forEach(g => { g.setAttribute('class', 'guia'); g.style.strokeWidth = upx * 1; });
-  G.forEach((g, i) => dibujar(g, 1000, i * 90));
+  G.forEach((g, i) => dibujar(g, 700, i * 60));
 
   // 2 · la S y la Z se dibujan en su lugar dentro del sello: primero el contorno, después el relleno
   s.style.transform = `translate(${S_SELLO}px, 0)`; z.style.transform = `translate(${dZ}px, 0)`;
-  const trazar = (g, color, delay, dur = 1100) => {
+  const trazar = (g, color, delay, dur = 750) => {
     const p = g.firstChild;
     p.style.stroke = color; p.style.strokeWidth = upx * 1.4; p.style.strokeLinejoin = 'round';
     dibujar(p, dur, delay);
-    p.animate([{fillOpacity: 0}, {fillOpacity: 1}], {duration: 500, delay: delay + dur * .8, easing: EASE, fill: 'both'});
-    p.animate([{strokeOpacity: 1}, {strokeOpacity: 0}], {duration: 400, delay: delay + dur + 200, fill: 'both'});
+    p.animate([{fillOpacity: 0}, {fillOpacity: 1}], {duration: 400, delay: delay + dur * .8, easing: EASE, fill: 'both'});
+    p.animate([{strokeOpacity: 1}, {strokeOpacity: 0}], {duration: 300, delay: delay + dur + 120, fill: 'both'});
   };
-  trazar(s, '#F3EBDD', 650); trazar(z, '#FF8539', 800);
+  trazar(s, '#F3EBDD', 400); trazar(z, '#FF8539', 500);
   // el sello: su borde se dibuja y se llena; la S pasa a hollín sobre la cal
   circulo.style.strokeWidth = upx * 1.4;
-  dibujar(circulo, 1100, 900);
-  circulo.animate([{fillOpacity: 0}, {fillOpacity: 1}], {duration: 600, delay: 1900, easing: EASE, fill: 'both'});
-  s.animate([{fill: '#F3EBDD'}, {fill: '#0E0B08'}], {duration: 500, delay: 1950, easing: EASE, fill: 'both'});
-  G.forEach(g => g.animate([{opacity: 1}, {opacity: .35}], {duration: 800, delay: 2200, fill: 'forwards'}));
+  dibujar(circulo, 750, 550);
+  circulo.animate([{fillOpacity: 0}, {fillOpacity: 1}], {duration: 450, delay: 1250, easing: EASE, fill: 'both'});
+  s.animate([{fill: '#F3EBDD'}, {fill: '#0E0B08'}], {duration: 400, delay: 1300, easing: EASE, fill: 'both'});
+  G.forEach(g => g.animate([{opacity: 1}, {opacity: .35}], {duration: 600, delay: 1450, fill: 'forwards'}));
 
   // 3 · el círculo se va, la S vuelve a cal y se abren las demás letras entre la S y la Z, dibujándose
-  const T2 = 3200;
-  circulo.animate([{transform: 'scale(1)', opacity: 1}, {transform: 'scale(.86)', opacity: 0}], {duration: 700, delay: T2, easing: SUAVE, fill: 'forwards'});
-  s.animate([{fill: '#0E0B08'}, {fill: '#F3EBDD'}], {duration: 600, delay: T2 + 100, easing: SUAVE, fill: 'forwards'});
-  s.animate([{transform: `translate(${S_SELLO}px, 0)`}, {transform: 'translate(0, 0)'}], {duration: 1200, delay: T2 + 350, easing: SUAVE, fill: 'forwards'});
-  z.animate([{transform: `translate(${dZ}px, 0)`}, {transform: 'translate(0, 0)'}], {duration: 1200, delay: T2 + 350, easing: SUAVE, fill: 'forwards'});
+  const T2 = 2000;   // la intro entera dura ~3,3 s (antes ~5 s)
+  circulo.animate([{transform: 'scale(1)', opacity: 1}, {transform: 'scale(.86)', opacity: 0}], {duration: 550, delay: T2, easing: SUAVE, fill: 'forwards'});
+  s.animate([{fill: '#0E0B08'}, {fill: '#F3EBDD'}], {duration: 500, delay: T2 + 80, easing: SUAVE, fill: 'forwards'});
+  s.animate([{transform: `translate(${S_SELLO}px, 0)`}, {transform: 'translate(0, 0)'}], {duration: 900, delay: T2 + 250, easing: SUAVE, fill: 'forwards'});
+  z.animate([{transform: `translate(${dZ}px, 0)`}, {transform: 'translate(0, 0)'}], {duration: 900, delay: T2 + 250, easing: SUAVE, fill: 'forwards'});
   // las letras del medio solo existen en el hueco que dejan la S y la Z (se abren simétricas desde el centro)
   const clip = el('clipPath', {id: 'hueco'}, el('defs', {}, svgL));
   const rect = el('rect', {x: sb.x + sb.width, y: -SZ.alto, width: zb.x - (sb.x + sb.width), height: SZ.alto * 3}, clip);
   rect.style.transformBox = 'fill-box'; rect.style.transformOrigin = 'center';
   const grupo = el('g', {'clip-path': 'url(#hueco)'}, svgL);
   medio.forEach(g => grupo.appendChild(g));
-  rect.animate([{transform: 'scaleX(0)'}, {transform: 'scaleX(1)'}], {duration: 1200, delay: T2 + 350, easing: SUAVE, fill: 'both'});
+  rect.animate([{transform: 'scaleX(0)'}, {transform: 'scaleX(1)'}], {duration: 900, delay: T2 + 250, easing: SUAVE, fill: 'both'});
   const mitad = (medio.length - 1) / 2;
-  medio.forEach((g, i) => trazar(g, '#F3EBDD', T2 + 450 + Math.abs(i - mitad) * 110, 900));
+  medio.forEach((g, i) => trazar(g, '#F3EBDD', T2 + 300 + Math.abs(i - mitad) * 80, 700));
   const svg = lock;
-  let listo = false, ido = false;
-  setTimeout(() => { listo = true; $('#introBaja').classList.add('on'); }, 5000);
+  let listo = false, ido = false, pendiente = false, deuda = 0;
+  // un gesto antes de que el logo esté armado no se pierde: queda anotado y sale apenas se puede (~2,4 s;
+  // las últimas letras terminan de dibujarse mientras el logo vuela a la barra)
+  setTimeout(() => { listo = true; $('#introBaja').classList.add('on'); if (pendiente) salir(); }, 2400);
   pv.preload = 'auto'; pv.load();
   const salir = () => {
-    if (!listo || ido) return; ido = true;
+    if (ido) return; if (!listo) { pendiente = true; return; } ido = true;
     $('#portada').classList.add('on');   // el titular entra mientras vuela el logo
     const a = svg.getBoundingClientRect(), b = $('#barraLogo').getBoundingClientRect();
     intro.classList.add('sale'); pelicula.classList.add('on'); pv.play().catch(() => {});
-    svg.animate([{transform: 'none'}, {transform: `translate(${b.left - a.left}px,${b.top - a.top}px) scale(${b.width / a.width})`}], {duration: 1500, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards'});
-    setTimeout(() => { $('#barraLogo').classList.add('on'); intro.classList.add('fuera'); encender(); }, 1500);
+    svg.animate([{transform: 'none'}, {transform: `translate(${b.left - a.left}px,${b.top - a.top}px) scale(${b.width / a.width})`}], {duration: 1100, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards'});
+    setTimeout(() => {
+      $('#barraLogo').classList.add('on'); intro.classList.add('fuera'); encender();
+      // lo que se deslizó mientras el logo volaba se aplica al soltar el scroll (antes se perdía)
+      if (deuda > 0) { const y = Math.min(deuda * 1.2, VH * .9); lenis ? (lenis.start(), lenis.scrollTo(y, {duration: 1.2})) : scrollTo(0, y); }
+    }, 1100);
   };
-  addEventListener('wheel', e => { if (e.deltaY > 0) salir(); }, {passive: true});
+  const enVuelo = () => ido && intro.classList.contains('sale') && !intro.classList.contains('fuera');
+  addEventListener('wheel', e => { if (enVuelo()) deuda += Math.max(0, e.deltaY); if (e.deltaY > 0) salir(); }, {passive: true});
   let ty = 0; addEventListener('touchstart', e => ty = e.touches[0].clientY, {passive: true});
-  addEventListener('touchmove', e => { if (ty - e.touches[0].clientY > 12) salir(); }, {passive: true});
+  addEventListener('touchmove', e => { const d = ty - e.touches[0].clientY; if (enVuelo() && d > 0) { deuda += d; ty = e.touches[0].clientY; } if (d > 12) salir(); }, {passive: true});
   addEventListener('keydown', e => { if (['ArrowDown', 'PageDown', ' ', 'Enter'].includes(e.key)) salir(); });
   intro.addEventListener('click', salir);
 }
@@ -188,50 +228,46 @@ else {
     ['Tu información en servidores que no controlas.', 'Ni servidor ajeno', 'Dentro de tu red.'],
   ];
   const fs = fotos('problema', 3);
-  cont.innerHTML = MIEDOS.map(([m, d, r], i) => `<div class="foto fuera">${img(fs[i])}<p class="miedo">${m}</p><div class="respuesta"><span class="dato">${d}</span><span class="display">${r}</span></div></div>`).join('');
+  // cada foto está en C (el miedo, frío); al llegar la respuesta una cortina diagonal la pasa a B (cálida), panel por panel
+  cont.innerHTML = MIEDOS.map(([m, d, r], i) => `<div class="foto fuera">${img(fs[i])}${img(fs[i], {tono: 'b', clase: 'otro-tono'})}<p class="miedo">${m}</p><div class="respuesta"><span class="dato">${d}</span><span class="display">${r}</span></div></div>`).join('');
   const piezas = $$('.foto', cont), A = $$('.grilla-a .hueco', sec), B = $$('.grilla-b .hueco', sec);
   const colocar = () => { const destino = sec.classList.contains('b') ? B : A; piezas.forEach((p, i) => caja(p, relativo(destino[i], fijo))); };
-  colocar(); addEventListener('resize', colocar);
-  escenas.push(p => {
-    const a = umbral(sec, 'on', p, .04);
-    if (a === 1) piezas.slice().reverse().forEach((n, i) => setTimeout(() => sec.classList.contains('on') && n.classList.remove('fuera'), 250 + i * 220));
+  colocar(); addEventListener('tamano', colocar);
+  escenas.push((p, r) => {
+    // entra mientras el escenario llega (antes había un momento en negro al empezar la escena)
+    const on = sec.classList.contains('on'), a = !on && r.top < VH * .8 ? 1 : on && r.top > VH * .95 ? -1 : 0;
+    if (a) sec.classList.toggle('on', a === 1);
+    if (a === 1) piezas.slice().reverse().forEach((n, i) => setTimeout(() => sec.classList.contains('on') && n.classList.remove('fuera'), 60 + i * 160));
     if (a === -1) piezas.forEach(n => n.classList.add('fuera'));
-    if (umbral(sec, 'b', p, .52)) colocar();
-    umbral(sec, 'c', p, .70);
+    if (umbral(sec, 'b', p, .38)) colocar();
+    umbral(sec, 'c', p, .64);
   });
 })();
 
-// ================= 03 · mosaico =================
+// ================= 03 · cinco oficios (índice) =================
+let puerta = null;
 (() => {
-  const sec = $('#oficios'), fijo = $('.fijo', sec), cols = $('#mosaicoCols');
-  // la puerta (primera foto de «a medida») + las del mosaico + un adelanto de cada oficio sin quitárselo a su sección
-  const [puerta] = fotos('a-medida', 1);
-  const propias = M.fotos.filter(f => f.seccion === 'mosaico'); propias.forEach(f => usadas.add(f.clave));
-  // adelantos: se repiten a propósito en su sección (otra pantalla), así que no se marcan como usados
-  const adelanto = [['conocimiento', 3], ['proceso', 3], ['perimetro', 2], ['a-medida', 2]].flatMap(([s, n]) => M.fotos.filter(f => f.seccion === s && f !== puerta).slice(-n));
-  const elegidas = [];
-  [...propias, ...adelanto].forEach((f, i) => elegidas.push(f));   // propias primero, luego adelantos
-  for (let i = elegidas.length - 1; i > 0; i--) { const j = (i * 7 + 3) % (i + 1); [elegidas[i], elegidas[j]] = [elegidas[j], elegidas[i]]; }   // mezcla fija
-  elegidas.splice(5, 0, puerta);   // la puerta queda en la segunda columna, cerca del centro
-  const n = MOVIL() ? 2 : 4, columnas = Array.from({length: n}, () => []);
-  elegidas.forEach((f, i) => columnas[i % n].push(f));
-  const ETIQ = {'a-medida': 'Oficio', 'conocimiento': 'Archivo', 'agentes': 'Mecanismo', 'tres-semanas': 'Tiempo', 'perimetro': 'Resguardo', 'proceso': 'Taller'};
-  cols.innerHTML = columnas.map(c => `<div class="mosaico-col">${c.map(f => `<figure style="aspect-ratio:${f.ancho || 4}/${f.alto || 5}" data-clave="${f.clave}">${img(f, {grande: false})}${ETIQ[f.seccion] ? `<figcaption>${ETIQ[f.seccion]}</figcaption>` : ''}</figure>`).join('')}</div>`).join('');
-  const colsEl = $$('.mosaico-col', cols);
-  // la foto que se abre es la primera de «a medida» (y es la misma que abre la sección siguiente)
-  const fig = $(`figure[data-clave="${puerta?.clave}"]`, cols);
-  const at = $('#atraviesa'); at.querySelector('img').src = src(puerta);
+  const sec = $('#oficios'), fijo = $('.fijo', sec), lista = $('#oficiosLista');
+  const OF = [
+    ['a-medida', 'A medida', 'El sistema que le falta a tu operación, con tus reglas.'],
+    ['conocimiento', 'Conocimiento', 'Tus documentos responden, con la fuente citada.'],
+    ['agentes', 'Agentes', 'El trabajo repetido lo hace el sistema, y deja registro.'],
+    ['tres-semanas', 'Tres semanas', 'Encendido y en uso en tres semanas. No un piloto.'],
+    ['perimetro', 'Perímetro', 'Corre dentro de tu red. Tu información no sale.'],
+  ];
+  // una foto por oficio, en el tono de su sección (C, B, C, B, C): el índice ya anuncia la alternancia
+  const fs = fotos('oficios', OF.length);
+  puerta = fs[0];
+  lista.innerHTML = OF.map(([id, nombre, linea], i) => `<li class="oficio" data-tono="${$('#' + id)?.dataset.tono || 'b'}" style="--i:${i}"><a href="#${id}"><figure>${img(fs[i], {grande: false})}</figure><div class="oficio-texto"><span class="num">${String(i + 1).padStart(2, '0')}</span><h3 class="display">${nombre}</h3><p>${linea}</p></div></a></li>`).join('');
+  // la foto del primer oficio se abre a pantalla completa y es la misma que abre «a medida»
+  const fig = $('.oficio figure', lista), at = $('#atraviesa');
+  at.querySelector('img').src = src(puerta);
   $('#medidaPortada').src = src(puerta); $('#medidaPortada').alt = puerta?.descripcion || '';
-  const amp = [1.0, -0.7, 1.25, -0.9];
   let abierta = false;
-  escenas.push(p => {
-    colsEl.forEach((c, i) => {
-      const h = c.scrollHeight - innerHeight * 1.0;
-      const k = amp[i % 4], base = k > 0 ? 0 : -h * Math.abs(k) * .9;
-      c.style.transform = `translate3d(0,${base - (k > 0 ? 1 : -1) * p * h * Math.abs(k) * .9}px,0)`;
-    });
-    umbral(sec, 'on', p, .06);
-    const d = umbral(sec, 'd', p, .66);
+  escenas.push((p, r) => {
+    const on = sec.classList.contains('on');
+    if (!on && r.top < VH * .8) sec.classList.add('on'); else if (on && r.top > VH * .95) sec.classList.remove('on');
+    const d = umbral(sec, 'd', p, .64);
     if (d === 1 && fig) {
       abierta = true; at.style.transition = 'none'; caja(at, relativo(fig, fijo)); at.classList.add('on');
       requestAnimationFrame(() => requestAnimationFrame(() => { at.style.transition = ''; caja(at, {left: 0, top: 0, width: fijo.clientWidth, height: fijo.clientHeight}); }));
@@ -245,42 +281,69 @@ else {
 // ================= 04 · a medida (horizontal) =================
 (() => {
   const sec = $('#a-medida'), pista = $('#pistaMedida'), fijo = $('.fijo', sec);
-  const fs = fotos('a-medida', Math.max(1, M.fotos.filter(f => f.seccion === 'a-medida' && !usadas.has(f.clave)).length)), vs = videos('a-medida', 1);
-  let conVideo = false;
-  const LEY = ['Primero se mide.', 'Cada pieza, para un lugar.', 'Con tus reglas.', 'Nada de talla única.', 'Encaja o no se entrega.'];
-  const ALTOS = [.62, .78, .5, .7, .56, .66], ALIN = ['start', 'end', 'center', 'start', 'end', 'center'];
+  const fs = fotos('a-medida', M.fotos.filter(f => f.seccion === 'a-medida' && !usadas.has(f.clave)).length), vs = videos('a-medida', 1);
+  // cinco paradas, cada una con su frase: foto, díptico, video, foto y la frase que lleva a «conocimiento»
+  const LEY = ['Primero se mide.', 'Con tus reglas.', 'Un sistema tuyo, no una licencia más.', 'Encaja o no se entrega.'];
+  const ALTOS = [.6, .66, .58, .62], ALIN = ['start', 'end', 'center', 'start'];
+  const piezas = [...fs.slice(0, 2), vs[0] ? {video: vs[0]} : null, ...fs.slice(2)].filter(Boolean);
   let h = '';
-  fs.forEach((f, i) => {
-    const alto = ALTOS[i % 6], ar = (f.ancho || 4) / (f.alto || 3);
-    h += `<div class="hcuadro" style="--ar:${ar.toFixed(3)};height:${alto * 100}svh;width:calc(${alto * 100}svh * ${ar.toFixed(3)});align-self:${ALIN[i % 6]};margin-block:${ALIN[i % 6] === 'center' ? 0 : 10}svh"><figure>${img(f)}</figure><span class="dato">${String(i + 1).padStart(2, '0')} · ${LEY[i % LEY.length]}</span></div>`;
-    if (i === 1) h += `<div class="hfrase"><p class="display">Un sistema tuyo, no una licencia más.</p></div>`;
-    if ((i === 3 || i === fs.length - 1) && vs[0] && !conVideo && (conVideo = true)) h += `<div class="hcuadro" style="--ar:1.778;height:58svh;width:calc(58svh * 1.778);align-self:center"><figure>${video(vs[0])}</figure><span class="dato">${vs[0].descripcion || ''}</span></div>`;
+  piezas.forEach((f, i) => {
+    const alto = ALTOS[i % 4], ar = f.video ? 16 / 9 : (f.ancho || 4) / (f.alto || 3);
+    // el díptico: la misma toma en C y en B; el corte sigue a la foto mientras cruza la pantalla (al centro, mitad y mitad)
+    const dip = f.diptico ? `<div class="dip-b">${img(f, {tono: 'b', clase: 'otro-tono'})}</div><i class="corte"></i>` : '';
+    h += `<div class="hcuadro${f.diptico ? ' diptico' : ''}" style="--ar:${ar.toFixed(3)};height:${alto * 100}svh;width:calc(${alto * 100}svh * ${ar.toFixed(3)});align-self:${ALIN[i % 4]};margin-block:${ALIN[i % 4] === 'center' ? 0 : 9}svh"><figure>${f.video ? video(f.video) : img(f) + dip}</figure><p class="hley display">${LEY[i % LEY.length]}</p></div>`;
   });
-  h += `<div class="hfrase" style="width:min(460px,80vw)"><p class="dato sec">Sigue</p><p class="display">Y lo que ya escribiste, responde.</p></div>`;
+  h += `<div class="hfrase"><p class="display">Y lo que ya escribiste, responde.</p></div>`;
   pista.insertAdjacentHTML('beforeend', h); vigilarVideos(pista);
-  const cuadros = $$('.hcuadro', pista);
+  const cuadros = $$('.hcuadro', pista), dipticos = $$('.diptico figure', pista);
   let ancho = 0;
-  const medir = () => { ancho = pista.scrollWidth; sec.style.setProperty('--alto', `${Math.max(innerHeight * 2, innerHeight * (MOVIL() ? 2.0 : 1.3) * paradas().length + (MOVIL() ? 0 : (ancho - innerWidth) * .5) + innerHeight * 3.4)}px`); };
-  // en móvil la pista se detiene en cada cuadro, centrado (65 % quieta, 35 % moviéndose)
+  // en móvil cada parada ocupa poco más de una pantalla de scroll y la pista viaja entre paradas por tiempo
+  // (nunca queda a medio camino, ni con un gesto rápido); en escritorio sigue al scroll con pausas
+  const PASO = .58, ENTRA = .2;
+  const medir = () => {
+    ancho = pista.scrollWidth; const n = paradas().length;
+    sec.style.setProperty('--alto', MOVIL() ? `${VH * (PASO * n + ENTRA * 2 + 1)}px`
+      : `${Math.max(VH * 2, VH * .6 * n + (ancho - innerWidth) * .2 + VH * 1.7)}px`);
+    lenis?.resize();
+  };
   const paradas = () => { const max = Math.max(0, ancho - innerWidth); const xs = [0, ...[...pista.children].filter(c => !c.classList.contains('panel-portada') && !c.classList.contains('enpista')).map(c => clamp(c.offsetLeft + c.offsetWidth / 2 - innerWidth / 2, 0, max))]; return [...new Set(xs.map(Math.round))].sort((a, b) => a - b); };
   const EASEIO = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   // la sección se monta encima del final del mosaico para que la foto que se abrió continúe sin corte
-  sec.style.marginTop = '-100svh'; sec.style.background = 'transparent';
-  medir(); addEventListener('resize', medir); $$('img', pista).forEach(i => i.addEventListener('load', medir));
+  sec.style.marginTop = 'calc(-1 * var(--pantalla))'; sec.style.background = 'transparent';
+  medir(); addEventListener('tamano', medir); $$('img', pista).forEach(i => i.addEventListener('load', () => { if (pista.scrollWidth !== ancho) medir(); }));
+  let parada = 0, meta = 0, tPaso = 0, xMovil = null;
   escenas.push((p, r) => {
     fijo.style.visibility = r.top <= 1 ? 'visible' : 'hidden';
-    // en móvil y escritorio la pista se detiene centrada en cada cuadro y frase (70–75 % quieta)
-    const st = paradas(), hold = MOVIL() ? .75 : .7, q = mapa(p, .28, .92) * (st.length - 1), i = Math.min(st.length - 2, Math.floor(q)), f = q - i, t = f < hold ? 0 : EASEIO((f - hold) / (1 - hold));
+    const st = paradas();
+    dipticos.forEach(fg => {
+      const b = fg.getBoundingClientRect(), t = clamp((innerWidth - b.left) / (innerWidth + b.width));
+      fg.style.setProperty('--corte', `${((1 - t) * 100).toFixed(2)}%`);
+    });
+    if (MOVIL()) {
+      const rango = Math.max(1, r.height - VH), e = ENTRA * VH / rango;
+      const q = mapa(p, e, 1 - e) * (st.length - 1);
+      // la meta sigue al scroll con histéresis; la pista avanza de a una parada (nunca se salta una con un gesto rápido)
+      if (q > meta + .54 || q < meta - .54) meta = clamp(Math.round(q), 0, st.length - 1);
+      const ahora = performance.now();
+      if (meta !== parada && ahora - tPaso > 560) { parada += Math.sign(meta - parada); tPaso = ahora; }
+      const x = -st[parada];
+      if (x !== xMovil) { xMovil = x; pista.classList.add('paso'); pista.style.transform = `translate3d(${x}px,0,0)`; }
+      cuadros.forEach(c => c.classList.toggle('visto', c.offsetLeft < st[parada] + innerWidth * 1.5));
+      return;
+    }
+    pista.classList.remove('paso'); xMovil = null;
+    // en escritorio la pista se detiene centrada en cada cuadro y frase (70 % quieta)
+    const hold = .6, q = mapa(p, .16, .94) * (st.length - 1), i = Math.min(st.length - 2, Math.floor(q)), f = q - i, t = f < hold ? 0 : EASEIO((f - hold) / (1 - hold));
     const x = -(st[i] + (st[i + 1] - st[i]) * (q >= st.length - 1 ? 1 : t));
     pista.style.transform = `translate3d(${x}px,0,0)`;
-    cuadros.forEach(c => { const b = c.getBoundingClientRect(); if (!c.classList.contains('visto') && b.left < innerWidth * (MOVIL() ? 1.6 : .82)) c.classList.add('visto'); else if (c.classList.contains('visto') && b.left > innerWidth * (MOVIL() ? 2 : .95)) c.classList.remove('visto'); });
+    cuadros.forEach(c => { const b = c.getBoundingClientRect(); if (!c.classList.contains('visto') && b.left < innerWidth * .82) c.classList.add('visto'); else if (c.classList.contains('visto') && b.left > innerWidth * .95) c.classList.remove('visto'); });
   });
 })();
 
 // ================= 05 · conocimiento =================
 (() => {
   const sec = $('#conocimiento'), z = $('#zoomCon');
-  const [vb, vp] = videos('conocimiento', 2);
+  const [vb] = videos('conocimiento', 1);
   if (vb) z.innerHTML = video(vb); else { const [princ] = fotos('conocimiento', 1, {orient: 'horizontal'}); z.querySelector('img').src = src(princ); z.querySelector('img').alt = princ?.descripcion || ''; }
   const CITAS = [
     ['El cambio de turno se anota en la bitácora 4.', 'Manual de operaciones · p. 14'],
@@ -288,16 +351,16 @@ else {
     ['La muestra se rotula antes de entrar al frío.', 'Protocolo de laboratorio · p. 3'],
     ['Las compras sobre 200 UF llevan dos firmas.', 'Política de compras · p. 9'],
   ];
-  // si hay segundo video, ocupa la tercera fuente y no se consume una foto que no se vería
-  const fs = fotos('conocimiento', vp ? 3 : 4, {orient: 'vertical'});
-  $('#fuentes').innerHTML = CITAS.map(([q, d], i) => `<div class="fuente">${i === 2 && vp ? video(vp) : img(fs[vp && i > 2 ? i - 1 : i])}<div class="cita"><q>${q}</q><span class="dato">${d}</span></div></div>`).join('');
+  const fs = fotos('conocimiento', 4);
+  $('#fuentes').innerHTML = CITAS.map(([q, d], i) => `<div class="fuente">${img(fs[i], {grande: false})}<div class="cita"><q>${q}</q><span class="dato">${d}</span></div></div>`).join('');
   $('.fijo', sec).insertAdjacentHTML('beforeend', '<p class="dato fuentes-cab">Cada respuesta, con su fuente · ejemplos</p>');
   vigilarVideos(sec);
   escenas.push(p => {
-    const s = .34 + .66 * Math.pow(mapa(p, 0, .16), 1.4);
+    // abre ya grande (antes partía chica sobre negro, el tramo más muerto de la página) y llena la pantalla enseguida
+    const s = .7 + .3 * Math.pow(mapa(p, 0, .12), 1.2);
     z.style.transform = `translate(-50%,-50%) scale(${s})`;
     umbral(sec, 'on', p, .10);
-    umbral(sec, 'b', p, .62);
+    umbral(sec, 'b', p, .56);
   });
 })();
 
@@ -320,11 +383,13 @@ else {
   $('#registro').innerHTML = REG.map(([t, x, e]) => `<li><b>${t}</b><span>${x}</span><i>${e}</i></li>`).join('');
   $('#registro').insertAdjacentHTML('afterend', '<p class="registro-nota">Registro de ejemplo</p>');
   const lis = $$('#registro li');
-  escenas.push(p => {
-    umbral(sec, 'on', p, .05);
-    const k = p < .38 ? 0 : p < .68 ? 1 : 2;
+  escenas.push((p, r) => {
+    // el texto entra mientras el escenario llega (con umbral sobre el progreso quedaba media pantalla vacía en el teléfono)
+    if (!sec.classList.contains('on') && r.top < VH * .3) sec.classList.add('on');
+    else if (sec.classList.contains('on') && r.top > VH * .6) sec.classList.remove('on');
+    const k = p < .36 ? 0 : p < .66 ? 1 : 2;
     capas.forEach((c, i) => c.classList.toggle('on', i === Math.min(k, capas.length - 1)));
-    lis.forEach((li, i) => umbral(li, 'on', p, .12 + i * .07));
+    lis.forEach((li, i) => umbral(li, 'on', p, .08 + i * .075));
   });
 })();
 
@@ -351,17 +416,18 @@ else {
   const cimg = () => centro.querySelector('img,video');
   const ms = fotos('perimetro', 4);
   $('#muros').innerHTML = ['n', 's', 'o', 'e'].map((k, i) => `<div class="foto muro-${k}">${img(ms[i])}</div>`).join('');
-  const cs = M.fotos.filter(f => f.seccion === 'mosaico' || f.seccion === 'conocimiento').slice(0, 6);   // se repiten a propósito (otra pantalla): no le quitan fotos a nadie
+  const cs = fotos('contra', 6);
   const contra = $('#contra'); contra.innerHTML = cs.map(f => `<figure>${img(f, {grande: false})}</figure>`).join('');
   escenas.push(p => {
     const i = 30 * mapa(p, .05, .35);
     centro.style.clipPath = `inset(${i * .9}% ${i}% ${i * .9}% ${i}%)`;
     cimg().style.transform = `scale(${1.15 - .15 * mapa(p, 0, .6)})`;
-    umbral(sec, 'b', p, .38);
+    // en el teléfono los muros entran mientras la luz se achica (si no, queda una foto chica en un marco negro)
+    umbral(sec, 'b', p, MOVIL() ? .14 : .38);
     umbral(sec, 'on', p, .45);
     // corre al revés: baja mientras tú bajas
     const h = contra.scrollHeight;
-    contra.style.transform = `translate3d(0,${-h + p * (h + innerHeight)}px,0)`;
+    contra.style.transform = `translate3d(0,${-h + p * (h + VH)}px,0)`;
   });
 })();
 
@@ -383,7 +449,7 @@ else {
       const sig = cartas[i + 1]; if (!sig) return;
       const a = c.getBoundingClientRect(), b = sig.getBoundingClientRect();
       const k = clamp(1 - (b.top - a.top) / a.height);
-      c.style.transform = `scale(${1 - .06 * k})`; c.style.filter = `brightness(${1 - .45 * k})`;
+      c.style.transform = `scale(${1 - .06 * k})`; c.style.setProperty('--osc', (.45 * k).toFixed(3));
     });
   });
 })();
@@ -392,8 +458,22 @@ else {
 (() => {
   const [f] = fotos('cierre', 1);
   const i = $('#cierreFoto img'); i.src = src(f); i.alt = f?.descripcion || '';
+  const otro = $('#cierreFoto .otro-tono'); otro.src = src(f, true, 'b');
+  const cierre = $('#hablemos'), foto = $('#cierreFoto');
+  foto.insertAdjacentHTML('beforeend', '<i class="corte" aria-hidden="true"></i>');
+  // C a la izquierda del corte, B a la derecha; quieto respira despacio, con el puntero lo sigue con inercia
+  let meta = .62, x = .62, mano = 0;
+  const seguir = cx => { const r = cierre.getBoundingClientRect(); meta = clamp((cx - r.left) / r.width, .04, .96); mano = performance.now(); };
+  cierre.addEventListener('pointermove', e => seguir(e.clientX), {passive: true});
+  cierre.addEventListener('touchmove', e => seguir(e.touches[0].clientX), {passive: true});
+  cierreTick = t => {
+    const r = cierre.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    if (t - mano > 2500) meta = .62 + .1 * Math.sin(t / 2600);
+    x += (meta - x) * (RM ? 1 : .07);
+    foto.style.setProperty('--corte', `${(x * 100).toFixed(2)}%`);
+  };
   const lista = [...(M.portada?.creditos || []), ...M.videos, ...M.fotos].filter(x => x.autor || x.fuente);
-  $('#creditos').innerHTML = lista.map(x => `${x.descripcion ? x.descripcion.split('.')[0] : x.clave || ''} · ${x.estilo ? x.estilo + ' · ' : ''}${x.autor || ''}${x.fuente ? ` · <a href="${x.fuente}" target="_blank" rel="noopener">fuente</a>` : ''}`).join('<br>');
+  $('#creditos').innerHTML = lista.map(x => `${x.descripcion ? x.descripcion.split('.')[0] : x.clave || ''} · ${x.autor || ''}${x.licencia ? ' · ' + x.licencia : ''}${x.fuente ? ` · <a href="${x.fuente}" target="_blank" rel="noopener">fuente</a>` : ''}`).join('<br>');
   $('#verCreditos').addEventListener('click', () => { const c = $('#creditos'); c.hidden = !c.hidden; lenis?.resize(); });
 })();
 
@@ -404,7 +484,7 @@ vigilarVideos(document);
 
 // ---------------- bucle ----------------
 const escSec = ['#problema', '#oficios', '#a-medida', '#conocimiento', '#agentes', '#tres-semanas', '#perimetro', '#contrato'].map(s => $(s));
-const todas = $$('main > section'), indic = $('#barraSeccion');
+const todas = $$('main > section'), indic = $('#barraSeccion'), barra = $('#barra');
 function tick() {
   escenas.forEach((fn, i) => {
     const sec = escSec[i];
@@ -419,8 +499,14 @@ function tick() {
   // indicador de sección
   const c = [...todas].reverse().find(s => { const r = s.getBoundingClientRect(); return r.top <= innerHeight * .5 && r.bottom > innerHeight * .5; });
   if (c && indic.dataset.id !== c.id) { indic.dataset.id = c.id; indic.innerHTML = `<span>${String(todas.indexOf(c) + 1).padStart(2, '0')}</span> ${c.dataset.nombre || ''}`; }
+  // el acento de la página (Z del logo, botón de la barra) es el de la sección en pantalla; CSS lo funde
+  const tono = c?.dataset.tono || 'b';
+  if (document.documentElement.dataset.tono !== tono) document.documentElement.dataset.tono = tono;
+  logoSegunScroll();
+  // la barra gana un fondo cuando ya hay contenido debajo (los titulares ya no pasan detrás del logo)
+  const sobre = scrollY > VH * .6; if (sobre !== barra.classList.contains('sobre')) barra.classList.toggle('sobre', sobre);
 }
-function raf(t) { lenis?.raf(t); tick(); requestAnimationFrame(raf); }
+function raf(t) { lenis?.raf(t); tick(); cierreTick?.(t); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
 
 // menos movimiento: todo en su estado final
@@ -429,6 +515,7 @@ if (RM) {
   ['#problema', '#conocimiento', '#perimetro'].forEach(s => $(s).classList.add('b'));
   $('#problema').classList.add('c'); $('#tres-semanas').classList.add('fin');
   $$('#registro li, .semanas-pasos article, .hcuadro').forEach(n => n.classList.add('on', 'visto'));
+  $('#oficios').classList.add('on');
   $$('#problemaFotos .foto').forEach(n => n.classList.remove('fuera'));
 }
 })();

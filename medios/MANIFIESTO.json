@@ -1,550 +1,654 @@
 {
+ "nota": "Bicromías B (brasa) y C (pizarra): fotos de fotos-filtro/post.py --ligero; videos de herramientas/bicromia_video.sh.",
  "fotos": [
   {
-   "clave": "oficina-cubiculos",
+   "clave": "chips-u-vWSqLGd_d6s",
    "seccion": "problema",
-   "descripcion": "Una oficina de cubículos iguales: lo mismo para todos.",
+   "tono": "c",
+   "descripcion": "Una oblea de chips idénticos: lo mismo para todos.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1573,
+   "ancho": 1200,
+   "alto": 801,
    "archivos": {
-    "2400": "foto/oficina-cubiculos-2400.webp",
-    "1200": "foto/oficina-cubiculos-1200.webp"
+    "c": {
+     "1600": "foto/chips-u-vWSqLGd_d6s-c-1600.webp",
+     "1200": "foto/chips-u-vWSqLGd_d6s-c-1200.webp"
+    },
+    "b": {
+     "1600": "foto/chips-u-vWSqLGd_d6s-b-1600.webp",
+     "1200": "foto/chips-u-vWSqLGd_d6s-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/36631699/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/green-and-black-checkered-textile-vWSqLGd_d6s",
+   "autor": "Laura Ockel",
+   "autor_url": "https://unsplash.com/@viazavier",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "reloj-arena",
+   "clave": "tiempo-p-37113105",
    "seccion": "problema",
-   "descripcion": "Reloj de arena en la oscuridad: el piloto que no termina.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3200,
+   "tono": "c",
+   "descripcion": "Un reloj de arena: el piloto que no termina.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 674,
    "archivos": {
-    "2400": "foto/reloj-arena-2400.webp",
-    "1200": "foto/reloj-arena-1200.webp"
+    "c": {
+     "1600": "foto/tiempo-p-37113105-c-1600.webp",
+     "1200": "foto/tiempo-p-37113105-c-1200.webp"
+    },
+    "b": {
+     "1600": "foto/tiempo-p-37113105-b-1600.webp",
+     "1200": "foto/tiempo-p-37113105-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/33795954/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/hourglass-with-sand-at-sunset-outdoors-37113105/",
+   "autor": "Dominiquemel16 Ramos",
+   "autor_url": "https://www.pexels.com/@dominiquemel",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "puerta-abierta",
+   "clave": "redes-u-lVZjvw-u9V8",
    "seccion": "problema",
-   "descripcion": "Una puerta abierta a la noche.",
+   "tono": "c",
+   "descripcion": "Un pasillo de servidores ajenos.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 690,
    "archivos": {
-    "2400": "foto/puerta-abierta-2400.webp",
-    "1200": "foto/puerta-abierta-1200.webp"
+    "c": {
+     "1600": "foto/redes-u-lVZjvw-u9V8-c-1600.webp",
+     "1200": "foto/redes-u-lVZjvw-u9V8-c-1200.webp"
+    },
+    "b": {
+     "1600": "foto/redes-u-lVZjvw-u9V8-b-1600.webp",
+     "1200": "foto/redes-u-lVZjvw-u9V8-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/4107748/",
-   "autor": "Pexels",
+   "fuente": "https://unsplash.com/photos/server-room-aisle-with-metal-equipment-racks-lVZjvw-u9V8",
+   "autor": "İsmail Enes Ayhan",
+   "autor_url": "https://unsplash.com/@ismailenesayhan",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "mina-p-2892618",
+   "seccion": "oficios",
+   "tono": "c",
+   "descripcion": "Rajo terraza por terraza, con bosque en el borde.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
+   "archivos": {
+    "c": {
+     "1600": "foto/mina-p-2892618-c-1600.webp",
+     "1200": "foto/mina-p-2892618-c-1200.webp"
+    }
+   },
+   "fuente": "https://www.pexels.com/photo/mining-excavation-on-a-mountain-2892618/",
+   "autor": "Vlad Chețan",
+   "autor_url": "https://www.pexels.com/@chetanvlad",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "rajo",
+   "clave": "archivo-u-IEiAmhXehwE",
+   "seccion": "oficios",
+   "tono": "b",
+   "descripcion": "Archivo inmenso de cajas, una persona al pie.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 766,
+   "archivos": {
+    "b": {
+     "1600": "foto/archivo-u-IEiAmhXehwE-b-1600.webp",
+     "1200": "foto/archivo-u-IEiAmhXehwE-b-1200.webp"
+    }
+   },
+   "fuente": "https://unsplash.com/photos/brown-and-blue-wooden-cabinet-IEiAmhXehwE",
+   "autor": "Nana Smirnova",
+   "autor_url": "https://unsplash.com/@nananadolgo",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "robots-u--lx_AehWmqk",
+   "seccion": "oficios",
+   "tono": "c",
+   "descripcion": "Brazo robótico en una cámara oscura, con dos focos.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
+   "archivos": {
+    "c": {
+     "1600": "foto/robots-u--lx_AehWmqk-c-1600.webp",
+     "1200": "foto/robots-u--lx_AehWmqk-c-1200.webp"
+    }
+   },
+   "fuente": "https://unsplash.com/photos/a-robot-that-is-standing-in-the-dark--lx_AehWmqk",
+   "autor": "Guille B",
+   "autor_url": "https://unsplash.com/@guilleb",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "tiempo-u-rJau1n-sFVI",
+   "seccion": "oficios",
+   "tono": "b",
+   "descripcion": "La esfera de un reloj de estación, a contraluz.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 900,
+   "archivos": {
+    "b": {
+     "1600": "foto/tiempo-u-rJau1n-sFVI-b-1600.webp",
+     "1200": "foto/tiempo-u-rJau1n-sFVI-b-1200.webp"
+    }
+   },
+   "fuente": "https://unsplash.com/photos/black-and-white-round-analog-wall-clock-rJau1n-sFVI",
+   "autor": "Catrina Carrigan",
+   "autor_url": "https://unsplash.com/@catrinalouisec",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "perimetro-u-1AucbckEJWk",
+   "seccion": "oficios",
+   "tono": "c",
+   "descripcion": "Puerta de bóveda abierta.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
+   "archivos": {
+    "c": {
+     "1600": "foto/perimetro-u-1AucbckEJWk-c-1600.webp",
+     "1200": "foto/perimetro-u-1AucbckEJWk-c-1200.webp"
+    }
+   },
+   "fuente": "https://unsplash.com/photos/gray-vault-1AucbckEJWk",
+   "autor": "Alex Duffy",
+   "autor_url": "https://unsplash.com/@some_random_guy",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "mina-p-32325794",
    "seccion": "a-medida",
-   "descripcion": "Una mina a rajo abierto, terraza por terraza.",
+   "tono": "c",
+   "descripcion": "Excavación vista en picado: bancos, rampas y una pala.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 900,
    "archivos": {
-    "2400": "foto/rajo-2400.webp",
-    "1200": "foto/rajo-1200.webp"
+    "c": {
+     "1600": "foto/mina-p-32325794-c-1600.webp",
+     "1200": "foto/mina-p-32325794-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/2892618/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/aerial-view-of-open-pit-mining-operation-32325794/",
+   "autor": "Volker Braun",
+   "autor_url": "https://www.pexels.com/@",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "camion-chuqui",
+   "clave": "acero-u-R23QkrwYm7c",
    "seccion": "a-medida",
-   "descripcion": "Un camión de extracción en Chuquicamata.",
+   "tono": "c",
+   "descripcion": "Alto horno y cinta transportadora contra el cielo.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/camion-chuqui-2400.webp",
-    "1200": "foto/camion-chuqui-1200.webp"
+    "c": {
+     "1600": "foto/acero-u-R23QkrwYm7c-c-1600.webp",
+     "1200": "foto/acero-u-R23QkrwYm7c-c-1200.webp"
+    },
+    "b": {
+     "1600": "foto/acero-u-R23QkrwYm7c-b-1600.webp",
+     "1200": "foto/acero-u-R23QkrwYm7c-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/33074372/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/large-industrial-pipes-and-conveyor-belts-under-a-pale-sky-R23QkrwYm7c",
+   "autor": "Demiann",
+   "autor_url": "https://unsplash.com/@demiannn",
+   "licencia": "Licencia Unsplash (uso comercial libre)",
+   "diptico": true
   },
   {
-   "clave": "soldador",
+   "clave": "acero-u-4VD8jGT2Haw",
    "seccion": "a-medida",
-   "descripcion": "Un soldador sobre una viga de acero.",
+   "tono": "c",
+   "descripcion": "Colada: el metal cae desde la cuchara.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1598,
+   "ancho": 1200,
+   "alto": 804,
    "archivos": {
-    "2400": "foto/soldador-2400.webp",
-    "1200": "foto/soldador-1200.webp"
+    "c": {
+     "1600": "foto/acero-u-4VD8jGT2Haw-c-1600.webp",
+     "1200": "foto/acero-u-4VD8jGT2Haw-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/14539151/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/a-man-is-working-on-a-piece-of-metal-4VD8jGT2Haw",
+   "autor": "Enlightening Images",
+   "autor_url": "https://unsplash.com/@enlightening_images",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "planta",
-   "seccion": "a-medida",
-   "descripcion": "Un operario en una planta de laminado.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
-   "archivos": {
-    "2400": "foto/planta-2400.webp",
-    "1200": "foto/planta-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/8973132/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "planos",
-   "seccion": "a-medida",
-   "descripcion": "Mesa de dibujo con planos y escuadras.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
-   "archivos": {
-    "2400": "foto/planos-2400.webp",
-    "1200": "foto/planos-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/9617366/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "oficina-moderna",
-   "seccion": "a-medida",
-   "descripcion": "Una oficina moderna con sus escritorios.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1590,
-   "archivos": {
-    "2400": "foto/oficina-moderna-2400.webp",
-    "1200": "foto/oficina-moderna-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/8606292/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "bodega",
+   "clave": "archivo-p-31139000",
    "seccion": "conocimiento",
-   "descripcion": "Un pasillo de bodega con cajas hasta el techo.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3600,
+   "tono": "b",
+   "descripcion": "Archivo de estanterías móviles, pasillo central.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/bodega-2400.webp",
-    "1200": "foto/bodega-1200.webp"
+    "b": {
+     "1600": "foto/archivo-p-31139000-b-1600.webp",
+     "1200": "foto/archivo-p-31139000-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/5156696/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/modern-library-archive-storage-room-with-compact-shelving-31139000/",
+   "autor": "Eric Lozaga",
+   "autor_url": "https://www.pexels.com/@boomheadshot",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "pasillo-datos",
+   "clave": "archivo-u-yIHrNgkyTGc",
    "seccion": "conocimiento",
-   "descripcion": "El pasillo de un centro de datos.",
+   "tono": "b",
+   "descripcion": "Legajos atados, en penumbra.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 801,
    "archivos": {
-    "2400": "foto/pasillo-datos-2400.webp",
-    "1200": "foto/pasillo-datos-1200.webp"
+    "b": {
+     "1600": "foto/archivo-u-yIHrNgkyTGc-b-1600.webp",
+     "1200": "foto/archivo-u-yIHrNgkyTGc-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/4508751/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/shallow-focus-photography-of-old-books-yIHrNgkyTGc",
+   "autor": "Masaaki Komori",
+   "autor_url": "https://unsplash.com/@gaspanik",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "bodega-calida",
+   "clave": "archivo-p-2925320",
    "seccion": "conocimiento",
-   "descripcion": "Estanterías de una bodega con luz cálida.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3200,
+   "tono": "b",
+   "descripcion": "Pasillo de biblioteca con sol y sombras.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 673,
    "archivos": {
-    "2400": "foto/bodega-calida-2400.webp",
-    "1200": "foto/bodega-calida-1200.webp"
+    "b": {
+     "1600": "foto/archivo-p-2925320-b-1600.webp",
+     "1200": "foto/archivo-p-2925320-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/5860937/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/books-organized-on-shelves-2925320/",
+   "autor": "cottonbro studio",
+   "autor_url": "https://www.pexels.com/@cottonbro",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "tecnico",
+   "clave": "redes-p-5326748",
    "seccion": "conocimiento",
-   "descripcion": "Un técnico en la sala de servidores.",
+   "tono": "b",
+   "descripcion": "Patch panel de fibra con su cableado.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1602,
+   "ancho": 1200,
+   "alto": 798,
    "archivos": {
-    "2400": "foto/tecnico-2400.webp",
-    "1200": "foto/tecnico-1200.webp"
+    "b": {
+     "1600": "foto/redes-p-5326748-b-1600.webp",
+     "1200": "foto/redes-p-5326748-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/37605911/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/patch-cables-plugged-in-patch-panel-5326748/",
+   "autor": "Brett Sayles",
+   "autor_url": "https://www.pexels.com/@brett-sayles",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "racks-sala",
-   "seccion": "conocimiento",
-   "descripcion": "Racks en una sala de datos.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
-   "archivos": {
-    "2400": "foto/racks-sala-2400.webp",
-    "1200": "foto/racks-sala-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/4597280/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "rack-azul",
+   "clave": "perimetro-p-19802640",
    "seccion": "perimetro",
-   "descripcion": "Un rack de servidores en su sala.",
+   "tono": "c",
+   "descripcion": "Túnel de piedra con dos figuras al fondo.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1597,
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/rack-azul-2400.webp",
-    "1200": "foto/rack-azul-1200.webp"
+    "c": {
+     "1600": "foto/perimetro-p-19802640-c-1600.webp",
+     "1200": "foto/perimetro-p-19802640-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/37730211/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/walls-in-a-castle-in-black-and-white-19802640/",
+   "autor": "Soner Arkan",
+   "autor_url": "https://www.pexels.com/@",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "rack",
+   "clave": "perimetro-u-Re0susOohqQ",
    "seccion": "perimetro",
-   "descripcion": "Rack de red con su cableado.",
+   "tono": "c",
+   "descripcion": "Reja con concertina frente al mar.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1602,
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/rack-2400.webp",
-    "1200": "foto/rack-1200.webp"
+    "c": {
+     "1600": "foto/perimetro-u-Re0susOohqQ-c-1600.webp",
+     "1200": "foto/perimetro-u-Re0susOohqQ-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/17323801/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/a-tall-fence-with-barbed-wire-along-the-top-Re0susOohqQ",
+   "autor": "Margo Evardson",
+   "autor_url": "https://unsplash.com/@stadinstudio",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "bodega-oscura",
+   "clave": "perimetro-p-32286890",
    "seccion": "perimetro",
-   "descripcion": "Una bodega a oscuras, cerrada.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3200,
+   "tono": "c",
+   "descripcion": "Puerta negra en un muro de calamina.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/bodega-oscura-2400.webp",
-    "1200": "foto/bodega-oscura-1200.webp"
+    "c": {
+     "1600": "foto/perimetro-p-32286890-c-1600.webp",
+     "1200": "foto/perimetro-p-32286890-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/18395054/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/minimalist-industrial-door-on-striped-wall-32286890/",
+   "autor": "Jan van der Wolf",
+   "autor_url": "https://www.pexels.com/@",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "muralla",
+   "clave": "redes-u-s0XabTAKvak",
    "seccion": "perimetro",
-   "descripcion": "Torre y muralla de piedra.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3600,
+   "tono": "c",
+   "descripcion": "Pasillo simétrico entre salas vidriadas.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/muralla-2400.webp",
-    "1200": "foto/muralla-1200.webp"
+    "c": {
+     "1600": "foto/redes-u-s0XabTAKvak-c-1600.webp",
+     "1200": "foto/redes-u-s0XabTAKvak-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/27547068/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/a-long-hallway-with-glass-doors-leading-to-another-room-s0XabTAKvak",
+   "autor": "Paul Hanaoka",
+   "autor_url": "https://unsplash.com/@plhnk",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "rack-verde",
+   "clave": "obra-u-NRLnzGXtoE4",
    "seccion": "perimetro",
-   "descripcion": "Servidores con sus luces de estado.",
+   "tono": "c",
+   "descripcion": "Escalera de hormigón visto, planos y sombra.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1597,
+   "ancho": 1200,
+   "alto": 788,
    "archivos": {
-    "2400": "foto/rack-verde-2400.webp",
-    "1200": "foto/rack-verde-1200.webp"
+    "c": {
+     "1600": "foto/obra-u-NRLnzGXtoE4-c-1600.webp",
+     "1200": "foto/obra-u-NRLnzGXtoE4-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/37730212/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/white-concrete-wall-during-daytime-NRLnzGXtoE4",
+   "autor": "Dorsa Masghati",
+   "autor_url": "https://unsplash.com/@dorsamasghati",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "fabrica",
-   "seccion": "proceso",
-   "descripcion": "El interior de una fábrica en plena marcha.",
+   "clave": "chips-u-WBPubyEFNXw",
+   "seccion": "contra",
+   "tono": "c",
+   "descripcion": "Un chip DIP junto a una gota.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1357,
+   "ancho": 1200,
+   "alto": 874,
    "archivos": {
-    "2400": "foto/fabrica-2400.webp",
-    "1200": "foto/fabrica-1200.webp"
+    "c": {
+     "1200": "foto/chips-u-WBPubyEFNXw-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/18920790/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/black-usb-cable-on-blue-round-plate-WBPubyEFNXw",
+   "autor": "Vishnu Mohanan",
+   "autor_url": "https://unsplash.com/@vishnumaiea",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "fabrica-cinta",
-   "seccion": "proceso",
-   "descripcion": "Una línea de producción con su cinta.",
+   "clave": "robots-u-HB0FyEhPwDY",
+   "seccion": "contra",
+   "tono": "c",
+   "descripcion": "Brazo robótico de pruebas en una cámara anecoica.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 896,
    "archivos": {
-    "2400": "foto/fabrica-cinta-2400.webp",
-    "1200": "foto/fabrica-cinta-1200.webp"
+    "c": {
+     "1200": "foto/robots-u-HB0FyEhPwDY-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/34718930/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/a-yellow-robot-sitting-on-top-of-a-table-HB0FyEhPwDY",
+   "autor": "Guille B",
+   "autor_url": "https://unsplash.com/@guilleb",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "chip-oro",
-   "seccion": "proceso",
-   "descripcion": "Un chip sobre su placa.",
+   "clave": "obra-u-5IBy_5GDLRA",
+   "seccion": "contra",
+   "tono": "c",
+   "descripcion": "Pilares de hormigón con sus capiteles, vistos desde abajo.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/chip-oro-2400.webp",
-    "1200": "foto/chip-oro-1200.webp"
+    "c": {
+     "1200": "foto/obra-u-5IBy_5GDLRA-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/6755080/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/a-couple-of-tall-cement-pillars-sitting-next-to-each-other-5IBy_5GDLRA",
+   "autor": "Jenna T",
+   "autor_url": "https://unsplash.com/@companjera",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   },
   {
-   "clave": "oficina-vacia",
-   "seccion": "proceso",
-   "descripcion": "Una oficina vacía al final del día.",
+   "clave": "acero-p-9665358",
+   "seccion": "contra",
+   "tono": "c",
+   "descripcion": "Chispas de esmeril sobre fondo negro.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/oficina-vacia-2400.webp",
-    "1200": "foto/oficina-vacia-1200.webp"
+    "c": {
+     "1200": "foto/acero-p-9665358-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/5483233/",
-   "autor": "Pexels",
+   "fuente": "https://www.pexels.com/photo/close-up-photo-of-flashing-sparks-on-black-background-9665358/",
+   "autor": "cottonbro studio",
+   "autor_url": "https://www.pexels.com/@cottonbro",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "edificio-vidrio",
-   "seccion": "proceso",
-   "descripcion": "Un edificio de oficinas con fachada de vidrio.",
+   "clave": "oficina-u-YaBtK5CYuyY",
+   "seccion": "contra",
+   "tono": "c",
+   "descripcion": "Dos personas al fondo de un corte de hormigón.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1800,
+   "ancho": 1200,
+   "alto": 800,
    "archivos": {
-    "2400": "foto/edificio-vidrio-2400.webp",
-    "1200": "foto/edificio-vidrio-1200.webp"
+    "c": {
+     "1200": "foto/oficina-u-YaBtK5CYuyY-c-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/31730305/",
-   "autor": "Pexels",
+   "fuente": "https://unsplash.com/photos/two-people-stand-in-a-stark-modern-architectural-space-YaBtK5CYuyY",
+   "autor": "Rancy Tan",
+   "autor_url": "https://unsplash.com/@rancccy",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "obra-p-30278768",
+   "seccion": "contra",
+   "tono": "c",
+   "descripcion": "Grúas y plumas en silueta contra el cielo.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
+   "archivos": {
+    "c": {
+     "1200": "foto/obra-p-30278768-c-1200.webp"
+    }
+   },
+   "fuente": "https://www.pexels.com/photo/silhouetted-shipyard-cranes-at-sunset-30278768/",
+   "autor": "Enes Beydilli",
+   "autor_url": "https://www.pexels.com/@EnesBeydilli",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "fachada",
+   "clave": "chips-u-cMoE2tU_BbM",
    "seccion": "proceso",
-   "descripcion": "La grilla de una fachada de vidrio.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 2996,
+   "tono": "b",
+   "descripcion": "Procesador sobre su placa, en diagonal.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 900,
    "archivos": {
-    "2400": "foto/fachada-2400.webp",
-    "1200": "foto/fachada-1200.webp"
+    "b": {
+     "1600": "foto/chips-u-cMoE2tU_BbM-b-1600.webp",
+     "1200": "foto/chips-u-cMoE2tU_BbM-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/2335275/",
-   "autor": "Pexels",
+   "fuente": "https://unsplash.com/photos/close-up-of-a-computer-processor-chip-on-circuit-board-cMoE2tU_BbM",
+   "autor": "He Junhui",
+   "autor_url": "https://unsplash.com/@he_junhui",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "chips-u-wR4Q9r7KWBU",
+   "seccion": "proceso",
+   "tono": "b",
+   "descripcion": "Dos obleas de silicio en su soporte.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 801,
+   "archivos": {
+    "b": {
+     "1600": "foto/chips-u-wR4Q9r7KWBU-b-1600.webp",
+     "1200": "foto/chips-u-wR4Q9r7KWBU-b-1200.webp"
+    }
+   },
+   "fuente": "https://unsplash.com/photos/a-close-up-of-a-mirror-with-a-reflection-of-a-person-wR4Q9r7KWBU",
+   "autor": "Igor Shalyminov",
+   "autor_url": "https://unsplash.com/@ishalyminov",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "oficina-u-ak5R4Y7MkW8",
+   "seccion": "proceso",
+   "tono": "b",
+   "descripcion": "Una persona camina bajo una cubierta curva.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 802,
+   "archivos": {
+    "b": {
+     "1600": "foto/oficina-u-ak5R4Y7MkW8-b-1600.webp",
+     "1200": "foto/oficina-u-ak5R4Y7MkW8-b-1200.webp"
+    }
+   },
+   "fuente": "https://unsplash.com/photos/grayscale-photo-of-man-walking-on-road-ak5R4Y7MkW8",
+   "autor": "Rufat Mammadov",
+   "autor_url": "https://unsplash.com/@rufatmammadov",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "redes-u-Jnma4hh2vUs",
+   "seccion": "proceso",
+   "tono": "b",
+   "descripcion": "Haces de fibra en movimiento sobre negro.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 675,
+   "archivos": {
+    "b": {
+     "1600": "foto/redes-u-Jnma4hh2vUs-b-1600.webp",
+     "1200": "foto/redes-u-Jnma4hh2vUs-b-1200.webp"
+    }
+   },
+   "fuente": "https://unsplash.com/photos/abstract-flowing-green-lines-on-black-background-Jnma4hh2vUs",
+   "autor": "Rostislav Uzunov",
+   "autor_url": "https://unsplash.com/@rostislavuznv",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
+  },
+  {
+   "clave": "oficina-p-16960662",
+   "seccion": "proceso",
+   "tono": "b",
+   "descripcion": "Edificios de oficinas al anochecer, ventanas encendidas.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 800,
+   "archivos": {
+    "b": {
+     "1600": "foto/oficina-p-16960662-b-1600.webp",
+     "1200": "foto/oficina-p-16960662-b-1200.webp"
+    }
+   },
+   "fuente": "https://www.pexels.com/photo/office-buildings-at-dusk-16960662/",
+   "autor": "Rafael Rodrigues",
+   "autor_url": "https://www.pexels.com/@rrodriguesim",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "torre-cierre",
+   "clave": "obra-p-18672134",
+   "seccion": "proceso",
+   "tono": "b",
+   "descripcion": "Losa de hormigón en obra gruesa, luz al fondo.",
+   "orientacion": "horizontal",
+   "ancho": 1200,
+   "alto": 728,
+   "archivos": {
+    "b": {
+     "1600": "foto/obra-p-18672134-b-1600.webp",
+     "1200": "foto/obra-p-18672134-b-1200.webp"
+    }
+   },
+   "fuente": "https://www.pexels.com/photo/wire-on-ground-with-columns-behind-18672134/",
+   "autor": "Average GUY",
+   "autor_url": "https://www.pexels.com/@",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "oficina-u-3nROCRjZiFQ",
    "seccion": "cierre",
-   "descripcion": "Una torre de oficinas contra el cielo.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3600,
-   "archivos": {
-    "2400": "foto/torre-cierre-2400.webp",
-    "1200": "foto/torre-cierre-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/18267934/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "reloj-arena-claro",
-   "seccion": "tres-semanas",
-   "descripcion": "Reloj de arena a media tarde.",
+   "tono": "c",
+   "descripcion": "Una planta de oficinas vacía, con la luz de la tarde.",
    "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
+   "ancho": 1200,
+   "alto": 816,
    "archivos": {
-    "2400": "foto/reloj-arena-claro-2400.webp",
-    "1200": "foto/reloj-arena-claro-1200.webp"
+    "c": {
+     "1600": "foto/oficina-u-3nROCRjZiFQ-c-1600.webp",
+     "1200": "foto/oficina-u-3nROCRjZiFQ-c-1200.webp"
+    },
+    "b": {
+     "1600": "foto/oficina-u-3nROCRjZiFQ-b-1600.webp",
+     "1200": "foto/oficina-u-3nROCRjZiFQ-b-1200.webp"
+    }
    },
-   "fuente": "https://www.pexels.com/photo/8573370/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "escalera-vaticano",
-   "seccion": "mosaico",
-   "descripcion": "Escalera en espiral, vista desde arriba.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3200,
-   "archivos": {
-    "2400": "foto/escalera-vaticano-2400.webp",
-    "1200": "foto/escalera-vaticano-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/11648282/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "cantera-camion",
-   "seccion": "mosaico",
-   "descripcion": "Un camión sube por la cantera.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3600,
-   "archivos": {
-    "2400": "foto/cantera-camion-2400.webp",
-    "1200": "foto/cantera-camion-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/13224687/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "torre-vidrio",
-   "seccion": "mosaico",
-   "descripcion": "Una torre de vidrio contra el cielo.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3624,
-   "archivos": {
-    "2400": "foto/torre-vidrio-2400.webp",
-    "1200": "foto/torre-vidrio-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/6943143/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "chip",
-   "seccion": "mosaico",
-   "descripcion": "Una placa madre en macro.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1349,
-   "archivos": {
-    "2400": "foto/chip-2400.webp",
-    "1200": "foto/chip-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/34924856/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "caracol",
-   "seccion": "mosaico",
-   "descripcion": "Escalera de caracol en Innsbruck.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
-   "archivos": {
-    "2400": "foto/caracol-2400.webp",
-    "1200": "foto/caracol-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/35383127/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "servidor",
-   "seccion": "mosaico",
-   "descripcion": "El frente perforado de un servidor.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1602,
-   "archivos": {
-    "2400": "foto/servidor-2400.webp",
-    "1200": "foto/servidor-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/17489156/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "red-neuronal",
-   "seccion": "mosaico",
-   "descripcion": "Una red neuronal dibujada como neurona.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1350,
-   "archivos": {
-    "2400": "foto/red-neuronal-2400.webp",
-    "1200": "foto/red-neuronal-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/17483867/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "edificio",
-   "seccion": "mosaico",
-   "descripcion": "Un edificio de oficinas visto desde abajo.",
-   "orientacion": "vertical",
-   "ancho": 2400,
-   "alto": 3600,
-   "archivos": {
-    "2400": "foto/edificio-2400.webp",
-    "1200": "foto/edificio-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/29253479/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "chip-placa",
-   "seccion": "mosaico",
-   "descripcion": "Componentes de una placa en macro.",
-   "orientacion": "horizontal",
-   "ancho": 2400,
-   "alto": 1600,
-   "archivos": {
-    "2400": "foto/chip-placa-2400.webp",
-    "1200": "foto/chip-placa-1200.webp"
-   },
-   "fuente": "https://www.pexels.com/photo/6636500/",
-   "autor": "Pexels",
-   "licencia": "Licencia Pexels (uso comercial libre)"
+   "fuente": "https://unsplash.com/photos/empty-office-room-3nROCRjZiFQ",
+   "autor": "Razlan Hanafiah",
+   "autor_url": "https://unsplash.com/@razlanisme",
+   "licencia": "Licencia Unsplash (uso comercial libre)"
   }
  ],
  "videos": [
   {
    "clave": "a-medida-oficina",
    "seccion": "a-medida",
+   "tono": "c",
    "descripcion": "Oficina · un arquitecto revisa los planos",
    "archivos": {
     "1080": "video/a-medida-oficina-1080.mp4",
@@ -552,12 +656,13 @@
     "poster": "video/a-medida-oficina.webp"
    },
    "fuente": "https://www.pexels.com/video/6615054/",
-   "autor": "Pexels",
+   "autor": "autor no consta (Pexels)",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
    "clave": "agentes-robot",
    "seccion": "agentes",
+   "tono": "c",
    "descripcion": "Industria · un brazo robótico mueve piezas",
    "archivos": {
     "1080": "video/agentes-robot-1080.mp4",
@@ -571,6 +676,7 @@
   {
    "clave": "agentes-linea",
    "seccion": "agentes",
+   "tono": "c",
    "descripcion": "Industria · la línea despacha sola",
    "archivos": {
     "1080": "video/agentes-linea-1080.mp4",
@@ -578,12 +684,13 @@
     "poster": "video/agentes-linea.webp"
    },
    "fuente": "https://www.pexels.com/video/852388/",
-   "autor": "Pexels",
+   "autor": "autor no consta (Pexels)",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
    "clave": "agentes-cinta",
    "seccion": "agentes",
+   "tono": "c",
    "descripcion": "Logística · la cinta mueve la carga sola",
    "archivos": {
     "1080": "video/agentes-cinta-1080.mp4",
@@ -591,12 +698,13 @@
     "poster": "video/agentes-cinta.webp"
    },
    "fuente": "https://www.pexels.com/video/4473187/",
-   "autor": "Pexels",
+   "autor": "autor no consta (Pexels)",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
    "clave": "conocimiento-servidores",
    "seccion": "conocimiento",
+   "tono": "b",
    "descripcion": "Datos · los servidores donde viven tus documentos",
    "archivos": {
     "1080": "video/conocimiento-servidores-1080.mp4",
@@ -604,12 +712,13 @@
     "poster": "video/conocimiento-servidores.webp"
    },
    "fuente": "https://www.pexels.com/video/5028622/",
-   "autor": "Pexels",
+   "autor": "autor no consta (Pexels)",
    "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
    "clave": "semanas-obra",
    "seccion": "tres-semanas",
+   "tono": "b",
    "descripcion": "Construcción · una torre sube en semanas",
    "archivos": {
     "1080": "video/semanas-obra-1080.mp4",
@@ -618,19 +727,6 @@
    },
    "fuente": "https://www.pexels.com/video/6164052/",
    "autor": "Site Engine",
-   "licencia": "Licencia Pexels (uso comercial libre)"
-  },
-  {
-   "clave": "perimetro-servidor",
-   "seccion": "perimetro",
-   "descripcion": "Servidores · tu red, tus máquinas",
-   "archivos": {
-    "1080": "video/perimetro-servidor-1080.mp4",
-    "720": "video/perimetro-servidor-720.mp4",
-    "poster": "video/perimetro-servidor.webp"
-   },
-   "fuente": "https://www.pexels.com/video/7140928/",
-   "autor": "Pexels",
    "licencia": "Licencia Pexels (uso comercial libre)"
   }
  ],
@@ -690,7 +786,7 @@
    {
     "descripcion": "Portada · Oficina",
     "fuente": "https://www.pexels.com/video/5020282/",
-    "autor": "Pexels",
+    "autor": "autor no consta (Pexels)",
     "licencia": "Licencia Pexels (uso comercial libre)"
    },
    {
@@ -702,9 +798,10 @@
    {
     "descripcion": "Portada · Construcción",
     "fuente": "https://www.pexels.com/video/5567023/",
-    "autor": "Pexels",
+    "autor": "autor no consta (Pexels)",
     "licencia": "Licencia Pexels (uso comercial libre)"
    }
-  ]
+  ],
+  "tono": "b"
  }
 }
