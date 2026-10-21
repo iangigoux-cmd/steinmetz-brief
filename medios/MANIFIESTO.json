@@ -1,49 +1,49 @@
 {
  "fotos": [
   {
-   "clave": "problema-iguales",
+   "clave": "oficina-cubiculos",
    "seccion": "problema",
-   "descripcion": "Una maqueta de oficina con todos los puestos iguales.",
-   "orientacion": "vertical",
-   "ancho": 864,
-   "alto": 1536,
+   "descripcion": "Una oficina de cubículos iguales: lo mismo para todos.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1573,
    "archivos": {
-    "2400": "foto/problema-iguales-2400.webp",
-    "1200": "foto/problema-iguales-1200.webp"
+    "2400": "foto/oficina-cubiculos-2400.webp",
+    "1200": "foto/oficina-cubiculos-1200.webp"
    },
-   "fuente": "",
-   "autor": "Steinmetz (generada)",
-   "licencia": "Propia"
+   "fuente": "https://www.pexels.com/photo/36631699/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "problema-reloj",
+   "clave": "reloj-arena",
    "seccion": "problema",
-   "descripcion": "Un reloj de arena de cerámica: el piloto que no termina.",
+   "descripcion": "Reloj de arena en la oscuridad: el piloto que no termina.",
    "orientacion": "vertical",
-   "ancho": 864,
-   "alto": 1536,
+   "ancho": 2400,
+   "alto": 3200,
    "archivos": {
-    "2400": "foto/problema-reloj-2400.webp",
-    "1200": "foto/problema-reloj-1200.webp"
+    "2400": "foto/reloj-arena-2400.webp",
+    "1200": "foto/reloj-arena-1200.webp"
    },
-   "fuente": "",
-   "autor": "Steinmetz (generada)",
-   "licencia": "Propia"
+   "fuente": "https://www.pexels.com/photo/33795954/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
-   "clave": "problema-puerta",
+   "clave": "puerta-abierta",
    "seccion": "problema",
-   "descripcion": "Una puerta pequeña en un muro: tu información saliendo.",
-   "orientacion": "vertical",
-   "ancho": 864,
-   "alto": 1536,
+   "descripcion": "Una puerta abierta a la noche.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
    "archivos": {
-    "2400": "foto/problema-puerta-2400.webp",
-    "1200": "foto/problema-puerta-1200.webp"
+    "2400": "foto/puerta-abierta-2400.webp",
+    "1200": "foto/puerta-abierta-1200.webp"
    },
-   "fuente": "",
-   "autor": "Steinmetz (generada)",
-   "licencia": "Propia"
+   "fuente": "https://www.pexels.com/photo/4107748/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
   },
   {
    "clave": "rajo",
