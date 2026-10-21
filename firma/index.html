@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Firma de correo · Steinmetz</title>
+<link rel="icon" href="/sz.svg" type="image/svg+xml">
+<style>
+  body{margin:0;background:#F3EBDD;color:#0E0B08;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+  main{max-width:640px;margin:0 auto;padding:48px 20px}
+  h1{font-size:22px;margin:0 0 6px}
+  p.sub{margin:0 0 28px;color:#5a5249}
+  .tarjeta{background:#fff;border-radius:12px;padding:28px;margin-bottom:20px}
+  ol{padding-left:20px;margin:0}
+  li{margin-bottom:6px}
+  button,a.boton{display:inline-block;background:#0E0B08;color:#F3EBDD;border:0;border-radius:999px;padding:12px 22px;font:600 15px/1 inherit;cursor:pointer;text-decoration:none;margin:18px 10px 0 0}
+  .ok{color:#2E8B57;font-weight:600;margin-left:6px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Firma de correo</h1>
+  <p class="sub">Para Gmail. Copia la firma y pégala en Configuración.</p>
+
+  <div class="tarjeta">
+    <div id="firma"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#0E0B08">
+  <tr>
+    <td style="padding:0 14px 0 0;vertical-align:middle"><a href="https://steinmetz.cl" style="text-decoration:none"><img src="https://steinmetz.cl/firma/sz-96.png" width="48" height="48" alt="Steinmetz" style="display:block;border:0;border-radius:6px"></a></td>
+    <td style="padding:0 0 0 14px;border-left:2px solid #FF8539;vertical-align:middle;font-size:13px;line-height:19px">
+      <b style="font-size:14px">Ian Berndt</b><br>
+      Steinmetz<br>
+      <a href="mailto:ian@steinmetz.cl" style="color:#0E0B08;text-decoration:none">ian@steinmetz.cl</a> &nbsp;·&nbsp; <a href="https://steinmetz.cl" style="color:#0E0B08;text-decoration:none">steinmetz.cl</a>
+    </td>
+  </tr>
+</table></div>
+    <button type="button" id="copiar">Copiar firma</button><span class="ok" id="listo" hidden>Copiada</span>
+  </div>
+
+  <div class="tarjeta">
+    <ol>
+      <li>Gmail → ⚙️ → <b>Ver toda la configuración</b> → <b>General</b> → <b>Firma</b>.</li>
+      <li><b>Crear nueva</b>, nombre «Steinmetz», y pega con ⌘V.</li>
+      <li>En «Valores predeterminados» elígela para correos nuevos y respuestas.</li>
+      <li>Abajo, <b>Guardar cambios</b>.</li>
+    </ol>
+  </div>
+
+  <div class="tarjeta">
+    <b>Foto de perfil</b>
+    <p style="margin:6px 0 0">Descárgala y súbela en myaccount.google.com → Información personal → Foto.</p>
+    <a class="boton" href="foto-perfil-steinmetz.png" download>Descargar foto</a>
+  </div>
+</main>
+<script>
+document.getElementById('copiar').addEventListener('click', async () => {
+  const html = document.getElementById('firma').innerHTML;
+  try {
+    await navigator.clipboard.write([new ClipboardItem({'text/html': new Blob([html], {type: 'text/html'}), 'text/plain': new Blob(['Ian Berndt\nSteinmetz\nian@steinmetz.cl · steinmetz.cl'], {type: 'text/plain'})})]);
+  } catch (e) {
+    const r = document.createRange(); r.selectNodeContents(document.getElementById('firma'));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges();
+  }
+  document.getElementById('listo').hidden = false;
+});
+</script>
+</body>
+</html>
