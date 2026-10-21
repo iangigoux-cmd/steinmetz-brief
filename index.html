@@ -1,706 +1,181 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-CL">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Steinmetz — Sistemas de IA hechos para tu operación</title>
-<meta name="description" content="Construimos sistemas de inteligencia artificial hechos para tu operación. En producción en tres semanas, dentro de tu red. Steinmetz SpA, Santiago de Chile.">
-<meta property="og:title" content="Steinmetz">
-<meta property="og:description" content="Sistemas de IA hechos para tu operación. En producción en tres semanas, dentro de tu red.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steinmetz · Sistemas de IA hechos para tu operación</title>
+<meta name="description" content="Sistemas de IA hechos para tu operación. Un sistema tuyo, encendido en tres semanas, dentro de tu red.">
+<link rel="canonical" href="https://steinmetz.cl/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://steinmetz.cl/">
-<meta property="og:site_name" content="Steinmetz">
-<meta property="og:locale" content="es_CL">
-<meta property="og:image" content="https://steinmetz.cl/assets/og.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:title" content="Steinmetz · Sistemas de IA hechos para tu operación">
+<meta property="og:description" content="Un sistema tuyo, encendido en tres semanas, dentro de tu red.">
+<meta property="og:image" content="https://steinmetz.cl/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://steinmetz.cl/assets/og.jpg">
-<link rel="canonical" href="https://steinmetz.cl/">
-<!-- Archivos, no data: URI. Google no indexa los data: URI y por eso el sitio
-     salía en los resultados con el globo genérico. El .ico de la raíz es el
-     respaldo que busca solo cuando no encuentra nada más. -->
-<link rel="icon" href="/favicon.ico" sizes="48x48">
-<link rel="icon" href="/assets/icono.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#111112">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,200..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<script>
-/* Toda la entrada —el barrido de peso, las líneas, el texto— tiene que
-   arrancar cuando está la tipografía, no cuando se parsea el documento.
-   El guion del peso ya esperaba a `document.fonts.ready`; las animaciones
-   de CSS no, así que con la caché fría las líneas y la frase aparecían
-   antes de que el nombre terminara su ola. Esta clase las retiene hasta
-   el mismo instante. Va en la cabecera y a prueba de fallos: sin JS nunca
-   se pone y todo entra igual. */
-(function(){
-  var r = document.documentElement, listo = function(){ r.classList.remove("sin-letras"); };
-  r.classList.add("sin-letras");
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(listo);
-  setTimeout(listo, 1400);
-})();
-</script>
-<style>
-:root{
-  --papel:#ffffff; --panel:#f4f4f2; --tinta:#111112; --medio:#6e6e73; --suave:#75757a;
-  --linea:rgba(17,17,18,.16); --linea-fuerte:rgba(17,17,18,.36);
-  --serif:"Fraunces",Georgia,serif;
-  --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace;
-  --ancho:68rem; --medida:36em;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root{
-    --papel:#0d0d0f; --panel:#18181a; --tinta:#f0f0f2; --medio:#9a9a9e; --suave:#8a8a8f;
-    --linea:rgba(255,255,255,.18); --linea-fuerte:rgba(255,255,255,.38);
-    color-scheme:dark;
-  }
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--papel);color:var(--tinta);font-family:var(--sans);
-  font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-::selection{background:var(--tinta);color:var(--papel)}
-a{color:inherit}
-.env{width:100%;max-width:var(--ancho);margin:0 auto;
-  padding:0 clamp(1.25rem,5vw,3rem)}   /* el ancho explícito: dentro de una
-     grilla, el margen auto anula el estirado y la caja se encoge al texto */
-section{padding:clamp(3.5rem,9vh,6rem) 0;border-top:1px solid var(--linea)}
-h2{font-family:var(--serif);font-optical-sizing:auto;
-  font-variation-settings:"opsz" 144,"wght" 500;font-weight:500;
-  font-size:clamp(1.6rem,4.4vw,2.4rem);letter-spacing:-.018em;line-height:1.12;
-  max-width:16em}
-h3{font-family:var(--serif);font-optical-sizing:auto;
-  font-variation-settings:"opsz" 30,"wght" 600;font-weight:600;
-  font-size:1.08rem;letter-spacing:-.005em;line-height:1.3}
-.p{color:var(--medio);max-width:var(--medida);font-size:1rem;line-height:1.65}
-.p+.p{margin-top:.8rem}
-.p b,.bajada b{color:var(--tinta);font-weight:600}
-.bajada{color:var(--medio);max-width:var(--medida);margin-top:.9rem;font-size:1.05rem}
-.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;
-  clip-path:inset(50%);white-space:nowrap}
-.rotulo{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--suave);display:block}
-
-/* ── botones ── */
-.bt{display:inline-flex;align-items:center;justify-content:center;min-height:48px;
-  padding:.9em 1.7em;font-family:var(--mono);font-size:.72rem;font-weight:500;
-  letter-spacing:.16em;text-decoration:none;text-transform:uppercase;
-  background:var(--tinta);color:var(--papel);border:1px solid var(--tinta);
-  transition:opacity .2s}
-.bt:hover{opacity:.84}
-.bt.linea{background:none;color:var(--tinta);border-color:var(--linea-fuerte)}
-.bt.linea:hover{border-color:var(--tinta);opacity:1}
-.bt:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
-
-/* ── portada ── */
-.portada{border-top:0;min-height:100svh;position:relative;overflow:hidden;display:grid;
-  grid-template-columns:minmax(0,1fr);   /* sin esto la grilla se encoge al contenido */
-  grid-template-rows:1fr auto;padding:clamp(1.2rem,4vw,2rem) 0 0}
-.tope{display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;color:var(--suave)}
-.tope a{text-decoration:none}
-.centro{display:flex;flex-direction:column;justify-content:center;
-  padding-block:clamp(2rem,8vh,4rem)}
-/* El nombre deja de ser el SVG trazado y pasa a ser texto vivo: es la
-   única forma de mover el eje de peso de Fraunces con el cursor. A cambio,
-   depende de que la fuente cargue —si no, cae a Georgia—. El trazado sigue
-   en el manual de marca para todo lo que no sea esto. */
-.wm-vivo{font-family:var(--serif);font-optical-sizing:auto;
-  font-size:clamp(3.4rem,15.6vw,13rem);line-height:.96;letter-spacing:-.03em;
-  color:var(--tinta);margin-left:-.035em;font-weight:400;
-  font-variation-settings:"opsz" 144,"wght" 420}
-.wm-vivo .l{display:inline-block;text-align:center;
-  font-variation-settings:"opsz" 144,"wght" var(--w,420)}
-
-/* ═══ EL CAMPO DE TRAZOS ═══ 72 curvas que fluyen. `pathLength="1"`
-   normaliza cada una a longitud 1, así el guion de trazo va en fracciones
-   y una sola regla sirve para las 72, cada una con su duración y su
-   desfase. Es todo dashoffset: se compone en la GPU. */
-.senderos{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-  animation:asomar-lineas 1.7s cubic-bezier(.16,1,.3,1) 1.85s backwards}
-@keyframes asomar-lineas{from{opacity:0}}
-.sin-letras .senderos,.sin-letras .senderos path,
-.sin-letras .entra{animation-play-state:paused}
-.senderos svg{width:100%;height:100%;display:block;color:var(--tinta)}
-.senderos path{stroke:currentColor;stroke-dasharray:.3px .7px;
-  animation:fluir var(--d) linear infinite, latir calc(var(--d) * .6) ease-in-out infinite;
-  animation-delay:calc(var(--r) * 14)}
-/* las dos unidades tienen que estar escritas: sin `px` esto es un número
-   pelado, `stroke-dashoffset` lo rechaza y se cae la animación completa */
-@keyframes fluir{
-  from{stroke-dashoffset:var(--r)}
-  to  {stroke-dashoffset:calc(var(--r) - 1px)}}
-@keyframes latir{0%,100%{stroke-opacity:calc(var(--o) * .22)}50%{stroke-opacity:calc(var(--o) * .52)}}
-.portada .env{position:relative;z-index:1}
-.frase{margin-top:clamp(1.8rem,5vh,2.6rem);font-size:clamp(1.1rem,2.6vw,1.5rem);
-  line-height:1.45;max-width:24em;color:var(--tinta)}
-.frase span{color:var(--medio)}
-.acciones{margin-top:clamp(1.8rem,4vh,2.4rem);display:flex;gap:.7rem;flex-wrap:wrap}
-.pie-portada{padding-bottom:clamp(1.2rem,3vh,2rem);font-family:var(--mono);
-  font-size:.64rem;letter-spacing:.16em;color:var(--suave)}
-.entra{opacity:0;transform:translateY(10px);
-  animation:entrar .9s cubic-bezier(.16,1,.3,1) forwards}
-@keyframes entrar{to{opacity:1;transform:none}}
-
-/* ── tres pilares ── */
-.pilares{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
-  margin-top:clamp(1.8rem,4vh,2.5rem)}
-.pilar{background:var(--papel);padding:clamp(1.4rem,3vw,2rem)}
-.pilar .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--suave)}
-.pilar h3{margin:.7rem 0 .5rem}
-.pilar p{color:var(--medio);font-size:.96rem;line-height:1.6}
-@media(min-width:56rem){.pilares{grid-template-columns:repeat(3,1fr)}}
-
-/* ── elegí tu caso ── */
-.caso{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
-  margin-top:clamp(1.8rem,4vh,2.5rem)}
-@media(min-width:56rem){.caso{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}}
-.opciones{background:var(--papel);display:flex;flex-direction:column}
-.op{appearance:none;background:none;border:0;border-bottom:1px solid var(--linea);
-  text-align:left;font:inherit;color:var(--tinta);cursor:pointer;
-  padding:1.05rem clamp(1.1rem,3vw,1.5rem);min-height:56px;display:flex;gap:.85rem;
-  align-items:flex-start;transition:background .18s}
-.opciones .op:last-child{border-bottom:0}
-.op:hover{background:var(--panel)}
-.op[aria-selected="true"]{background:var(--tinta);color:var(--papel)}
-.op .marca{font-family:var(--mono);font-size:.72rem;opacity:.55;padding-top:.15em}
-.op[aria-selected="true"] .marca{opacity:1}
-.op .txt{font-size:.98rem;line-height:1.45}
-/* la opción elegida se pinta con `--tinta` de fondo, así que un anillo
-   de `--tinta` encima era invisible: `currentColor` se invierte con ella */
-.op:focus-visible{outline:2px solid currentColor;outline-offset:-4px}
-.respuesta{background:var(--panel);padding:clamp(1.4rem,3.5vw,2rem);display:flex;
-  flex-direction:column;gap:1.1rem}
-.respuesta .que{font-size:1.02rem;line-height:1.55;color:var(--tinta)}
-.datos{display:grid;grid-template-columns:1fr;gap:1px;
-  background:var(--linea);border:1px solid var(--linea)}
-@media(min-width:30rem){.datos{grid-template-columns:repeat(3,1fr)}}
-.datos div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
-@media(min-width:30rem){.datos div{display:block}}
-.datos div{background:var(--panel);padding:.8rem .85rem}
-.datos .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--suave);display:block}
-@media(min-width:30rem){.datos .k{margin-bottom:.35rem}}
-.datos .v{font-family:var(--mono);font-size:.88rem;font-variant-numeric:tabular-nums}
-.cambia{animation:aparecer .35s ease-out}
-@keyframes aparecer{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-
-/* ── semanas ── */
-.semanas{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea);
-  margin-top:clamp(1.8rem,4vh,2.5rem)}
-@media(min-width:56rem){.semanas{grid-template-columns:repeat(3,1fr)}}
-.semana{background:var(--papel);padding:clamp(1.4rem,3vw,2rem)}
-.semana .n{font-family:var(--serif);font-optical-sizing:auto;
-  font-variation-settings:"opsz" 144,"wght" 300;font-size:2.6rem;line-height:1;
-  color:var(--tinta)}
-.semana h3{margin:.8rem 0 .5rem}
-.semana p{color:var(--medio);font-size:.96rem;line-height:1.6}
-
-/* ── seguridad ── */
-.lista{margin-top:clamp(1.6rem,4vh,2.2rem);border-top:1px solid var(--linea)}
-.lista li{list-style:none;border-bottom:1px solid var(--linea);padding:1.05rem 0;
-  display:grid;gap:.2rem .9rem;max-width:52em}
-@media(min-width:44rem){.lista li{grid-template-columns:13rem 1fr;align-items:baseline}}
-.lista .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--suave)}
-.lista .v{color:var(--medio);font-size:.98rem;line-height:1.55}
-
-/* ── trabajo ── */
-.obras{margin-top:clamp(1.6rem,4vh,2.2rem);border-top:1px solid var(--linea)}
-.obra{border-bottom:1px solid var(--linea);padding:1.5rem 0;display:grid;
-  gap:.5rem 2rem;max-width:56em}
-@media(min-width:44rem){.obra{grid-template-columns:14rem 1fr}}
-.obra .quien{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;
-  text-transform:uppercase;line-height:1.7}
-.obra .que{color:var(--medio);font-size:.98rem;line-height:1.6}
-
-/* ── cierre ── */
-.cierre{text-align:left}
-.cierre .acciones{margin-top:1.8rem}
-footer{border-top:1px solid var(--linea);padding:2rem 0 6.5rem;
-  font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--suave);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
-footer a{text-decoration:none;display:inline-block;padding:.55rem 0}
-
-/* ── barra fija del teléfono ── */
-.barra-movil{position:fixed;left:0;right:0;bottom:0;z-index:60;
-  padding:.7rem clamp(1.25rem,5vw,3rem) calc(.7rem + env(safe-area-inset-bottom));
-  background:color-mix(in srgb,var(--papel) 92%,transparent);
-  backdrop-filter:blur(10px);border-top:1px solid var(--linea);
-  transform:translateY(110%);transition:transform .3s cubic-bezier(.16,1,.3,1)}
-.barra-movil.on{transform:none}
-.barra-movil .bt{width:100%}
-@media(min-width:56rem){.barra-movil{display:none}}
-
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}
-  .entra{opacity:1;transform:none}
-  .barra-movil{transition:none}
-}
-</style>
+<meta name="theme-color" content="#0E0B08">
+<link rel="icon" href="sz.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.css">
+<link rel="stylesheet" href="oficio.css">
 </head>
-<body>
+<body class="en-intro">
 
-<main>
-<!-- ══ PORTADA ══ -->
-<header class="portada">
-  <div class="senderos" aria-hidden="true">
-    <svg viewBox="0 0 696 316" fill="none" preserveAspectRatio="none">
-<path pathLength="1" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke-width="0.5" style="--o:0.1;--d:13.3s;--r:-0.151px"/>
-      <path pathLength="1" d="M-375 -195C-375 -195 -307 210 147 337C611 464 679 869 679 869" stroke-width="0.53" style="--o:0.13;--d:15.6s;--r:-0.072px"/>
-      <path pathLength="1" d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke-width="0.56" style="--o:0.16;--d:14.8s;--r:-0.366px"/>
-      <path pathLength="1" d="M-365 -207C-365 -207 -297 198 137 325C601 452 669 857 669 857" stroke-width="0.59" style="--o:0.19;--d:11.4s;--r:-0.507px"/>
-      <path pathLength="1" d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke-width="0.62" style="--o:0.22;--d:11.3s;--r:-0.434px"/>
-      <path pathLength="1" d="M-355 -219C-355 -219 -287 186 127 313C591 440 659 845 659 845" stroke-width="0.65" style="--o:0.25;--d:11.5s;--r:-0.091px"/>
-      <path pathLength="1" d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke-width="0.68" style="--o:0.28;--d:14.0s;--r:-0.827px"/>
-      <path pathLength="1" d="M-345 -231C-345 -231 -277 174 117 301C581 428 649 833 649 833" stroke-width="0.71" style="--o:0.31;--d:11.9s;--r:-0.223px"/>
-      <path pathLength="1" d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke-width="0.74" style="--o:0.34;--d:15.4s;--r:-0.948px"/>
-      <path pathLength="1" d="M-335 -243C-335 -243 -267 162 107 289C571 416 639 821 639 821" stroke-width="0.77" style="--o:0.37;--d:15.0s;--r:-0.397px"/>
-      <path pathLength="1" d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke-width="0.8" style="--o:0.4;--d:17.8s;--r:-0.047px"/>
-      <path pathLength="1" d="M-325 -255C-325 -255 -257 150 97 277C561 404 629 809 629 809" stroke-width="0.83" style="--o:0.43;--d:17.0s;--r:-0.29px"/>
-      <path pathLength="1" d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke-width="0.86" style="--o:0.46;--d:12.0s;--r:-0.118px"/>
-      <path pathLength="1" d="M-315 -267C-315 -267 -247 138 87 265C551 392 619 797 619 797" stroke-width="0.89" style="--o:0.49;--d:13.2s;--r:-0.816px"/>
-      <path pathLength="1" d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke-width="0.92" style="--o:0.52;--d:12.3s;--r:-0.582px"/>
-      <path pathLength="1" d="M-305 -279C-305 -279 -237 126 77 253C541 380 609 785 609 785" stroke-width="0.95" style="--o:0.55;--d:15.5s;--r:-0.372px"/>
-      <path pathLength="1" d="M-300 -285C-300 -285 -232 120 72 247C536 374 604 779 604 779" stroke-width="0.98" style="--o:0.58;--d:14.8s;--r:-0.063px"/>
-      <path pathLength="1" d="M-295 -291C-295 -291 -227 114 67 241C531 368 599 773 599 773" stroke-width="1.01" style="--o:0.61;--d:11.4s;--r:-0.206px"/>
-      <path pathLength="1" d="M-290 -297C-290 -297 -222 108 62 235C526 362 594 767 594 767" stroke-width="1.04" style="--o:0.64;--d:15.8s;--r:-0.428px"/>
-      <path pathLength="1" d="M-285 -303C-285 -303 -217 102 57 229C521 356 589 761 589 761" stroke-width="1.07" style="--o:0.67;--d:13.2s;--r:-0.586px"/>
-      <path pathLength="1" d="M-280 -309C-280 -309 -212 96 52 223C516 350 584 755 584 755" stroke-width="1.1" style="--o:0.7;--d:14.2s;--r:-0.3px"/>
-      <path pathLength="1" d="M-275 -315C-275 -315 -207 90 47 217C511 344 579 749 579 749" stroke-width="1.13" style="--o:0.73;--d:16.6s;--r:-0.699px"/>
-      <path pathLength="1" d="M-270 -321C-270 -321 -202 84 42 211C506 338 574 743 574 743" stroke-width="1.16" style="--o:0.76;--d:12.7s;--r:-0.574px"/>
-      <path pathLength="1" d="M-265 -327C-265 -327 -197 78 37 205C501 332 569 737 569 737" stroke-width="1.19" style="--o:0.79;--d:14.7s;--r:-0.875px"/>
-      <path pathLength="1" d="M-260 -333C-260 -333 -192 72 32 199C496 326 564 731 564 731" stroke-width="1.22" style="--o:0.82;--d:16.1s;--r:-0.288px"/>
-      <path pathLength="1" d="M-255 -339C-255 -339 -187 66 27 193C491 320 559 725 559 725" stroke-width="1.25" style="--o:0.85;--d:17.9s;--r:-0.118px"/>
-      <path pathLength="1" d="M-250 -345C-250 -345 -182 60 22 187C486 314 554 719 554 719" stroke-width="1.28" style="--o:0.88;--d:13.9s;--r:-0.757px"/>
-      <path pathLength="1" d="M-245 -351C-245 -351 -177 54 17 181C481 308 549 713 549 713" stroke-width="1.31" style="--o:0.91;--d:12.1s;--r:-0.489px"/>
-      <path pathLength="1" d="M-240 -357C-240 -357 -172 48 12 175C476 302 544 707 544 707" stroke-width="1.34" style="--o:0.94;--d:11.3s;--r:-0.668px"/>
-      <path pathLength="1" d="M-235 -363C-235 -363 -167 42 7 169C471 296 539 701 539 701" stroke-width="1.37" style="--o:0.97;--d:16.4s;--r:-0.573px"/>
-      <path pathLength="1" d="M-230 -369C-230 -369 -162 36 2 163C466 290 534 695 534 695" stroke-width="1.4" style="--o:1.0;--d:17.1s;--r:-0.314px"/>
-      <path pathLength="1" d="M-225 -375C-225 -375 -157 30 -3 157C461 284 529 689 529 689" stroke-width="1.43" style="--o:1;--d:15.9s;--r:-0.594px"/>
-      <path pathLength="1" d="M-220 -381C-220 -381 -152 24 -8 151C456 278 524 683 524 683" stroke-width="1.46" style="--o:1;--d:15.1s;--r:-0.456px"/>
-      <path pathLength="1" d="M-215 -387C-215 -387 -147 18 -13 145C451 272 519 677 519 677" stroke-width="1.49" style="--o:1;--d:16.9s;--r:-0.945px"/>
-      <path pathLength="1" d="M-210 -393C-210 -393 -142 12 -18 139C446 266 514 671 514 671" stroke-width="1.52" style="--o:1;--d:14.3s;--r:-0.664px"/>
-      <path pathLength="1" d="M-205 -399C-205 -399 -137 6 -23 133C441 260 509 665 509 665" stroke-width="1.55" style="--o:1;--d:11.4s;--r:-0.701px"/>
-      <path pathLength="1" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke-width="0.5" style="--o:0.1;--d:15.5s;--r:-0.993px"/>
-      <path pathLength="1" d="M-385 -195C-385 -195 -317 210 157 337C621 464 689 869 689 869" stroke-width="0.53" style="--o:0.13;--d:16.8s;--r:-0.285px"/>
-      <path pathLength="1" d="M-390 -201C-390 -201 -322 204 162 331C626 458 694 863 694 863" stroke-width="0.56" style="--o:0.16;--d:13.7s;--r:-0.669px"/>
-      <path pathLength="1" d="M-395 -207C-395 -207 -327 198 167 325C631 452 699 857 699 857" stroke-width="0.59" style="--o:0.19;--d:11.2s;--r:-0.462px"/>
-      <path pathLength="1" d="M-400 -213C-400 -213 -332 192 172 319C636 446 704 851 704 851" stroke-width="0.62" style="--o:0.22;--d:12.2s;--r:-0.117px"/>
-      <path pathLength="1" d="M-405 -219C-405 -219 -337 186 177 313C641 440 709 845 709 845" stroke-width="0.65" style="--o:0.25;--d:11.4s;--r:-0.768px"/>
-      <path pathLength="1" d="M-410 -225C-410 -225 -342 180 182 307C646 434 714 839 714 839" stroke-width="0.68" style="--o:0.28;--d:11.9s;--r:-0.248px"/>
-      <path pathLength="1" d="M-415 -231C-415 -231 -347 174 187 301C651 428 719 833 719 833" stroke-width="0.71" style="--o:0.31;--d:13.7s;--r:-0.871px"/>
-      <path pathLength="1" d="M-420 -237C-420 -237 -352 168 192 295C656 422 724 827 724 827" stroke-width="0.74" style="--o:0.34;--d:11.6s;--r:-0.449px"/>
-      <path pathLength="1" d="M-425 -243C-425 -243 -357 162 197 289C661 416 729 821 729 821" stroke-width="0.77" style="--o:0.37;--d:14.8s;--r:-0.883px"/>
-      <path pathLength="1" d="M-430 -249C-430 -249 -362 156 202 283C666 410 734 815 734 815" stroke-width="0.8" style="--o:0.4;--d:16.7s;--r:-0.864px"/>
-      <path pathLength="1" d="M-435 -255C-435 -255 -367 150 207 277C671 404 739 809 739 809" stroke-width="0.83" style="--o:0.43;--d:12.9s;--r:-0.415px"/>
-      <path pathLength="1" d="M-440 -261C-440 -261 -372 144 212 271C676 398 744 803 744 803" stroke-width="0.86" style="--o:0.46;--d:13.5s;--r:-0.884px"/>
-      <path pathLength="1" d="M-445 -267C-445 -267 -377 138 217 265C681 392 749 797 749 797" stroke-width="0.89" style="--o:0.49;--d:17.7s;--r:-0.151px"/>
-      <path pathLength="1" d="M-450 -273C-450 -273 -382 132 222 259C686 386 754 791 754 791" stroke-width="0.92" style="--o:0.52;--d:12.2s;--r:-0.232px"/>
-      <path pathLength="1" d="M-455 -279C-455 -279 -387 126 227 253C691 380 759 785 759 785" stroke-width="0.95" style="--o:0.55;--d:12.6s;--r:-0.485px"/>
-      <path pathLength="1" d="M-460 -285C-460 -285 -392 120 232 247C696 374 764 779 764 779" stroke-width="0.98" style="--o:0.58;--d:15.1s;--r:-0.263px"/>
-      <path pathLength="1" d="M-465 -291C-465 -291 -397 114 237 241C701 368 769 773 769 773" stroke-width="1.01" style="--o:0.61;--d:11.0s;--r:-0.419px"/>
-      <path pathLength="1" d="M-470 -297C-470 -297 -402 108 242 235C706 362 774 767 774 767" stroke-width="1.04" style="--o:0.64;--d:13.6s;--r:-0.566px"/>
-      <path pathLength="1" d="M-475 -303C-475 -303 -407 102 247 229C711 356 779 761 779 761" stroke-width="1.07" style="--o:0.67;--d:17.7s;--r:-0.69px"/>
-      <path pathLength="1" d="M-480 -309C-480 -309 -412 96 252 223C716 350 784 755 784 755" stroke-width="1.1" style="--o:0.7;--d:14.6s;--r:-0.618px"/>
-      <path pathLength="1" d="M-485 -315C-485 -315 -417 90 257 217C721 344 789 749 789 749" stroke-width="1.13" style="--o:0.73;--d:15.7s;--r:-0.054px"/>
-      <path pathLength="1" d="M-490 -321C-490 -321 -422 84 262 211C726 338 794 743 794 743" stroke-width="1.16" style="--o:0.76;--d:17.3s;--r:-0.78px"/>
-      <path pathLength="1" d="M-495 -327C-495 -327 -427 78 267 205C731 332 799 737 799 737" stroke-width="1.19" style="--o:0.79;--d:17.1s;--r:-0.798px"/>
-      <path pathLength="1" d="M-500 -333C-500 -333 -432 72 272 199C736 326 804 731 804 731" stroke-width="1.22" style="--o:0.82;--d:13.7s;--r:-0.399px"/>
-      <path pathLength="1" d="M-505 -339C-505 -339 -437 66 277 193C741 320 809 725 809 725" stroke-width="1.25" style="--o:0.85;--d:11.7s;--r:-0.634px"/>
-      <path pathLength="1" d="M-510 -345C-510 -345 -442 60 282 187C746 314 814 719 814 719" stroke-width="1.28" style="--o:0.88;--d:11.4s;--r:-0.067px"/>
-      <path pathLength="1" d="M-515 -351C-515 -351 -447 54 287 181C751 308 819 713 819 713" stroke-width="1.31" style="--o:0.91;--d:12.5s;--r:-0.162px"/>
-      <path pathLength="1" d="M-520 -357C-520 -357 -452 48 292 175C756 302 824 707 824 707" stroke-width="1.34" style="--o:0.94;--d:13.4s;--r:-0.053px"/>
-      <path pathLength="1" d="M-525 -363C-525 -363 -457 42 297 169C761 296 829 701 829 701" stroke-width="1.37" style="--o:0.97;--d:11.0s;--r:-0.151px"/>
-      <path pathLength="1" d="M-530 -369C-530 -369 -462 36 302 163C766 290 834 695 834 695" stroke-width="1.4" style="--o:1.0;--d:11.7s;--r:-0.364px"/>
-      <path pathLength="1" d="M-535 -375C-535 -375 -467 30 307 157C771 284 839 689 839 689" stroke-width="1.43" style="--o:1;--d:11.2s;--r:-0.874px"/>
-      <path pathLength="1" d="M-540 -381C-540 -381 -472 24 312 151C776 278 844 683 844 683" stroke-width="1.46" style="--o:1;--d:15.3s;--r:-0.149px"/>
-      <path pathLength="1" d="M-545 -387C-545 -387 -477 18 317 145C781 272 849 677 849 677" stroke-width="1.49" style="--o:1;--d:12.8s;--r:-0.347px"/>
-      <path pathLength="1" d="M-550 -393C-550 -393 -482 12 322 139C786 266 854 671 854 671" stroke-width="1.52" style="--o:1;--d:13.5s;--r:-0.123px"/>
-      <path pathLength="1" d="M-555 -399C-555 -399 -487 6 327 133C791 260 859 665 859 665" stroke-width="1.55" style="--o:1;--d:16.9s;--r:-0.993px"/>
-    </svg>
-  </div>
-  <div class="env centro">
-    <h1 class="wm-vivo entra" aria-label="Steinmetz">Steinmetz</h1>
-    <p class="frase entra" style="animation-delay:2.2s">
-      Construimos sistemas de inteligencia artificial hechos para tu operación.
-      <span>En producción en tres semanas, dentro de tu red.</span>
-    </p>
-    <div class="acciones entra" style="animation-delay:2.35s">
-      <a class="bt" href="#hablemos">Hablemos</a>
-      <a class="bt linea" href="#caso">Ver qué construiríamos</a>
-    </div>
-  </div>
-  <div class="env pie-portada entra" style="animation-delay:2.5s">
-    A MEDIDA · EN TRES SEMANAS · DENTRO DE TU PERÍMETRO
-  </div>
-</header>
-
-<!-- ══ LOS TRES PILARES ══ -->
-<section id="pilares"><div class="env">
-  <h2>Tres cosas, y las tres importan.</h2>
-  <p class="bajada">Un sistema que no es tuyo no sirve. Uno que llega tarde tampoco.
-    Y uno que expone tu información no debería existir.</p>
-  <div class="pilares">
-    <div class="pilar">
-      <span class="n">01</span>
-      <h3>A medida</h3>
-      <p>No instalamos software. Construimos el sistema que le falta a tu operación,
-        dentro de tu operación y con tus reglas. Nada de adaptar tu empresa a una
-        herramienta que se vendió igual a otras cien.</p>
-    </div>
-    <div class="pilar">
-      <span class="n">02</span>
-      <h3>Rápido</h3>
-      <p>Tres semanas desde la orden de compra. No un piloto ni una maqueta: un
-        sistema encendido, en producción, con tu equipo usándolo y un acta firmada
-        que lo dice.</p>
-    </div>
-    <div class="pilar">
-      <span class="n">03</span>
-      <h3>Seguro</h3>
-      <p>Todo ocurre dentro de tu perímetro, sobre tu nube y con tus cuentas. Tus
-        datos no entrenan modelos, no salen de tu red, y al terminar te los
-        entregamos íntegros.</p>
-    </div>
-  </div>
-</div></section>
-
-<!-- ══ ELEGÍ TU CASO ══ -->
-<section id="caso"><div class="env">
-  <h2>¿Qué te está costando tiempo hoy?</h2>
-  <p class="bajada">Elegí el que más se parezca a lo tuyo y te digo qué
-    construiríamos, en cuánto y desde cuánto.</p>
-  <div class="caso">
-    <!-- los cinco casos van escritos acá: antes vivían sólo en un array de
-         JS y sin él desaparecían del documento los titulares, los plazos y
-         los precios. Un buscador y un preview de enlace veían una caja vacía. -->
-    <div class="opciones" role="tablist" aria-label="Casos" aria-orientation="vertical">
-      <button class="op" type="button" role="tab" id="caso-0" aria-controls="respuesta"
-              aria-selected="true" tabindex="0"><span class="marca">01</span><span class="txt">Tenemos documentos que nadie encuentra a tiempo</span></button>
-      <button class="op" type="button" role="tab" id="caso-1" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">02</span><span class="txt">Mi equipo copia datos de un sistema a otro</span></button>
-      <button class="op" type="button" role="tab" id="caso-2" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">03</span><span class="txt">Reviso contratos parecidos, uno por uno, a mano</span></button>
-      <button class="op" type="button" role="tab" id="caso-3" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">04</span><span class="txt">Sé que algo se está perdiendo, pero no sé dónde</span></button>
-      <button class="op" type="button" role="tab" id="caso-4" aria-controls="respuesta"
-              aria-selected="false" tabindex="-1"><span class="marca">05</span><span class="txt">Ya usamos IA, pero no conoce nuestra empresa</span></button>
-    </div>
-    <div class="respuesta" id="respuesta" role="tabpanel" tabindex="0" aria-labelledby="caso-0">
-      <p class="que">Un índice que se mantiene solo. Cada documento entra, se clasifica y queda
-        buscable en lenguaje natural, con la fuente citada: quién lo dice, en qué documento y en
-        qué página.</p>
-      <div class="datos">
-        <div><span class="k">En cuánto</span><span class="v">3 semanas</span></div>
-        <div><span class="k">Dónde vive</span><span class="v">Dentro de tu red</span></div>
-        <div><span class="k">Inversión</span><span class="v">Desde 28 UF</span></div>
-      </div>
-      <a class="bt" href="mailto:ian@steinmetz.cl?subject=Consulta%3A%20Tenemos%20documentos%20que%20nadie%20encuentra%20a%20tiempo">Conversemos este caso</a>
-    </div>
-  </div>
-  <p class="solo-lector" id="aviso" aria-live="polite"></p>
-  <p class="p" style="margin-top:1.2rem;font-size:.92rem">¿No calza ninguno? Suele
-    pasar: por eso el primer paso siempre es mirar tu operación, no elegir de un menú.</p>
-</div></section>
-
-<!-- ══ LAS TRES SEMANAS ══ -->
-<section id="semanas"><div class="env">
-  <h2>Qué pasa en las tres semanas.</h2>
-  <p class="bajada">El plazo corre desde la orden de compra y desde que llegan los
-    antecedentes. Si algo se demora de tu lado, la fecha se corre día por día — y
-    queda escrito así en la cotización.</p>
-  <div class="semanas">
-    <div class="semana">
-      <span class="n">1</span>
-      <h3>Leemos la operación real</h3>
-      <p>No la declarada. Se cargan los antecedentes y definimos juntos el caso
-        concreto con el que se va a verificar la entrega. Ese caso es el criterio
-        de «listo», y se acuerda antes de escribir una línea.</p>
-    </div>
-    <div class="semana">
-      <span class="n">2</span>
-      <h3>Se construye</h3>
-      <p>El sistema toma forma dentro de tu red, autenticado con tus cuentas y bajo
-        tus permisos. Ves avances, no un informe de avance.</p>
-    </div>
-    <div class="semana">
-      <span class="n">3</span>
-      <h3>Se enciende</h3>
-      <p>Tu equipo lo usa sobre casos reales, se corrige lo que aparezca y se firma
-        el acta de entrega. Queda funcionando, con manual y con tu gente capacitada.</p>
-    </div>
-  </div>
-</div></section>
-
-<!-- ══ SEGURIDAD ══ -->
-<section id="seguridad"><div class="env">
-  <h2>Dónde vive tu información.</h2>
-  <p class="bajada">Es la primera pregunta que hace cualquiera que tenga algo que
-    perder. Estas son las respuestas, y van escritas en el contrato.</p>
-  <ul class="lista">
-    <li><span class="k">Dónde corre</span><span class="v">Dentro de tu perímetro,
-      sobre tu propia nube y autenticado con tus cuentas. La información no sale de
-      tu control.</span></li>
-    <li><span class="k">Entrenamiento</span><span class="v">Tus datos no entrenan
-      modelos. Ni los nuestros, ni los de nadie.</span></li>
-    <li><span class="k">Quién ve qué</span><span class="v">Permisos por usuario, por
-      área y por documento. Cada persona accede sólo a lo que le corresponde.</span></li>
-    <li><span class="k">Trazabilidad</span><span class="v">Cada consulta y cada
-      cambio queda registrado, con autor y fecha, disponible para auditoría.</span></li>
-    <li><span class="k">Las suscripciones</span><span class="v">Los servicios de IA
-      se contratan a tu nombre y por tu cuenta, bajo tus condiciones de tratamiento
-      de datos.</span></li>
-    <li><span class="k">Al terminar</span><span class="v">Se te entrega todo íntegro,
-      en formato estándar, dentro de 30 días. Sin retención y sin formatos
-      propietarios.</span></li>
-  </ul>
-</div></section>
-
-<!-- ══ EL TRABAJO ══ -->
-<section id="trabajo"><div class="env">
-  <h2>No mostramos logos. Mostramos sistemas encendidos.</h2>
-  <p class="bajada">A nuestros clientes no los nombramos, y a vos tampoco te
-    nombraríamos. Referencias, a solicitud.</p>
-  <div class="obras">
-    <div class="obra">
-      <p class="quien">Una de las grandes<br>cerveceras de Chile</p>
-      <p class="que">Sistema de planificación y seguimiento de proyectos para su área
-        de innovación, y un asistente de IA de escritorio endurecido para entorno
-        corporativo — desplegado dentro de su red, autenticado con sus cuentas y
-        sobre su propia nube. Ningún dato sale de su perímetro.</p>
-    </div>
-    <div class="obra">
-      <p class="quien">Una empresa de<br>genética aplicada</p>
-      <p class="que">Plataforma de auditoría y análisis de laboratorio — API, base de
-        datos y frontend — corriendo en producción sobre Azure.</p>
-    </div>
-  </div>
-</div></section>
-
-<!-- ══ HABLEMOS ══ -->
-<section id="hablemos" class="cierre"><div class="env">
-  <h2>Media hora y sabés si tiene sentido.</h2>
-  <p class="bajada">Proyectos acotados, de semanas y no de trimestres, con
-    <b>precio cerrado antes de partir</b>. La primera conversación son 30 minutos,
-    sin costo y sin compromiso. Si no hay nada que construir, te lo digo.</p>
-  <div class="acciones">
-    <a class="bt" href="mailto:ian@steinmetz.cl?subject=Conversemos%20sobre%20un%20proyecto">Escribir a Ian</a>
-    <a class="bt linea" href="https://wa.me/56993215043?text=Hola%2C%20vi%20steinmetz.cl%20y%20quiero%20conversar%20sobre%20un%20proyecto." rel="noopener">Por WhatsApp</a>
-  </div>
-  <p class="p" style="margin-top:1.6rem;font-size:.92rem">Detrás de esto hay una
-    persona: <b>Ian Berndt</b>. Los sistemas de arriba los construyó él, dentro de
-    las redes y bajo las reglas de seguridad de cada cliente.</p>
-</div></section>
-</main>
-
-<footer><div class="env" style="display:contents">
-  <span>STEINMETZ SpA · RUT 78.484.226-6</span>
-  <span><a href="mailto:ian@steinmetz.cl">IAN@STEINMETZ.CL</a></span>
-  <span>SANTIAGO DE CHILE</span>
-</div></footer>
-
-<div class="barra-movil" id="barraMovil">
-  <a class="bt" href="#hablemos">Hablemos</a>
+<!-- intro: el logotipo se construye; el primer gesto lo lleva a la barra y enciende la película -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div id="introLogo" aria-hidden="true"></div>
+  <p class="dato intro-baja" id="introBaja">Baja</p>
 </div>
 
-<script>
-(function(){
-"use strict";
-/* ════════════════════════════════════════════════════════════════════
-   EL NOMBRE — cada letra engorda según lo cerca que pase el cursor. Es
-   el eje `wght` de Fraunces movido en vivo, de 260 a 780.
+<header class="barra" id="barra">
+  <a href="#portada" class="barra-logo" aria-label="Steinmetz, inicio" id="barraLogo"></a>
+  <p class="dato barra-seccion" id="barraSeccion" aria-hidden="true"><span>01</span> Portada</p>
+  <a class="boton" href="#hablemos">Hablar con Ian</a>
+</header>
 
-   Los centros de cada letra se miden una sola vez y se guardan: al
-   cambiar el peso cambia el ancho del glifo, y si se midiera en cada
-   cuadro las letras se empujarían entre sí y el efecto temblaría.
+<!-- la película queda fija detrás; las secciones la tapan al subir -->
+<div class="pelicula" id="pelicula" aria-hidden="true">
+  <video id="peliculaVideo" muted playsinline loop preload="auto"></video>
+  <div class="pelicula-velo"></div>
+</div>
 
-   Sin puntero —o en un teléfono— pasa una onda lenta de izquierda a
-   derecha, para que igual esté vivo.
-   ════════════════════════════════════════════════════════════════════ */
-var quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
-var nombre = document.querySelector(".wm-vivo");
-if(nombre){
-  var REPOSO = quieto ? 440 : 380;   /* sin animación, el peso de marca */
-  var PICO = 830, ALCANCE = 420, AMBIENTE = .52;
-  /* La entrada: el nombre aparece solo y una ola de peso lo recorre de
-     punta a punta, como si el mouse pasara por encima. Después llegan las
-     líneas y el resto. El reloj arranca cuando está la tipografía, no
-     cuando corre el guion: con Georgia el barrido no significaría nada. */
-  var ENTRADA_ESPERA = 620, ENTRADA_DURA = 1450, tListo = 0;
-  var arrancar = function(){ if(!tListo) tListo = performance.now(); };
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(arrancar);
-  setTimeout(arrancar, 1400);
-  var letras = [], centros = [], raton = {x:-9999, y:-9999}, hayRaton = false;
-  var texto = nombre.textContent.trim();
-  nombre.textContent = "";
-  texto.split("").forEach(function(ch){
-    var s = document.createElement("span");
-    s.className = "l"; s.textContent = ch;
-    s.style.setProperty("--w", REPOSO);
-    s.__w = REPOSO;              /* sin esto la comparación da NaN y no escribe nunca */
-    nombre.appendChild(s); letras.push({el:s, w:REPOSO, d:REPOSO});
-  });
+<main>
 
-  /* Se mide con todas las letras en su peso de reposo y se les fija ese
-     ancho. Al engordar, el glifo de Fraunces se ensancha, y si el ancho
-     fuera libre las letras se empujarían entre sí: los centros guardados
-     dejarían de valer y el efecto se desfasaría. Con el ancho fijo cada
-     letra florece en su sitio. */
-  function medir(){
-    letras.forEach(function(L){ L.el.style.width = ""; L.el.style.setProperty("--w", REPOSO); });
-    void nombre.offsetWidth;
-    var anchos = letras.map(function(L){ return L.el.getBoundingClientRect().width; });
-    letras.forEach(function(L, i){ L.el.style.width = anchos[i].toFixed(2) + "px"; });
-    void nombre.offsetWidth;
-    centros = letras.map(function(L){
-      var r = L.el.getBoundingClientRect();
-      return {x:r.left + r.width / 2, y:r.top + r.height / 2};
-    });
-    letras.forEach(function(L){ L.el.style.setProperty("--w", Math.round(L.w)); });
-  }
-  addEventListener("resize", medir, {passive:true});
-  addEventListener("scroll", medir, {passive:true});
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(medir);
-  setTimeout(medir, 0); setTimeout(medir, 1500);
+<section class="portada" id="portada" data-nombre="Portada">
+  <div class="portada-texto">
+    <h1 class="display t1"><span class="linea"><span>Sistemas de IA</span></span><span class="linea"><span>hechos para</span></span><span class="linea"><span>tu operación.</span></span></h1>
+    <p class="bajada entra">Un sistema tuyo, encendido en tres semanas, dentro de tu red.</p>
+    <div class="acciones entra"><a class="boton" href="#hablemos">Hablar con Ian</a><a class="boton-linea" href="#oficios">Ver qué construiríamos</a></div>
+  </div>
+  <p class="dato portada-pie entra" id="portadaPie">Oficios · en pantalla</p>
+</section>
 
-  addEventListener("pointermove", function(e){
-    if(e.pointerType === "touch") return;
-    hayRaton = true; raton.x = e.clientX; raton.y = e.clientY;
-  }, {passive:true});
-  addEventListener("pointerleave", function(){ hayRaton = false; });
+<!-- 02 · tres miedos: tres fotos que se vuelven el tríptico de las respuestas -->
+<section class="escena problema" id="problema" data-nombre="Tres miedos" style="--alto:650svh">
+  <div class="fijo">
+    <div class="problema-cab">
+      <p class="dato sec">El problema</p>
+      <h2 class="display t2 barrido"><span>Tres cosas dan miedo</span> <span>al contratar IA.</span></h2>
+    </div>
+    <div class="problema-grilla grilla-a" aria-hidden="true"><i class="hueco"></i><i class="hueco"></i><i class="hueco"></i></div>
+    <div class="problema-grilla grilla-b" aria-hidden="true"><i class="hueco"></i><i class="hueco"></i><i class="hueco"></i></div>
+    <div class="problema-fotos" id="problemaFotos"></div>
+  </div>
+</section>
 
-  if(!quieto){
-    var t0 = performance.now();
-    (function bucle(ahora){
-      /* La onda ambiente corre SIEMPRE y el cursor se suma encima. Antes
-         la onda se apagaba en cuanto el puntero entraba a la página, y con
-         el cursor lejos de las letras la palabra se quedaba clavada en su
-         peso más fino: parecía muerta. */
-      var tv = tListo ? ahora - tListo : -1;
-      var entrando = tv >= 0 && tv < ENTRADA_ESPERA + ENTRADA_DURA;
-      var cresta, amplitud, agudeza;
-      if(entrando){
-        var pr = Math.max(0, (tv - ENTRADA_ESPERA) / ENTRADA_DURA);
-        pr = pr * pr * (3 - 2 * pr);           /* entra y sale sin tirones */
-        cresta = -.45 + 1.9 * pr;   /* arranca bien afuera: con -.2 la cola de
-           la ola ya engordaba la S antes de que la entrada empezara */
-        amplitud = 1; agudeza = 3.2;           /* la ola del estreno va entera */
-      }else{
-        cresta = ((ahora - t0) / 5200) % 1.38; /* poca pausa entre olas */
-        amplitud = AMBIENTE; agudeza = 4.2;
-      }
-      for(var i = 0; i < letras.length; i++){
-        var pos = i / Math.max(1, letras.length - 1);
-        var fo = Math.max(0, 1 - Math.abs(cresta - pos) * agudeza);
-        fo = fo * fo * (3 - 2 * fo) * amplitud;
+<!-- 03 · mosaico estilo revista: columnas a distinta velocidad, una foto se abre y te mete en la sección siguiente -->
+<section class="escena mosaico" id="oficios" data-nombre="Cinco oficios" style="--alto:560svh">
+  <div class="fijo">
+    <div class="mosaico-cols" id="mosaicoCols"></div>
+    <div class="mosaico-centro">
+      <p class="dato">Lo que hacemos</p>
+      <h2 class="display t1 barrido"><span>Cinco</span> <span>oficios.</span></h2>
+      <p class="bajada entra">Un sistema de IA se construye como cualquier pieza bien hecha: midiendo primero.</p>
+    </div>
+    <div class="atraviesa" id="atraviesa"><img alt=""></div>
+  </div>
+</section>
 
-        var fp = 0;
-        if(hayRaton && centros[i]){
-          var dx = centros[i].x - raton.x, dy = centros[i].y - raton.y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          fp = Math.max(0, 1 - dist / ALCANCE);
-          fp = fp * fp * (3 - 2 * fp);             /* suaviza los bordes */
-        }
-        var f = Math.max(fo, fp);
-        var L = letras[i];
-        L.d = REPOSO + (PICO - REPOSO) * f;
-        L.w += (L.d - L.w) * .18;                  /* el peso llega con inercia */
-        if(Math.abs(L.w - L.el.__w) > .8){
-          L.el.__w = L.w;
-          L.el.style.setProperty("--w", Math.round(L.w));
-        }
-      }
-      requestAnimationFrame(bucle);
-    })(performance.now());
-  }
-}
+<!-- 04 · a medida: tramo horizontal -->
+<section class="escena horizontal" id="a-medida" data-nombre="A medida" style="--alto:520svh">
+  <div class="fijo">
+    <div class="pista" id="pistaMedida">
+      <article class="panel panel-portada"><img id="medidaPortada" alt=""><div class="panel-texto">
+        <p class="dato"><b class="brasa">01</b> · A medida</p>
+        <h2 class="display t2">Hecho para tu operación.</h2>
+        <p class="bajada">No instalamos software. Construimos el sistema que le falta a tu operación, dentro de ella y con tus reglas.</p>
+      </div></article>
+    </div>
+  </div>
+</section>
 
-  /* ── Elegí tu caso ── */
-  var CASOS = [
-    { t:"Tenemos documentos que nadie encuentra a tiempo",
-      q:"Un índice que se mantiene solo. Cada documento entra, se clasifica y queda buscable en lenguaje natural, con la fuente citada: quién lo dice, en qué documento y en qué página.",
-      d:"3 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
-    { t:"Mi equipo copia datos de un sistema a otro",
-      q:"Un puente entre los dos sistemas que hace ese traspaso solo, valida que la información calce y avisa cuando algo no cuadra en vez de escribirlo mal.",
-      d:"3 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
-    { t:"Reviso contratos parecidos, uno por uno, a mano",
-      q:"Un asistente que redacta el borrador con los antecedentes de la operación a la vista —quién puede firmar, qué se acordó antes, qué compromisos ya existen— y marca lo que no calza.",
-      d:"3 semanas", v:"Dentro de tu red", p:"Desde 38 UF" },
-    { t:"Sé que algo se está perdiendo, pero no sé dónde",
-      q:"Un diagnóstico sobre los datos que ya tenés: dónde se va el tiempo y la plata, con evidencia sacada de tus sistemas y no de entrevistas. Después decidimos si hay algo que construir.",
-      d:"2 semanas", v:"Dentro de tu red", p:"Desde 28 UF" },
-    { t:"Ya usamos IA, pero no conoce nuestra empresa",
-      q:"El mismo modelo, con tu contexto cargado: tus documentos, tus reglas y tu histórico. Deja de responder con lo que sabe del mundo y empieza a responder con lo que sabe de ustedes.",
-      d:"3 semanas", v:"Dentro de tu red", p:"Desde 38 UF" }
-  ];
-  var lista = document.querySelector(".opciones");
-  var panel = document.getElementById("respuesta");
-  var botones = [];
+<!-- 05 · conocimiento: la foto chica crece hasta tapar todo y se parte en cuatro fuentes -->
+<section class="escena conocimiento" id="conocimiento" data-nombre="Conocimiento" style="--alto:760svh">
+  <div class="fijo">
+    <div class="zoom" id="zoomCon"><img alt=""></div>
+    <div class="con-texto">
+      <p class="dato"><b class="brasa">02</b> · Conocimiento que responde</p>
+      <h2 class="display t2 barrido"><span>Tus documentos</span> <span>responden.</span></h2>
+      <p class="bajada entra">En lenguaje natural y con la fuente citada: quién lo dice, en qué documento y en qué página.</p>
+    </div>
+    <div class="fuentes" id="fuentes"></div>
+  </div>
+</section>
 
-  function pintar(i){
-    var c = CASOS[i];
-    botones.forEach(function(b,j){
-      b.setAttribute("aria-selected", String(j===i));
-      b.tabIndex = j === i ? 0 : -1;
-    });
-    panel.setAttribute("aria-labelledby", botones[i].id);
-    /* el aviso va aparte: con `aria-live` en el panel entero, cada flecha
-       hacía leer los tres datos pegados a sus etiquetas */
-    var av = document.getElementById("aviso");
-    if (av) av.textContent = "Caso " + (i+1) + " de " + CASOS.length + ": " + c.t;
-    panel.innerHTML =
-      '<p class="que cambia">' + c.q + '</p>' +
-      '<div class="datos cambia">' +
-        '<div><span class="k">En cuánto</span><span class="v">' + c.d + '</span></div>' +
-        '<div><span class="k">Dónde vive</span><span class="v">' + c.v + '</span></div>' +
-        '<div><span class="k">Inversión</span><span class="v">' + c.p + '</span></div>' +
-      '</div>' +
-      '<a class="bt" href="mailto:ian@steinmetz.cl?subject=' +
-        encodeURIComponent("Consulta: " + c.t) + '">Conversemos este caso</a>';
-  }
+<!-- 06 · agentes: videos que se relevan y un registro que se escribe -->
+<section class="escena agentes" id="agentes" data-nombre="Agentes" style="--alto:480svh">
+  <div class="fijo">
+    <div class="agentes-videos" id="agentesVideos"></div>
+    <div class="agentes-texto">
+      <p class="dato"><b class="brasa">03</b> · Agentes que hacen el trabajo</p>
+      <h2 class="display t2 barrido"><span>Lo hace</span> <span>el sistema.</span></h2>
+      <p class="bajada entra">Copiar datos de un sistema a otro, revisar contratos parecidos, armar el informe de cada lunes. Y deja registro.</p>
+      <ol class="registro" id="registro" aria-label="Registro de ejemplo"></ol>
+    </div>
+  </div>
+</section>
 
-  /* los botones ya vienen escritos en el HTML: acá sólo se les atan los
-     eventos, y el estado inicial lo trae el documento */
-  [].forEach.call(lista.children, function(b, i){
-    botones.push(b);
-    b.addEventListener("click", function(){
-      pintar(i);
-      /* en el teléfono la respuesta queda debajo de la lista: hay que ir a verla */
-      if (window.matchMedia("(max-width:55.99rem)").matches) {
-        var suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        panel.scrollIntoView({behavior: suave ? "smooth" : "auto", block: "nearest"});
-      }
-    });
-  });
+<!-- 07 · tres semanas: un contador de días sobre un time-lapse -->
+<section class="escena semanas" id="tres-semanas" data-nombre="Tres semanas" style="--alto:460svh">
+  <div class="fijo">
+    <div class="semanas-video" id="semanasVideo"></div>
+    <div class="semanas-dia"><span class="dato">Día</span><b id="dia">01</b><span class="dato">/ 21</span></div>
+    <div class="semanas-pasos">
+      <article data-desde=".14"><p class="dato">Semana 1</p><h3 class="display t3">Leemos la operación real.</h3></article>
+      <article data-desde=".42"><p class="dato">Semana 2</p><h3 class="display t3">Se construye.</h3></article>
+      <article data-desde=".54"><p class="dato">Semana 3</p><h3 class="display t3">Se enciende.</h3><p class="sec">Acta de entrega, manual y tu equipo usándolo.</p></article>
+    </div>
+    <div class="semanas-cab">
+      <p class="dato"><b class="brasa">04</b> · Tres semanas, encendido</p>
+      <h2 class="display t2">No un piloto.</h2>
+    </div>
+    <div class="encendido" id="encendido"><i></i></div>
+  </div>
+</section>
 
-  /* teclado: flechas entre opciones */
-  lista.addEventListener("keydown", function(e){
-    var i = botones.indexOf(document.activeElement);
-    if (i < 0) return;
-    var n = e.key === "Home" ? 0
-          : e.key === "End" ? botones.length - 1
-          : (e.key === "ArrowDown" || e.key === "ArrowRight") ? i+1
-          : (e.key === "ArrowUp"   || e.key === "ArrowLeft")  ? i-1 : -1;
-    if (n < 0 || n >= botones.length) return;
-    e.preventDefault(); botones[n].focus(); pintar(n);
-  });
+<!-- 08 · perímetro: los muros se cierran alrededor de una luz -->
+<section class="escena perimetro" id="perimetro" data-nombre="Perímetro" style="--alto:600svh">
+  <div class="fijo">
+    <div class="peri-centro" id="periCentro"><img alt=""></div>
+    <div class="muros" id="muros"></div>
+    <div class="peri-texto">
+      <p class="dato"><b class="brasa">05</b> · Dentro de tu perímetro</p>
+      <h2 class="display t2 barrido"><span>Tu información</span> <span>no sale.</span></h2>
+      <p class="bajada entra">Sobre tu nube, con tus cuentas. Tus datos no entrenan modelos ni salen de tu red.</p>
+    </div>
+    <div class="contra" id="contra" aria-hidden="true"></div>
+  </div>
+</section>
 
-  /* ── barra fija del teléfono: aparece pasada la portada ── */
-  var barra = document.getElementById("barraMovil");
-  var portada = document.querySelector(".portada");
-  if ("IntersectionObserver" in window){
-    new IntersectionObserver(function(es){
-      barra.classList.toggle("on", !es[0].isIntersecting);
-    }, {threshold:0}).observe(portada);
-  }
-})();
-</script>
+<!-- 09 · lo que queda escrito: tarjetas que se apilan -->
+<section class="apilado" id="contrato" data-nombre="Por escrito">
+  <div class="apilado-cab env">
+    <p class="dato sec">Dónde vive tu información</p>
+    <h2 class="display t2">Todo queda escrito en el contrato.</h2>
+  </div>
+  <div class="pila" id="pila"></div>
+</section>
+
+<!-- 10 · cierre -->
+<section class="cierre" id="hablemos" data-nombre="Hablemos">
+  <div class="cierre-foto cortina" id="cierreFoto"><img alt=""></div>
+  <div class="cierre-texto">
+    <p class="dato">30 minutos sin costo · desde 28 UF</p>
+    <h2 class="display t1 barrido"><span>Media hora</span> <span>y sabes si tiene</span> <span>sentido.</span></h2>
+    <div class="acciones entra"><a class="boton" href="mailto:ian@steinmetz.cl?subject=Media%20hora">Escribir a Ian</a><a class="boton-linea" href="https://wa.me/56993215043" target="_blank" rel="noopener">Por WhatsApp</a></div>
+  </div>
+</section>
+
+<footer class="pie">
+  <div class="pie-logo" data-logo></div>
+  <div class="pie-datos dato sec">Steinmetz SpA · Santiago de Chile · steinmetz.cl<br>Imágenes y animaciones generadas por Steinmetz · <button type="button" id="verCreditos" class="enlace">ver la lista</button></div>
+  <div class="creditos" id="creditos" hidden></div>
+</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="marca-sz.js"></script>
+<script src="oficio.js"></script>
 </body>
 </html>

@@ -1,0 +1,53 @@
+# Créditos de medios · landing v3 «Oficio»
+
+Todo de Pexels, bajo la licencia Pexels (uso comercial permitido, sin atribución obligatoria). Se acredita igual.
+
+-  Portada · Minería · Musko io · https://www.pexels.com/video/8382429/
+-  Portada · Fundición · ArtHouse Studio · https://www.pexels.com/video/5121701/
+-  Portada · Industria · Usman AbdulrasheedGambo · https://www.pexels.com/video/32386532/
+-  Portada · Oficina · Pexels · https://www.pexels.com/video/5020282/
+-  Portada · Redes neuronales · Adis Resic · https://www.pexels.com/video/18333010/
+-  Portada · Construcción · Pexels · https://www.pexels.com/video/5567023/
+- a-medida-oficina Oficina · un arquitecto revisa los planos · Pexels · https://www.pexels.com/video/6615054/
+- agentes-robot Industria · un brazo robótico mueve piezas · Usman AbdulrasheedGambo · https://www.pexels.com/video/32386590/
+- agentes-linea Industria · la línea despacha sola · Pexels · https://www.pexels.com/video/852388/
+- agentes-cinta Logística · la cinta mueve la carga sola · Pexels · https://www.pexels.com/video/4473187/
+- conocimiento-servidores Datos · los servidores donde viven tus documentos · Pexels · https://www.pexels.com/video/5028622/
+- semanas-obra Construcción · una torre sube en semanas · Site Engine · https://www.pexels.com/video/6164052/
+- perimetro-servidor Servidores · tu red, tus máquinas · Pexels · https://www.pexels.com/video/7140928/
+- oficina-cubiculos Una oficina de cubículos iguales: lo mismo para todos. · Pexels · https://www.pexels.com/photo/36631699/
+- reloj-arena Reloj de arena en la oscuridad: el piloto que no termina. · Pexels · https://www.pexels.com/photo/33795954/
+- puerta-abierta Una puerta abierta a la noche. · Pexels · https://www.pexels.com/photo/4107748/
+- rajo Una mina a rajo abierto, terraza por terraza. · Pexels · https://www.pexels.com/photo/2892618/
+- camion-chuqui Un camión de extracción en Chuquicamata. · Pexels · https://www.pexels.com/photo/33074372/
+- soldador Un soldador sobre una viga de acero. · Pexels · https://www.pexels.com/photo/14539151/
+- planta Un operario en una planta de laminado. · Pexels · https://www.pexels.com/photo/8973132/
+- planos Mesa de dibujo con planos y escuadras. · Pexels · https://www.pexels.com/photo/9617366/
+- oficina-moderna Una oficina moderna con sus escritorios. · Pexels · https://www.pexels.com/photo/8606292/
+- bodega Un pasillo de bodega con cajas hasta el techo. · Pexels · https://www.pexels.com/photo/5156696/
+- pasillo-datos El pasillo de un centro de datos. · Pexels · https://www.pexels.com/photo/4508751/
+- bodega-calida Estanterías de una bodega con luz cálida. · Pexels · https://www.pexels.com/photo/5860937/
+- tecnico Un técnico en la sala de servidores. · Pexels · https://www.pexels.com/photo/37605911/
+- racks-sala Racks en una sala de datos. · Pexels · https://www.pexels.com/photo/4597280/
+- rack-azul Un rack de servidores en su sala. · Pexels · https://www.pexels.com/photo/37730211/
+- rack Rack de red con su cableado. · Pexels · https://www.pexels.com/photo/17323801/
+- bodega-oscura Una bodega a oscuras, cerrada. · Pexels · https://www.pexels.com/photo/18395054/
+- muralla Torre y muralla de piedra. · Pexels · https://www.pexels.com/photo/27547068/
+- rack-verde Servidores con sus luces de estado. · Pexels · https://www.pexels.com/photo/37730212/
+- fabrica El interior de una fábrica en plena marcha. · Pexels · https://www.pexels.com/photo/18920790/
+- fabrica-cinta Una línea de producción con su cinta. · Pexels · https://www.pexels.com/photo/34718930/
+- chip-oro Un chip sobre su placa. · Pexels · https://www.pexels.com/photo/6755080/
+- oficina-vacia Una oficina vacía al final del día. · Pexels · https://www.pexels.com/photo/5483233/
+- edificio-vidrio Un edificio de oficinas con fachada de vidrio. · Pexels · https://www.pexels.com/photo/31730305/
+- fachada La grilla de una fachada de vidrio. · Pexels · https://www.pexels.com/photo/2335275/
+- torre-cierre Una torre de oficinas contra el cielo. · Pexels · https://www.pexels.com/photo/18267934/
+- reloj-arena-claro Reloj de arena a media tarde. · Pexels · https://www.pexels.com/photo/8573370/
+- escalera-vaticano Escalera en espiral, vista desde arriba. · Pexels · https://www.pexels.com/photo/11648282/
+- cantera-camion Un camión sube por la cantera. · Pexels · https://www.pexels.com/photo/13224687/
+- torre-vidrio Una torre de vidrio contra el cielo. · Pexels · https://www.pexels.com/photo/6943143/
+- chip Una placa madre en macro. · Pexels · https://www.pexels.com/photo/34924856/
+- caracol Escalera de caracol en Innsbruck. · Pexels · https://www.pexels.com/photo/35383127/
+- servidor El frente perforado de un servidor. · Pexels · https://www.pexels.com/photo/17489156/
+- red-neuronal Una red neuronal dibujada como neurona. · Pexels · https://www.pexels.com/photo/17483867/
+- edificio Un edificio de oficinas visto desde abajo. · Pexels · https://www.pexels.com/photo/29253479/
+- chip-placa Componentes de una placa en macro. · Pexels · https://www.pexels.com/photo/6636500/

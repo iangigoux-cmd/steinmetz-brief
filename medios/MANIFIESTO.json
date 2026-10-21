@@ -1,0 +1,710 @@
+{
+ "fotos": [
+  {
+   "clave": "oficina-cubiculos",
+   "seccion": "problema",
+   "descripcion": "Una oficina de cubículos iguales: lo mismo para todos.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1573,
+   "archivos": {
+    "2400": "foto/oficina-cubiculos-2400.webp",
+    "1200": "foto/oficina-cubiculos-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/36631699/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "reloj-arena",
+   "seccion": "problema",
+   "descripcion": "Reloj de arena en la oscuridad: el piloto que no termina.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3200,
+   "archivos": {
+    "2400": "foto/reloj-arena-2400.webp",
+    "1200": "foto/reloj-arena-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/33795954/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "puerta-abierta",
+   "seccion": "problema",
+   "descripcion": "Una puerta abierta a la noche.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/puerta-abierta-2400.webp",
+    "1200": "foto/puerta-abierta-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/4107748/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "rajo",
+   "seccion": "a-medida",
+   "descripcion": "Una mina a rajo abierto, terraza por terraza.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/rajo-2400.webp",
+    "1200": "foto/rajo-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/2892618/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "camion-chuqui",
+   "seccion": "a-medida",
+   "descripcion": "Un camión de extracción en Chuquicamata.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/camion-chuqui-2400.webp",
+    "1200": "foto/camion-chuqui-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/33074372/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "soldador",
+   "seccion": "a-medida",
+   "descripcion": "Un soldador sobre una viga de acero.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1598,
+   "archivos": {
+    "2400": "foto/soldador-2400.webp",
+    "1200": "foto/soldador-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/14539151/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "planta",
+   "seccion": "a-medida",
+   "descripcion": "Un operario en una planta de laminado.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/planta-2400.webp",
+    "1200": "foto/planta-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/8973132/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "planos",
+   "seccion": "a-medida",
+   "descripcion": "Mesa de dibujo con planos y escuadras.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/planos-2400.webp",
+    "1200": "foto/planos-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/9617366/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "oficina-moderna",
+   "seccion": "a-medida",
+   "descripcion": "Una oficina moderna con sus escritorios.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1590,
+   "archivos": {
+    "2400": "foto/oficina-moderna-2400.webp",
+    "1200": "foto/oficina-moderna-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/8606292/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "bodega",
+   "seccion": "conocimiento",
+   "descripcion": "Un pasillo de bodega con cajas hasta el techo.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3600,
+   "archivos": {
+    "2400": "foto/bodega-2400.webp",
+    "1200": "foto/bodega-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/5156696/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "pasillo-datos",
+   "seccion": "conocimiento",
+   "descripcion": "El pasillo de un centro de datos.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/pasillo-datos-2400.webp",
+    "1200": "foto/pasillo-datos-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/4508751/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "bodega-calida",
+   "seccion": "conocimiento",
+   "descripcion": "Estanterías de una bodega con luz cálida.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3200,
+   "archivos": {
+    "2400": "foto/bodega-calida-2400.webp",
+    "1200": "foto/bodega-calida-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/5860937/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "tecnico",
+   "seccion": "conocimiento",
+   "descripcion": "Un técnico en la sala de servidores.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1602,
+   "archivos": {
+    "2400": "foto/tecnico-2400.webp",
+    "1200": "foto/tecnico-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/37605911/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "racks-sala",
+   "seccion": "conocimiento",
+   "descripcion": "Racks en una sala de datos.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/racks-sala-2400.webp",
+    "1200": "foto/racks-sala-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/4597280/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "rack-azul",
+   "seccion": "perimetro",
+   "descripcion": "Un rack de servidores en su sala.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1597,
+   "archivos": {
+    "2400": "foto/rack-azul-2400.webp",
+    "1200": "foto/rack-azul-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/37730211/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "rack",
+   "seccion": "perimetro",
+   "descripcion": "Rack de red con su cableado.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1602,
+   "archivos": {
+    "2400": "foto/rack-2400.webp",
+    "1200": "foto/rack-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/17323801/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "bodega-oscura",
+   "seccion": "perimetro",
+   "descripcion": "Una bodega a oscuras, cerrada.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3200,
+   "archivos": {
+    "2400": "foto/bodega-oscura-2400.webp",
+    "1200": "foto/bodega-oscura-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/18395054/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "muralla",
+   "seccion": "perimetro",
+   "descripcion": "Torre y muralla de piedra.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3600,
+   "archivos": {
+    "2400": "foto/muralla-2400.webp",
+    "1200": "foto/muralla-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/27547068/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "rack-verde",
+   "seccion": "perimetro",
+   "descripcion": "Servidores con sus luces de estado.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1597,
+   "archivos": {
+    "2400": "foto/rack-verde-2400.webp",
+    "1200": "foto/rack-verde-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/37730212/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "fabrica",
+   "seccion": "proceso",
+   "descripcion": "El interior de una fábrica en plena marcha.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1357,
+   "archivos": {
+    "2400": "foto/fabrica-2400.webp",
+    "1200": "foto/fabrica-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/18920790/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "fabrica-cinta",
+   "seccion": "proceso",
+   "descripcion": "Una línea de producción con su cinta.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/fabrica-cinta-2400.webp",
+    "1200": "foto/fabrica-cinta-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/34718930/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "chip-oro",
+   "seccion": "proceso",
+   "descripcion": "Un chip sobre su placa.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/chip-oro-2400.webp",
+    "1200": "foto/chip-oro-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/6755080/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "oficina-vacia",
+   "seccion": "proceso",
+   "descripcion": "Una oficina vacía al final del día.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/oficina-vacia-2400.webp",
+    "1200": "foto/oficina-vacia-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/5483233/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "edificio-vidrio",
+   "seccion": "proceso",
+   "descripcion": "Un edificio de oficinas con fachada de vidrio.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1800,
+   "archivos": {
+    "2400": "foto/edificio-vidrio-2400.webp",
+    "1200": "foto/edificio-vidrio-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/31730305/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "fachada",
+   "seccion": "proceso",
+   "descripcion": "La grilla de una fachada de vidrio.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 2996,
+   "archivos": {
+    "2400": "foto/fachada-2400.webp",
+    "1200": "foto/fachada-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/2335275/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "torre-cierre",
+   "seccion": "cierre",
+   "descripcion": "Una torre de oficinas contra el cielo.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3600,
+   "archivos": {
+    "2400": "foto/torre-cierre-2400.webp",
+    "1200": "foto/torre-cierre-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/18267934/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "reloj-arena-claro",
+   "seccion": "tres-semanas",
+   "descripcion": "Reloj de arena a media tarde.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/reloj-arena-claro-2400.webp",
+    "1200": "foto/reloj-arena-claro-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/8573370/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "escalera-vaticano",
+   "seccion": "mosaico",
+   "descripcion": "Escalera en espiral, vista desde arriba.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3200,
+   "archivos": {
+    "2400": "foto/escalera-vaticano-2400.webp",
+    "1200": "foto/escalera-vaticano-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/11648282/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "cantera-camion",
+   "seccion": "mosaico",
+   "descripcion": "Un camión sube por la cantera.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3600,
+   "archivos": {
+    "2400": "foto/cantera-camion-2400.webp",
+    "1200": "foto/cantera-camion-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/13224687/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "torre-vidrio",
+   "seccion": "mosaico",
+   "descripcion": "Una torre de vidrio contra el cielo.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3624,
+   "archivos": {
+    "2400": "foto/torre-vidrio-2400.webp",
+    "1200": "foto/torre-vidrio-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/6943143/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "chip",
+   "seccion": "mosaico",
+   "descripcion": "Una placa madre en macro.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1349,
+   "archivos": {
+    "2400": "foto/chip-2400.webp",
+    "1200": "foto/chip-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/34924856/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "caracol",
+   "seccion": "mosaico",
+   "descripcion": "Escalera de caracol en Innsbruck.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/caracol-2400.webp",
+    "1200": "foto/caracol-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/35383127/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "servidor",
+   "seccion": "mosaico",
+   "descripcion": "El frente perforado de un servidor.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1602,
+   "archivos": {
+    "2400": "foto/servidor-2400.webp",
+    "1200": "foto/servidor-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/17489156/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "red-neuronal",
+   "seccion": "mosaico",
+   "descripcion": "Una red neuronal dibujada como neurona.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1350,
+   "archivos": {
+    "2400": "foto/red-neuronal-2400.webp",
+    "1200": "foto/red-neuronal-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/17483867/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "edificio",
+   "seccion": "mosaico",
+   "descripcion": "Un edificio de oficinas visto desde abajo.",
+   "orientacion": "vertical",
+   "ancho": 2400,
+   "alto": 3600,
+   "archivos": {
+    "2400": "foto/edificio-2400.webp",
+    "1200": "foto/edificio-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/29253479/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "chip-placa",
+   "seccion": "mosaico",
+   "descripcion": "Componentes de una placa en macro.",
+   "orientacion": "horizontal",
+   "ancho": 2400,
+   "alto": 1600,
+   "archivos": {
+    "2400": "foto/chip-placa-2400.webp",
+    "1200": "foto/chip-placa-1200.webp"
+   },
+   "fuente": "https://www.pexels.com/photo/6636500/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  }
+ ],
+ "videos": [
+  {
+   "clave": "a-medida-oficina",
+   "seccion": "a-medida",
+   "descripcion": "Oficina · un arquitecto revisa los planos",
+   "archivos": {
+    "1080": "video/a-medida-oficina-1080.mp4",
+    "720": "video/a-medida-oficina-720.mp4",
+    "poster": "video/a-medida-oficina.webp"
+   },
+   "fuente": "https://www.pexels.com/video/6615054/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "agentes-robot",
+   "seccion": "agentes",
+   "descripcion": "Industria · un brazo robótico mueve piezas",
+   "archivos": {
+    "1080": "video/agentes-robot-1080.mp4",
+    "720": "video/agentes-robot-720.mp4",
+    "poster": "video/agentes-robot.webp"
+   },
+   "fuente": "https://www.pexels.com/video/32386590/",
+   "autor": "Usman AbdulrasheedGambo",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "agentes-linea",
+   "seccion": "agentes",
+   "descripcion": "Industria · la línea despacha sola",
+   "archivos": {
+    "1080": "video/agentes-linea-1080.mp4",
+    "720": "video/agentes-linea-720.mp4",
+    "poster": "video/agentes-linea.webp"
+   },
+   "fuente": "https://www.pexels.com/video/852388/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "agentes-cinta",
+   "seccion": "agentes",
+   "descripcion": "Logística · la cinta mueve la carga sola",
+   "archivos": {
+    "1080": "video/agentes-cinta-1080.mp4",
+    "720": "video/agentes-cinta-720.mp4",
+    "poster": "video/agentes-cinta.webp"
+   },
+   "fuente": "https://www.pexels.com/video/4473187/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "conocimiento-servidores",
+   "seccion": "conocimiento",
+   "descripcion": "Datos · los servidores donde viven tus documentos",
+   "archivos": {
+    "1080": "video/conocimiento-servidores-1080.mp4",
+    "720": "video/conocimiento-servidores-720.mp4",
+    "poster": "video/conocimiento-servidores.webp"
+   },
+   "fuente": "https://www.pexels.com/video/5028622/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "semanas-obra",
+   "seccion": "tres-semanas",
+   "descripcion": "Construcción · una torre sube en semanas",
+   "archivos": {
+    "1080": "video/semanas-obra-1080.mp4",
+    "720": "video/semanas-obra-720.mp4",
+    "poster": "video/semanas-obra.webp"
+   },
+   "fuente": "https://www.pexels.com/video/6164052/",
+   "autor": "Site Engine",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  },
+  {
+   "clave": "perimetro-servidor",
+   "seccion": "perimetro",
+   "descripcion": "Servidores · tu red, tus máquinas",
+   "archivos": {
+    "1080": "video/perimetro-servidor-1080.mp4",
+    "720": "video/perimetro-servidor-720.mp4",
+    "poster": "video/perimetro-servidor.webp"
+   },
+   "fuente": "https://www.pexels.com/video/7140928/",
+   "autor": "Pexels",
+   "licencia": "Licencia Pexels (uso comercial libre)"
+  }
+ ],
+ "portada": {
+  "descripcion": "Minería · fundición · industria · oficina · redes neuronales · construcción",
+  "archivos": {
+   "1080": "video/portada-1080.mp4",
+   "720": "video/portada-720.mp4",
+   "movil": "video/portada-movil.mp4",
+   "poster": "video/portada.webp"
+  },
+  "segmentos": [
+   {
+    "t": 0,
+    "texto": "En pantalla · Minería"
+   },
+   {
+    "t": 5.699999999999999,
+    "texto": "En pantalla · Fundición"
+   },
+   {
+    "t": 10.799999999999999,
+    "texto": "En pantalla · Industria"
+   },
+   {
+    "t": 15.9,
+    "texto": "En pantalla · Oficina"
+   },
+   {
+    "t": 21.0,
+    "texto": "En pantalla · Redes neuronales"
+   },
+   {
+    "t": 26.1,
+    "texto": "En pantalla · Construcción"
+   }
+  ],
+  "creditos": [
+   {
+    "descripcion": "Portada · Minería",
+    "fuente": "https://www.pexels.com/video/8382429/",
+    "autor": "Musko io",
+    "licencia": "Licencia Pexels (uso comercial libre)"
+   },
+   {
+    "descripcion": "Portada · Fundición",
+    "fuente": "https://www.pexels.com/video/5121701/",
+    "autor": "ArtHouse Studio",
+    "licencia": "Licencia Pexels (uso comercial libre)"
+   },
+   {
+    "descripcion": "Portada · Industria",
+    "fuente": "https://www.pexels.com/video/32386532/",
+    "autor": "Usman AbdulrasheedGambo",
+    "licencia": "Licencia Pexels (uso comercial libre)"
+   },
+   {
+    "descripcion": "Portada · Oficina",
+    "fuente": "https://www.pexels.com/video/5020282/",
+    "autor": "Pexels",
+    "licencia": "Licencia Pexels (uso comercial libre)"
+   },
+   {
+    "descripcion": "Portada · Redes neuronales",
+    "fuente": "https://www.pexels.com/video/18333010/",
+    "autor": "Adis Resic",
+    "licencia": "Licencia Pexels (uso comercial libre)"
+   },
+   {
+    "descripcion": "Portada · Construcción",
+    "fuente": "https://www.pexels.com/video/5567023/",
+    "autor": "Pexels",
+    "licencia": "Licencia Pexels (uso comercial libre)"
+   }
+  ]
+ }
+}
