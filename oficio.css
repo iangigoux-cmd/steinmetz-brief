@@ -352,3 +352,10 @@ html.quieto .fijo{position:relative;height:100svh}
 @media (max-width:820px){.pieza-engranaje{width:84px;left:12px;top:13%}}
 .apilado-cab{position:sticky;top:18vh;z-index:0}
 .carta{z-index:1}
+
+/* 21-10 · pedido de Ian: sin rótulos chicos en toda la página (sección en la barra, «en pantalla»,
+   los antetítulos de cada sección y las leyendas de las fotos). Se ocultan aquí para no tocar la lógica. */
+#barraSeccion, #portadaPie,
+.problema-cab > .dato, .mosaico-centro > .dato, .panel-texto > .dato, .con-texto > .dato, .agentes-texto > .dato,
+.semanas-cab > .dato, .peri-texto > .dato, .apilado-cab > .dato, .cierre-texto > .dato,
+.hcuadro > .dato, .hfrase > .dato, .leyenda, .mosaico figcaption, .fuentes-cab { display: none !important; }
