@@ -1,181 +1,24 @@
 <!doctype html>
-<html lang="es-CL">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Steinmetz · Sistemas de IA hechos para tu operación</title>
-<meta name="description" content="Sistemas de IA hechos para tu operación. Un sistema tuyo, encendido en tres semanas, dentro de tu red.">
-<link rel="canonical" href="https://steinmetz.cl/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://steinmetz.cl/">
-<meta property="og:title" content="Steinmetz · Sistemas de IA hechos para tu operación">
-<meta property="og:description" content="Un sistema tuyo, encendido en tres semanas, dentro de tu red.">
-<meta property="og:image" content="https://steinmetz.cl/og.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0E0B08">
-<link rel="icon" href="sz.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.css">
-<link rel="stylesheet" href="oficio.css">
-</head>
-<body class="en-intro">
-
-<!-- intro: el logotipo se construye; el primer gesto lo lleva a la barra y enciende la película -->
-<div class="intro" id="intro" aria-hidden="true">
-  <div id="introLogo" aria-hidden="true"></div>
-  <p class="dato intro-baja" id="introBaja">Baja</p>
-</div>
-
-<header class="barra" id="barra">
-  <a href="#portada" class="barra-logo" aria-label="Steinmetz, inicio" id="barraLogo"></a>
-  <p class="dato barra-seccion" id="barraSeccion" aria-hidden="true"><span>01</span> Portada</p>
-  <a class="boton" href="#hablemos">Hablemos</a>
-</header>
-
-<!-- la película queda fija detrás; las secciones la tapan al subir -->
-<div class="pelicula" id="pelicula" aria-hidden="true">
-  <video id="peliculaVideo" muted playsinline loop preload="auto"></video>
-  <div class="pelicula-velo"></div>
-</div>
-
-<main>
-
-<section class="portada" id="portada" data-nombre="Portada" data-tono="b">
-  <div class="portada-texto">
-    <h1 class="display t1"><span class="linea"><span>Sistemas de IA</span></span><span class="linea"><span>hechos para</span></span><span class="linea"><span>tu operación.</span></span></h1>
-    <p class="bajada entra">Un sistema tuyo, encendido en tres semanas, dentro de tu red.</p>
-    <div class="acciones entra"><a class="boton" href="#hablemos">Hablemos</a><a class="boton-linea" href="#oficios">Ver qué construiríamos</a></div>
-  </div>
-  <p class="dato portada-pie entra" id="portadaPie">Oficios · en pantalla</p>
-</section>
-
-<!-- 02 · donde fallan: tres fotos que se vuelven el tríptico de las respuestas -->
-<section class="escena problema" id="problema" data-nombre="Donde fallan" data-tono="c" style="--alto:330svh">
-  <div class="fijo">
-    <div class="problema-cab">
-      <p class="dato sec">El problema</p>
-      <h2 class="display t2 barrido"><span>Donde suelen fallar</span> <span>los proyectos de IA.</span></h2>
-    </div>
-    <div class="problema-grilla grilla-a" aria-hidden="true"><i class="hueco"></i><i class="hueco"></i><i class="hueco"></i></div>
-    <div class="problema-grilla grilla-b" aria-hidden="true"><i class="hueco"></i><i class="hueco"></i><i class="hueco"></i></div>
-    <div class="problema-fotos" id="problemaFotos"></div>
-  </div>
-</section>
-
-<!-- 03 · índice de los cinco oficios: nombre, una línea y una foto cada uno, en el tono de su sección.
-     La foto del primero se abre y te mete en «a medida». -->
-<section class="escena oficios" id="oficios" data-nombre="Cinco oficios" data-tono="b" style="--alto:300svh">
-  <div class="fijo">
-    <div class="oficios-cab">
-      <h2 class="display t2 barrido"><span>Cinco</span> <span>oficios.</span></h2>
-      <p class="bajada entra">Lo que construimos dentro de tu operación.</p>
-    </div>
-    <ol class="oficios-lista" id="oficiosLista"></ol>
-    <div class="atraviesa" id="atraviesa"><img alt=""></div>
-  </div>
-</section>
-
-<!-- 04 · a medida: tramo horizontal -->
-<section class="escena horizontal" id="a-medida" data-nombre="A medida" data-tono="c" style="--alto:520svh">
-  <div class="fijo">
-    <div class="pista" id="pistaMedida">
-      <article class="panel panel-portada"><img id="medidaPortada" alt=""><div class="panel-texto">
-        <p class="dato"><b class="acento">01</b> · A medida</p>
-        <h2 class="display t2">Hecho para tu operación.</h2>
-        <p class="bajada">No instalamos software. Construimos el sistema que le falta a tu operación, dentro de ella y con tus reglas.</p>
-      </div></article>
-    </div>
-  </div>
-</section>
-
-<!-- 05 · conocimiento: la foto chica crece hasta tapar todo y se parte en cuatro fuentes -->
-<section class="escena conocimiento" id="conocimiento" data-nombre="Conocimiento" data-tono="b" style="--alto:360svh">
-  <div class="fijo">
-    <div class="zoom" id="zoomCon"><img alt=""></div>
-    <div class="con-texto">
-      <p class="dato"><b class="acento">02</b> · Conocimiento que responde</p>
-      <h2 class="display t2 barrido"><span>Tus documentos</span> <span>responden.</span></h2>
-      <p class="bajada entra">En lenguaje natural y con la fuente citada: quién lo dice, en qué documento y en qué página.</p>
-    </div>
-    <div class="fuentes" id="fuentes"></div>
-  </div>
-</section>
-
-<!-- 06 · agentes: videos que se relevan y un registro que se escribe -->
-<section class="escena agentes" id="agentes" data-nombre="Agentes" data-tono="c" style="--alto:260svh">
-  <div class="fijo">
-    <div class="agentes-videos" id="agentesVideos"></div>
-    <div class="agentes-texto">
-      <p class="dato"><b class="acento">03</b> · Agentes que hacen el trabajo</p>
-      <h2 class="display t2 barrido"><span>Lo hace</span> <span>el sistema.</span></h2>
-      <p class="bajada entra">Copiar datos de un sistema a otro, revisar contratos parecidos, armar el informe de cada lunes. Y deja registro.</p>
-      <ol class="registro" id="registro" aria-label="Registro de ejemplo"></ol>
-    </div>
-  </div>
-</section>
-
-<!-- 07 · tres semanas: un contador de días sobre un time-lapse -->
-<section class="escena semanas" id="tres-semanas" data-nombre="Tres semanas" data-tono="b" style="--alto:260svh">
-  <div class="fijo">
-    <div class="semanas-video" id="semanasVideo"></div>
-    <div class="semanas-dia"><span class="dato">Día</span><b id="dia">01</b><span class="dato">/ 21</span></div>
-    <div class="semanas-pasos">
-      <article data-desde=".10"><p class="dato">Semana 1</p><h3 class="display t3">Leemos la operación real.</h3></article>
-      <article data-desde=".38"><p class="dato">Semana 2</p><h3 class="display t3">Se construye.</h3></article>
-      <article data-desde=".64"><p class="dato">Semana 3</p><h3 class="display t3">Se enciende.</h3><p class="sec">Acta de entrega, manual y tu equipo usándolo.</p></article>
-    </div>
-    <div class="semanas-cab">
-      <p class="dato"><b class="acento">04</b> · Tres semanas, encendido</p>
-      <h2 class="display t2">No un piloto.</h2>
-    </div>
-    <div class="encendido" id="encendido"><i></i></div>
-  </div>
-</section>
-
-<!-- 08 · perímetro: los muros se cierran alrededor de una luz -->
-<section class="escena perimetro" id="perimetro" data-nombre="Perímetro" data-tono="c" style="--alto:300svh">
-  <div class="fijo">
-    <div class="peri-centro" id="periCentro"><img alt=""></div>
-    <div class="muros" id="muros"></div>
-    <div class="peri-texto">
-      <p class="dato"><b class="acento">05</b> · Dentro de tu perímetro</p>
-      <h2 class="display t2 barrido"><span>Tu información</span> <span>no sale.</span></h2>
-      <p class="bajada entra">Sobre tu nube, con tus cuentas. Tus datos no entrenan modelos ni salen de tu red.</p>
-    </div>
-    <div class="contra" id="contra" aria-hidden="true"></div>
-  </div>
-</section>
-
-<!-- 09 · lo que queda escrito: tarjetas que se apilan -->
-<section class="apilado" id="contrato" data-nombre="Por escrito" data-tono="b">
-  <div class="apilado-cab env">
-    <p class="dato sec">Dónde vive tu información</p>
-    <h2 class="display t2">Todo queda escrito en el contrato.</h2>
-  </div>
-  <div class="pila" id="pila"></div>
-</section>
-
-<!-- 10 · cierre -->
-<section class="cierre" id="hablemos" data-nombre="Hablemos" data-tono="c">
-  <div class="cierre-foto cortina" id="cierreFoto"><img alt=""><img class="otro-tono" alt="" aria-hidden="true"></div>
-  <div class="cierre-texto">
-    <p class="dato">30 minutos sin costo · desde 28 UF</p>
-    <h2 class="display t1 barrido"><span>Media hora</span> <span>y sabes si tiene</span> <span>sentido.</span></h2>
-    <div class="acciones entra"><a class="boton" href="mailto:ian@steinmetz.cl?subject=Media%20hora">Escribir a Ian</a><a class="boton-linea" href="https://wa.me/56993215043" target="_blank" rel="noopener">Por WhatsApp</a></div>
-  </div>
-</section>
-
-<footer class="pie" data-tono="c">
-  <div class="pie-logo" data-logo></div>
-  <div class="pie-datos dato sec">Steinmetz SpA · Santiago de Chile · steinmetz.cl<br>Fotos y videos de terceros con licencia libre · <button type="button" id="verCreditos" class="enlace">ver créditos</button></div>
-  <div class="creditos" id="creditos" hidden></div>
-</footer>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="marca-sz.js"></script>
-<script src="oficio.js"></script>
-</body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/sz.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steinmetz · Marca, agentes de ventas, software y control interno</title>
+    <meta name="description" content="Estudio de Santiago que construye la marca, los agentes de ventas, el software a medida y el control interno de tu empresa. Entra a la oficina." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://steinmetz.cl/" />
+    <meta property="og:title" content="Steinmetz · Marca, agentes de ventas, software y control interno" />
+    <meta property="og:description" content="Entra a la oficina: cada servicio está en su nicho. Media hora y sabes si tiene sentido." />
+    <meta property="og:image" content="https://steinmetz.cl/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0E0B08" />
+    <style>html,body{background:#0e0b08}</style>
+    <script type="module" crossorigin src="/assets/index-DTkqkBUN.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BNoZGyl2.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
